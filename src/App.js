@@ -2,12 +2,11 @@ import React from 'react';
 import './App.css';
 import Sidebar from "./components/Sidebar";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import About from "./pages/About";
-import Comment from "./pages/Comment";
-import Analytics from "./pages/Analytics";
-import Product from "./pages/Product";
-import ProductList from "./pages/ProductList";
+import UserList from "./pages/UserList";
+import CountryList from "./pages/CountryList";
+import PaymentMethodList from "./pages/PaymentMethodList";
+import CurrencyList from "./pages/CurrencyList";
+
 
 const App = () => {
     return (
@@ -15,13 +14,11 @@ const App = () => {
             <BrowserRouter>
                 <Sidebar>
                     <Routes>
-                        <Route path="/" element={<Dashboard/>}/>
-                        <Route path="/dashboard" element={<Dashboard/>}/>
-                        <Route path="/about" element={<About/>}/>
-                        <Route path="/comment" element={<Comment/>}/>
-                        <Route path="/analytics" element={<Analytics/>}/>
-                        <Route path="/product" element={<Product/>}/>
-                        <Route path="/productList" element={<ProductList/>}/>
+                        <Route path="/" element={<UserList/>}/>
+                        <Route path="/users" element={<UserList/>}/>
+                        <Route path="/countries" element={<CountryList/>}/>
+                        <Route path="/currencies" element={<CurrencyList/>}/>
+                        <Route path="/payment-methods" element={<PaymentMethodList/>}/>
                     </Routes>
                 </Sidebar>
             </BrowserRouter>

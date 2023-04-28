@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import {
-    FaBars, FaCommentAlt, FaList, FaRegChartBar, FaShoppingBag,
-    FaTh, FaUserAlt,
+    FaBars, FaCity, FaCommentAlt, FaExchangeAlt, FaList, FaRegChartBar, FaShoppingBag,
+    FaTh, FaUserAlt, FaUsers,
 } from 'react-icons/fa';
 import {NavLink} from "react-router-dom";
+import { HiUsers} from "react-icons/hi";
+import {GrCurrency} from "react-icons/gr";
+
 
 const Sidebar = ({children}) => {
     //data
@@ -11,40 +14,30 @@ const Sidebar = ({children}) => {
     const menuItem = [
         {
             path: "/",
-            name: "Dashboard",
-            icon: <FaTh/>
+            name: "Users",
+            icon: <HiUsers/>
         },
         {
-            path: "/about",
-            name: "About",
-            icon: <FaUserAlt/>
+            path: "/countries",
+            name: "Countries",
+            icon: <FaCity/>
         },
         {
-            path: "/analytics",
-            name: "Analytics",
-            icon: <FaRegChartBar/>
+            path: "/currencies",
+            name: "Currencies",
+            icon: <GrCurrency/>
         },
         {
-            path: "/comment",
-            name: "Comment",
-            icon: <FaCommentAlt/>
-        },
-        {
-            path: "/product",
-            name: "Product",
-            icon: <FaShoppingBag/>
-        },
-        {
-            path: "/productList",
-            name: "Product List",
-            icon: <FaList/>
+            path: "/payment-methods",
+            name: "Payments methods",
+            icon: <FaExchangeAlt/>
         },
     ]
     return (
             <div className="container">
                 <div className="sidebar" style={{width: isOpen ? "300px" : "50px"}}>
                     <div className="top_section">
-                        <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Logo</h1>
+                        <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Admin</h1>
                         <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
                             <FaBars onClick={() => setIsOpen(!isOpen)}/>
                         </div>
@@ -59,7 +52,7 @@ const Sidebar = ({children}) => {
                     }
                 </div>
 
-                <main style={{background: "gray"}}>{children}</main>
+                <main>{children}</main>
             </div>
     );
 };
