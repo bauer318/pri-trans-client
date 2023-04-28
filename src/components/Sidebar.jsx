@@ -10,7 +10,7 @@ import {GrCurrency} from "react-icons/gr";
 
 const Sidebar = ({children}) => {
     //data
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
     const menuItem = [
         {
             path: "/",
@@ -34,7 +34,7 @@ const Sidebar = ({children}) => {
         },
     ]
     return (
-            <div className="container">
+            <div className="container-sidebar">
                 <div className="sidebar" style={{width: isOpen ? "300px" : "50px"}}>
                     <div className="top_section">
                         <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Admin</h1>
