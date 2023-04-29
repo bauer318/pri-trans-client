@@ -1,9 +1,21 @@
 import React from 'react';
+import CountryHeader from "../components/CountryHeader";
+import CountryCard from "../components/CountryCard";
 
 const CountryList = () => {
     return (
-        <div>
-            <h1>This is the country's list</h1>
+        <div className={"container"}>
+            <CountryHeader/>
+            <div className={"row row-cols-1 row-cols-md-3 g-4 mt-2"}>
+                <CountryCard/>
+                <CountryCard/>
+                <CountryCard/>
+                <CountryCard/>
+                <CountryCard/>
+                <CountryCard/>
+                <CountryCard/>
+                <CountryCard/>
+            </div>
         </div>
     );
 };
