@@ -1,10 +1,8 @@
 import React from 'react';
-import {FaEdit, FaExchangeAlt} from "react-icons/fa";
-import {MdDeleteForever} from "react-icons/md";
-import {useNavigate} from "react-router-dom";
+import {FaSave} from "react-icons/fa";
+import {MdCancel, MdDeleteForever} from "react-icons/md";
 
-const Country = () => {
-    const navigate = useNavigate();
+const CountryEdit = () => {
     return (
         <div className={"row mt-2"}>
             <div className={"col-4"}>
@@ -12,12 +10,11 @@ const Country = () => {
                     <h1>RD Congo</h1>
                 </div>
                 <div>
-                    <button className={"btn btn-primary mt-2"} onClick={() => navigate("/countries/1/edit")}><span
-                        className={"ps-2 pe-2"}><i><FaEdit/></i></span>Edit
+                    <button className={"btn btn-primary mt-2"}><span className={"ps-2 pe-2"}><i><FaSave/></i></span>Save
                     </button>
                 </div>
                 <div>
-                    <button className={"btn btn-danger mt-2"}><span className={"ps-2 pe-2"}><MdDeleteForever/></span>Delete
+                    <button className={"btn btn-info mt-2"}><span className={"ps-2 pe-2"}><MdCancel/></span>Cancel
                     </button>
                 </div>
             </div>
@@ -28,15 +25,19 @@ const Country = () => {
                         <tbody>
                         <tr>
                             <td className={"text-start"}>Currency 1</td>
+                            <td className={"text-center"}><MdDeleteForever/></td>
                         </tr>
                         <tr>
                             <td className={"text-start"}>Currency 2</td>
+                            <td className={"text-center"}><MdDeleteForever/></td>
                         </tr>
                         <tr>
                             <td className={"text-start"}>Currency 3</td>
+                            <td className={"text-center"}><MdDeleteForever/></td>
                         </tr>
                         <tr>
                             <td className={"text-start"}>Currency 4</td>
+                            <td className={"text-center"}><MdDeleteForever/></td>
                         </tr>
                         </tbody>
                     </table>
@@ -49,9 +50,11 @@ const Country = () => {
                         <tbody>
                         <tr>
                             <td className={"text-start"}>Payment method 1</td>
+                            <td className={"text-center"}><MdDeleteForever/></td>
                         </tr>
                         <tr>
                             <td className={"text-start"}>Payment method 2</td>
+                            <td className={"text-center"}><MdDeleteForever/></td>
                         </tr>
                         </tbody>
                     </table>
@@ -61,4 +64,4 @@ const Country = () => {
     );
 };
 
-export default Country;
+export default CountryEdit;
