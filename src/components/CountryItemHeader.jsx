@@ -15,7 +15,7 @@ const CountryItemHeader = () => {
                     </button>
                 </div>
                 <div className={"col-lg-3 d-flex justify-content-center"}>
-                    <button className={"btn btn-primary"}>
+                    <button className={"btn btn-primary"} onClick={()=>navigate("/countries/1/add-payment-method")}>
                         <span><i><FaExchangeAlt/></i></span> Add payment method
                     </button>
                 </div>

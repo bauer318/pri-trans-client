@@ -29,7 +29,7 @@ const Sidebar = ({children}) => {
         },
         {
             path: "/payment-methods",
-            name: "Payments methods",
+            name: "Payment methods",
             icon: <FaExchangeAlt/>
         },
     ]
