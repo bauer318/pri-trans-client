@@ -7,6 +7,7 @@ import UserList from "./pages/UserList";
 import CountryList from "./pages/CountryList";
 import PaymentMethodList from "./pages/PaymentMethodList";
 import CurrencyList from "./pages/CurrencyList";
+import User from "./pages/User";
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
                     <Routes>
                         <Route path="/" element={<UserList/>}/>
                         <Route path="/users" element={<UserList/>}/>
+                        <Route path={"/1"} element={<User/>} />
                         <Route path="/countries" element={<CountryList/>}/>
                         <Route path="/currencies" element={<CurrencyList/>}/>
                         <Route path="/payment-methods" element={<PaymentMethodList/>}/>
