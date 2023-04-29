@@ -10,6 +10,7 @@ import CurrencyList from "./pages/CurrencyList";
 import User from "./pages/User";
 import CountryItem from "./pages/CountryItem";
 import CountryItemEdit from "./pages/CountryItemEdit";
+import CurrencyAdd from "./pages/CurrencyAdd";
 
 
 const App = () => {
@@ -23,7 +24,8 @@ const App = () => {
                         <Route path={"/1"} element={<User/>} />
                         <Route path="/countries" element={<CountryList/>}/>
                         <Route path={"/countries/1"} element={<CountryItem/>}/>
-                        <Route path={"countries/1/edit"} element={<CountryItemEdit/>}/>
+                        <Route path={"/countries/1/edit"} element={<CountryItemEdit/>}/>
+                        <Route path={"/countries/1/add-currency"} element={<CurrencyAdd/>}/>
                         <Route path="/currencies" element={<CurrencyList/>}/>
                         <Route path="/payment-methods" element={<PaymentMethodList/>}/>
                     </Routes>
