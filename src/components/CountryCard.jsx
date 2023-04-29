@@ -1,12 +1,17 @@
 import React from 'react';
+import {NavLink} from "react-router-dom";
 
 const CountryCard = () => {
     return (
         <div className={"col"}>
             <div className={"card mb-3 card-element"}>
-                <div className={"card-header"}>
-                    RD Congo
-                </div>
+                {
+                    <NavLink to={"/countries/1"}>
+                        <div className={"card-header"}>
+                            RD Congo
+                        </div>
+                    </NavLink>
+                }
                 <div className={"card-body row"}>
                     <div className={"col"}>
                         <p>Currency 1</p>
