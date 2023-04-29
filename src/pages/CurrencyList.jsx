@@ -1,9 +1,14 @@
 import React from 'react';
+import CurrencyHeader from "../components/CurrencyHeader";
+import CurrencyTable from "../components/CurrencyTable";
 
 const CurrencyList = () => {
     return (
-        <div>
-            <h1>This is the currency's list</h1>
+        <div className={"container"}>
+            <CurrencyHeader/>
+            <div className={"row mt-2"}>
+                <CurrencyTable/>
+            </div>
         </div>
     );
 };
