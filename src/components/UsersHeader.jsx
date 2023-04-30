@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ImUserPlus} from "react-icons/im";
 import LogoutBtn from "./LogoutBtn";
+import AddUserModal from "../modals/AddUserModal";
 
 const UsersHeader = () => {
+    const [showModal, setShowModal] = useState(false);
+    const handleModal = ()=>{
+        setShowModal(!showModal);
+    };
     return (
         <div>
             <div className={"row"}>
@@ -23,7 +28,7 @@ const UsersHeader = () => {
                     </select>
                 </div>
                 <div className={"col-lg-3 d-flex justify-content-center"}>
-                    <button className={"btn btn-primary"}>
+                    <button className={"btn btn-primary"} onClick={handleModal}>
                         <span><i><ImUserPlus/></i></span> Add user
                     </button>
                 </div>
@@ -31,6 +36,7 @@ const UsersHeader = () => {
                     <LogoutBtn/>
                 </div>
             </div>
+            <AddUserModal handleModal={handleModal} showModal={showModal}/>
         </div>
     );
 };
