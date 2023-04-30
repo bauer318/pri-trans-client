@@ -1,10 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FaEdit, FaExchangeAlt} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
 import {useNavigate} from "react-router-dom";
+import DeleteCountryModal from "../modals/DeleteCountryModal";
 
 const Country = () => {
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
+    const [countryId, setCountryId] = useState(0);
+    const handleModal = () => {
+        setShowModal(!showModal);
+    }
+    const handleDelete = (countryIdParam) => {
+        setCountryId(countryIdParam);
+        handleModal();
+    }
     return (
         <div className={"row mt-2"}>
             <div className={"col-4"}>
@@ -17,7 +27,8 @@ const Country = () => {
                     </button>
                 </div>
                 <div>
-                    <button className={"btn btn-danger mt-2"}><span className={"ps-2 pe-2"}><MdDeleteForever/></span>Delete
+                    <button className={"btn btn-danger mt-2"} onClick={() => handleDelete(1)}><span
+                        className={"ps-2 pe-2"}><MdDeleteForever/></span>Delete
                     </button>
                 </div>
             </div>
@@ -57,6 +68,7 @@ const Country = () => {
                     </table>
                 </div>
             </div>
+            <DeleteCountryModal handleModal={handleModal} showModal={showModal} countryId={countryId}/>
         </div>
     );
 };
