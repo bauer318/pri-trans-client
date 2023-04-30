@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import LogoutBtn from "./LogoutBtn";
 import {FaExchangeAlt} from "react-icons/fa";
+import AddCurrencyModal from "../modals/AddCurrencyModal";
+import AddPaymentMethodModal from "../modals/AddPaymentMethodModal";
 
 const PaymentMethodHeader = () => {
+    const [showModal, setShowModal] = useState(false);
+    const handleModal = ()=>{
+        setShowModal(!showModal);
+    }
     return (
         <div>
             <div className={"row"}>
                 <div className={"col-lg-3 d-flex justify-content-center"}>
-                    <button className={"btn btn-primary"}>
+                    <button className={"btn btn-primary"} onClick={handleModal}>
                         <span><i><FaExchangeAlt/></i></span> Add payment method
                     </button>
                 </div>
@@ -25,6 +31,7 @@ const PaymentMethodHeader = () => {
                     <LogoutBtn/>
                 </div>
             </div>
+            <AddPaymentMethodModal handleModal={handleModal} showModal={showModal}/>
         </div>
     );
 };

@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FaCity} from "react-icons/fa";
 import LogoutBtn from "./LogoutBtn";
 import {GrCurrency} from "react-icons/gr";
+import AddPaymentMethodModal from "../modals/AddPaymentMethodModal";
+import AddCurrencyModal from "../modals/AddCurrencyModal";
 
 const CurrencyHeader = () => {
+    const [showModal, setShowModal] = useState(false);
+    const handleModal = ()=>{
+        setShowModal(!showModal);
+    }
     return (
         <div>
             <div className={"row"}>
                 <div className={"col-lg-3 d-flex justify-content-center"}>
-                    <button className={"btn btn-primary"}>
+                    <button className={"btn btn-primary"} onClick={handleModal}>
                         <span><i><GrCurrency/></i></span> Add currency
                     </button>
                 </div>
@@ -26,6 +32,7 @@ const CurrencyHeader = () => {
                     <LogoutBtn/>
                 </div>
             </div>
+            <AddCurrencyModal handleModal={handleModal} showModal={showModal}/>
         </div>
     );
 };
