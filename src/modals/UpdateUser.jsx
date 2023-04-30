@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
+import {useSelector} from "react-redux";
 
 const UpdateUser = ({showModal, handleModal, userId, isDelete}) => {
     const [formData, setFormData] = useState({});
-    const user = {
-        email: "email@gmail.com",
-        role: userId,
-        country: "User country",
-    };
+    const user = useSelector(state => state.users.find(user=>user.id===userId));
     const handleSubmit = (event) => {
         event.preventDefault();
         // Here you can add your code to post the form data to your backend

@@ -1,0 +1,72 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "users": [
+    {
+      "email": "first@gmail.com",
+      "role": 1,
+      "country": "DR Congo",
+      "authStatus": false,
+      "blockingStatus": false,
+      "id": 1,
+      "infos": {
+        "firstName": "first",
+        "lastName": "f-last",
+        "middleName": "f-middle",
+        "nationality": "Congolese",
+        "birthdate": "1994-04-23",
+        "phone": "014-998-542",
+        "address": "street yab , 25, Kinshasa"
+      }
+    },
+    {
+      "email": "third@gmail.com",
+      "role": 2,
+      "country": "Angola",
+      "authStatus": false,
+      "blockingStatus": false,
+      "id": 2,
+      "infos": {
+        "firstName": "third name",
+        "lastName": "t-last",
+        "middleName": "",
+        "nationality": "Angolan",
+        "birthdate": "2000-04-23",
+        "phone": "999-998-542",
+        "address": "street gag , 25, luanda"
+      }
+    },
+    {
+      "email": "second@gmail.com",
+      "role": 3,
+      "country": "Russia",
+      "authStatus": true,
+      "blockingStatus": false,
+      "id": 3,
+      "infos": {
+        "firstName": "second name",
+        "lastName": "s-last",
+        "middleName": "s-middle",
+        "nationality": "Russian",
+        "birthdate": "2002-07-23",
+        "phone": "000-998-542",
+        "address": "street tou , 25, Moscow"
+      }
+    }
+  ]
+}

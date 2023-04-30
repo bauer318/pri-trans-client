@@ -1,15 +1,22 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FaEdit} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
 import {BsInfoCircleFill} from "react-icons/bs";
-import UserInfo from "./UserInfo";
 import {NavLink} from "react-router-dom";
 import UpdateUser from "../modals/UpdateUser";
+import {useDispatch, useSelector} from "react-redux";
+import {initializeUsers} from "../reducers/userReducers";
 
 const UsersTable = () => {
     const [showModal, setShowModal] = useState(false);
     const [userId, setUserId] = useState(0);
     const [isDelete, setIsDelete] = useState(false);
+
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(initializeUsers());
+    },[]);
+    const users = useSelector(state => state.users);
     const handleModal = () => {
         setShowModal(!showModal);
     };
@@ -34,38 +41,30 @@ const UsersTable = () => {
             <table className={"table table-success table-striped table-bordered table-responsive"}>
                 <thead className={"table-light"}>
                 <tr>
-                    <th scope={"col"} className={"text-center"}>Ful name</th>
+                    <th scope={"col"} className={"text-center"}>Email</th>
                     <th scope={"col"} className={"text-center"}>Authorization status</th>
                     <th scope={"col"} className={"text-center"} colSpan={2}>Action</th>
                     <th scope={"col"} className={"text-center"}>Details</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>First user ful name</td>
-                    <td className={"text-center"}>Online</td>
-                    <td className={"text-center"} onClick={() => handleEdit(1)}><FaEdit/></td>
-                    <td className={"text-center"} onClick={() => handleDelete(1)}><MdDeleteForever/></td>
-                    <td className={"text-center"}>
-                        {<NavLink to={"/1"}>
-                            <BsInfoCircleFill/>
-                        </NavLink>}
-                    </td>
-                </tr>
-                <tr>
-                    <td>First user ful name</td>
-                    <td className={"text-center"}>Online</td>
-                    <td className={"text-center"} onClick={() => handleEdit(2)}><FaEdit/></td>
-                    <td className={"text-center"} onClick={() => handleDelete(2)}><MdDeleteForever/></td>
-                    <td className={"text-center"}>
-                        {<NavLink to={"/1"}>
-                            <BsInfoCircleFill/>
-                        </NavLink>}
-                    </td>
-                </tr>
+                {users.map(user =>
+                    <tr key={user.id}>
+                        <td>{user.email}</td>
+                        <td className={"text-center"} style={{color:user.authStatus ? "green":"red"}}>
+                            {user.authStatus ? "Online":"offline"}</td>
+                        <td className={"text-center"} onClick={() => handleEdit(user.id)}><FaEdit/></td>
+                        <td className={"text-center"} onClick={() => handleDelete(user.id)}><MdDeleteForever/></td>
+                        <td className={"text-center"}>
+                            {<NavLink to={`/${user.id}`}>
+                                <BsInfoCircleFill/>
+                            </NavLink>}
+                        </td>
+                    </tr>
+                )}
                 </tbody>
             </table>
-            <UpdateUser handleModal={handleModal} showModal={showModal} userId={userId} isDelete={isDelete}/>
+            {userId!==0 && <UpdateUser handleModal={handleModal} showModal={showModal} userId={userId} isDelete={isDelete}/>}
         </div>
     );
 };
