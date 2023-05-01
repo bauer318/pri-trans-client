@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FaCity} from "react-icons/fa";
 import LogoutBtn from "./LogoutBtn";
 import {GrCurrency} from "react-icons/gr";
 import AddPaymentMethodModal from "../modals/AddPaymentMethodModal";
 import AddCurrencyModal from "../modals/AddCurrencyModal";
+import {useDispatch} from "react-redux";
+import {initializeCurrencie} from "../reducers/currencyReducers";
 
 const CurrencyHeader = () => {
     const [showModal, setShowModal] = useState(false);

@@ -3,13 +3,8 @@ import {Form, Modal} from "react-bootstrap";
 import {FaExchangeAlt} from "react-icons/fa";
 import {GrCurrency} from "react-icons/gr";
 
-const UpdateCurrency = ({showModal, handleModal, currencyId, isDelete}) => {
+const UpdateCurrency = ({showModal, handleModal, selectedCurrency, isDelete}) => {
     const [formData, setFormData] = useState({});
-    const currency = {
-        currencyId,
-        currency:"Dollars USD",
-        symbol : "$"
-    };
     const handleSubmit = (event) => {
         event.preventDefault();
         // Here you can add your code to post the form data to your backend
@@ -32,7 +27,7 @@ const UpdateCurrency = ({showModal, handleModal, currencyId, isDelete}) => {
                         <Form.Control
                             type="text"
                             name="currency"
-                            defaultValue={currency.currency}
+                            defaultValue={selectedCurrency.currency}
                             required={true}
                             onChange={handleChange}
                             readOnly={isDelete}
@@ -44,7 +39,7 @@ const UpdateCurrency = ({showModal, handleModal, currencyId, isDelete}) => {
                         <Form.Control
                             type="text"
                             name="symbol"
-                            defaultValue={currency.symbol}
+                            defaultValue={selectedCurrency.symbol}
                             required={true}
                             onChange={handleChange}
                             readOnly={isDelete}
