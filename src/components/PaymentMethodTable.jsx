@@ -1,19 +1,21 @@
 import React, {useState} from 'react';
 import {FaEdit} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
-import UpdateCurrency from "../modals/UpdateCurrency";
 import UpdatePaymentMethod from "../modals/UpdatePaymentMethod";
+import {useSelector} from "react-redux";
 
 const PaymentMethodTable = () => {
     const [showModal, setShowModal] = useState(false);
-    const [paymentMethodId, setPaymentMethodId] = useState(0);
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState();
     const [isDelete, setIsDelete] = useState(false);
 
+    const pm = useSelector(state => state.paymentMethods);
     const handleModal = () => {
         setShowModal(!showModal);
     };
     const handleHelp = (paymentMethodIdParam) => {
-        setPaymentMethodId(paymentMethodIdParam);
+        const selectedPm = pm.find(pmEl => pmEl.id === paymentMethodIdParam);
+        setSelectedPaymentMethod(selectedPm);
         handleModal();
     };
 
@@ -36,19 +38,22 @@ const PaymentMethodTable = () => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td className={"text-center"}>Sberbank</td>
-                    <td className={"text-center"} onClick={() => handleEdit(1)}><FaEdit/></td>
-                    <td className={"text-center"} onClick={() => handleDelete(2)}><MdDeleteForever/></td>
-                </tr>
-                <tr>
-                    <td className={"text-center"}>Airtel money </td>
-                    <td className={"text-center"} onClick={() => handleEdit(2)}><FaEdit/></td>
-                    <td className={"text-center"} onClick={() => handleDelete(2)}><MdDeleteForever/></td>
-                </tr>
+                {
+                    pm.map(pmEl =>
+                        <tr key={pmEl.id}>
+                            <td className={"text-center"}>{pmEl.paymentMethod}</td>
+                            <td className={"text-center"} onClick={() => handleEdit(pmEl.id)}><FaEdit/></td>
+                            <td className={"text-center"} onClick={() => handleDelete(pmEl.id)}><MdDeleteForever/></td>
+                        </tr>
+                    )
+                }
                 </tbody>
             </table>
-            <UpdatePaymentMethod paymentMethodId={paymentMethodId} showModal={showModal} handleModal={handleModal} isDelete={isDelete}/>
+            {
+                selectedPaymentMethod &&
+                <UpdatePaymentMethod selectedPaymentMethod={selectedPaymentMethod} showModal={showModal}
+                                     handleModal={handleModal} isDelete={isDelete}/>
+            }
         </div>
     );
 };

@@ -3,12 +3,8 @@ import {Form, Modal} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
 import {FaExchangeAlt} from "react-icons/fa";
 
-const UpdatePaymentMethod = ({showModal, handleModal, paymentMethodId, isDelete}) => {
+const UpdatePaymentMethod = ({showModal, handleModal, selectedPaymentMethod, isDelete}) => {
     const [formData, setFormData] = useState({});
-    const paymentMethod = {
-        paymentMethodId,
-        paymentMethod: "MPesa"
-    };
     const handleSubmit = (event) => {
         event.preventDefault();
         // Here you can add your code to post the form data to your backend
@@ -31,7 +27,7 @@ const UpdatePaymentMethod = ({showModal, handleModal, paymentMethodId, isDelete}
                         <Form.Control
                             type="text"
                             name="paymentMethod"
-                            defaultValue={paymentMethod.paymentMethod}
+                            defaultValue={selectedPaymentMethod.paymentMethod}
                             required={true}
                             onChange={handleChange}
                             readOnly={isDelete}
