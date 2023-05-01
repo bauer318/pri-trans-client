@@ -2,17 +2,10 @@ import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {FaCity} from "react-icons/fa";
 import country from "../components/Country";
+import {useSelector} from "react-redux";
 
 const DeleteCountryModal = ({showModal, handleModal, countryId}) => {
-    const country = {
-        country: "DR Congo",
-        currencies: {
-            currency: "Congolese franc"
-        },
-        paymentMethods: {
-            paymentMethod: "MPesa"
-        }
-    };
+    const country = useSelector(state => state.countries.find(country=>country.id===countryId));
     const handleSubmit = (event) => {
         event.preventDefault();
         // Here you can add your code to post the form data to your backend
@@ -37,7 +30,7 @@ const DeleteCountryModal = ({showModal, handleModal, countryId}) => {
                         <Form.Label>Main currency</Form.Label>
                         <Form.Control
                             type="text"
-                            value={country.currencies.currency}
+                            value={country.currencies[0].currency}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -46,7 +39,7 @@ const DeleteCountryModal = ({showModal, handleModal, countryId}) => {
                         <Form.Control
                             type="text"
                             readOnly={true}
-                            value={country.paymentMethods.paymentMethod}
+                            value={country.paymentMethods[0].paymentMethod}
                         />
                     </Form.Group>
                     <div className={"mt-2"}>

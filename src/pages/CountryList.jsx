@@ -15,8 +15,8 @@ const CountryList = () => {
             <CountryHeader/>
             <div className={"row row-cols-1 row-cols-md-3 g-4 mt-2"}>
                 {
-                    countries.map(c=>
-                     <CountryCard key={c.id} countryId={c.id}/>
+                    countries.map(country=>
+                     <CountryCard key={country.id} countryId={country.id}/>
                     )
                 }
             </div>

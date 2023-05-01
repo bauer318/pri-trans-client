@@ -3,11 +3,8 @@ import {Form, Modal} from "react-bootstrap";
 import {GrCurrency} from "react-icons/gr";
 import {FaExchangeAlt} from "react-icons/fa";
 
-const RemovePaymentMethodFromCountryModal = ({showModal, handleModal,paymentMethodId, countryId}) => {
-    const paymentMethod={
-        paymentMethodId,
-        paymentMethod:"MPesa"
-    };
+const RemovePaymentMethodFromCountryModal = ({showModal, handleModal,selectedPaymentMethod, country}) => {
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -16,7 +13,7 @@ const RemovePaymentMethodFromCountryModal = ({showModal, handleModal,paymentMeth
     return (
         <Modal show={showModal} onHide={handleModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Remove {paymentMethod.paymentMethod} from {countryId}</Modal.Title>
+                <Modal.Title>Remove {selectedPaymentMethod.paymentMethod} from {country}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
@@ -24,7 +21,7 @@ const RemovePaymentMethodFromCountryModal = ({showModal, handleModal,paymentMeth
                         <Form.Label>Payment method</Form.Label>
                         <Form.Control
                             type="text"
-                            value={paymentMethod.paymentMethod}
+                            value={selectedPaymentMethod.paymentMethod}
                             readOnly={true}
                         />
                     </Form.Group>

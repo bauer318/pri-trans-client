@@ -16,7 +16,6 @@ const countrySlice = createSlice({
 export const initializeCountries = () => {
     return async dispatch => {
         const countries = await countryService.getAll();
-        console.log('in country');
         dispatch(setCountries(countries));
     }
 }

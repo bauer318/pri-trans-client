@@ -3,12 +3,7 @@ import {Form, Modal} from "react-bootstrap";
 import {FaCity} from "react-icons/fa";
 import {GrCurrency} from "react-icons/gr";
 
-const RemoveCurrencyFromCountryModal = ({showModal, handleModal,currencyId, countryId}) => {
-    const currency ={
-        currencyId,
-        currency:"Dollars USD",
-        symbol:"$"
-    };
+const RemoveCurrencyFromCountryModal = ({showModal, handleModal,selectedCurrency, country}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         // Here you can add your code to post the form data to your backend
@@ -17,7 +12,7 @@ const RemoveCurrencyFromCountryModal = ({showModal, handleModal,currencyId, coun
     return (
         <Modal show={showModal} onHide={handleModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Remove {currency.currency} from {countryId}</Modal.Title>
+                <Modal.Title>Remove {selectedCurrency.currency} from {country}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
@@ -25,7 +20,7 @@ const RemoveCurrencyFromCountryModal = ({showModal, handleModal,currencyId, coun
                         <Form.Label>Currency</Form.Label>
                         <Form.Control
                             type="text"
-                            value={currency.currency}
+                            value={selectedCurrency.currency}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -33,7 +28,7 @@ const RemoveCurrencyFromCountryModal = ({showModal, handleModal,currencyId, coun
                         <Form.Label>Symbol</Form.Label>
                         <Form.Control
                             type="text"
-                            value={currency.symbol}
+                            value={selectedCurrency.symbol}
                             readOnly={true}
                         />
                     </Form.Group>
