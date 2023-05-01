@@ -8,4 +8,12 @@ const getAll = async ()=>{
     return response.data;
 }
 
-export default {getAll};
+const createNew = async(currency) => {
+    const object = {
+        currency:currency.currency,
+        symbol:currency.symbol,
+    };
+    const response = await axios.post(baseUrl,object);
+    return response.data;
+}
+export default {getAll,createNew};

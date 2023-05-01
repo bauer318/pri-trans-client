@@ -2,13 +2,15 @@ import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
 import {GrCurrency} from "react-icons/gr";
+import {useDispatch} from "react-redux";
+import {createCurrency} from "../reducers/currencyReducers";
 
 const AddCurrencyModal = ({showModal , handleModal}) => {
     const [formData, setFormData] = useState({});
+    const dispatch = useDispatch();
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Here you can add your code to post the form data to your backend
-        console.log(formData);
+        dispatch(createCurrency(formData));
         handleModal();
     };
     const handleChange = (event) => {

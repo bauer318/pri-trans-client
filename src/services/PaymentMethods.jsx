@@ -7,5 +7,11 @@ const getAll = async ()=>{
     const response = await axios.get(baseUrl);
     return response.data;
 }
-
-export default  {getAll};
+const createNew = async(paymentMethod) => {
+    const object ={
+        paymentMethod:paymentMethod.paymentMethod
+    }
+    const response = await axios.post(baseUrl,object);
+    return response.data;
+}
+export default  {getAll,createNew};

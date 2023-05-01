@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {FaExchangeAlt} from "react-icons/fa";
+import {useDispatch} from "react-redux";
+import {createNewPaymentMethod} from "../reducers/paymentMethodReducers";
 
 const AddPaymentMethodModal = ({showModal, handleModal}) => {
     const [formData, setFormData] = useState({});
+    const dispatch = useDispatch();
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Here you can add your code to post the form data to your backend
-        console.log(formData);
+        dispatch(createNewPaymentMethod(formData));
         handleModal();
     };
     const handleChange = (event) => {
