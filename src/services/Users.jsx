@@ -11,4 +11,19 @@ const getOne = async (userId)=>{
     const response = await axios.get(`${baseUrl}/${userId}`);
     return response.data;
 }
-export default {getAll, getOne};
+
+const createNew = async (user)=>{
+    const object = {
+        email:user.email,
+        role:user.role,
+        country:user.country,
+        authStatus:false,
+        blockingStatus:false,
+        infos:{
+
+        }
+    }
+    const response = await axios.post(baseUrl,object);
+    return response.data;
+}
+export default {getAll, getOne, createNew};

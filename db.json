@@ -50,6 +50,15 @@
         "phone": "000-998-542",
         "address": "street tou , 25, Moscow"
       }
+    },
+    {
+      "email": "addeduser@gmail.com",
+      "role": "1",
+      "country": "Российская Федерация",
+      "authStatus": false,
+      "blockingStatus": false,
+      "infos": {},
+      "id": 4
     }
   ],
   "countries": [
@@ -79,7 +88,6 @@
         }
       ]
     },
-
     {
       "id": 2,
       "country": "Russia",
@@ -111,7 +119,6 @@
         }
       ]
     },
-
     {
       "id": 3,
       "country": "Angola",
@@ -135,7 +142,6 @@
       ]
     }
   ],
-
   "currencies": [
     {
       "id": 1,
@@ -162,9 +168,7 @@
       "currency": "Angolan Kwanza",
       "symbol": "Kw"
     }
-
   ],
-
   "paymentMethods": [
     {
       "id": 1,

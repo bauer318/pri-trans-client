@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
+import {useDispatch} from "react-redux";
+import {createUser} from "../reducers/userReducers";
 
 
 const AddUserModal = ({showModal, handleModal}) => {
     const [formData, setFormData] = useState({});
+    const dispatch = useDispatch();
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Here you can add your code to post the form data to your backend
+        dispatch(createUser(formData));
         console.log(formData);
         handleModal();
     };
@@ -43,7 +46,7 @@ const AddUserModal = ({showModal, handleModal}) => {
                             <option value="">Select user role</option>
                             <option value="3">Agent</option>
                             <option value="2">Moderator</option>
-                            <option value="3">Administrator</option>
+                            <option value="1">Administrator</option>
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formBasicCountry">
