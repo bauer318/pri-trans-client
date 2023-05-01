@@ -10,6 +10,9 @@ const countrySlice = createSlice({
         setCountries(state, action) {
             return action.payload;
         },
+        appendCountry(state, action){
+            state.push(action.payload);
+        }
     }
 });
 
@@ -20,6 +23,12 @@ export const initializeCountries = () => {
     }
 }
 
+export const createCountry = country=>{
+    return async dispatch =>{
+        const newCountry = await countryService.createNew(country);
+        dispatch(appendCountry(newCountry));
+    }
+}
 
-export const {setCountries} = countrySlice.actions;
+export const {setCountries,appendCountry} = countrySlice.actions;
 export default countrySlice.reducer;

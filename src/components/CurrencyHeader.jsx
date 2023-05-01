@@ -5,7 +5,7 @@ import {GrCurrency} from "react-icons/gr";
 import AddPaymentMethodModal from "../modals/AddPaymentMethodModal";
 import AddCurrencyModal from "../modals/AddCurrencyModal";
 import {useDispatch} from "react-redux";
-import {initializeCurrencie} from "../reducers/currencyReducers";
+import {initializeCurrencies} from "../reducers/currencyReducers";
 
 const CurrencyHeader = () => {
     const [showModal, setShowModal] = useState(false);

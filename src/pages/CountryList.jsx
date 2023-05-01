@@ -3,6 +3,8 @@ import CountryHeader from "../components/CountryHeader";
 import CountryCard from "../components/CountryCard";
 import {useDispatch, useSelector} from "react-redux";
 import {initializeCountries} from "../reducers/countryReducers";
+import {initializePaymentMethods} from "../reducers/paymentMethodReducers";
+import {initializeCurrencies} from "../reducers/currencyReducers";
 
 const CountryList = () => {
     const dispatch = useDispatch();

@@ -14,7 +14,7 @@ const currencySlice = createSlice({
     }
 })
 
-export const initializeCurrencie = ()=>{
+export const initializeCurrencies = ()=>{
     return async dispatch =>{
         const currencies = await currencyService.getAll();
         dispatch(setCurrencies(currencies));

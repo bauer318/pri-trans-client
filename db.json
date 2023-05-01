@@ -140,6 +140,23 @@
           "paymentMethod": "MPesa"
         }
       ]
+    },
+    {
+      "country": "Российская Федерация",
+      "currencies": [
+        {
+          "id": 1,
+          "currency": "Dollars USD",
+          "symbol": "$"
+        }
+      ],
+      "paymentMethods": [
+        {
+          "id": 3,
+          "paymentMethod": "Sberbank"
+        }
+      ],
+      "id": 4
     }
   ],
   "currencies": [
