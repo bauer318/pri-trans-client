@@ -1,14 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CountryHeader from "../components/CountryHeader";
 import CountryCard from "../components/CountryCard";
+import {useDispatch, useSelector} from "react-redux";
+import {initializeCountries} from "../reducers/countryReducers";
 
 const CountryList = () => {
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(initializeCountries())
+    },[]);
+    const countries = useSelector(state => state.countries);
     return (
         <div className={"container"}>
             <CountryHeader/>
             <div className={"row row-cols-1 row-cols-md-3 g-4 mt-2"}>
-                <CountryCard/>
-                <CountryCard/>
+                {
+                    countries.map(c=>
+                     <CountryCard key={c.id} countryId={c.id}/>
+                    )
+                }
             </div>
         </div>
     );

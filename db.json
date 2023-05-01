@@ -1,21 +1,4 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  },
   "users": [
     {
       "email": "first@gmail.com",
@@ -67,6 +50,137 @@
         "phone": "000-998-542",
         "address": "street tou , 25, Moscow"
       }
+    }
+  ],
+  "countries": [
+    {
+      "id": 1,
+      "country": "DR Congo",
+      "currencies": [
+        {
+          "id": 1,
+          "currency": "Dollars USD",
+          "symbol": "$"
+        },
+        {
+          "id": 2,
+          "currency": "Congolese Franc",
+          "symbol": "Fc"
+        }
+      ],
+      "paymentMethods": [
+        {
+          "id": 1,
+          "paymentMethod": "Airtel Money"
+        },
+        {
+          "id": 2,
+          "paymentMethod": "MPesa"
+        }
+      ]
+    },
+
+    {
+      "id": 2,
+      "country": "Russian",
+      "currencies": [
+        {
+          "id": 3,
+          "currency": "Russian Rubble",
+          "symbol": "Rub"
+        },
+        {
+          "id": 1,
+          "currency": "Dollars USD",
+          "symbol": "$"
+        },
+        {
+          "id": 4,
+          "currency": "Euro",
+          "symbol": "£"
+        }
+      ],
+      "paymentMethods": [
+        {
+          "id": 3,
+          "paymentMethod": "Sberbank"
+        },
+        {
+          "id": 4,
+          "paymentMethod": "Tinkoff"
+        }
+      ]
+    },
+
+    {
+      "id": 3,
+      "country": "Angola",
+      "currencies": [
+        {
+          "id": 1,
+          "currency": "Dollars USD",
+          "symbol": "$"
+        },
+        {
+          "id": 5,
+          "currency": "Angolan Kwanza",
+          "symbol": "Kw"
+        }
+      ],
+      "paymentMethods": [
+        {
+          "id": 2,
+          "paymentMethod": "MPesa"
+        }
+      ]
+    }
+  ],
+
+  "currencies": [
+    {
+      "id": 1,
+      "currency": "Dollars USD",
+      "symbol": "$"
+    },
+    {
+      "id": 2,
+      "currency": "Congolese Franc",
+      "symbol": "Fc"
+    },
+    {
+      "id": 3,
+      "currency": "Russian Rubble",
+      "symbol": "Rub"
+    },
+    {
+      "id": 4,
+      "currency": "Euro",
+      "symbol": "£"
+    },
+    {
+      "id": 5,
+      "currency": "Angolan Kwanza",
+      "symbol": "Kw"
+    }
+
+  ],
+
+  "paymentMethods": [
+    {
+      "id": 1,
+      "paymentMethod": "Airtel Money"
+    },
+    {
+      "id": 2,
+      "paymentMethod": "MPesa"
+    },
+    {
+      "id": 3,
+      "paymentMethod": "Sberbank"
+    },
+    {
+      "id": 4,
+      "paymentMethod": "Tinkoff"
     }
   ]
 }

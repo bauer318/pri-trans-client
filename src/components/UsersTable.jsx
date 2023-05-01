@@ -4,14 +4,13 @@ import {MdDeleteForever} from "react-icons/md";
 import {BsInfoCircleFill} from "react-icons/bs";
 import {NavLink} from "react-router-dom";
 import UpdateUser from "../modals/UpdateUser";
-import {useDispatch, useSelector} from "react-redux";
-import {initializeUsers} from "../reducers/userReducers";
+import {useSelector} from "react-redux";
 
 const UsersTable = () => {
     const [showModal, setShowModal] = useState(false);
     const [userId, setUserId] = useState(0);
     const [isDelete, setIsDelete] = useState(false);
-    
+
     const users = useSelector(state => state.users);
     const handleModal = () => {
         setShowModal(!showModal);

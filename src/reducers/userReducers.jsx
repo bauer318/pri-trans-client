@@ -14,8 +14,9 @@ const userSlice = createSlice({
 });
 
 export const initializeUsers = () =>{
-    return async dispatch=>{
+    return async dispatch => {
         const users = await userService.getAll();
+        console.log('in users');
         dispatch(setUsers(users));
     }
 }
