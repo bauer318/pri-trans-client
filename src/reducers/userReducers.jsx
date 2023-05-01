@@ -9,7 +9,7 @@ const userSlice = createSlice({
    reducers:{
        setUsers(state, action){
            return action.payload;
-       }
+       },
    }
 });
 
@@ -19,6 +19,7 @@ export const initializeUsers = () =>{
         dispatch(setUsers(users));
     }
 }
+
 
 export const {setUsers} = userSlice.actions;
 export default userSlice.reducer;

@@ -13,7 +13,7 @@ const Sidebar = ({children}) => {
     const [isOpen, setIsOpen] = useState(true);
     const menuItem = [
         {
-            path: "/",
+            path: "/users",
             name: "Users",
             icon: <HiUsers/>
         },

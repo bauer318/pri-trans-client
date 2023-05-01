@@ -1,11 +1,11 @@
 import React from 'react';
-import UsersHeader from "../components/UsersHeader";
 import UserInfo from "../components/UserInfo";
+import UserItemHeader from "../components/UserItemHeader";
 
 const User = () => {
     return (
         <div className={"container"}>
-            <UsersHeader/>
+            <UserItemHeader/>
             <div className={"row mt-5"}>
                 <UserInfo/>
             </div>

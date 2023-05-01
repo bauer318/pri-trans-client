@@ -20,14 +20,14 @@ const App = () => {
             <BrowserRouter>
                 <Sidebar>
                     <Routes>
-                        <Route path="/" element={<UserList/>}/>
+                        {/*<Route path="/" element={<UserList/>}/>*/}
                         <Route path="/users" element={<UserList/>}/>
-                        <Route path={"/1"} element={<User/>} />
+                        <Route path={"users/:id"} element={<User/>} />
                         <Route path="/countries" element={<CountryList/>}/>
-                        <Route path={"/countries/1"} element={<CountryItem/>}/>
-                        <Route path={"/countries/1/edit"} element={<CountryItemEdit/>}/>
-                        <Route path={"/countries/1/add-currency"} element={<CurrencyAdd/>}/>
-                        <Route path={"/countries/1/add-payment-method"} element={<PaymentMethodAdd/>}/>
+                        <Route path={"/countries/:id"} element={<CountryItem/>}/>
+                        <Route path={"/countries/:id/edit"} element={<CountryItemEdit/>}/>
+                        <Route path={"/countries/:id/add-currency"} element={<CurrencyAdd/>}/>
+                        <Route path={"/countries/:id/add-payment-method"} element={<PaymentMethodAdd/>}/>
                         <Route path="/currencies" element={<CurrencyList/>}/>
                         <Route path="/payment-methods" element={<PaymentMethodList/>}/>
                     </Routes>
