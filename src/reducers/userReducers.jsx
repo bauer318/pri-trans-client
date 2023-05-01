@@ -20,6 +20,5 @@ export const initializeUsers = () =>{
     }
 }
 
-
 export const {setUsers} = userSlice.actions;
 export default userSlice.reducer;

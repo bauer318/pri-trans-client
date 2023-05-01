@@ -11,11 +11,7 @@ const UsersTable = () => {
     const [showModal, setShowModal] = useState(false);
     const [userId, setUserId] = useState(0);
     const [isDelete, setIsDelete] = useState(false);
-
-    const dispatch = useDispatch();
-    useEffect(()=>{
-        dispatch(initializeUsers());
-    },[]);
+    
     const users = useSelector(state => state.users);
     const handleModal = () => {
         setShowModal(!showModal);
