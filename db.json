@@ -50,15 +50,6 @@
         "phone": "000-998-542",
         "address": "street tou , 25, Moscow"
       }
-    },
-    {
-      "email": "addeduser@gmail.com",
-      "role": 3,
-      "country": "Российская Федерация",
-      "authStatus": false,
-      "blockingStatus": false,
-      "infos": {},
-      "id": 4
     }
   ],
   "countries": [

@@ -11,7 +11,6 @@ const AddUserModal = ({showModal, handleModal}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(createUser(formData));
-        console.log(formData);
         handleModal();
     };
     const handleChange = (event) => {
