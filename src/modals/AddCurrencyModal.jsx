@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {ImUserPlus} from "react-icons/im";
 import {GrCurrency} from "react-icons/gr";
 import {useDispatch} from "react-redux";
 import {createCurrency} from "../reducers/currencyReducers";

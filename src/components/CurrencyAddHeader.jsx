@@ -1,5 +1,4 @@
 import React from 'react';
-import {GrCurrency} from "react-icons/gr";
 import LogoutBtn from "./LogoutBtn";
 
 const CurrencyAddHeader = () => {

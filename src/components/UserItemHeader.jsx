@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
-import {ImUserPlus} from "react-icons/im";
+import React from 'react';
 import LogoutBtn from "./LogoutBtn";
-import AddUserModal from "../modals/AddUserModal";
+
 
 const UserItemHeader = () => {
     return (

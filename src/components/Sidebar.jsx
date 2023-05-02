@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {
-    FaBars, FaCity, FaCommentAlt, FaExchangeAlt, FaList, FaRegChartBar, FaShoppingBag,
-    FaTh, FaUserAlt, FaUsers,
+    FaBars, FaCity, FaExchangeAlt
 } from 'react-icons/fa';
 import {NavLink} from "react-router-dom";
 import { HiUsers} from "react-icons/hi";

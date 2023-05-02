@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import LogoutBtn from "./LogoutBtn";
 import {FaExchangeAlt} from "react-icons/fa";
-import AddCurrencyModal from "../modals/AddCurrencyModal";
 import AddPaymentMethodModal from "../modals/AddPaymentMethodModal";
 
 const PaymentMethodHeader = () => {

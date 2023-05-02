@@ -1,6 +1,5 @@
 import React from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {GrCurrency} from "react-icons/gr";
 import {FaExchangeAlt} from "react-icons/fa";
 
 const RemovePaymentMethodFromCountryModal = ({showModal, handleModal,selectedPaymentMethod, country}) => {

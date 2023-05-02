@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {FaExchangeAlt} from "react-icons/fa";
 import {GrCurrency} from "react-icons/gr";
 
 const UpdateCurrency = ({showModal, handleModal, selectedCurrency, isDelete}) => {
     const [formData, setFormData] = useState({});
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Here you can add your code to post the form data to your backend
         console.log(formData);
         handleModal();
     };

@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {ImUserPlus} from "react-icons/im";
 import {FaExchangeAlt} from "react-icons/fa";
 
 const UpdatePaymentMethod = ({showModal, handleModal, selectedPaymentMethod, isDelete}) => {
     const [formData, setFormData] = useState({});
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Here you can add your code to post the form data to your backend
         console.log(formData);
         handleModal();
     };

@@ -1,9 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {ImUserPlus} from "react-icons/im";
 import LogoutBtn from "./LogoutBtn";
 import AddUserModal from "../modals/AddUserModal";
-import {useDispatch} from "react-redux";
-import {initializeUsers} from "../reducers/userReducers";
 
 const UsersHeader = () => {
     const [showModal, setShowModal] = useState(false);
@@ -20,10 +18,6 @@ const UsersHeader = () => {
         const authStatus = event.target.value;
         setIsOnline(authStatus === 2);
     }
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(initializeUsers());
-    }, []);
     return (
         <div>
             <div className={"row"}>
@@ -40,7 +34,7 @@ const UsersHeader = () => {
                 <div className={"col-lg-3 col-3"}>
                     <select className={"form-select"} aria-label={"Default select example"}
                             onChange={handleAuthStatusSelectChange}>
-                        <option value={1}>Online & Offline</option>
+                        <option value={1}>All</option>
                         <option value={2}>Online</option>
                         <option value={3}>Offline</option>
                     </select>

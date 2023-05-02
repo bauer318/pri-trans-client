@@ -1,13 +1,14 @@
-import React, {useEffect} from 'react';
-import { useMatch } from 'react-router-dom';
+import React from 'react';
+import {useMatch} from 'react-router-dom';
 import {useSelector} from "react-redux";
+import LoadingEffect from "./LoadingEffect";
 
 const UserInfo = () => {
     const match = useMatch("/users/:id");
     const userId = Number(match.params.id);
-    const user = useSelector(state=>state.users.find(user=>user.id===userId));
-    const roleStr = (role)=> {
-        switch (role){
+    const user = useSelector(state => state.users.find(user => user.id === userId));
+    const roleStr = (role) => {
+        switch (role) {
             case 1:
                 return "Administrator";
             case 2:
@@ -21,8 +22,8 @@ const UserInfo = () => {
         }
     }
     return (
-        <div>
-            {user &&
+        <>{user ?
+            (<div>
                 <div className={"row"}>
                     <div className={"col-4"}>
                         <h3>{user.infos.firstName}</h3>
@@ -40,9 +41,8 @@ const UserInfo = () => {
                         <h3>{user.infos.birthdate}</h3>
                     </div>
                 </div>
-            }
-
-        </div>
+            </div>) : (<LoadingEffect/>)}
+        </>
     );
 };
 

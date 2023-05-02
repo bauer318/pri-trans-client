@@ -1,5 +1,4 @@
 import React from 'react';
-import {FaExchangeAlt} from "react-icons/fa";
 import LogoutBtn from "./LogoutBtn";
 
 const PaymentMethodAddHeader = () => {
