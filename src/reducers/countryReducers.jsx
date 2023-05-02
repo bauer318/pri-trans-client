@@ -30,5 +30,21 @@ export const createCountry = country=>{
     }
 }
 
+export const updateCountry = (id, country)=>{
+    return async dispatch =>{
+        await countryService.update(id,country);
+        const countries = await countryService.getAll();
+        dispatch(setCountries(countries));
+    }
+}
+
+export const deleteCountry = id =>{
+    return async dispatch =>{
+        await countryService.deleteCountry(id);
+        const countries = await countryService.getAll();
+        dispatch(setCountries(countries));
+    }
+}
+
 export const {setCountries,appendCountry} = countrySlice.actions;
 export default countrySlice.reducer;

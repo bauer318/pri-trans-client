@@ -1,7 +1,6 @@
 import React from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {GrCurrency} from "react-icons/gr";
-
 const RemoveCurrencyFromCountryModal = ({showModal, handleModal,selectedCurrency, country}) => {
     const handleSubmit = (event) => {
         event.preventDefault();

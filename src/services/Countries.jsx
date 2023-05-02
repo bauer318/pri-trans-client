@@ -18,4 +18,19 @@ const createNew = async (country) => {
     return response.data;
 }
 
-export default {getAll,createNew};
+const update = async(id, country) =>{
+    const updatedCountry = {
+        country:country.country,
+        currencies:country.currencies,
+        paymentMethods: country.paymentMethods
+    }
+    const resp = await axios.put(`${baseUrl}/${id}`, updatedCountry);
+    return resp.data;
+}
+
+const deleteCountry = async id =>{
+    const response = await axios.delete(`${baseUrl}/${id}`);
+    return response.data;
+}
+
+export default {getAll,createNew, update, deleteCountry};

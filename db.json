@@ -80,7 +80,6 @@
       ]
     },
     {
-      "id": 2,
       "country": "Russia",
       "currencies": [
         {
@@ -108,7 +107,8 @@
           "id": 4,
           "paymentMethod": "Tinkoff"
         }
-      ]
+      ],
+      "id": 2
     },
     {
       "id": 3,
@@ -131,23 +131,6 @@
           "paymentMethod": "MPesa"
         }
       ]
-    },
-    {
-      "country": "Российская Федерация",
-      "currencies": [
-        {
-          "id": 1,
-          "currency": "Dollars USD",
-          "symbol": "$"
-        }
-      ],
-      "paymentMethods": [
-        {
-          "id": 3,
-          "paymentMethod": "Sberbank"
-        }
-      ],
-      "id": 4
     }
   ],
   "currencies": [
