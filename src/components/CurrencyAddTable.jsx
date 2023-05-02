@@ -1,7 +1,10 @@
 import React from 'react';
 import {MdDoneOutline} from "react-icons/md";
+import {useSelector} from "react-redux";
+import LoadingEffect from "./LoadingEffect";
 
 const CurrencyAddTable = () => {
+    const currencies = useSelector(state => state.currencies);
     return (
         <div>
             <table className={"table table-success table-striped table-bordered table-responsive"}>
@@ -13,16 +16,20 @@ const CurrencyAddTable = () => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td className={"text-center"}>Dollars USD</td>
-                    <td className={"text-center"}>$</td>
-                    <td className={"text-center"}>Add</td>
-                </tr>
-                <tr>
-                    <td className={"text-center"}>Euro </td>
-                    <td className={"text-center"}>£</td>
-                    <td className={"text-center"} style={{color:"green"}}><MdDoneOutline/></td>
-                </tr>
+                {
+                    currencies ? (
+                        currencies.map(currency=>
+                        <tr key={currency.id}>
+                            <td className={"text-center"}>{currency.currency}</td>
+                            <td className={"text-center"}>{currency.symbol}</td>
+                            {/*Here we will put a condition, if this currency is already assigned we will display this
+                             <td className={"text-center"} style={{color: "green"}}><MdDoneOutline/></td>
+                             else user can add it
+                            */}
+                            <td className={"text-center"}>Add</td>
+                        </tr>
+                    ) ): (<LoadingEffect/>)
+                }
                 </tbody>
             </table>
         </div>

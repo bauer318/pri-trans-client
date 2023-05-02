@@ -15,7 +15,7 @@ const getOne = async (userId)=>{
 const createNew = async (user)=>{
     const object = {
         email:user.email,
-        role:user.role,
+        role:Number(user.role),
         country:user.country,
         authStatus:false,
         blockingStatus:false,

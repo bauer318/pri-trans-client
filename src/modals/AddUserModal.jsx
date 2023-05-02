@@ -44,9 +44,9 @@ const AddUserModal = ({showModal, handleModal}) => {
                                       onChange={handleChange}
                         >
                             <option value="">Select user role</option>
-                            <option value="3">Agent</option>
-                            <option value="2">Moderator</option>
-                            <option value="1">Administrator</option>
+                            <option value={3}>Agent</option>
+                            <option value={2}>Moderator</option>
+                            <option value={1}>Administrator</option>
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formBasicCountry">

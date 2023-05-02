@@ -53,7 +53,7 @@
     },
     {
       "email": "addeduser@gmail.com",
-      "role": "1",
+      "role": 3,
       "country": "Российская Федерация",
       "authStatus": false,
       "blockingStatus": false,
