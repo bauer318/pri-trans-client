@@ -1,17 +1,28 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {FaExchangeAlt} from "react-icons/fa";
+import {useDispatch} from "react-redux";
+import {deletePaymentMethod, updatePaymentMethod} from "../reducers/paymentMethodReducers";
 
 const UpdatePaymentMethod = ({showModal, handleModal, selectedPaymentMethod, isDelete}) => {
-    const [formData, setFormData] = useState({});
+    const [paymentM, setPaymentM] = useState(selectedPaymentMethod.paymentMethod);
+    const dispatch = useDispatch();
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(formData);
+        if(isDelete){
+            dispatch(deletePaymentMethod(selectedPaymentMethod.id));
+        }else{
+            const updatedPm = {
+                ...selectedPaymentMethod,
+                paymentMethod: paymentM
+            }
+            dispatch(updatePaymentMethod(selectedPaymentMethod.id, updatedPm));
+        }
         handleModal();
     };
     const handleChange = (event) => {
-        const {name, value} = event.target;
-        setFormData({...formData, [name]: value});
+        const pm = event.target.value;
+        setPaymentM(pm);
     };
     return (
         <Modal show={showModal} onHide={handleModal}>

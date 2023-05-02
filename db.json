@@ -135,9 +135,9 @@
   ],
   "currencies": [
     {
-      "id": 1,
       "currency": "Dollars USD",
-      "symbol": "$"
+      "symbol": "$",
+      "id": 1
     },
     {
       "id": 2,
@@ -158,11 +158,6 @@
       "id": 5,
       "currency": "Angolan Kwanza",
       "symbol": "Kw"
-    },
-    {
-      "currency": "Franc congoolais",
-      "symbol": "$",
-      "id": 6
     }
   ],
   "paymentMethods": [
@@ -181,10 +176,6 @@
     {
       "id": 4,
       "paymentMethod": "Tinkoff"
-    },
-    {
-      "paymentMethod": "new payment method",
-      "id": 5
     }
   ]
 }

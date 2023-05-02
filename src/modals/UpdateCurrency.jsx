@@ -1,17 +1,34 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {GrCurrency} from "react-icons/gr";
+import {useDispatch} from "react-redux";
+import {deleteCurrency, updateCurrency} from "../reducers/currencyReducers";
 
 const UpdateCurrency = ({showModal, handleModal, selectedCurrency, isDelete}) => {
-    const [formData, setFormData] = useState({});
+    const dispatch = useDispatch();
+    const [currency, setCurrency] = useState(selectedCurrency.currency);
+    const [symbol, setSymbol] = useState(selectedCurrency.symbol);
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(formData);
+        if(isDelete){
+            dispatch(deleteCurrency(selectedCurrency.id));
+        }else{
+            const updatedCurrency = {
+                ...selectedCurrency,
+                currency,
+                symbol
+            }
+            dispatch(updateCurrency(selectedCurrency.id, updatedCurrency));
+        }
         handleModal();
     };
-    const handleChange = (event) => {
-        const {name, value} = event.target;
-        setFormData({...formData, [name]: value});
+    const handleCurrencyChange = (event) => {
+        const currency = event.target.value;
+        setCurrency(currency);
+    };
+    const handleSymbolChange = (event) => {
+        const symbol = event.target.value;
+        setSymbol(symbol);
     };
     return (
         <Modal show={showModal} onHide={handleModal}>
@@ -27,7 +44,7 @@ const UpdateCurrency = ({showModal, handleModal, selectedCurrency, isDelete}) =>
                             name="currency"
                             defaultValue={selectedCurrency.currency}
                             required={true}
-                            onChange={handleChange}
+                            onChange={handleCurrencyChange}
                             readOnly={isDelete}
                         />
                     </Form.Group>
@@ -39,7 +56,7 @@ const UpdateCurrency = ({showModal, handleModal, selectedCurrency, isDelete}) =>
                             name="symbol"
                             defaultValue={selectedCurrency.symbol}
                             required={true}
-                            onChange={handleChange}
+                            onChange={handleSymbolChange}
                             readOnly={isDelete}
                         />
                     </Form.Group>
