@@ -1,33 +1,32 @@
 import React, {useState} from 'react';
 import {
-    FaBars, FaCity, FaExchangeAlt
+    FaBars, FaExchangeAlt,FaHistory
 } from 'react-icons/fa';
 import {NavLink} from "react-router-dom";
-import { HiUsers} from "react-icons/hi";
-import {GrCurrency} from "react-icons/gr";
+import {HiHome} from "react-icons/hi";
+import {MdAccountBalance} from "react-icons/md";
 
 
 const Sidebar = ({children}) => {
-    //data
     const [isOpen, setIsOpen] = useState(true);
     const menuItem = [
         {
-            path: "/users",
-            name: "Users",
-            icon: <HiUsers/>
+            path: "/client/home",
+            name: "Home",
+            icon: <HiHome/>
         },
         {
-            path: "/countries",
-            name: "Countries",
-            icon: <FaCity/>
+            path: "/client/account",
+            name: "Account",
+            icon: <MdAccountBalance/>
         },
         {
-            path: "/currencies",
-            name: "Currencies",
-            icon: <GrCurrency/>
+            path: "/client/history",
+            name: "History",
+            icon: <FaHistory/>
         },
         {
-            path: "/payment-methods",
+            path: "/client/payment-methods",
             name: "Payment methods",
             icon: <FaExchangeAlt/>
         },
@@ -36,7 +35,7 @@ const Sidebar = ({children}) => {
             <div className="container-sidebar">
                 <div className="sidebar" style={{width: isOpen ? "300px" : "50px"}}>
                     <div className="top_section">
-                        <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Admin</h1>
+                        <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Client</h1>
                         <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
                             <FaBars onClick={() => setIsOpen(!isOpen)}/>
                         </div>

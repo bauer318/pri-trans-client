@@ -12,6 +12,10 @@ import CountryItem from "./pages/CountryItem";
 import CountryItemEdit from "./pages/CountryItemEdit";
 import CurrencyAdd from "./pages/CurrencyAdd";
 import PaymentMethodAdd from "./pages/PaymentMethodAdd";
+import ClientHome from "./pages/ClientHome";
+import ClientAccount from "./pages/ClientAccount";
+import ClientHistory from "./pages/ClientHistory";
+import ClientPaymentMethods from "./pages/ClientPaymentMethods";
 
 
 const App = () => {
@@ -30,6 +34,10 @@ const App = () => {
                         <Route path={"/countries/:id/add-payment-method"} element={<PaymentMethodAdd/>}/>
                         <Route path="/currencies" element={<CurrencyList/>}/>
                         <Route path="/payment-methods" element={<PaymentMethodList/>}/>
+                        <Route path={"/client/home"} element={<ClientHome/>} />
+                        <Route path={"/client/account"} element={<ClientAccount/>} />
+                        <Route path={"/client/history"} element={<ClientHistory/>} />
+                        <Route path={"/client/payment-methods"} element={<ClientPaymentMethods/>} />
                     </Routes>
                 </Sidebar>
             </BrowserRouter>
