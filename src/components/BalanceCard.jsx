@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 const BalanceCard = () => {
     return (
         <div className={"col"}>
-            <NavLink style={{textDecoration: 'none'}} to={"/client/home"}>
+            <NavLink style={{textDecoration: 'none'}} to={"/client/account/1"}>
                 <div className={"card mb-3 card-element"}>
                     <div className={"card-header"}>
                         <h3>Balance $</h3>

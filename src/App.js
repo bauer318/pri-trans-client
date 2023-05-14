@@ -16,6 +16,7 @@ import ClientHome from "./pages/ClientHome";
 import ClientAccount from "./pages/ClientAccount";
 import ClientHistory from "./pages/ClientHistory";
 import ClientPaymentMethods from "./pages/ClientPaymentMethods";
+import BalanceItem from "./components/BalanceItem";
 
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
                         <Route path="/payment-methods" element={<PaymentMethodList/>}/>
                         <Route path={"/client/home"} element={<ClientHome/>} />
                         <Route path={"/client/account"} element={<ClientAccount/>} />
+                        <Route path={"/client/account/1"} element={<BalanceItem/>} />
                         <Route path={"/client/history"} element={<ClientHistory/>} />
                         <Route path={"/client/payment-methods"} element={<ClientPaymentMethods/>} />
                     </Routes>

@@ -12,6 +12,7 @@ main {
     width: 100%;
     padding: 20px;
 }
+
 .sidebar {
     color: #fff;
     width: 250px;
@@ -36,6 +37,7 @@ main {
     margin-left: 50px;
     font-size: 25px;
 }
+
 .link {
     color: #fff;
     display: flex;
@@ -54,7 +56,8 @@ main {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
 }
-.link:hover::after{
+
+.link:hover::after {
     content: "";
     position: absolute;
     background-color: transparent;
@@ -65,7 +68,8 @@ main {
     border-bottom-right-radius: 18px;
     box-shadow: 0 20px 0 0 #fff;
 }
-.link:hover::before{
+
+.link:hover::before {
     content: "";
     position: absolute;
     background-color: transparent;
@@ -80,10 +84,12 @@ main {
 .icon, .link_text {
     font-size: 20px;
 }
-.country-card{
+
+.country-card {
     max-height: 200px;
     min-height: 200px;
 }
+
 .loading {
     display: flex;
     justify-content: center;
@@ -105,6 +111,30 @@ main {
         transform: rotate(360deg);
     }
 }
-balance-link{
-    background: red;
+
+.center1 {
+    background: gray;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
+
+.center {
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.center span {
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 50px;
+    width: 50px;
+}
+
+
+
