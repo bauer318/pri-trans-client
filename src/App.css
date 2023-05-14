@@ -105,3 +105,6 @@ main {
         transform: rotate(360deg);
     }
 }
+balance-link{
+    background: red;
+}

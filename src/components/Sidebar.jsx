@@ -4,7 +4,7 @@ import {
 } from 'react-icons/fa';
 import {NavLink} from "react-router-dom";
 import {HiHome} from "react-icons/hi";
-import {MdAccountBalance} from "react-icons/md";
+import {MdOutlineAccountBalanceWallet} from "react-icons/md";
 
 
 const Sidebar = ({children}) => {
@@ -18,7 +18,7 @@ const Sidebar = ({children}) => {
         {
             path: "/client/account",
             name: "Account",
-            icon: <MdAccountBalance/>
+            icon: <MdOutlineAccountBalanceWallet/>
         },
         {
             path: "/client/history",
