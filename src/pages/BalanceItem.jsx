@@ -1,9 +1,9 @@
 import React from 'react';
-import LogoutBtn from "./LogoutBtn";
+import LogoutBtn from "../components/LogoutBtn";
 import {BiArrowBack} from "react-icons/bi";
 import {useNavigate} from "react-router-dom";
 import {AiOutlineArrowDown, AiOutlineArrowUp, AiOutlinePlus} from "react-icons/ai";
-import CircleBtn from "./CircleBtn";
+import CircleBtn from "../components/CircleBtn";
 import {TbArrowsExchange2} from "react-icons/tb";
 import {FiSend} from "react-icons/fi";
 
@@ -27,7 +27,7 @@ const BalanceItem = () => {
                     <h4>USD Balance</h4>
                     <h1>82.82 USD</h1>
                 </div>
-                <CircleBtn onClick={() => navigate("/client/account")} icon={<AiOutlinePlus size={28}/>}
+                <CircleBtn onClick={() => navigate("/client/account/1/deposit/new")} icon={<AiOutlinePlus size={28}/>}
                            content={"Deposit"}/>
                 <CircleBtn onClick={() => navigate("/client/account")} icon={<TbArrowsExchange2 size={28}/>}
                            content={"Convert"}/>

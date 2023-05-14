@@ -16,7 +16,9 @@ import ClientHome from "./pages/ClientHome";
 import ClientAccount from "./pages/ClientAccount";
 import ClientHistory from "./pages/ClientHistory";
 import ClientPaymentMethods from "./pages/ClientPaymentMethods";
-import BalanceItem from "./components/BalanceItem";
+import BalanceItem from "./pages/BalanceItem";
+import Deposit from "./pages/Deposit";
+import DepositConfirm from "./pages/DepositConfirm";
 
 
 const App = () => {
@@ -38,6 +40,8 @@ const App = () => {
                         <Route path={"/client/home"} element={<ClientHome/>} />
                         <Route path={"/client/account"} element={<ClientAccount/>} />
                         <Route path={"/client/account/1"} element={<BalanceItem/>} />
+                        <Route path={"/client/account/1/deposit/new"} element={<Deposit/>} />
+                        <Route path={"/client/account/1/deposit/confirm"} element={<DepositConfirm/>}/>
                         <Route path={"/client/history"} element={<ClientHistory/>} />
                         <Route path={"/client/payment-methods"} element={<ClientPaymentMethods/>} />
                     </Routes>
