@@ -13,7 +13,6 @@ const NewDeposit = () => {
     return (
         <div className={"row mt-2"}>
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
-
                 <Form onSubmit={handleSubmit}>
                     <h3>How much do you want to add?</h3>
                     <p className={"text-secondary"}>Your balance right now is 277.89 EUR</p>

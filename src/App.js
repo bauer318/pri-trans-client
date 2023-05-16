@@ -19,6 +19,7 @@ import ClientPaymentMethods from "./pages/ClientPaymentMethods";
 import BalanceItem from "./pages/BalanceItem";
 import Deposit from "./pages/Deposit";
 import DepositConfirm from "./pages/DepositConfirm";
+import Convert from "./pages/Convert";
 
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
                         <Route path={"/client/home"} element={<ClientHome/>} />
                         <Route path={"/client/account"} element={<ClientAccount/>} />
                         <Route path={"/client/account/1"} element={<BalanceItem/>} />
+                        <Route path={"/client/account/1/convert"} element={<Convert/>}/>
                         <Route path={"/client/account/1/deposit/new"} element={<Deposit/>} />
                         <Route path={"/client/account/1/deposit/confirm"} element={<DepositConfirm/>}/>
                         <Route path={"/client/history"} element={<ClientHistory/>} />

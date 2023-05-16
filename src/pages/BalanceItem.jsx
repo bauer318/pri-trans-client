@@ -29,7 +29,7 @@ const BalanceItem = () => {
                 </div>
                 <CircleBtn onClick={() => navigate("/client/account/1/deposit/new")} icon={<AiOutlinePlus size={28}/>}
                            content={"Deposit"}/>
-                <CircleBtn onClick={() => navigate("/client/account")} icon={<TbArrowsExchange2 size={28}/>}
+                <CircleBtn onClick={() => navigate("/client/account/1/convert")} icon={<TbArrowsExchange2 size={28}/>}
                            content={"Convert"}/>
                 <CircleBtn onClick={() => navigate("/client/account")} icon={<AiOutlineArrowUp size={28}/>}
                            content={"Send"}/>

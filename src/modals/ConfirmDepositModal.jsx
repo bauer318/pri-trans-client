@@ -1,9 +1,12 @@
 import React from 'react';
 import {Form, Modal} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 const ConfirmDepositModal = ({showConfirmModal, handleConfirmModal}) => {
+    const navigate = useNavigate();
     const handleSubmit = (event)=>{
         event.preventDefault();
+
     }
     return (
         <Modal show={showConfirmModal} onHide={handleConfirmModal}>
@@ -36,6 +39,15 @@ const ConfirmDepositModal = ({showConfirmModal, handleConfirmModal}) => {
                             type={"text"}
                             defaultValue={"9458-854"}
                             readOnly={true}
+                        />
+                    </Form.Group>
+
+                    <Form.Group controlId={"refNumber"}>
+                        <Form.Label>Reference's number</Form.Label>
+                        <Form.Control
+                            type={"text"}
+                            placeholder={"reference"}
+                            required={true}
                         />
                     </Form.Group>
                     <div className={"mt-2"}>
