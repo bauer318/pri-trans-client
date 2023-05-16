@@ -4,6 +4,7 @@ import countryReducers from "./reducers/countryReducers";
 import currencyReducers from "./reducers/currencyReducers";
 import paymentMethodReducers from "./reducers/paymentMethodReducers";
 import exchangeRateReducer from "./reducers/ExchangeRateReducer";
+import sendDetails from "./reducers/sendReducers";
 
 const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
         countries:countryReducers,
         currencies:currencyReducers,
         paymentMethods:paymentMethodReducers,
-        rates:exchangeRateReducer
+        rates:exchangeRateReducer,
+        send:sendDetails
     }
 });
 

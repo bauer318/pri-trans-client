@@ -20,6 +20,9 @@ import BalanceItem from "./pages/BalanceItem";
 import Deposit from "./pages/Deposit";
 import DepositConfirm from "./pages/DepositConfirm";
 import Convert from "./pages/Convert";
+import Send from "./pages/Send";
+import Withdraw from "./pages/Withdraw";
+import SendTo from "./pages/SendTo";
 
 
 const App = () => {
@@ -42,6 +45,9 @@ const App = () => {
                         <Route path={"/client/account"} element={<ClientAccount/>} />
                         <Route path={"/client/account/1"} element={<BalanceItem/>} />
                         <Route path={"/client/account/1/convert"} element={<Convert/>}/>
+                        <Route path={"/client/account/1/send"} element={<Send/>}/>
+                        <Route path={"/client/account/1/send/to"} element={<SendTo/>}/>
+                        <Route path={"/client/account/1/withdraw"} element={<Withdraw/>}/>
                         <Route path={"/client/account/1/deposit/new"} element={<Deposit/>} />
                         <Route path={"/client/account/1/deposit/confirm"} element={<DepositConfirm/>}/>
                         <Route path={"/client/history"} element={<ClientHistory/>} />

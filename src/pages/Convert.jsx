@@ -8,6 +8,8 @@ import LoadingEffect from "../components/LoadingEffect";
 import LogoutBtn from "../components/LogoutBtn";
 import {TbArrowsExchange2} from "react-icons/tb";
 import ConvertModal from "../modals/ConvertModal";
+import ConvertForm from "../components/ConvertForm";
+import CSWHeader from "../components/CSWHeader";
 
 
 const Convert = () => {
@@ -18,12 +20,21 @@ const Convert = () => {
     const [toAmount, setToAmount] = useState(0.00);
     const [fromAmount, setFromAmount] = useState(100.00);
     const [toStrCurrency, setToStrCurrency] = useState('EUR');
+    const defaultToCurrency = {
+        id:1,
+        currency:"EUR"
+    }
+    const formTitles = {
+        title: "How much do you want to convert?",
+        fromSubTitle: "Convert",
+        availableBalance: 82.52,
+        toSubtitle: "To",
+        icon: <RxCross2 size={28}/>,
+        actionTitle: "Convert",
+        defaultToCurrency:defaultToCurrency
+    }
     const dispatch = useDispatch();
     const currencies = [
-        {
-            id: 1,
-            currency: "EUR"
-        },
         {
             id: 2,
             currency: "RUB"
@@ -32,10 +43,6 @@ const Convert = () => {
     useEffect(() => {
         dispatch(getRate(baseCurrency))
     }, []);
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        handleModal();
-    }
     const rate = useSelector(state => state.rates);
     if (rate.rates) {
         if (rates === 0) {
@@ -46,6 +53,11 @@ const Convert = () => {
             setToAmount(round(rates['EUR'] * fromAmount, 2));
         }
     }
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        handleModal();
+    }
+
 
     const handleFromAmountChange = (event) => {
         const fromA = Number(event.target.value);
@@ -55,13 +67,12 @@ const Convert = () => {
         }
     }
     const handleToCurrencyChange = (event) => {
-        const toCurrency = Number(event.target.value);
-        const toCurrencyStr = currencies.find(currency => currency.id === toCurrency).currency;
-        setToStrCurrency(toCurrencyStr);
+        const toCurrency = event.target.value;
+        setToStrCurrency(toCurrency);
         if (rates !== 0) {
-            setLiveRate(rates[`${toCurrencyStr}`]);
+            setLiveRate(rates[`${toCurrency}`]);
         }
-        setToAmount(round(rates[`${toCurrencyStr}`] * fromAmount, 2));
+        setToAmount(round(rates[`${toCurrency}`] * fromAmount, 2));
     }
 
     const handleModal = () => {
@@ -69,92 +80,13 @@ const Convert = () => {
     }
     return (
         <div className={"container"}>
-            <div className={"row"}>
-                <div className={"col-lg-6 d-flex justify-content-start"}>
-                    <h3>Convert devise</h3>
-                </div>
-                <div className={"col-lg-6 d-flex justify-content-end"}>
-                    <LogoutBtn/>
-                </div>
-            </div>
+            <CSWHeader title={"Convert devise"}/>
             {
                 liveRate ? (
-                    <div className={"row mt-2"}>
-                        <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
-                            <Form onSubmit={handleSubmit}>
-                                <h3>How much do you want to convert?</h3>
-                                <div className={"border border-secondary"}>
-                                    <div className={"text-primary ps-3"}>
-                                        Convert
-                                    </div>
-                                    <div className={"d-flex mb-2"}>
-                                        <Form.Group controlId={"fromConvert"}>
-                                            <Form.Control
-                                                type={"text"}
-                                                className={"text-secondary border-0 me-5"}
-                                                pattern={"[0-9]+"}
-                                                placeholder={fromAmount.toString()}
-                                                required={true}
-                                                onChange={handleFromAmountChange}
-                                            />
-                                        </Form.Group>
-                                        <div className={"vr"}></div>
-                                        <div className={"ms-5"}>USD</div>
-                                    </div>
-                                    <div className={"text-secondary mt-2 ps-3"}>
-                                        You have 82.23 usd available in your balance
-                                    </div>
-                                </div>
-                                <div className={"vr h-25 ms-4"}>
-                                </div>
-                                <div className={"text-secondary ms-4 d-flex"}>
-                                    <div className={"my-auto"}>
-                                        <span className={"product-convert bg-primary mt-1"}><span><i><RxCross2
-                                            size={28}/></i></span></span>
-                                    </div>
-                                    <div className={"mt-1"}>
-                                        <span className={"ms-2"}>{liveRate}</span> <span className={"text-primary"}>Live rate</span>
-                                    </div>
-                                </div>
-                                <div className={"vr h-25 ms-5"}>
-                                </div>
-                                <div className={"border border-secondary"}>
-                                    <div className={"text-primary ps-3"}>
-                                        To
-                                    </div>
-                                    <div className={"d-flex mb-2"}>
-                                        <Form.Group controlId={"toConvert"}>
-                                            <Form.Control
-                                                type={"text"}
-                                                className={"text-secondary border-0 me-5"}
-                                                value={toAmount}
-                                                readOnly={true}
-                                            />
-                                        </Form.Group>
-                                        <div className={"vr"}></div>
-                                        <div className={"ms-5"}>
-                                            <Form.Group>
-                                                <Form.Control
-                                                    as="select"
-                                                    name="toCurrency"
-                                                    required={true}
-                                                    onChange={handleToCurrencyChange}
-                                                >
-                                                    <option value={1}>EUR</option>
-                                                    <option value={2}>RUB</option>
-                                                </Form.Control>
-                                            </Form.Group>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className={"mt-2"}>
-                                    <button className={"btn btn-primary"} type={"submit"}>Convert<span
-                                        className={"ms-2"}><i><TbArrowsExchange2 size={28}/></i></span>
-                                    </button>
-                                </div>
-                            </Form>
-                        </div>
-                    </div>
+                    <ConvertForm formTitles={formTitles} toAmount={toAmount} fromAmount={fromAmount} liveRate={liveRate}
+                                 currencies={currencies}
+                                 handleSubmit={handleSubmit} handleFromAmountChange={handleFromAmountChange}
+                                 handleToCurrencyChange={handleToCurrencyChange}/>
                 ) : (<LoadingEffect/>)
             }
             <ConvertModal showModal={showModal} handleModal={handleModal} fromAmount={`${fromAmount} ${baseCurrency}`}

@@ -24,21 +24,22 @@ const BalanceItem = () => {
             </div>
             <div className={"row mt-5"}>
                 <div className={"col-lg-4"}>
-                    <h4>USD Balance</h4>
+                    <h4>USD main balance</h4>
                     <h1>82.82 USD</h1>
                 </div>
                 <CircleBtn onClick={() => navigate("/client/account/1/deposit/new")} icon={<AiOutlinePlus size={28}/>}
                            content={"Deposit"}/>
                 <CircleBtn onClick={() => navigate("/client/account/1/convert")} icon={<TbArrowsExchange2 size={28}/>}
                            content={"Convert"}/>
-                <CircleBtn onClick={() => navigate("/client/account")} icon={<AiOutlineArrowUp size={28}/>}
+                <CircleBtn onClick={() => navigate("/client/account/1/send")} icon={<AiOutlineArrowUp size={28}/>}
                            content={"Send"}/>
-                <CircleBtn onClick={() => navigate("/client/account")} icon={<AiOutlineArrowDown size={28}/>}
+                <CircleBtn onClick={() => navigate("/client/account/1/withdraw")} icon={<AiOutlineArrowDown size={28}/>}
                            content={"Withdraw"}/>
             </div>
             <hr/>
-            <div>
-                ...
+            <div className={"col-lg-4"}>
+                <h4>USD funding balance</h4>
+                <h1>0.00 USD</h1>
             </div>
         </div>
     );
