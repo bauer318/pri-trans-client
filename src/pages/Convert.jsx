@@ -1,15 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Form} from "react-bootstrap";
-import {RxCross2} from "react-icons/rx";
 import {useDispatch, useSelector} from "react-redux";
 import {getRate} from "../reducers/ExchangeRateReducer";
-import {round} from "lodash";
 import LoadingEffect from "../components/LoadingEffect";
-import LogoutBtn from "../components/LogoutBtn";
 import {TbArrowsExchange2} from "react-icons/tb";
 import ConvertModal from "../modals/ConvertModal";
 import ConvertForm from "../components/ConvertForm";
 import CSWHeader from "../components/CSWHeader";
+import {round} from "lodash";
 
 
 const Convert = () => {
@@ -29,7 +26,7 @@ const Convert = () => {
         fromSubTitle: "Convert",
         availableBalance: 82.52,
         toSubtitle: "To",
-        icon: <RxCross2 size={28}/>,
+        icon: <TbArrowsExchange2 size={28}/>,
         actionTitle: "Convert",
         defaultToCurrency:defaultToCurrency
     }

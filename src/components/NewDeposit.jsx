@@ -1,60 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
 import {AiOutlineArrowRight} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
+import DWForm from "./DWForm";
 
 const NewDeposit = () => {
     const navigate = useNavigate();
+    const [amount, setAmount] = useState(0.00);
+    const [paymentMethod, setPaymentMethod] = useState(0);
+    const [formDetails, setFormDetails] = useState(
+        {
+            title:"How much do you want to add?",
+            availableBalance:23,
+            currency:"USD",
+            pmTitle:"Paying with",
+            subTitle:"Add",
+            actionTitle:"Continue",
+            icon:<AiOutlineArrowRight size={28} />
+        }
+    );
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        navigate('/client/account/1/deposit/confirm')
+        //To server
+        console.log(amount);
+        console.log(paymentMethod);
+        navigate('/client/account/1/deposit/confirm');
+    }
+    const handleAmountChange = event => {
+        const amount = Number(event.target.value);
+        setAmount(amount);
+    }
+    const handlePMChange = event => {
+        const pm = Number(event.target.value);
+        setPaymentMethod(pm);
     }
     return (
-        <div className={"row mt-2"}>
-            <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
-                <Form onSubmit={handleSubmit}>
-                    <h3>How much do you want to add?</h3>
-                    <p className={"text-secondary"}>Your balance right now is 277.89 EUR</p>
-                    <div className={"border border-secondary"}>
-                        <div className={"text-primary ps-3"}>
-                            Add
-                        </div>
-                        <div className={"d-flex mb-2"}>
-                            <Form.Group>
-                                <Form.Control
-                                    type={"text"}
-                                    className={"text-secondary border-0 me-5"}
-                                    pattern={"[0-9]+"}
-                                    placeholder={"100.00"}
-                                    required={true}
-                                />
-                            </Form.Group>
-                            <div className={"vr"}></div>
-                            <div className={"ms-5"}>USD</div>
-                        </div>
-                    </div>
-                    <Form.Group className={"mt-2"}>
-                        <Form.Label className={"text-secondary"}>Paying with</Form.Label>
-                        <Form.Control
-                            as="select"
-                            name={"paymentMethod"}
-                            required={true}
-                        >
-                            <option value={""}>Select payment method</option>
-                            <option>PM1</option>
-                            <option>PM1</option>
-                        </Form.Control>
-                    </Form.Group>
-                    <div className={"mt-2"}>
-                        <button className={"btn btn-primary"} type={"submit"}>Continue<span
-                            className={"ms-2"}><i><AiOutlineArrowRight/></i></span>
-                        </button>
-                    </div>
-                </Form>
-            </div>
-
-        </div>
+        <DWForm handleSubmit={handleSubmit} handlePMChange={handlePMChange} handleAmountChange={handleAmountChange}
+                formDetails={formDetails}/>
     );
 };
 

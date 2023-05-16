@@ -19,7 +19,7 @@ const ConvertForm = ({
                     <h3>{formTitles.title}</h3>
                     <div className={"border border-secondary"}>
                         <div className={"text-primary ps-3"}>
-                            {formTitles.fromSubtitle}
+                            {formTitles.fromSubTitle}
                         </div>
                         <div className={"d-flex mb-2"}>
                             <Form.Group controlId={"fromConvert"}>
