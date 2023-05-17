@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 const CreateAccount = () => {
     const [formData, setFormData] = useState({});
-
+    const navigate = useNavigate();
     const countries = [
         {
             id: 1,
@@ -21,6 +22,7 @@ const CreateAccount = () => {
     const handleSubmit = event => {
         event.preventDefault();
         console.log(formData);
+        navigate('/register/1/personal-info');
     }
     const handleChange = event => {
         const {name, value} = event.target;

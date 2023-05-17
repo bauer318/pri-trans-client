@@ -25,6 +25,7 @@ import Withdraw from "./pages/Withdraw";
 import SendTo from "./pages/SendTo";
 import Home from "./pages/Home";
 import CreateAccount from "./pages/CreateAccount";
+import PersonalInfo from "./pages/PersonalInfo";
 
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
                     <Routes>
                         {<Route path="/" element={<Home/>}/>}
                         {<Route path="/register" element={<CreateAccount/>}/>}
+                        {<Route path="/register/1/personal-info" element={<PersonalInfo/>}/>}
                         <Route path="/users" element={<UserList/>}/>
                         <Route path={"users/:id"} element={<User/>} />
                         <Route path="/countries" element={<CountryList/>}/>
