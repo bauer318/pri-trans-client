@@ -27,27 +27,31 @@ import Home from "./pages/Home";
 import CreateAccount from "./pages/CreateAccount";
 import PersonalInfo from "./pages/PersonalInfo";
 import HomeAddress from "./pages/HomeAddress";
+import AgentBalanceItem from "./pages/AgentBalanceItem";
+import AgentHistory from "./pages/AgentHistory";
+import AgentDeposits from "./pages/AgentDeposits";
+import AgentWithdrawals from "./pages/AgentWithdrawals";
 
 
 const App = () => {
     return (
         <div>
             <BrowserRouter>
-                <Sidebar user={false}>
+                <Sidebar user={true}>
                     <Routes>
-                        <Route path="/" element={<Home/>}/>
-                        <Route path="/register" element={<CreateAccount/>}/>
-                        <Route path="/register/1/personal-info" element={<PersonalInfo/>}/>
+                        <Route path={"/"} element={<Home/>}/>
+                        <Route path={"/register"} element={<CreateAccount/>}/>
+                        <Route path={"/register/1/personal-info"} element={<PersonalInfo/>}/>
                         <Route path={'/register/1/personal-info/address'} element={<HomeAddress/>}/>
-                        <Route path="/users" element={<UserList/>}/>
+                        <Route path={"/users"} element={<UserList/>}/>
                         <Route path={"users/:id"} element={<User/>} />
-                        <Route path="/countries" element={<CountryList/>}/>
+                        <Route path={"/countries"} element={<CountryList/>}/>
                         <Route path={"/countries/:id"} element={<CountryItem/>}/>
                         <Route path={"/countries/:id/edit"} element={<CountryItemEdit/>}/>
                         <Route path={"/countries/:id/add-currency"} element={<CurrencyAdd/>}/>
                         <Route path={"/countries/:id/add-payment-method"} element={<PaymentMethodAdd/>}/>
-                        <Route path="/currencies" element={<CurrencyList/>}/>
-                        <Route path="/payment-methods" element={<PaymentMethodList/>}/>
+                        <Route path={"/currencies"} element={<CurrencyList/>}/>
+                        <Route path={"/payment-methods"} element={<PaymentMethodList/>}/>
                         <Route path={"/client/home"} element={<ClientHome/>} />
                         <Route path={"/client/account"} element={<ClientAccount/>} />
                         <Route path={"/client/account/1"} element={<BalanceItem/>} />
@@ -59,6 +63,13 @@ const App = () => {
                         <Route path={"/client/account/1/deposit/confirm"} element={<DepositConfirm/>}/>
                         <Route path={"/client/history"} element={<ClientHistory/>} />
                         <Route path={"/client/payment-methods"} element={<ClientPaymentMethods/>} />
+                        <Route path={"/agent/account"} element={<ClientAccount/>}/>
+                        <Route path={"/agent/account/1"} element={<AgentBalanceItem/>}/>
+                        <Route path={"/agent/account/1/convert"} element={<Convert/>}/>
+                        <Route path={"/agent/history"} element={<AgentHistory/>}/>
+                        <Route path={"/agent/payment-methods"} element={<ClientPaymentMethods/>} />
+                        <Route path={"/agent/deposits"} element={<AgentDeposits/>}/>
+                        <Route path={"/agent/withdrawals"} element={<AgentWithdrawals/>}/>
                     </Routes>
                 </Sidebar>
             </BrowserRouter>

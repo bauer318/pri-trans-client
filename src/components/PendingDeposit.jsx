@@ -5,11 +5,39 @@ import ConfirmDepositModal from "../modals/ConfirmDepositModal";
 const PendingDeposit = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showCancelModal, setShowCancelModal] = useState(false);
-
-    const handleConfirmModal = () =>{
+    const [selectedPendingDeposit, setSelectedPendingDeposit] = useState(null);
+    const pendingDeposits = [
+        {
+            id: 1,
+            amount: 251.21,
+            paymentMethod: {
+                id: 1,
+                pm: 'Sberbank'
+            },
+            currency: {
+                id: 1,
+                currency: 'usd'
+            },
+            agentNumber: 'ag214-856',
+            status: 'pending',
+            note: ''
+        }
+    ];
+    const handleConfirmDeposit = id => {
+        setSelectedPendingDeposit(findDepositById(id));
+        handleConfirmModal();
+    }
+    const handleCancelDeposit = id => {
+        setSelectedPendingDeposit(findDepositById(id));
+        handleCancelModal();
+    }
+    const findDepositById = id => {
+        return pendingDeposits?.find(p => p.id === id);
+    }
+    const handleConfirmModal = () => {
         setShowConfirmModal(!showConfirmModal);
     }
-    const handleCancelModal = () =>{
+    const handleCancelModal = () => {
         setShowCancelModal(!showCancelModal);
     }
     return (<div>
@@ -29,16 +57,21 @@ const PendingDeposit = () => {
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td className={"text-center"}>Sberbank</td>
-                <td className={"text-center"}>82.52</td>
-                <td className={"text-center"}>USD Dollar</td>
-                <td className={"text-center"}>9847-895</td>
-                <td className={"text-center"}>Pending</td>
-                <td className={"text-center"}></td>
-                <td className={"text-center"} onClick={()=>handleConfirmModal()}>Confirm</td>
-                <td className={"text-center"} onClick={()=>handleCancelModal()}>Cancel</td>
-            </tr>
+            {
+                pendingDeposits?.map(pendingDeposit =>
+                    <tr key={pendingDeposit?.id}>
+                        <td className={"text-center"}>{pendingDeposit?.paymentMethod.pm}</td>
+                        <td className={"text-center"}>{pendingDeposit?.amount}</td>
+                        <td className={"text-center"}>{pendingDeposit?.currency.currency}</td>
+                        <td className={"text-center"}>{pendingDeposit?.agentNumber}</td>
+                        <td className={"text-center"}>{pendingDeposit?.status}</td>
+                        <td className={"text-center"}></td>
+                        <td className={"text-center"} onClick={() => handleConfirmDeposit(pendingDeposit?.id)}>Confirm
+                        </td>
+                        <td className={"text-center"} onClick={() => handleCancelDeposit(pendingDeposit?.id)}>Cancel
+                        </td>
+                    </tr>)
+            }
             </tbody>
         </table>
         <div className={"text-secondary"}>
@@ -47,8 +80,17 @@ const PendingDeposit = () => {
             <p>After that, confirm the deposit putting the reference's number.</p>
             <p><i>The reference's number is the transaction's unique id.</i></p>
         </div>
-        <CancelDepositModal handleCancelModal={handleCancelModal} showCancelModal={showCancelModal}/>
-        <ConfirmDepositModal handleConfirmModal={handleConfirmModal} showConfirmModal={showConfirmModal}/>
+        {
+            showCancelModal &&
+            <CancelDepositModal handleCancelModal={handleCancelModal} showCancelModal={showCancelModal}
+                                depositDetails={selectedPendingDeposit}/>
+        }
+        {
+            showConfirmModal &&
+            <ConfirmDepositModal handleConfirmModal={handleConfirmModal} showConfirmModal={showConfirmModal}
+                                 depositDetails={selectedPendingDeposit}/>
+        }
+
     </div>);
 };
 

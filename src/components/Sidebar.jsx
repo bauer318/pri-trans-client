@@ -5,28 +5,35 @@ import {
 import {NavLink} from "react-router-dom";
 import {HiHome} from "react-icons/hi";
 import {MdOutlineAccountBalanceWallet} from "react-icons/md";
+import {RiLuggageDepositLine} from "react-icons/ri";
+import {BiMoneyWithdraw} from "react-icons/bi";
 
 
 const Sidebar = ({children, user}) => {
     const [isOpen, setIsOpen] = useState(true);
     const menuItem = [
         {
-            path: "/client/home",
-            name: "Home",
-            icon: <HiHome/>
-        },
-        {
-            path: "/client/account",
+            path: "/agent/account",
             name: "Account",
             icon: <MdOutlineAccountBalanceWallet/>
         },
         {
-            path: "/client/history",
+            path: "/agent/deposits",
+            name: "Deposits",
+            icon: <RiLuggageDepositLine/>
+        },
+        {
+            path: "/agent/withdrawals",
+            name: "Withdrawals",
+            icon: <BiMoneyWithdraw/>
+        },
+        {
+            path: "/agent/history",
             name: "History",
             icon: <FaHistory/>
         },
         {
-            path: "/client/payment-methods",
+            path: "/agent/payment-methods",
             name: "Payment methods",
             icon: <FaExchangeAlt/>
         },

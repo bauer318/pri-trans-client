@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, Modal} from "react-bootstrap";
 
-const CancelDepositModal = ({showCancelModal, handleCancelModal}) => {
+const CancelDepositModal = ({depositDetails,showCancelModal, handleCancelModal}) => {
     const handleSubmit = (event)=>{
         event.preventDefault();
 
@@ -17,7 +17,7 @@ const CancelDepositModal = ({showCancelModal, handleCancelModal}) => {
                         <Form.Label>Deposit's amount</Form.Label>
                         <Form.Control
                             type={"text"}
-                            defaultValue={"100.25"}
+                            value={depositDetails?.amount}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -26,7 +26,7 @@ const CancelDepositModal = ({showCancelModal, handleCancelModal}) => {
                         <Form.Label>Payment method</Form.Label>
                         <Form.Control
                             type={"text"}
-                            defaultValue={"Sberbank"}
+                            value={depositDetails?.paymentMethod.pm}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -35,7 +35,7 @@ const CancelDepositModal = ({showCancelModal, handleCancelModal}) => {
                         <Form.Label>Agent's number</Form.Label>
                         <Form.Control
                             type={"text"}
-                            defaultValue={"9458-854"}
+                            value={depositDetails?.agentNumber}
                             readOnly={true}
                         />
                     </Form.Group>

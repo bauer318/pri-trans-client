@@ -18,8 +18,8 @@ const Convert = () => {
     const [fromAmount, setFromAmount] = useState(100.00);
     const [toStrCurrency, setToStrCurrency] = useState('EUR');
     const defaultToCurrency = {
-        id:1,
-        currency:"EUR"
+        id: 1,
+        currency: "EUR"
     }
     const formTitles = {
         title: "How much do you want to convert?",
@@ -28,7 +28,7 @@ const Convert = () => {
         toSubtitle: "To",
         icon: <TbArrowsExchange2 size={28}/>,
         actionTitle: "Convert",
-        defaultToCurrency:defaultToCurrency
+        defaultToCurrency: defaultToCurrency
     }
     const dispatch = useDispatch();
     const currencies = [
@@ -86,8 +86,12 @@ const Convert = () => {
                                  handleToCurrencyChange={handleToCurrencyChange}/>
                 ) : (<LoadingEffect/>)
             }
-            <ConvertModal showModal={showModal} handleModal={handleModal} fromAmount={`${fromAmount} ${baseCurrency}`}
-                          toAmount={`${toAmount} ${toStrCurrency}`} liveRate={liveRate}/>
+            {
+                showModal &&
+                <ConvertModal showModal={showModal} handleModal={handleModal}
+                              fromAmount={`${fromAmount} ${baseCurrency}`}
+                              toAmount={`${toAmount} ${toStrCurrency}`} liveRate={liveRate}/>
+            }
         </div>
     );
 };
