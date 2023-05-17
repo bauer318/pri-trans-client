@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {Form} from "react-bootstrap";
 import {AiOutlineArrowRight} from "react-icons/ai";
 
 const PersonalInfo = () => {
-    const [formData, setFormData] = useState({});
+    const {state} = useLocation();
+    const storedInfo = state?.infos;
+    const [formData, setFormData] = useState(state?.infos);
     const navigate = useNavigate();
     const wordCountries = [
         {
@@ -27,7 +29,7 @@ const PersonalInfo = () => {
     const handleSubmit = event => {
         event.preventDefault();
         console.log(formData);
-        navigate('/register/1/personal-info/address');
+        navigate('/register/1/personal-info/address',{state:{infos : formData}});
     }
     const handleChange = event => {
         const {name, value} = event.target;
@@ -50,6 +52,7 @@ const PersonalInfo = () => {
                         <Form.Label>Nationality</Form.Label>
                         <Form.Control as="select"
                                       name="country"
+                                      defaultValue={storedInfo?.country}
                                       required={true}
                                       onChange={handleCountryChange}
                         >
@@ -65,6 +68,7 @@ const PersonalInfo = () => {
                         <Form.Control
                             type="text"
                             placeholder="first name"
+                            defaultValue={storedInfo?.firstname}
                             name="firstname"
                             required={true}
                             onChange={handleChange}
@@ -77,6 +81,7 @@ const PersonalInfo = () => {
                             type="text"
                             placeholder="first name"
                             name="lastname"
+                            defaultValue={storedInfo?.lastname}
                             required={true}
                             onChange={handleChange}
                         />
@@ -86,7 +91,8 @@ const PersonalInfo = () => {
                         <Form.Label>Middle names</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="first name"
+                            placeholder="middle name"
+                            defaultValue={storedInfo?.middleName}
                             name="middleName"
                             onChange={handleChange}
                         />
@@ -98,6 +104,7 @@ const PersonalInfo = () => {
                             type={"date"}
                             placeholder="first name"
                             name="birthDate"
+                            defaultValue={storedInfo?.birthDate}
                             required={true}
                             onChange={handleChange}
                         />

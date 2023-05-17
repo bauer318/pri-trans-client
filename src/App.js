@@ -26,6 +26,7 @@ import SendTo from "./pages/SendTo";
 import Home from "./pages/Home";
 import CreateAccount from "./pages/CreateAccount";
 import PersonalInfo from "./pages/PersonalInfo";
+import HomeAddress from "./pages/HomeAddress";
 
 
 const App = () => {
@@ -34,9 +35,10 @@ const App = () => {
             <BrowserRouter>
                 <Sidebar user={false}>
                     <Routes>
-                        {<Route path="/" element={<Home/>}/>}
-                        {<Route path="/register" element={<CreateAccount/>}/>}
-                        {<Route path="/register/1/personal-info" element={<PersonalInfo/>}/>}
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/register" element={<CreateAccount/>}/>
+                        <Route path="/register/1/personal-info" element={<PersonalInfo/>}/>
+                        <Route path={'/register/1/personal-info/address'} element={<HomeAddress/>}/>
                         <Route path="/users" element={<UserList/>}/>
                         <Route path={"users/:id"} element={<User/>} />
                         <Route path="/countries" element={<CountryList/>}/>
