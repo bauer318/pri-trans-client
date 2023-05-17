@@ -23,15 +23,18 @@ import Convert from "./pages/Convert";
 import Send from "./pages/Send";
 import Withdraw from "./pages/Withdraw";
 import SendTo from "./pages/SendTo";
+import Home from "./pages/Home";
+import CreateAccount from "./pages/CreateAccount";
 
 
 const App = () => {
     return (
         <div>
             <BrowserRouter>
-                <Sidebar>
+                <Sidebar user={false}>
                     <Routes>
-                        {/*<Route path="/" element={<UserList/>}/>*/}
+                        {<Route path="/" element={<Home/>}/>}
+                        {<Route path="/register" element={<CreateAccount/>}/>}
                         <Route path="/users" element={<UserList/>}/>
                         <Route path={"users/:id"} element={<User/>} />
                         <Route path="/countries" element={<CountryList/>}/>

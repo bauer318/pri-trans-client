@@ -7,7 +7,7 @@ import {HiHome} from "react-icons/hi";
 import {MdOutlineAccountBalanceWallet} from "react-icons/md";
 
 
-const Sidebar = ({children}) => {
+const Sidebar = ({children, user}) => {
     const [isOpen, setIsOpen] = useState(true);
     const menuItem = [
         {
@@ -40,13 +40,15 @@ const Sidebar = ({children}) => {
                             <FaBars onClick={() => setIsOpen(!isOpen)}/>
                         </div>
                     </div>
-                    {
+                    { user? (
                         menuItem.map((item, index) => (
                             <NavLink to={item.path} key={index} className="link" activeclassname="active">
                                 <div className="icon">{item.icon}</div>
                                 <div className="link_text" style={{display: isOpen ? "" : "none"}}>{item.name}</div>
                             </NavLink>
-                        ))
+                        ))):(
+                        <div></div>
+                    )
                     }
                 </div>
                 <main>{children}</main>
