@@ -4,6 +4,7 @@ import {FaCity} from "react-icons/fa";
 import {TfiWallet} from "react-icons/tfi";
 
 const AddBalanceModal = ({showModal, handleModal}) => {
+    console.log('Add balance modal');
     const balances = [
         {
             "id":1,

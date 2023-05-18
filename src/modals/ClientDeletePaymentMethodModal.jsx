@@ -4,6 +4,7 @@ import {FaEdit} from "react-icons/fa";
 import {AiOutlineDelete} from "react-icons/ai";
 
 const ClientDeletePaymentMethodModal = ({paymentMethod, showModal, handleModal}) => {
+    console.log('C delete pm modal');
     const handleSubmit = event => {
         event.preventDefault();
         console.log(paymentMethod);

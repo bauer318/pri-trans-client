@@ -48,7 +48,8 @@ const UsersHeader = () => {
                     <LogoutBtn/>
                 </div>
             </div>
-            <AddUserModal handleModal={handleModal} showModal={showModal}/>
+            {showModal &&
+                <AddUserModal handleModal={handleModal} showModal={showModal}/>}
         </div>
     );
 };

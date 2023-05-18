@@ -5,7 +5,7 @@ import AddPaymentMethodModal from "../modals/AddPaymentMethodModal";
 
 const PaymentMethodHeader = () => {
     const [showModal, setShowModal] = useState(false);
-    const handleModal = ()=>{
+    const handleModal = () => {
         setShowModal(!showModal);
     }
     return (
@@ -30,7 +30,8 @@ const PaymentMethodHeader = () => {
                     <LogoutBtn/>
                 </div>
             </div>
-            <AddPaymentMethodModal handleModal={handleModal} showModal={showModal}/>
+            {showModal &&
+                <AddPaymentMethodModal handleModal={handleModal} showModal={showModal}/>}
         </div>
     );
 };

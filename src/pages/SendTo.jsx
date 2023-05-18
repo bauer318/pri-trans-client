@@ -7,6 +7,7 @@ import SendModal from "../modals/SendModal";
 import {useNavigate} from "react-router-dom";
 
 const SendTo = () => {
+    console.log('Send to');
     const [showModal, setShowModal] = useState(false);
     const [recipientEmail, setRecipientEmail] = useState();
     const sendDetails = useSelector(state => state.send);

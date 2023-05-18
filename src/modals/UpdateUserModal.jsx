@@ -1,21 +1,25 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
 import {useDispatch, useSelector} from "react-redux";
 import LoadingEffect from "../components/LoadingEffect";
 import {deleteUser, updateUser} from "../reducers/userReducers";
 import {useNavigate} from "react-router-dom";
+import {initializeCountries} from "../reducers/countryReducers";
 
-const UpdateUser = ({showModal, handleModal, userId, isDelete}) => {
+const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
+    console.log(' update user modal ');
     const navigate = useNavigate();
     const [formData, setFormData] = useState({});
     const user = useSelector(state => state.users.find(user => user.id === userId));
     const [updateEmail, setUpdatedEmail] = useState(user?.email);
     const [updatedRole, setUpdatedRole] = useState(user?.role);
     const [updatedCountry, setUpdatedCountry] = useState(user?.country);
-    console.log(updatedCountry);
 
     const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(initializeCountries());
+    }, []);
     const countries = useSelector(state => state.countries);
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -78,23 +82,33 @@ const UpdateUser = ({showModal, handleModal, userId, isDelete}) => {
                             <option value={1}>Administrator</option>
                         </Form.Control>
                     </Form.Group>
-                    <Form.Group controlId="formBasicCountry">
-                        <Form.Label>Country</Form.Label>
-                        <Form.Control
-                            as="select"
-                            name="country"
-                            required={true}
-                            onChange={handleCountryChange}
-                        >
-                            <option value={""}>Select user's country</option>
-                            {
-                                countries?.map(country=>
-                                    <option value={country.id} key={country.id}>{country.country}</option>
+                    {
+                        isDelete ? (<Form.Group controlId="formBasicCountry">
+                            <Form.Label>Country</Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="country"
+                            >
+                                <option value={Number(updatedCountry)}>{countries?.find(c=>c.id===Number(updatedCountry))?.country}</option>
+                            </Form.Control>
+                        </Form.Group>) : (<Form.Group controlId="formBasicCountry">
+                            <Form.Label>Country</Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="country"
+                                required={true}
+                                onChange={handleCountryChange}
+                            >
+                                <option value={Number(updatedCountry)}>{countries?.find(c=>c.id===Number(updatedCountry))?.country}</option>
+                                {
+                                    countries?.map(country =>
+                                        <option value={country.id} key={country.id}>{country.country}</option>
+                                    )
+                               }
+                            </Form.Control>
+                        </Form.Group>)
+                    }
 
-                                )
-                            }
-                        </Form.Control>
-                    </Form.Group>
 
                     <div className={"mt-2"}>
                         <button className={isDelete ? "btn btn-danger" : "btn btn-primary"} type={"submit"}>
@@ -110,4 +124,4 @@ const UpdateUser = ({showModal, handleModal, userId, isDelete}) => {
     );
 };
 
-export default UpdateUser;
+export default UpdateUserModal;

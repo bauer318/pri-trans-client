@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {FaEdit} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
-import UpdateCurrency from "../modals/UpdateCurrency";
+import UpdateCurrencyModal from "../modals/UpdateCurrencyModal";
 import {useSelector} from "react-redux";
 import LoadingEffect from "./LoadingEffect";
 
@@ -57,8 +57,8 @@ const CurrencyTable = () => {
                     </tbody>
                 </table>
                 {selectedCurrency &&
-                    <UpdateCurrency showModal={showModal} handleModal={handleModal} selectedCurrency={selectedCurrency}
-                                    isDelete={isDelete}/>}
+                    <UpdateCurrencyModal showModal={showModal} handleModal={handleModal} selectedCurrency={selectedCurrency}
+                                         isDelete={isDelete}/>}
             </div>) : (<LoadingEffect/>)}
         </>
     );

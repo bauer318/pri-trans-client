@@ -7,6 +7,7 @@ import {initializeCurrencies} from "../reducers/currencyReducers";
 import {initializePaymentMethods} from "../reducers/paymentMethodReducers";
 
 const AddCountryModal = ({showModal, handleModal}) => {
+    console.log('Add country modal');
     const [country, setCountry] = useState();
     const [mainCountryCurrency, setMainCountryCurrency] = useState([]);
     const [mainCountryPaymentMethod, setMainCountryPaymentMethod] = useState([]);

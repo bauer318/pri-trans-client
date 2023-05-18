@@ -3,6 +3,7 @@ import {Form, Modal} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 
 const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleConfirmModal}) => {
+    console.log('confirm pm modal');
     const [formData, setFormData] = useState(depositDetails);
     const handleSubmit = (event) => {
         event.preventDefault();

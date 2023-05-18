@@ -3,6 +3,7 @@ import {Form, Modal} from "react-bootstrap";
 import {FaEdit, FaPlus} from "react-icons/fa";
 
 const ClientAddPaymentMethodModal = ({showModal, handleModal}) => {
+    console.log('C add pm  modal');
     const [formData, setFormData] = useState({});
     const paymentsM = [
         {

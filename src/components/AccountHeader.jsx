@@ -18,7 +18,9 @@ const AccountHeader = () => {
             <div className={"col-lg-6 d-flex justify-content-end"}>
                 <LogoutBtn/>
             </div>
-            <AddBalanceModal handleModal={handleModal} showModal={showModal}/>
+            {showModal &&
+                <AddBalanceModal handleModal={handleModal} showModal={showModal}/>
+            }
         </div>
     );
 };

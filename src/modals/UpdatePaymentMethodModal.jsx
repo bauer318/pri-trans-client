@@ -4,7 +4,8 @@ import {FaExchangeAlt} from "react-icons/fa";
 import {useDispatch} from "react-redux";
 import {deletePaymentMethod, updatePaymentMethod} from "../reducers/paymentMethodReducers";
 
-const UpdatePaymentMethod = ({showModal, handleModal, selectedPaymentMethod, isDelete}) => {
+const UpdatePaymentMethodModal = ({showModal, handleModal, selectedPaymentMethod, isDelete}) => {
+    console.log('Update pm modal ');
     const [paymentM, setPaymentM] = useState(selectedPaymentMethod.paymentMethod);
     const dispatch = useDispatch();
     const handleSubmit = (event) => {
@@ -57,4 +58,4 @@ const UpdatePaymentMethod = ({showModal, handleModal, selectedPaymentMethod, isD
     );
 };
 
-export default UpdatePaymentMethod;
+export default UpdatePaymentMethodModal;

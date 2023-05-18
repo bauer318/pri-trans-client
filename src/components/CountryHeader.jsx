@@ -21,7 +21,9 @@ const CountryHeader = () => {
                     <LogoutBtn/>
                 </div>
             </div>
-            <AddCountryModal showModal={showModal} handleModal={handleModal}/>
+            {   showModal &&
+                <AddCountryModal showModal={showModal} handleModal={handleModal}/>
+            }
         </div>
     );
 };

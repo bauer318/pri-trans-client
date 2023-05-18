@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,9 +7,12 @@ import {initializeCountries} from "../reducers/countryReducers";
 
 
 const AddUserModal = ({showModal, handleModal}) => {
+    console.log('Add user modal');
     const [formData, setFormData] = useState({});
     const dispatch = useDispatch();
-    dispatch(initializeCountries());
+    useEffect(()=>{
+        dispatch(initializeCountries());
+    },[]);
     const countries = useSelector(state => state.countries);
     const handleSubmit = (event) => {
         event.preventDefault();

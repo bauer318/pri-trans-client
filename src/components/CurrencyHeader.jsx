@@ -34,7 +34,10 @@ const CurrencyHeader = () => {
                     <LogoutBtn/>
                 </div>
             </div>
-            <AddCurrencyModal handleModal={handleModal} showModal={showModal}/>
+            {
+                showModal &&
+                <AddCurrencyModal handleModal={handleModal} showModal={showModal}/>
+            }
         </div>
     );
 };

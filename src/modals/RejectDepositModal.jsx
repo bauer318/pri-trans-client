@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 
 const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
+    console.log('Reject deposit modal');
     const [formData, setFormData] = useState(depositDetails);
     const handleSubmit = (event) => {
         event.preventDefault();

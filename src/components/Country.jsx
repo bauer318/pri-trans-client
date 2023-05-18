@@ -69,20 +69,21 @@ const Country = () => {
                             <h1>Payment methods</h1>
                             <table className={"table table-success table-striped table-bordered table-responsive"}>
                                 <tbody>
-                                { paymentMethods?
+                                {paymentMethods ?
                                     (paymentMethods.map(pm =>
                                         <tr key={pm.id}>
                                             <td className={"text-start"}>{pm.paymentMethod}</td>
                                         </tr>
-                                    )):(
-                                       <LoadingEffect/>
+                                    )) : (
+                                        <LoadingEffect/>
                                     )
                                 }
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <DeleteCountryModal handleModal={handleModal} showModal={showModal} countryId={countryId}/>
+                    {showModal &&
+                        <DeleteCountryModal handleModal={handleModal} showModal={showModal} countryId={countryId}/>}
                 </div>) : (
                     <LoadingEffect/>
                 )}

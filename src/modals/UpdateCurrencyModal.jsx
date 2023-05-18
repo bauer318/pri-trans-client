@@ -4,7 +4,8 @@ import {GrCurrency} from "react-icons/gr";
 import {useDispatch} from "react-redux";
 import {deleteCurrency, updateCurrency} from "../reducers/currencyReducers";
 
-const UpdateCurrency = ({showModal, handleModal, selectedCurrency, isDelete}) => {
+const UpdateCurrencyModal = ({showModal, handleModal, selectedCurrency, isDelete}) => {
+    console.log('Update currency ');
     const dispatch = useDispatch();
     const [currency, setCurrency] = useState(selectedCurrency.currency);
     const [symbol, setSymbol] = useState(selectedCurrency.symbol);
@@ -75,4 +76,4 @@ const UpdateCurrency = ({showModal, handleModal, selectedCurrency, isDelete}) =>
     );
 };
 
-export default UpdateCurrency;
+export default UpdateCurrencyModal;

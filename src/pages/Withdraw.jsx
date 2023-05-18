@@ -6,6 +6,7 @@ import {AiOutlineArrowDown} from "react-icons/ai";
 import ConfirmWithdrawModal from "../modals/ConfirmWithdrawModal";
 
 const Withdraw = () => {
+    console.log('withdraw');
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const [amount, setAmount] = useState(0.00);

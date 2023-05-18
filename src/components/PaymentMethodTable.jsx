@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {FaEdit} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
-import UpdatePaymentMethod from "../modals/UpdatePaymentMethod";
+import UpdatePaymentMethodModal from "../modals/UpdatePaymentMethodModal";
 import {useSelector} from "react-redux";
 import LoadingEffect from "./LoadingEffect";
 
@@ -54,8 +54,8 @@ const PaymentMethodTable = () => {
                 </table>
                 {
                     selectedPaymentMethod &&
-                    <UpdatePaymentMethod selectedPaymentMethod={selectedPaymentMethod} showModal={showModal}
-                                         handleModal={handleModal} isDelete={isDelete}/>
+                    <UpdatePaymentMethodModal selectedPaymentMethod={selectedPaymentMethod} showModal={showModal}
+                                              handleModal={handleModal} isDelete={isDelete}/>
                 }
             </div>) : (<LoadingEffect/>)}
         </>

@@ -3,7 +3,7 @@ import {FaEdit} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
 import {BsInfoCircleFill} from "react-icons/bs";
 import {NavLink} from "react-router-dom";
-import UpdateUser from "../modals/UpdateUser";
+import UpdateUserModal from "../modals/UpdateUserModal";
 import {useSelector} from "react-redux";
 import LoadingEffect from "./LoadingEffect";
 
@@ -61,8 +61,8 @@ const UsersTable = () => {
                     )}
                     </tbody>
                 </table>
-                {userId !== 0 &&
-                    <UpdateUser handleModal={handleModal} showModal={showModal} userId={userId} isDelete={isDelete}/>}
+                {showModal &&
+                    <UpdateUserModal handleModal={handleModal} showModal={showModal} userId={userId} isDelete={isDelete}/>}
             </div>) : (<LoadingEffect/>)}
         </>
     );
