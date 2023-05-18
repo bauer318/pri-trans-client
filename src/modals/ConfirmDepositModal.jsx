@@ -15,7 +15,7 @@ const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleCon
     }
     return (
         <Modal show={showConfirmModal} onHide={handleConfirmModal}>
-            <Modal.Header>
+            <Modal.Header closeButton>
                 <Modal.Title>Confirm deposit</Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -59,8 +59,10 @@ const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleCon
                         <Form.Control
                             type={"text"}
                             placeholder={"reference"}
+                            defaultValue={depositDetails?.ref}
                             name={"ref"}
-                            required={true}
+                            required={!isAgent}
+                            readOnly={isAgent}
                             onChange={handleChange}
                         />
                     </Form.Group>

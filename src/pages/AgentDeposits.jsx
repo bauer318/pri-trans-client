@@ -44,7 +44,6 @@ const AgentDeposits = () => {
     const handleConfirmDeposit = id => {
         setSelectedDeposit(findDepositById(id));
         handleConfirmModal();
-        console.log(id);
     }
     const findDepositById = id => deposits?.find(deposit=>deposit.id===id);
     const handleRejectDeposit = id => {

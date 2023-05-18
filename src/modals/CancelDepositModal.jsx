@@ -8,7 +8,7 @@ const CancelDepositModal = ({depositDetails,showCancelModal, handleCancelModal})
     }
     return (
         <Modal show={showCancelModal} onHide={handleCancelModal}>
-            <Modal.Header>
+            <Modal.Header closeButton>
                 <Modal.Title>Cancel deposit</Modal.Title>
             </Modal.Header>
             <Modal.Body>

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 
-const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
-    const [formData, setFormData] = useState(depositDetails);
-    const handleSubmit = (event) => {
+const RejectWithdrawalsModal = ({withdrawDetails, showModal, handleModal}) => {
+    const [formData, setFormData] = useState(withdrawDetails);
+    const handleSubmit = event => {
         event.preventDefault();
         console.log(formData);
         handleModal();
@@ -12,63 +12,53 @@ const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
         const {value, name} = event.target;
         setFormData({...formData, [name]: value});
     }
-
     return (
         <Modal show={showModal} onHide={handleModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Reject deposit</Modal.Title>
+                <Modal.Title>Reject withdraw</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId={"amount"}>
-                        <Form.Label>Deposit's amount</Form.Label>
+                        <Form.Label>Withdraw amount</Form.Label>
                         <Form.Control
                             type={"text"}
-                            value={depositDetails?.amount}
+                            defaultValue={withdrawDetails?.amount}
                             readOnly={true}
                         />
                     </Form.Group>
 
                     <Form.Group controlId={"paymentMethod"}>
-                        <Form.Label>Paying with</Form.Label>
+                        <Form.Label>Receiving via</Form.Label>
                         <Form.Control
                             type={"text"}
-                            value={depositDetails.paymentMethod.pm}
+                            defaultValue={withdrawDetails?.paymentMethod?.paymentMethod}
                             readOnly={true}
                         />
                     </Form.Group>
 
-                    <Form.Group controlId={"fromClient"}>
-                        <Form.Label>Client</Form.Label>
+                    <Form.Group controlId={"toAgent"}>
+                        <Form.Label>Wallet's number</Form.Label>
                         <Form.Control
                             type={"text"}
-                            value={depositDetails?.client}
+                            defaultValue={withdrawDetails?.paymentMethod?.number}
                             readOnly={true}
                         />
                     </Form.Group>
-
-                    <Form.Group controlId={"refNumber"}>
-                        <Form.Label>Reference's number</Form.Label>
-                        <Form.Control
-                            type={"text"}
-                            value={depositDetails?.ref}
-                            name={"note"}
-                            readOnly={true}
-                        />
-                    </Form.Group>
-
                     <Form.Group controlId={"note"}>
                         <Form.Label>Note</Form.Label>
                         <Form.Control
                             as="textarea"
                             rows={3}
-                            placeholder={"why rejected?..."}
+                            placeholder={"why reject withdraw?..."}
+                            name={"note"}
                             required={true}
                             onChange={handleChange}
                         />
                     </Form.Group>
+
                     <div className={"mt-2"}>
-                        <button className={"btn btn-danger"} type={"submit"}>Reject deposit</button>
+                        <button className={"btn btn-danger"} type={"submit"}>Reject withdraw</button>
                     </div>
                 </Form>
             </Modal.Body>
@@ -79,4 +69,4 @@ const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
     );
 };
 
-export default RejectDepositModal;
+export default RejectWithdrawalsModal;
