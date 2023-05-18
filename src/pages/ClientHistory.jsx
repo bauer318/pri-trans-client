@@ -1,5 +1,6 @@
 import React from 'react';
 import LogoutBtn from "../components/LogoutBtn";
+import HistoryHeader from "../components/HistoryHeader";
 
 const ClientHistory = () => {
     const transactions = [
@@ -37,14 +38,7 @@ const ClientHistory = () => {
     ]
     return (
         <div className={"container"}>
-            <div className={"row"}>
-                <div className={"col-lg-6 d-flex justify-content-start"}>
-                    <h3>Transaction history</h3>
-                </div>
-                <div className={"col-lg-6 d-flex justify-content-end"}>
-                    <LogoutBtn/>
-                </div>
-            </div>
+            <HistoryHeader/>
             <div className={"mt-3"}>
                 <table className={"table table-success table-bordered table-responsive"}>
                     <thead className={"table-light"}>
