@@ -6,7 +6,7 @@ import {initializeCountries} from "../reducers/countryReducers";
 
 const CurrencyAddHeader = () => {
     const dispatch = useDispatch();
-    const match = useMatch('countries/:id/add-currency');
+    const match = useMatch('admin/countries/:id/add-currency');
     const countryId = Number(match?.params.id);
     useEffect(()=>{
         dispatch(initializeCountries());

@@ -53,7 +53,7 @@ const UsersTable = () => {
                             <td className={"text-center"} onClick={() => handleEdit(user.id)}><FaEdit/></td>
                             <td className={"text-center"} onClick={() => handleDelete(user.id)}><MdDeleteForever/></td>
                             <td className={"text-center"}>
-                                {<NavLink to={`/users/${user.id}`}>
+                                {<NavLink to={`/admin/users/${user.id}`}>
                                     <BsInfoCircleFill/>
                                 </NavLink>}
                             </td>

@@ -13,9 +13,10 @@ const getOne = async (userId)=>{
 }
 
 const createNew = async (user)=>{
+    const role = user.role? Number(user.role):4;
     const createdUser = {
         email:user.email,
-        role:Number(user.role),
+        role:role,
         country:user.country,
         authStatus:false,
         blockingStatus:false,
@@ -27,6 +28,10 @@ const createNew = async (user)=>{
     return response.data;
 }
 
+const getUserByEmail = async (email)=>{
+    const response = await axios.get(`${baseUrl}/${email}`);
+    return response.data;
+}
 const update = async(id, newUser)=>{
     const updatedUser = {
         email:newUser.email,
@@ -44,4 +49,4 @@ const deleteUser = async id =>{
     const response = await axios.delete(`${baseUrl}/${id}`);
     return response.data;
 }
-export default {getAll, getOne, createNew, update, deleteUser};
+export default {getAll, getOne, createNew, update, deleteUser, getUserByEmail};

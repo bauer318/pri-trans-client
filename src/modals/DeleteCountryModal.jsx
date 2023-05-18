@@ -12,7 +12,7 @@ const DeleteCountryModal = ({showModal, handleModal, countryId}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(deleteCountry(countryId));
-        navigate('/countries');
+        navigate('/admin/countries');
     };
     return (
         <Modal show={showModal} onHide={handleModal}>

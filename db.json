@@ -1,8 +1,9 @@
 {
   "users": [
     {
-      "email": "first@gmail.com",
+      "email": "admin@gmail.com",
       "role": 1,
+      "password": 12,
       "country": "DR Congo",
       "authStatus": false,
       "blockingStatus": false,
@@ -18,8 +19,9 @@
       }
     },
     {
-      "email": "third@gmail.com",
+      "email": "moder@gmail.com",
       "role": 2,
+      "password": 12,
       "country": "Angola",
       "authStatus": false,
       "blockingStatus": false,
@@ -35,8 +37,9 @@
       }
     },
     {
-      "email": "second@gmail.com",
+      "email": "agent1@gmail.com",
       "role": 3,
+      "password": 12,
       "country": "Russia",
       "authStatus": true,
       "blockingStatus": false,
@@ -50,6 +53,87 @@
         "phone": "000-998-542",
         "address": "street tou , 25, Moscow"
       }
+    },
+    {
+      "email": "agent2@gmail.com",
+      "role": 3,
+      "password": 12,
+      "country": "DR Congo",
+      "authStatus": true,
+      "blockingStatus": false,
+      "id": 4,
+      "infos": {
+        "firstName": "second name",
+        "lastName": "s-last",
+        "middleName": "s-middle",
+        "nationality": "Russian",
+        "birthdate": "2002-07-23",
+        "phone": "000-998-542",
+        "address": "street tou , 25, Moscow"
+      }
+    },
+    {
+      "email": "client1@gmail.com",
+      "role": 4,
+      "password": 12,
+      "country": "Russia",
+      "authStatus": true,
+      "blockingStatus": false,
+      "id": 5,
+      "infos": {
+        "firstName": "client1 name",
+        "lastName": "sc1-last",
+        "middleName": "sc2-middle",
+        "nationality": "Russian",
+        "birthdate": "1995-07-23",
+        "phone": "000-998-542",
+        "address": "street tou , 25, Moscow"
+      }
+    },
+    {
+      "email": "client2@gmail.com",
+      "role": 4,
+      "password": 12,
+      "country": "DR Congo",
+      "authStatus": true,
+      "blockingStatus": false,
+      "id": 6,
+      "infos": {
+        "firstName": "client2 name",
+        "lastName": "sc2-last",
+        "middleName": "sc2-middle",
+        "nationality": "Congolese",
+        "birthdate": "1995-07-23",
+        "phone": "000-998-542",
+        "address": "street tou , 25, Moscow"
+      }
+    },
+    {
+      "email": "added@gmail.com",
+      "role": 3,
+      "country": "1",
+      "authStatus": false,
+      "blockingStatus": false,
+      "infos": {},
+      "id": 7
+    }
+  ],
+  "roles": [
+    {
+      "id": 1,
+      "role": "ROLE_ADMIN"
+    },
+    {
+      "id": 2,
+      "role": "ROLE_MODERATOR"
+    },
+    {
+      "id": 3,
+      "role": "ROLE_AGENT"
+    },
+    {
+      "id": 4,
+      "role": "ROLE_CLIENT"
     }
   ],
   "countries": [

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './bootstrap.min.css';
 import './App.css';
 import Sidebar from "./components/Sidebar";
@@ -34,9 +34,19 @@ import AgentWithdrawals from "./pages/AgentWithdrawals";
 import ModeratorHome from "./pages/ModeratorHome";
 import {get} from "./services/LocalStorageService";
 
-
+export var logout = ()=>{};
+export var refreshP = ()=>{};
 const App = () => {
     const longedUser = get('longedUser');
+    const [isLonged, setIsLonged] = useState(longedUser);
+    const [refresh, setRefresh] = useState(false);
+    logout = () =>{
+        console.log(isLonged);
+        setIsLonged(false);
+    }
+    refreshP = () =>{
+        setRefresh(!refresh);
+    }
     console.log('longed user', longedUser);
     return (
         <div>
@@ -47,15 +57,15 @@ const App = () => {
                         <Route path={"/register"} element={<CreateAccount/>}/>
                         <Route path={"/register/1/personal-info"} element={<PersonalInfo/>}/>
                         <Route path={'/register/1/personal-info/address'} element={<HomeAddress/>}/>
-                        <Route path={"/users"} element={<UserList/>}/>
-                        <Route path={"users/:id"} element={<User/>} />
-                        <Route path={"/countries"} element={<CountryList/>}/>
-                        <Route path={"/countries/:id"} element={<CountryItem/>}/>
-                        <Route path={"/countries/:id/edit"} element={<CountryItemEdit/>}/>
-                        <Route path={"/countries/:id/add-currency"} element={<CurrencyAdd/>}/>
-                        <Route path={"/countries/:id/add-payment-method"} element={<PaymentMethodAdd/>}/>
-                        <Route path={"/currencies"} element={<CurrencyList/>}/>
-                        <Route path={"/payment-methods"} element={<PaymentMethodList/>}/>
+                        {longedUser?.role==='ROLE_ADMIN' && <Route path={"/admin/users"} element={<UserList/>}/>}
+                        <Route path={"/admin/users/:id"} element={<User/>} />
+                        <Route path={"/admin/countries"} element={<CountryList/>}/>
+                        <Route path={"/admin/countries/:id"} element={<CountryItem/>}/>
+                        <Route path={"/admin/countries/:id/edit"} element={<CountryItemEdit/>}/>
+                        <Route path={"/admin/countries/:id/add-currency"} element={<CurrencyAdd/>}/>
+                        <Route path={"/admin/countries/:id/add-payment-method"} element={<PaymentMethodAdd/>}/>
+                        <Route path={"/admin/currencies"} element={<CurrencyList/>}/>
+                        <Route path={"/admin/payment-methods"} element={<PaymentMethodList/>}/>
                         <Route path={"/client/home"} element={<ClientHome/>} />
                         <Route path={"/client/account"} element={<ClientAccount/>} />
                         <Route path={"/client/account/1"} element={<BalanceItem/>} />

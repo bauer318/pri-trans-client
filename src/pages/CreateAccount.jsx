@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {createUser, getUserByEmail} from "../reducers/userReducers";
 
 const CreateAccount = () => {
     const [formData, setFormData] = useState({});
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const countries = [
         {
             id: 1,
@@ -18,10 +21,11 @@ const CreateAccount = () => {
             id: 3,
             country: "Angola"
         }
-    ]
+    ];
     const handleSubmit = event => {
         event.preventDefault();
         console.log(formData);
+        dispatch(createUser(formData));
         navigate('/register/1/personal-info');
     }
     const handleChange = event => {

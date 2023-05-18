@@ -13,7 +13,7 @@ const CountryCard = ({countryId}) => {
                 (<div className={"col"}>
                     <div className={"card mb-3 card-element"}>
                         {
-                            <NavLink to={`/countries/${countryId}`}>
+                            <NavLink to={`/admin/countries/${countryId}`}>
                                 <div className={"card-header"}>
                                     {country.country}
                                 </div>

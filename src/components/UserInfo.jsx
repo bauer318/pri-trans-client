@@ -4,8 +4,8 @@ import {useSelector} from "react-redux";
 import LoadingEffect from "./LoadingEffect";
 
 const UserInfo = () => {
-    const match = useMatch("/users/:id");
-    const userId = Number(match.params.id);
+    const match = useMatch("admin/users/:id");
+    const userId = Number(match.params?.id);
     const user = useSelector(state => state.users.find(user => user.id === userId));
     const roleStr = (role) => {
         switch (role) {

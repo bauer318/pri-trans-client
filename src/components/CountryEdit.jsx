@@ -15,7 +15,7 @@ const CountryEdit = () => {
     const [showPMModal, setShowPMModal] = useState(false);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState();
     const [selectedCurrency, setSelectedCurrency] = useState();
-    const match = useMatch('countries/:id/edit');
+    const match = useMatch('/admin/countries/:id/edit');
     const countryId = Number(match.params.id);
     const country = useSelector(state => state.countries.find(country => country.id === countryId));
     const [countryName, setCountryName] = useState(country.country);
@@ -46,10 +46,10 @@ const CountryEdit = () => {
             country:countryName
         }
         dispatch(updateCountry(countryId, updatedCountry));
-        navigate('/countries');
+        navigate('/admin/countries');
     }
     const handleCancelClick = () => {
-        navigate('/countries');
+        navigate('/admin/countries');
     }
 
     return (

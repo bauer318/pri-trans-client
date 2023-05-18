@@ -13,8 +13,10 @@ const UpdateUser = ({showModal, handleModal, userId, isDelete}) => {
     const [updateEmail, setUpdatedEmail] = useState(user?.email);
     const [updatedRole, setUpdatedRole] = useState(user?.role);
     const [updatedCountry, setUpdatedCountry] = useState(user?.country);
+    console.log(updatedCountry);
 
     const dispatch = useDispatch();
+    const countries = useSelector(state => state.countries);
     const handleSubmit = (event) => {
         event.preventDefault();
         if (isDelete) {
@@ -79,14 +81,19 @@ const UpdateUser = ({showModal, handleModal, userId, isDelete}) => {
                     <Form.Group controlId="formBasicCountry">
                         <Form.Label>Country</Form.Label>
                         <Form.Control
-                            type="text"
-                            placeholder="Enter user country"
+                            as="select"
                             name="country"
-                            defaultValue={user?.country}
                             required={true}
                             onChange={handleCountryChange}
-                            readOnly={isDelete}
-                        />
+                        >
+                            <option value={""}>Select user's country</option>
+                            {
+                                countries?.map(country=>
+                                    <option value={country.id} key={country.id}>{country.country}</option>
+
+                                )
+                            }
+                        </Form.Control>
                     </Form.Group>
 
                     <div className={"mt-2"}>

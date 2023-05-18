@@ -10,7 +10,7 @@ import LoadingEffect from "./LoadingEffect";
 const Country = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const match = useMatch('countries/:id');
+    const match = useMatch('/admin/countries/:id');
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const Country = () => {
                         </div>
                         <div>
                             <button className={"btn btn-primary mt-2"}
-                                    onClick={() => navigate(`/countries/${countryId}/edit`)}><span
+                                    onClick={() => navigate(`/admin/countries/${countryId}/edit`)}><span
                                 className={"ps-2 pe-2"}><i><FaEdit/></i></span>Edit
                             </button>
                         </div>

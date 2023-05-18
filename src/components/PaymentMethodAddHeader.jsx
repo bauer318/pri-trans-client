@@ -6,7 +6,7 @@ import {initializeCountries} from "../reducers/countryReducers";
 
 const PaymentMethodAddHeader = () => {
     const dispatch = useDispatch();
-    const match = useMatch('countries/:id/add-payment-method');
+    const match = useMatch('admin/countries/:id/add-payment-method');
     const countryId = Number(match?.params.id);
     useEffect(()=>{
        dispatch(initializeCountries());

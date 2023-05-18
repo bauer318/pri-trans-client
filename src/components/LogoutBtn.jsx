@@ -2,12 +2,16 @@ import React from 'react';
 import {RiLogoutCircleRLine} from "react-icons/ri";
 import {remove} from "../services/LocalStorageService";
 import {useNavigate} from "react-router-dom";
+import {logout, refreshP} from "../App";
+
 
 const LogoutBtn = () => {
     const navigate = useNavigate();
     const handleLogout = () =>{
         remove('longedUser');
         navigate('/');
+        logout();
+        refreshP();
     }
     return (
         <button className={"btn btn-danger"} onClick={handleLogout}>

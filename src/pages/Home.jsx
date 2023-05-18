@@ -3,21 +3,39 @@ import {Form} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
 import {useNavigate} from "react-router-dom";
 import {save} from "../services/LocalStorageService";
+import {refreshP} from "../App";
 
 const Home = () => {
     const [formData, setFormData] = useState({});
     const navigate = useNavigate();
+    const redirectTo = userRole => {
+        switch (userRole){
+            case 'ROLE_ADMIN':
+                navigate('/admin/users');
+                break;
+            case 'ROLE_MODERATOR':
+                navigate('moderator/users');
+                break;
+            case 'ROLE_AGENT':
+                navigate('agent/account');
+                break;
+            case 'ROLE_CLIENT':
+                navigate('client/home');
+                break;
+        }
+    }
     const handleSubmit = event => {
         event.preventDefault();
         const longedUser = {
-            id:1,
-            email:formData["email"],
-            role:'ROLE_ADMIN'
+            id: 1,
+            email: formData["email"],
+            role: 'ROLE_ADMIN'
         };
         save('longedUser', longedUser);
+        redirectTo(longedUser?.role);
+        refreshP();
         console.log(formData);
     }
-
     const handleChange = event => {
         const {name, value} = event.target;
         setFormData({...formData, [name]: value});
@@ -58,7 +76,8 @@ const Home = () => {
             </div>
             <div className="d-flex align-items-center justify-content-center pb-4 mt-3">
                 <p className="mb-0 me-2">Don't have an account?</p>
-                <button type="button" className="btn btn-outline-info" onClick={()=>navigate('/register')}>Register</button>
+                <button type="button" className="btn btn-outline-info" onClick={() => navigate('/register')}>Register
+                </button>
             </div>
         </div>
     );

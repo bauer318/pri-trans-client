@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {createUser} from "../reducers/userReducers";
+import {initializeCountries} from "../reducers/countryReducers";
 
 
 const AddUserModal = ({showModal, handleModal}) => {
     const [formData, setFormData] = useState({});
     const dispatch = useDispatch();
+    dispatch(initializeCountries());
+    const countries = useSelector(state => state.countries);
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(createUser(formData));
@@ -51,12 +54,19 @@ const AddUserModal = ({showModal, handleModal}) => {
                     <Form.Group controlId="formBasicCountry">
                         <Form.Label>Country</Form.Label>
                         <Form.Control
-                            type="text"
-                            placeholder="Enter user country"
+                            as="select"
                             name="country"
                             required={true}
                             onChange={handleChange}
-                        />
+                        >
+                            <option value="">Select user's country</option>
+                            {
+                                countries?.map(country=>
+                                    <option value={country.id} key={country.id}>{country.country}</option>
+
+                                )
+                            }
+                        </Form.Control>
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">

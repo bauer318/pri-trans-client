@@ -1,6 +1,6 @@
 import React from 'react';
 import {createSlice} from "@reduxjs/toolkit";
-import userService from '../services/Users'
+import userService from '../services/UserService'
 
 
 const userSlice = createSlice({
@@ -42,6 +42,13 @@ export const deleteUser = id => {
         await userService.deleteUser(id);
         const users = await userService.getAll();
         dispatch(setUsers(users));
+    }
+}
+
+export const getUserByEmail = email =>{
+    return async dispatch =>{
+        const user = await userService.getUserByEmail(email);
+        dispatch(setUsers(user));
     }
 }
 export const {setUsers, appendUser} = userSlice.actions;
