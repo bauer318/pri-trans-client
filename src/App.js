@@ -32,13 +32,16 @@ import AgentHistory from "./pages/AgentHistory";
 import AgentDeposits from "./pages/AgentDeposits";
 import AgentWithdrawals from "./pages/AgentWithdrawals";
 import ModeratorHome from "./pages/ModeratorHome";
+import {get} from "./services/LocalStorageService";
 
 
 const App = () => {
+    const longedUser = get('longedUser');
+    console.log('longed user', longedUser);
     return (
         <div>
             <BrowserRouter>
-                <Sidebar user={true}>
+                <Sidebar user={longedUser}>
                     <Routes>
                         <Route path={"/"} element={<Home/>}/>
                         <Route path={"/register"} element={<CreateAccount/>}/>

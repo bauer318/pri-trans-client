@@ -31,7 +31,7 @@ const ModeratorHome = () => {
         <div className={"container"}>
             <CSWHeader title={"Users"}/>
             {
-                users ? (<table className={"table table-success table-striped table-bordered table-responsive"}>
+                users ? (<table className={"table table-success table-striped table-bordered table-responsive mt-2"}>
                     <thead className={"table-light"}>
                     <tr>
                         <th scope={"col"} className={"text-center"}>User's full name</th>

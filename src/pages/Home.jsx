@@ -2,12 +2,19 @@ import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
 import {useNavigate} from "react-router-dom";
+import {save} from "../services/LocalStorageService";
 
 const Home = () => {
     const [formData, setFormData] = useState({});
     const navigate = useNavigate();
     const handleSubmit = event => {
         event.preventDefault();
+        const longedUser = {
+            id:1,
+            email:formData["email"],
+            role:'ROLE_ADMIN'
+        };
+        save('longedUser', longedUser);
         console.log(formData);
     }
 
