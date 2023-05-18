@@ -31,6 +31,7 @@ import AgentBalanceItem from "./pages/AgentBalanceItem";
 import AgentHistory from "./pages/AgentHistory";
 import AgentDeposits from "./pages/AgentDeposits";
 import AgentWithdrawals from "./pages/AgentWithdrawals";
+import ModeratorHome from "./pages/ModeratorHome";
 
 
 const App = () => {
@@ -70,6 +71,7 @@ const App = () => {
                         <Route path={"/agent/payment-methods"} element={<ClientPaymentMethods/>} />
                         <Route path={"/agent/deposits"} element={<AgentDeposits/>}/>
                         <Route path={"/agent/withdrawals"} element={<AgentWithdrawals/>}/>
+                        <Route path={"/moderator/users"} element={<ModeratorHome/>}/>
                     </Routes>
                 </Sidebar>
             </BrowserRouter>

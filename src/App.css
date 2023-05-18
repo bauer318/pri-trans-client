@@ -96,6 +96,10 @@ main {
     align-items: center;
     height: 100vh;
 }
+.loading-d{
+    width: 3rem;
+    height: 3rem;
+}
 
 .loading-circle {
     width: 50px;

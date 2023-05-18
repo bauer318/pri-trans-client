@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {
-    FaBars, FaExchangeAlt,FaHistory
+    FaBars, FaExchangeAlt, FaHistory, FaUsers
 } from 'react-icons/fa';
 import {NavLink} from "react-router-dom";
 import {HiHome} from "react-icons/hi";
@@ -13,6 +13,11 @@ const Sidebar = ({children, user}) => {
     const [isOpen, setIsOpen] = useState(true);
     const menuItem = [
         {
+            path: "/moderator/users",
+            name: "Users",
+            icon: <FaUsers/>
+        },
+        {
             path: "/agent/account",
             name: "Account",
             icon: <MdOutlineAccountBalanceWallet/>
@@ -20,12 +25,12 @@ const Sidebar = ({children, user}) => {
         {
             path: "/agent/deposits",
             name: "Deposits",
-            icon: <RiLuggageDepositLine/>
+            icon: <RiLuggageDepositLine/>,
         },
         {
             path: "/agent/withdrawals",
             name: "Withdrawals",
-            icon: <BiMoneyWithdraw/>
+            icon: <BiMoneyWithdraw/>,
         },
         {
             path: "/agent/history",
