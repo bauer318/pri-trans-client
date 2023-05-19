@@ -64,7 +64,9 @@ const ClientHistory = () => {
                                 <td className={"text-center"}>{transaction.ref}</td>
                                 <td className={"text-center"}
                                     style={{background: transaction.status === 'processing' ? "yellow" : transaction.status === 'completed' ? "green" : "red"}}>
-                                    <span style={{color: transaction.status === 'processing' ? "black" : transaction.status === 'completed' ? "yellow" : "black"}}>{transaction.status}</span></td>
+                                    <span
+                                        style={{color: transaction.status === 'processing' ? "black" : transaction.status === 'completed' ? "yellow" : "black"}}>{transaction.status}</span>
+                                </td>
                             </tr>)
                     }
                     </tbody>

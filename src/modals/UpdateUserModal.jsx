@@ -8,7 +8,6 @@ import {useNavigate} from "react-router-dom";
 import {initializeCountries} from "../reducers/countryReducers";
 
 const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
-    console.log(' update user modal ');
     const navigate = useNavigate();
     const [formData, setFormData] = useState({});
     const user = useSelector(state => state.users.find(user => user.id === userId));

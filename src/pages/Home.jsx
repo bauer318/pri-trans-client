@@ -1,15 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
 import {Navigate, useNavigate} from "react-router-dom";
 import {get, save} from "../services/LocalStorageService";
 import {refreshP} from "../App";
 import ModeratorHome from "./ModeratorHome";
+import {useDispatch, useSelector} from "react-redux";
+import {initializeUsers} from "../reducers/userReducers";
 
 const Home = () => {
     const [formData, setFormData] = useState({});
+    const [error, setError] = useState("");
     const user = get('longedUser');
+    const users = useSelector(state => state.users);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(initializeUsers());
+    }, []);
 
     const redirectTo = userRole => {
         switch (userRole) {
@@ -29,30 +38,62 @@ const Home = () => {
     }
 
 
-    const getUserHomePath = userRole => {
+    const getUserRoleDetails = userRole => {
         switch (userRole) {
             case 'ROLE_ADMIN':
-                return '/admin/users';
+                return {
+                    predPath: 'admin',
+                    path: '/admin/users'
+                };
             case 'ROLE_MODERATOR':
-                return 'moderator/users';
+                return {
+                    predPath: 'moderator',
+                    path: '/moderator/users'
+                };
             case 'ROLE_AGENT':
-                return 'agent/account';
+                return {
+                    predPath: 'agent',
+                    path: '/agent/account'
+                };
             case 'ROLE_CLIENT':
-                return 'client/home';
+                return {
+                    predPath: 'client',
+                    path: '/client/home'
+                };
+        }
+    }
+    const getUserRoleStr = useRole => {
+        switch (Number(useRole)) {
+            case 1:
+                return 'ROLE_ADMIN';
+            case 2:
+                return 'ROLE_MODERATOR';
+            case 3:
+                return 'ROLE_AGENT';
+            case 4:
+                return 'ROLE_CLIENT';
         }
     }
 
     const handleSubmit = event => {
         event.preventDefault();
-        const longedUser = {
-            id: 1,
-            email: formData["email"],
-            role: 'ROLE_ADMIN'
-        };
-        save('longedUser', longedUser);
-        redirectTo(longedUser?.role);
-        refreshP();
-        console.log(formData);
+        const connectedUser = users?.find(user => user.email === formData["email"] && user.password === formData["password"]);
+        if (connectedUser) {
+            const role = getUserRoleStr(connectedUser.role);
+            const id = connectedUser.id;
+            const predPath = getUserRoleDetails(role)["predPath"];
+            const longedUser = {
+                id: id,
+                role: role,
+                email: connectedUser.email,
+                predPath:predPath
+            }
+            save('longedUser', longedUser);
+            redirectTo(longedUser?.role);
+            refreshP();
+        } else {
+            setError('Wrong input data');
+        }
     }
     const handleChange = event => {
         const {name, value} = event.target;
@@ -62,9 +103,10 @@ const Home = () => {
         <>
             {
                 user && (
-                    <Navigate to={'/admin/users'} replace={true}/>
+                    <Navigate to={getUserRoleDetails(user.role)["path"]} replace={true}/>
                 )}
             <div className={"container row"}>
+                {error && <p className={"text-center text-danger"}>{error}</p>}
                 <div className={"text-center mt-5"}>
                     <h3>Login</h3>
                 </div>

@@ -7,7 +7,6 @@ import {initializeCountries} from "../reducers/countryReducers";
 
 
 const AddUserModal = ({showModal, handleModal}) => {
-    console.log('Add user modal');
     const [formData, setFormData] = useState({});
     const dispatch = useDispatch();
     useEffect(()=>{

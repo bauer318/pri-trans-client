@@ -2,7 +2,6 @@ import React from 'react';
 import {Form, Modal} from "react-bootstrap";
 
 const CancelDepositModal = ({depositDetails,showCancelModal, handleCancelModal}) => {
-    console.log('Cancel deposit modal');
     const handleSubmit = (event)=>{
         event.preventDefault();
 

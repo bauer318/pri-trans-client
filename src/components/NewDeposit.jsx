@@ -3,6 +3,7 @@ import {Form} from "react-bootstrap";
 import {AiOutlineArrowRight} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
 import DWForm from "./DWForm";
+import {get} from "../services/LocalStorageService";
 
 const NewDeposit = () => {
     const navigate = useNavigate();
@@ -19,12 +20,13 @@ const NewDeposit = () => {
             icon:<AiOutlineArrowRight size={28} />
         }
     );
+    const longedUser = get('longedUser');
     const handleSubmit = (event) => {
         event.preventDefault();
         //To server
         console.log(amount);
         console.log(paymentMethod);
-        navigate('/client/account/1/deposit/confirm');
+        navigate(`/${longedUser?.predPath}/account/1/deposit/confirm`);
     }
     const handleAmountChange = event => {
         const amount = Number(event.target.value);

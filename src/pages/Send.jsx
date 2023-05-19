@@ -9,6 +9,7 @@ import LoadingEffect from "../components/LoadingEffect";
 import ConvertForm from "../components/ConvertForm";
 import {AiOutlineArrowRight} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
+import {get} from "../services/LocalStorageService";
 
 const Send = () => {
     const [rates, setRates] = useState(0);
@@ -18,6 +19,7 @@ const Send = () => {
     const [fromAmount, setFromAmount] = useState(100.00);
     const [toStrCurrency, setToStrCurrency] = useState('USD');
     const navigate = useNavigate();
+    const longedUser = get('longedUser');
     const defaultToCurrency = {
         id: 3,
         currency: "USD"
@@ -68,7 +70,7 @@ const Send = () => {
         };
         dispatch(initializeSendDetails(sendDetails));
         localStorage.setItem('details', JSON.stringify(sendDetails));
-        navigate('/client/account/1/send/to');
+        navigate(`/${longedUser?.predPath}/account/1/send/to`);
     }
     const findCurrency = currencyStr =>{
         const currency = currencies.find(currency => currency.currency.toLowerCase() === currencyStr.toLowerCase());

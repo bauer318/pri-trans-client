@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './bootstrap.min.css';
 import './App.css';
 import Sidebar from "./components/Sidebar";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
 import UserList from "./pages/UserList";
 import CountryList from "./pages/CountryList";
 import PaymentMethodList from "./pages/PaymentMethodList";
@@ -13,7 +13,7 @@ import CountryItemEdit from "./pages/CountryItemEdit";
 import CurrencyAdd from "./pages/CurrencyAdd";
 import PaymentMethodAdd from "./pages/PaymentMethodAdd";
 import ClientHome from "./pages/ClientHome";
-import ClientAccount from "./pages/ClientAccount";
+import UserAccount from "./pages/ClientAccount";
 import ClientHistory from "./pages/ClientHistory";
 import ClientPaymentMethods from "./pages/ClientPaymentMethods";
 import BalanceItem from "./pages/BalanceItem";
@@ -67,7 +67,7 @@ const App = () => {
                         <Route path={"/admin/currencies"} element={<CurrencyList/>}/>
                         <Route path={"/admin/payment-methods"} element={<PaymentMethodList/>}/>
                         <Route path={"/client/home"} element={<ClientHome/>} />
-                        <Route path={"/client/account"} element={<ClientAccount/>} />
+                        <Route path={"/client/account"} element={<UserAccount/>} />
                         <Route path={"/client/account/1"} element={<BalanceItem/>} />
                         <Route path={"/client/account/1/convert"} element={<Convert/>}/>
                         <Route path={"/client/account/1/send"} element={<Send/>}/>
@@ -77,7 +77,7 @@ const App = () => {
                         <Route path={"/client/account/1/deposit/confirm"} element={<DepositConfirm/>}/>
                         <Route path={"/client/history"} element={<ClientHistory/>} />
                         <Route path={"/client/payment-methods"} element={<ClientPaymentMethods/>} />
-                        <Route path={"/agent/account"} element={<ClientAccount/>}/>
+                        <Route path={"/agent/account"} element={<UserAccount/>}/>
                         <Route path={"/agent/account/1"} element={<AgentBalanceItem/>}/>
                         <Route path={"/agent/account/1/convert"} element={<Convert/>}/>
                         <Route path={"/agent/history"} element={<AgentHistory/>}/>

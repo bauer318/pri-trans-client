@@ -3,7 +3,7 @@
     {
       "email": "admin@gmail.com",
       "role": 1,
-      "password": 12,
+      "password": "12",
       "country": "DR Congo",
       "authStatus": false,
       "blockingStatus": false,
@@ -21,7 +21,7 @@
     {
       "email": "moder@gmail.com",
       "role": 2,
-      "password": 12,
+      "password": "12",
       "country": "Angola",
       "authStatus": false,
       "blockingStatus": false,
@@ -39,7 +39,7 @@
     {
       "email": "agent1@gmail.com",
       "role": 3,
-      "password": 12,
+      "password": "12",
       "country": "Russia",
       "authStatus": true,
       "blockingStatus": false,
@@ -57,7 +57,7 @@
     {
       "email": "agent2@gmail.com",
       "role": 3,
-      "password": 12,
+      "password": "12",
       "country": "DR Congo",
       "authStatus": true,
       "blockingStatus": false,
@@ -75,7 +75,7 @@
     {
       "email": "client1@gmail.com",
       "role": 4,
-      "password": 12,
+      "password": "12",
       "country": "Russia",
       "authStatus": true,
       "blockingStatus": false,
@@ -93,7 +93,7 @@
     {
       "email": "client2@gmail.com",
       "role": 4,
-      "password": 12,
+      "password": "12",
       "country": "DR Congo",
       "authStatus": true,
       "blockingStatus": false,
@@ -107,15 +107,6 @@
         "phone": "000-998-542",
         "address": "street tou , 25, Moscow"
       }
-    },
-    {
-      "email": "jacqueskibamba@gmail.com",
-      "role": 3,
-      "country": "1",
-      "authStatus": false,
-      "blockingStatus": false,
-      "infos": {},
-      "id": 7
     }
   ],
   "roles": [

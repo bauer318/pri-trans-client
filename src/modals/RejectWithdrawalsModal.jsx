@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 
 const RejectWithdrawalsModal = ({withdrawDetails, showModal, handleModal}) => {
-    console.log('Reject withdrawals modal');
     const [formData, setFormData] = useState(withdrawDetails);
     const handleSubmit = event => {
         event.preventDefault();

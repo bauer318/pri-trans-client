@@ -5,7 +5,6 @@ import {useDispatch} from "react-redux";
 import {createCurrency} from "../reducers/currencyReducers";
 
 const AddCurrencyModal = ({showModal , handleModal}) => {
-    console.log('Add currency  modal');
     const [formData, setFormData] = useState({});
     const dispatch = useDispatch();
     const handleSubmit = (event) => {

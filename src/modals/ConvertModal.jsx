@@ -3,15 +3,17 @@ import {Form, Modal} from "react-bootstrap";
 import {TfiWallet} from "react-icons/tfi";
 import {TbArrowsExchange2} from "react-icons/tb";
 import {useNavigate} from "react-router-dom";
+import {get} from "../services/LocalStorageService";
 
 const ConvertModal = ({showModal, handleModal, fromAmount, toAmount, liveRate}) => {
     console.log('convert modal');
     const navigate = useNavigate();
+    const longedUser = get('longedUser');
     const handleSubmit = (event)=>{
         event.preventDefault();
         //Convert process
 
-        navigate('/client/account/');
+        navigate(`/${longedUser?.predPath}/account/`);
     }
 
     return (

@@ -5,6 +5,7 @@ import {AiOutlineArrowRight} from "react-icons/ai";
 import {useSelector} from "react-redux";
 import SendModal from "../modals/SendModal";
 import {useNavigate} from "react-router-dom";
+import {get} from "../services/LocalStorageService";
 
 const SendTo = () => {
     console.log('Send to');
@@ -12,6 +13,7 @@ const SendTo = () => {
     const [recipientEmail, setRecipientEmail] = useState();
     const sendDetails = useSelector(state => state.send);
     const navigate = useNavigate();
+    const longedUser = get('longedUser');
     const handleModal = () => {
         setShowModal(!showModal);
     }
@@ -20,7 +22,7 @@ const SendTo = () => {
         if(sendDetails.toCurrency){
             handleModal();
         }else{
-            navigate('/client/account/1/send');
+            navigate(`/${longedUser?.predPath}/account/1/send`);
         }
     }
     const handleRecipientEmailChange = event =>{

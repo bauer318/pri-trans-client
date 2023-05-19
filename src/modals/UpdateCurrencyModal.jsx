@@ -5,7 +5,6 @@ import {useDispatch} from "react-redux";
 import {deleteCurrency, updateCurrency} from "../reducers/currencyReducers";
 
 const UpdateCurrencyModal = ({showModal, handleModal, selectedCurrency, isDelete}) => {
-    console.log('Update currency ');
     const dispatch = useDispatch();
     const [currency, setCurrency] = useState(selectedCurrency.currency);
     const [symbol, setSymbol] = useState(selectedCurrency.symbol);

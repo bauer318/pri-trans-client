@@ -6,7 +6,6 @@ import {deleteCountry} from "../reducers/countryReducers";
 import {useNavigate} from "react-router-dom";
 
 const DeleteCountryModal = ({showModal, handleModal, countryId}) => {
-    console.log('Delete country modal');
     const country = useSelector(state => state.countries.find(country => country.id === countryId));
     const dispatch = useDispatch();
     const navigate = useNavigate();

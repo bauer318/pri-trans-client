@@ -5,7 +5,6 @@ import {useDispatch} from "react-redux";
 import {deletePaymentMethod, updatePaymentMethod} from "../reducers/paymentMethodReducers";
 
 const UpdatePaymentMethodModal = ({showModal, handleModal, selectedPaymentMethod, isDelete}) => {
-    console.log('Update pm modal ');
     const [paymentM, setPaymentM] = useState(selectedPaymentMethod.paymentMethod);
     const dispatch = useDispatch();
     const handleSubmit = (event) => {

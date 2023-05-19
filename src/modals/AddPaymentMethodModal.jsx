@@ -5,7 +5,6 @@ import {useDispatch} from "react-redux";
 import {createNewPaymentMethod} from "../reducers/paymentMethodReducers";
 
 const AddPaymentMethodModal = ({showModal, handleModal}) => {
-    console.log('Add pm modal');
     const [formData, setFormData] = useState({});
     const dispatch = useDispatch();
     const handleSubmit = (event) => {

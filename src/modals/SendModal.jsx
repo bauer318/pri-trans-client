@@ -4,15 +4,16 @@ import {TfiWallet} from "react-icons/tfi";
 import {useSelector} from "react-redux";
 import {AiOutlineArrowUp} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
+import {get} from "../services/LocalStorageService";
 
 const SendModal = ({showModal, handleModal, recipientEmail}) => {
-    console.log('Send modal');
     const sendDetails = useSelector(state => state.send);
     const navigate = useNavigate();
+    const longedUser = get('longedUser');
     const handleSubmit = event => {
         event.preventDefault();
         //to server
-        navigate('/client/account/1/');
+        navigate(`/${longedUser.predPath}/account/1/`);
 
     }
     return (
