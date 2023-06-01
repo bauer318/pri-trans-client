@@ -28,7 +28,7 @@ const HomeAddress = () => {
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                 <Form onSubmit={handleSubmit} className={"login-form"}>
                     <Form.Group controlId="address" className={"form-outline mb-4 mt-2"}>
-                        <Form.Label>Full address</Form.Label>
+                        <Form.Label className={"required"}>Full address</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder="home address"
@@ -40,7 +40,7 @@ const HomeAddress = () => {
                     </Form.Group>
 
                     <Form.Group controlId="phone" className={"form-outline mb-4"}>
-                        <Form.Label>Last name</Form.Label>
+                        <Form.Label className={"required"}>Phone number</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder="777-985-852"

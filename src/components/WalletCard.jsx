@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {FaEdit} from "react-icons/fa";
 import {AiOutlineDelete} from "react-icons/ai";
-import ClientEditPaymentMethodModal from "../modals/ClientEditPaymentMethodModal";
-import ClientDeletePaymentMethodModal from "../modals/ClientDeletePaymentMethodModal";
+import EditWalletModal from "../modals/EditWalletModal";
+import DeleteWalletModal from "../modals/DeleteWalletModal";
 
 
-const PaymentMethodCard = ({paymentMethodDetails}) => {
+const WalletCard = ({walletDetails}) => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const handleEditModal = () => {
@@ -17,11 +17,11 @@ const PaymentMethodCard = ({paymentMethodDetails}) => {
     return (
         <div className={"col"}>
             <div className={"card mb-3 card-pm"}>
-                <div className={"card-header text-center"}>Payment method</div>
+                <div className={"card-header text-center"}>Wallet</div>
                 <div className={"card-body text-center"}>
-                    <h5 className={"card-title"}>{paymentMethodDetails?.paymentMethod.pm}</h5>
-                    <p className={"card-text text-body"}>{paymentMethodDetails?.number}</p>
-                    <p className={"card-text text-body"}>{paymentMethodDetails?.accountName}</p>
+                    <h5 className={"card-title"}>{walletDetails?.paymentMethod.pm}</h5>
+                    <p className={"card-text text-body"}>{walletDetails?.number}</p>
+                    <p className={"card-text text-body"}>{walletDetails?.accountName}</p>
                 </div>
                 <div className={"card-footer d-flex justify-content-around"}>
                     <button className={"btn btn-info"} onClick={handleEditModal}><span><i><FaEdit size={28}/></i></span>
@@ -31,16 +31,16 @@ const PaymentMethodCard = ({paymentMethodDetails}) => {
                 </div>
             </div>
             {showEditModal &&
-                <ClientEditPaymentMethodModal paymentMethod={paymentMethodDetails} handleModal={handleEditModal}
-                                              showModal={showEditModal}/>
+                <EditWalletModal wallet={walletDetails} handleModal={handleEditModal}
+                                 showModal={showEditModal}/>
             }
             {
                 showDeleteModal &&
-                <ClientDeletePaymentMethodModal paymentMethod={paymentMethodDetails} handleModal={handleDeleteModal}
-                                              showModal={showDeleteModal}/>
+                <DeleteWalletModal wallet={walletDetails} handleModal={handleDeleteModal}
+                                    showModal={showDeleteModal}/>
             }
         </div>
     );
 };
 
-export default PaymentMethodCard;
+export default WalletCard;

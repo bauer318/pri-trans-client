@@ -147,6 +147,12 @@ main {
 .login-form{
     width: 350px;
 }
+.required:after{
+    padding-left: 5px;
+    padding-top: 2px;
+    content:"*";
+    color:red;
+}
 
 
 

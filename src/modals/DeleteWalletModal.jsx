@@ -1,19 +1,18 @@
 import React from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {FaEdit} from "react-icons/fa";
 import {AiOutlineDelete} from "react-icons/ai";
 
-const ClientDeletePaymentMethodModal = ({paymentMethod, showModal, handleModal}) => {
+const DeleteWalletModal = ({wallet, showModal, handleModal}) => {
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(paymentMethod);
+        console.log(wallet);
         //delete payment methode
         handleModal();
     }
     return (
         <Modal show={showModal} onHide={handleModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Delete payment method</Modal.Title>
+                <Modal.Title>Delete wallet</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
@@ -24,7 +23,7 @@ const ClientDeletePaymentMethodModal = ({paymentMethod, showModal, handleModal})
                             name="pm"
                             disabled={true}
                         >
-                            <option value={paymentMethod?.paymentMethod.id}>{paymentMethod?.paymentMethod.pm}</option>
+                            <option value={wallet?.paymentMethod.id}>{wallet?.paymentMethod.pm}</option>
                         </Form.Control>
                     </Form.Group>
 
@@ -32,7 +31,7 @@ const ClientDeletePaymentMethodModal = ({paymentMethod, showModal, handleModal})
                         <Form.Label>Number</Form.Label>
                         <Form.Control
                             type="text"
-                            defaultValue={paymentMethod?.number}
+                            defaultValue={wallet?.number}
                             name="number"
                             readOnly={true}
                         />
@@ -41,7 +40,7 @@ const ClientDeletePaymentMethodModal = ({paymentMethod, showModal, handleModal})
                         <Form.Label>Account name</Form.Label>
                         <Form.Control
                             type="text"
-                            defaultValue={paymentMethod?.accountName}
+                            defaultValue={wallet?.accountName}
                             name="accountName"
                             readOnly={true}
                         />
@@ -60,4 +59,4 @@ const ClientDeletePaymentMethodModal = ({paymentMethod, showModal, handleModal})
     );
 };
 
-export default ClientDeletePaymentMethodModal;
+export default DeleteWalletModal;

@@ -48,7 +48,7 @@ const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange})
                                 </div>
                             </div>
                             <Form.Group className={"mt-2"}>
-                                <Form.Label className={"text-secondary"}>{formDetails.pmTitle}</Form.Label>
+                                <Form.Label className={"text-secondary required"}>{formDetails.pmTitle}</Form.Label>
                                 <Form.Control
                                     as="select"
                                     name={"paymentMethod"}

@@ -15,7 +15,7 @@ import PaymentMethodAdd from "./pages/PaymentMethodAdd";
 import ClientHome from "./pages/ClientHome";
 import UserAccount from "./pages/ClientAccount";
 import ClientHistory from "./pages/ClientHistory";
-import ClientPaymentMethods from "./pages/ClientPaymentMethods";
+import Wallets from "./pages/Wallets";
 import BalanceItem from "./pages/BalanceItem";
 import Deposit from "./pages/Deposit";
 import DepositConfirm from "./pages/DepositConfirm";
@@ -76,12 +76,12 @@ const App = () => {
                         <Route path={"/client/account/1/deposit/new"} element={<Deposit/>} />
                         <Route path={"/client/account/1/deposit/confirm"} element={<DepositConfirm/>}/>
                         <Route path={"/client/history"} element={<ClientHistory/>} />
-                        <Route path={"/client/payment-methods"} element={<ClientPaymentMethods/>} />
+                        <Route path={"/client/payment-methods"} element={<Wallets/>} />
                         <Route path={"/agent/account"} element={<UserAccount/>}/>
                         <Route path={"/agent/account/1"} element={<AgentBalanceItem/>}/>
                         <Route path={"/agent/account/1/convert"} element={<Convert/>}/>
                         <Route path={"/agent/history"} element={<AgentHistory/>}/>
-                        <Route path={"/agent/payment-methods"} element={<ClientPaymentMethods/>} />
+                        <Route path={"/agent/payment-methods"} element={<Wallets/>} />
                         <Route path={"/agent/deposits"} element={<AgentDeposits/>}/>
                         <Route path={"/agent/withdrawals"} element={<AgentWithdrawals/>}/>
                         <Route path={"/moderator/users"} element={<ModeratorHome/>}/>

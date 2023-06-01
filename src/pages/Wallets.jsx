@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import LogoutBtn from "../components/LogoutBtn";
-import PaymentMethodCard from "../components/PaymentMethodCard";
-import ClientAddPaymentMethodModal from "../modals/ClientAddPaymentMethodModal";
+import WalletCard from "../components/WalletCard";
+import AddWalletModal from "../modals/AddWalletModal";
 
-const ClientPaymentMethods = () => {
-    console.log('CPM ');
+const Wallets = () => {
     const [showModal, setShowModal] = useState(false);
-    const paymentMethods = [
+    const wallets = [
         {
             id: 1,
             paymentMethod: {
@@ -38,28 +37,28 @@ const ClientPaymentMethods = () => {
     const handleModal = () => {
         setShowModal(!showModal);
     }
-    const handleAddPaymentMethod = () => {
+    const handleAddWallet = () => {
         handleModal();
     }
     return (
         <div className={"row"}>
             <div className={"col-lg-5 d-flex justify-content-start ms-1"}>
-                <button className={"btn btn-info"} onClick={() => handleAddPaymentMethod()}>Add payment method</button>
+                <button className={"btn btn-info"} onClick={() => handleAddWallet()}>Add wallet</button>
             </div>
             <div className={"col-lg-6 d-flex justify-content-end"}>
                 <LogoutBtn/>
             </div>
             <div className={"row row-cols-1 row-cols-md-3 g-4 mt-2 ms-2"}>
                 {
-                    paymentMethods?.map(pm => <PaymentMethodCard key={pm.id} paymentMethodDetails={pm}/>)
+                    wallets?.map(pm => <WalletCard key={pm.id} walletDetails={pm}/>)
                 }
             </div>
             {
                 showModal &&
-                <ClientAddPaymentMethodModal handleModal={handleModal} showModal={showModal}/>
+                <AddWalletModal handleModal={handleModal} showModal={showModal}/>
             }
         </div>
     );
 };
 
-export default ClientPaymentMethods;
+export default Wallets;

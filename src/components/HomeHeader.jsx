@@ -9,10 +9,10 @@ const HomeHeader = () => {
     return (
         <div>
             <div className={"row"}>
-                <div className={"col-lg-3 d-flex justify-content-start"}>
-                    <h2>Recipient's country </h2>
+                <div className={"col-4 d-flex justify-content-start"}>
+                    <h4>Recipient's country </h4>
                 </div>
-                <div className={"col-lg-3 d-flex justify-content-start"}>
+                <div className={"col-2 d-flex justify-content-start"}>
                     <select className={"form-select"} aria-label={"Default select example"}
                             onChange={handleRecipientCountrySelectChange}>
                         <option value={1}>DR Congo</option>

@@ -49,7 +49,7 @@ const PersonalInfo = () => {
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                 <Form onSubmit={handleSubmit} className={"login-form"}>
                     <Form.Group controlId="country">
-                        <Form.Label>Nationality</Form.Label>
+                        <Form.Label className={"required"}>Nationality</Form.Label>
                         <Form.Control as="select"
                                       name="country"
                                       defaultValue={storedInfo?.country}
@@ -64,7 +64,7 @@ const PersonalInfo = () => {
                     </Form.Group>
 
                     <Form.Group controlId="firstName" className={"form-outline mb-4 mt-2"}>
-                        <Form.Label>First name</Form.Label>
+                        <Form.Label className={"required"}>First name</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder="first name"
@@ -76,7 +76,7 @@ const PersonalInfo = () => {
                     </Form.Group>
 
                     <Form.Group controlId="lastName" className={"form-outline mb-4"}>
-                        <Form.Label>Last name</Form.Label>
+                        <Form.Label className={"required"}>Last name</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder="first name"
@@ -99,7 +99,7 @@ const PersonalInfo = () => {
                     </Form.Group>
 
                     <Form.Group controlId="birthDate" className={"form-outline mb-4"}>
-                        <Form.Label>Date of birth</Form.Label>
+                        <Form.Label className={"required"}>Date of birth</Form.Label>
                         <Form.Control
                             type={"date"}
                             placeholder="first name"

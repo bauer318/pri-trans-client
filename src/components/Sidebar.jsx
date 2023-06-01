@@ -8,7 +8,7 @@ import {MdOutlineAccountBalanceWallet} from "react-icons/md";
 import {RiLuggageDepositLine} from "react-icons/ri";
 import {BiMoneyWithdraw} from "react-icons/bi";
 import Home from "../pages/Home";
-import {GrCurrency} from "react-icons/gr";
+import {GrCurrency, GrGoogleWallet} from "react-icons/gr";
 
 
 const Sidebar = ({children, user}) => {
@@ -79,8 +79,8 @@ const Sidebar = ({children, user}) => {
             },
             {
                 path: "/agent/payment-methods",
-                name: "Payment methods",
-                icon: <FaExchangeAlt/>
+                name: "Wallets",
+                icon: <GrGoogleWallet/>
             },
         ],
         [
@@ -101,8 +101,8 @@ const Sidebar = ({children, user}) => {
             },
             {
                 path: "/client/payment-methods",
-                name: "Payment methods",
-                icon: <FaExchangeAlt/>
+                name: "Wallets",
+                icon: <GrGoogleWallet/>
             },
         ]
 

@@ -107,6 +107,18 @@
         "phone": "000-998-542",
         "address": "street tou , 25, Moscow"
       }
+    },
+    {
+      "email": "bauerpictu@gmail.com",
+      "role": 4,
+      "country": {
+        "id": 1,
+        "country": "DR Congo"
+      },
+      "authStatus": false,
+      "blockingStatus": false,
+      "infos": {},
+      "id": 7
     }
   ],
   "roles": [

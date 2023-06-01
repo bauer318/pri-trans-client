@@ -6,10 +6,10 @@ const DepositConfirm = () => {
     return (
         <div>
             <div className={"row"}>
-                <div className={"col-lg-3 d-flex justify-content-center"}>
+                <div className={"col-lg-6 d-flex justify-content-center"}>
                     <h2>Confirm deposit</h2>
                 </div>
-                <div className={"col-lg-9 d-flex justify-content-end"}>
+                <div className={"col-lg-6 d-flex justify-content-end"}>
                     <LogoutBtn/>
                 </div>
             </div>

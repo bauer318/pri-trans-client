@@ -1,45 +1,62 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {FaEdit, FaPlus} from "react-icons/fa";
+import {ImUserPlus} from "react-icons/im";
+import {FaEdit} from "react-icons/fa";
 
-const ClientAddPaymentMethodModal = ({showModal, handleModal}) => {
-    const [formData, setFormData] = useState({});
+const EditWalletModal = ({wallet, showModal, handleModal}) => {
+    const [pm, setPm] = useState(wallet?.paymentMethod);
+    const [number, setNumber] = useState(wallet?.number);
+    const [accountName, setAccountName] = useState(wallet?.accountName);
+    const [defaultPm, setDefaultPm] = useState(null);
     const paymentsM = [
         {
-            id: 1,
-            pm: "Airtel money"
+            id:1,
+            pm:"Airtel money"
         },
         {
-            id: 2,
-            pm: "M-pesa"
+            id:2,
+            pm:"M-pesa"
         },
         {
-            id: 3,
-            pm: "Sberbank"
+            id:3,
+            pm:"Sberbank"
         }
     ];
-    const handleSubmit = event => {
+    const foundSourcePm = id =>{
+        return paymentsM.find(pm=>pm.id===id);
+    }
+    if(defaultPm){
+        ;
+    }else{
+        setDefaultPm(foundSourcePm(wallet?.paymentMethod.id));
+    }
+    const handleSubmit = event =>{
         event.preventDefault();
-        console.log(formData);
-
+        const paymentM = {
+            paymentMethod:pm,
+            number:number,
+            accountName:accountName
+        }
+        //update user's wallet
         handleModal();
     }
-    const handlePMChange = event => {
-        const id = Number(event.target.value);
-        if(id){
-            const pm = paymentsM.find(pm=>pm.id===id);
-            setFormData({...formData, [event.target.name]: pm});
-        }
-
+    const handlePMChange = event =>{
+        const pm = Number(event.target.value);
+        setPm(foundSourcePm(pm));
     }
-    const handleChange = event => {
-        const {name, value} = event.target;
-        setFormData({...formData, [name]: value});
+    const handleNumberChange = event =>{
+        const number = event.target.value;
+        setNumber(number);
+    }
+
+    const handleAccountNameChange = event=>{
+        const accountName = event.target.value;
+        setAccountName(accountName);
     }
     return (
         <Modal show={showModal} onHide={handleModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Add payment method</Modal.Title>
+                <Modal.Title>Edit wallet</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
@@ -47,13 +64,13 @@ const ClientAddPaymentMethodModal = ({showModal, handleModal}) => {
                         <Form.Label>Payment Method</Form.Label>
                         <Form.Control
                             as="select"
-                            name="paymentMethod"
+                            name="pm"
                             required={true}
                             onChange={handlePMChange}
                         >
-                            <option value="">Select payment method</option>
+                            <option value={defaultPm?.id}>{defaultPm?.pm}</option>
                             {
-                                paymentsM?.map(pm =>
+                                paymentsM?.map(pm=>
                                     <option value={pm.id} key={pm.id}>{pm.pm}</option>
                                 )
                             }
@@ -64,24 +81,24 @@ const ClientAddPaymentMethodModal = ({showModal, handleModal}) => {
                         <Form.Label>Number</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder={"wallet's number"}
+                            defaultValue={wallet?.number}
                             name="number"
                             required={true}
-                            onChange={handleChange}
+                            onChange={handleNumberChange}
                         />
                     </Form.Group>
                     <Form.Group controlId="accountName">
                         <Form.Label>Account name</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder={"wallet's user name"}
+                            defaultValue={wallet?.accountName}
                             name="accountName"
                             required={true}
-                            onChange={handleChange}
+                            onChange={handleAccountNameChange}
                         />
                     </Form.Group>
                     <div className={"mt-2"}>
-                        <button className={"btn btn-primary"} type={"submit"}><span className={"me-2"}><i><FaPlus/></i></span>Add
+                        <button className={"btn btn-primary"} type={"submit"}><span className={"me-2"}><i><FaEdit/></i></span>Edit
                         </button>
                     </div>
                 </Form>
@@ -93,4 +110,4 @@ const ClientAddPaymentMethodModal = ({showModal, handleModal}) => {
     );
 };
 
-export default ClientAddPaymentMethodModal;
+export default EditWalletModal;

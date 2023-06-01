@@ -12,7 +12,7 @@ const NewDeposit = () => {
     const [formDetails, setFormDetails] = useState(
         {
             title:"How much do you want to add?",
-            availableBalance:23,
+            availableBalance:82.82,
             currency:"USD",
             pmTitle:"Paying with",
             subTitle:"Add",

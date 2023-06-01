@@ -35,7 +35,7 @@ const SendModal = ({showModal, handleModal, recipientEmail}) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <button className={"btn btn-secondary"} onClick={handleModal}>Close</button>
+                <button className={"btn btn-danger"} onClick={handleModal}>Abort</button>
             </Modal.Footer>
         </Modal>
     );
