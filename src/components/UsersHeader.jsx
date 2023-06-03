@@ -2,20 +2,42 @@ import React, {useState} from 'react';
 import {ImUserPlus} from "react-icons/im";
 import LogoutBtn from "./LogoutBtn";
 import AddUserModal from "../modals/AddUserModal";
+import {useDispatch} from "react-redux";
+import {getByAuthStatus, getByRoleAndAuthStatus, initializeUsers} from "../reducers/userReducers";
+import {getUserSortRq} from "../services/Utils";
 
 const UsersHeader = () => {
     const [showModal, setShowModal] = useState(false);
     const [role, setRole] = useState(1);
     const [isOnline, setIsOnline] = useState(false);
+    const dispatch = useDispatch();
     const handleModal = () => {
         setShowModal(!showModal);
     };
     const handleRoleSelectChange = (event) => {
-        const role = event.target.value;
+        const role = Number (event.target.value);
+        if(role!==1){
+            const roleAuthReq = getUserSortRq(role,isOnline);
+            dispatch(getByRoleAndAuthStatus(roleAuthReq));
+        }else{
+            dispatch(initializeUsers());
+        }
         setRole(role);
     }
     const handleAuthStatusSelectChange = (event) => {
-        const authStatus = event.target.value;
+        const authStatus = Number (event.target.value);
+        if(role!==1){
+            const roleAuthReq = getUserSortRq(role,authStatus===2);
+            dispatch(getByRoleAndAuthStatus(roleAuthReq));
+        }else{
+            if (authStatus === 2) {
+                dispatch(getByAuthStatus(true));
+            } else if (authStatus === 3) {
+                dispatch(getByAuthStatus(false));
+            } else {
+                dispatch(initializeUsers());
+            }
+        }
         setIsOnline(authStatus === 2);
     }
     return (

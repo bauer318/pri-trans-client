@@ -8,7 +8,7 @@ import {logout, refreshP} from "../App";
 const LogoutBtn = () => {
     const navigate = useNavigate();
     const handleLogout = () =>{
-        remove('longedUser');
+        remove('connectedUser');
         navigate('/');
         logout();
         refreshP();

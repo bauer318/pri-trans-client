@@ -1,16 +1,20 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
 import {Navigate, useNavigate} from "react-router-dom";
-import {get, save} from "../services/LocalStorageService";
+import {get, save,remove} from "../services/LocalStorageService";
 import {refreshP} from "../App";
 import ModeratorHome from "./ModeratorHome";
+import {useDispatch, useSelector} from "react-redux";
+import {login} from '../reducers/userReducers'
+import axios from "axios";
+
 
 const Home = () => {
     const [formData, setFormData] = useState({});
-    const user = get('longedUser');
+    const [error,setError] = useState(null);
+    const user = get('connectedUser');
     const navigate = useNavigate();
-
     const redirectTo = userRole => {
         switch (userRole) {
             case 'ROLE_ADMIN':
@@ -27,8 +31,6 @@ const Home = () => {
                 break;
         }
     }
-
-
     const getUserHomePath = userRole => {
         switch (userRole) {
             case 'ROLE_ADMIN':
@@ -45,18 +47,29 @@ const Home = () => {
     const handleSubmit = event => {
         event.preventDefault();
         const longedUser = {
-            id: 1,
             email: formData["email"],
-            role: 'ROLE_ADMIN'
+            password:formData["password"]
         };
-        save('longedUser', longedUser);
-        redirectTo(longedUser?.role);
-        refreshP();
-        console.log(formData);
+        axios.post('http://localhost:8081/api/login',longedUser)
+            .then((res)=>{
+                if(res.data.email){
+                    save("connectedUser",res.data);
+                    const user = get("connectedUser");
+                    redirectTo(user.userRole.userRole);
+                    refreshP();
+                }else{
+                    setError('bad credential');
+                }
+
+            })
+            .catch((err)=>{console.log(err); setError('Not connection')});
     }
     const handleChange = event => {
         const {name, value} = event.target;
         setFormData({...formData, [name]: value});
+        if(error){
+            setError(null);
+        }
     }
     return (
         <>
@@ -95,6 +108,10 @@ const Home = () => {
                                 Login
                             </button>
                         </div>
+                        {
+                            error&&
+                            <p className={"text-danger"}>{error}</p>
+                        }
                     </Form>
                 </div>
                 <div className="d-flex align-items-center justify-content-center pb-4 mt-3">
@@ -104,6 +121,7 @@ const Home = () => {
                     </button>
                 </div>
             </div>
+
         </>
 
     );

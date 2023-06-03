@@ -1,6 +1,8 @@
 import React from 'react';
 import {createSlice} from "@reduxjs/toolkit";
 import userService from '../services/UserService'
+import authService from '../services/AuthService'
+import {save} from "../services/LocalStorageService";
 
 
 const userSlice = createSlice({
@@ -23,10 +25,30 @@ export const initializeUsers = () => {
     }
 };
 
+export const login = user => {
+    return async dispatch => {
+        const connectedUser = await authService.login(user);
+        dispatch(setUsers(connectedUser));
+    }
+}
 export const createUser = user => {
     return async dispatch => {
         const newUser = await userService.createNew(user);
         dispatch(appendUser(newUser));
+    }
+}
+
+export const getByRoleAndAuthStatus = rq => {
+    return async dispatch => {
+        const userByRoleAndStatus = await userService.getByRoleAndAuthStatus(rq);
+        dispatch(setUsers(userByRoleAndStatus));
+    }
+}
+
+export const getByAuthStatus = authStatus => {
+    return async dip => {
+        const userByAuthStatus = await userService.getByAuthStatus(authStatus);
+        dip(setUsers(userByAuthStatus));
     }
 }
 export const updateUser = (id, user) => {
@@ -45,8 +67,8 @@ export const deleteUser = id => {
     }
 }
 
-export const getUserByEmail = email =>{
-    return async dispatch =>{
+export const getUserByEmail = email => {
+    return async dispatch => {
         const user = await userService.getUserByEmail(email);
         dispatch(setUsers(user));
     }

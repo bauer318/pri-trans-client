@@ -46,14 +46,14 @@ const UsersTable = () => {
                     </thead>
                     <tbody>
                     {users.map(user =>
-                        <tr key={user.id}>
+                        <tr key={user.userId}>
                             <td>{user.email}</td>
                             <td className={"text-center"} style={{color: user.authStatus ? "green" : "red"}}>
                                 {user.authStatus ? "Online" : "offline"}</td>
-                            <td className={"text-center"} onClick={() => handleEdit(user.id)}><FaEdit/></td>
-                            <td className={"text-center"} onClick={() => handleDelete(user.id)}><MdDeleteForever/></td>
+                            <td className={"text-center"} onClick={() => handleEdit(user.userId)}><FaEdit/></td>
+                            <td className={"text-center"} onClick={() => handleDelete(user.userId)}><MdDeleteForever/></td>
                             <td className={"text-center"}>
-                                {<NavLink to={`/admin/users/${user.id}`}>
+                                {<NavLink to={`/admin/users/${user.userId}`}>
                                     <BsInfoCircleFill/>
                                 </NavLink>}
                             </td>

@@ -37,7 +37,7 @@ import {get} from "./services/LocalStorageService";
 export var logout = ()=>{};
 export var refreshP = ()=>{};
 const App = () => {
-    const longedUser = get('longedUser');
+    const longedUser = get('connectedUser');
     const [isLonged, setIsLonged] = useState(longedUser);
     const [refresh, setRefresh] = useState(false);
     logout = () =>{
@@ -57,7 +57,7 @@ const App = () => {
                         <Route path={"/register"} element={<CreateAccount/>}/>
                         <Route path={"/register/1/personal-info"} element={<PersonalInfo/>}/>
                         <Route path={'/register/1/personal-info/address'} element={<HomeAddress/>}/>
-                        {longedUser?.role==='ROLE_ADMIN' && <Route path={"/admin/users"} element={<UserList/>}/>}
+                        {longedUser?.userRole?.userRole==='ROLE_ADMIN' && <Route path={"/admin/users"} element={<UserList/>}/>}
                         <Route path={"/admin/users/:id"} element={<User/>} />
                         <Route path={"/admin/countries"} element={<CountryList/>}/>
                         <Route path={"/admin/countries/:id"} element={<CountryItem/>}/>

@@ -25,7 +25,7 @@ const Sidebar = ({children, user}) => {
                 return 3;
         }
     }
-    const menuIndex = getMenuIndexByRole(user?.role);
+    const menuIndex = getMenuIndexByRole(user?.userRole.userRole);
     const menuItem = [
         [
             {
