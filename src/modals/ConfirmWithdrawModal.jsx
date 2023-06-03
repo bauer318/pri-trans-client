@@ -48,7 +48,7 @@ const ConfirmWithdrawModal = ({withdrawDetails,isAgent,showModal, handleModal}) 
                     {
                         isAgent &&
                         <Form.Group controlId={"ref"}>
-                            <Form.Label>Reference</Form.Label>
+                            <Form.Label className={"required"}>Reference</Form.Label>
                             <Form.Control
                                 type={"text"}
                                 placeholder={"reference number"}

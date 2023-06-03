@@ -22,7 +22,7 @@ const AddUserInfoModal = ({showModal, handleModal, userId}) => {
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicFirstname">
-                        <Form.Label>Firstname</Form.Label>
+                        <Form.Label className={"required"}>Firstname</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder="first name"
@@ -33,7 +33,7 @@ const AddUserInfoModal = ({showModal, handleModal, userId}) => {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicUserRole">
-                        <Form.Label>User role</Form.Label>
+                        <Form.Label className={"required"}>User role</Form.Label>
                         <Form.Control as="select"
                                       name="role"
                                       required={true}
@@ -46,7 +46,7 @@ const AddUserInfoModal = ({showModal, handleModal, userId}) => {
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formBasicCountry">
-                        <Form.Label>Country</Form.Label>
+                        <Form.Label className={"required"}>Country</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder="Enter user country"
@@ -57,7 +57,7 @@ const AddUserInfoModal = ({showModal, handleModal, userId}) => {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label className={"required"}>Password</Form.Label>
                         <Form.Control
                             type="password"
                             placeholder="Password"

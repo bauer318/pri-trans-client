@@ -58,7 +58,7 @@ const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
                     </Form.Group>
 
                     <Form.Group controlId={"note"}>
-                        <Form.Label>Note</Form.Label>
+                        <Form.Label className={"required"}>Note</Form.Label>
                         <Form.Control
                             as="textarea"
                             rows={3}

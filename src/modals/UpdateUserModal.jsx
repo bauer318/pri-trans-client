@@ -55,7 +55,7 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
+                        <Form.Label className={"required"}>Email address</Form.Label>
                         <Form.Control
                             type="email"
                             placeholder="example@email.com"
@@ -68,7 +68,7 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicUserRole">
-                        <Form.Label>User role</Form.Label>
+                        <Form.Label className={"required"}>User role</Form.Label>
                         <Form.Control as="select"
                                       name="role"
                                       required={true}
@@ -91,7 +91,7 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
                                 <option value={Number(updatedCountry)}>{countries?.find(c=>c.id===Number(updatedCountry))?.country}</option>
                             </Form.Control>
                         </Form.Group>) : (<Form.Group controlId="formBasicCountry">
-                            <Form.Label>Country</Form.Label>
+                            <Form.Label className={"required"}>Country</Form.Label>
                             <Form.Control
                                 as="select"
                                 name="country"

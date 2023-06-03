@@ -59,7 +59,7 @@ const CountryEdit = () => {
                     <div>
                         <Form onSubmit={handleSubmitCountryName} className={'mt-2'}>
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label><h3>Country</h3></Form.Label>
+                                <Form.Label className={"required"}><h3>Country</h3></Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="country"

@@ -30,7 +30,7 @@ const AddBalanceModal = ({showModal, handleModal}) => {
 
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicMainCurrency">
-                        <Form.Label>Balance's devise</Form.Label>
+                        <Form.Label className={"required"}>Balance's devise</Form.Label>
                         <Form.Control as="select"
                                       name="balance"
                                       required={true}

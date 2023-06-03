@@ -46,7 +46,7 @@ const CreateAccount = () => {
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                 <Form onSubmit={handleSubmit} className={"login-form"}>
                     <Form.Group controlId="formBasicEmail" className={"form-outline mb-4"}>
-                        <Form.Label className={"required"}>email address</Form.Label>
+                        <Form.Label className={"required"}>Email address</Form.Label>
                         <Form.Control
                             type="email"
                             placeholder="example@email.com"

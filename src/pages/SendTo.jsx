@@ -34,7 +34,7 @@ const SendTo = () => {
             <CSWHeader title={"Send money"}/>
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                 <Form onSubmit={handleSubmit}>
-                    <h3>Who are you sending money to?</h3>
+                    <h3 className={"required"}>Who are you sending money to?</h3>
                     <Form.Group>
                         <Form.Control
                             type={"email"}

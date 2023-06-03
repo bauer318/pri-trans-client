@@ -24,21 +24,31 @@ const AddCurrencyModal = ({showModal , handleModal}) => {
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicCurrency">
-                        <Form.Label>Currency</Form.Label>
+                        <Form.Label className={"required"}>Currency</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Congolese franc"
+                            placeholder="Russian Ruble"
                             name="currency"
+                            required={true}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formBasicCurrencyCode">
+                        <Form.Label className={"required"}>Currency</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="RUB"
+                            name="currencyCode"
                             required={true}
                             onChange={handleChange}
                         />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicSymbol">
-                        <Form.Label>Symbol</Form.Label>
+                        <Form.Label className={"required"}>Symbol</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Fc"
+                            placeholder="₽"
                             name="symbol"
                             required={true}
                             onChange={handleChange}

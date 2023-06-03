@@ -30,7 +30,7 @@ const AddUserModal = ({showModal, handleModal}) => {
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
+                        <Form.Label className={"required"}>Email address</Form.Label>
                         <Form.Control
                             type="email"
                             placeholder="example@email.com"
@@ -41,7 +41,7 @@ const AddUserModal = ({showModal, handleModal}) => {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicUserRole">
-                        <Form.Label>User role</Form.Label>
+                        <Form.Label className={"required"}>User role</Form.Label>
                         <Form.Control as="select"
                                       name="role"
                                       required={true}
@@ -54,7 +54,7 @@ const AddUserModal = ({showModal, handleModal}) => {
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formBasicCountry">
-                        <Form.Label>Country</Form.Label>
+                        <Form.Label className={"required"}>Country</Form.Label>
                         <Form.Control
                             as="select"
                             name="country"
@@ -72,7 +72,7 @@ const AddUserModal = ({showModal, handleModal}) => {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label className={"required"}>Password</Form.Label>
                         <Form.Control
                             type="password"
                             placeholder="Password"

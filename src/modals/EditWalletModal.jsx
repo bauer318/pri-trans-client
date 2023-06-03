@@ -61,7 +61,7 @@ const EditWalletModal = ({wallet, showModal, handleModal}) => {
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="pm">
-                        <Form.Label>Payment Method</Form.Label>
+                        <Form.Label className={"required"}>Payment Method</Form.Label>
                         <Form.Control
                             as="select"
                             name="pm"
@@ -78,7 +78,7 @@ const EditWalletModal = ({wallet, showModal, handleModal}) => {
                     </Form.Group>
 
                     <Form.Group controlId="num">
-                        <Form.Label>Number</Form.Label>
+                        <Form.Label className={"required"}>Wallet's number</Form.Label>
                         <Form.Control
                             type="text"
                             defaultValue={wallet?.number}
@@ -88,7 +88,7 @@ const EditWalletModal = ({wallet, showModal, handleModal}) => {
                         />
                     </Form.Group>
                     <Form.Group controlId="accountName">
-                        <Form.Label>Account name</Form.Label>
+                        <Form.Label className={"required"}>Account name</Form.Label>
                         <Form.Control
                             type="text"
                             defaultValue={wallet?.accountName}

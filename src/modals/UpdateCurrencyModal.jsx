@@ -38,7 +38,7 @@ const UpdateCurrencyModal = ({showModal, handleModal, selectedCurrency, isDelete
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicCurrency">
-                        <Form.Label>Currency</Form.Label>
+                        <Form.Label className={isDelete?"":"required"}>Currency</Form.Label>
                         <Form.Control
                             type="text"
                             name="currency"
@@ -49,8 +49,20 @@ const UpdateCurrencyModal = ({showModal, handleModal, selectedCurrency, isDelete
                         />
                     </Form.Group>
 
+                    <Form.Group controlId="formBasicCurrencyCode">
+                        <Form.Label className={isDelete?"":"required"}>Code</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="currencyCode"
+                            defaultValue={selectedCurrency.currency}
+                            required={true}
+                            onChange={handleCurrencyChange}
+                            readOnly={isDelete}
+                        />
+                    </Form.Group>
+
                     <Form.Group controlId="formBasicSymbol">
-                        <Form.Label>Symbol</Form.Label>
+                        <Form.Label className={isDelete?"":"required"}>Symbol</Form.Label>
                         <Form.Control
                             type="text"
                             name="symbol"

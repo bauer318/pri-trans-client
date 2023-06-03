@@ -52,7 +52,7 @@ const AddCountryModal = ({showModal, handleModal}) => {
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicCountry">
-                        <Form.Label>Country</Form.Label>
+                        <Form.Label className={"required"}>Country</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder="DR Congo"
@@ -61,8 +61,38 @@ const AddCountryModal = ({showModal, handleModal}) => {
                             onChange={handleChange}
                         />
                     </Form.Group>
+                    <Form.Group controlId="formBasicCountryCode">
+                        <Form.Label className={"required"}>Country Code</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="CG"
+                            name="countryCode"
+                            required={true}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formBasicCountryIso">
+                        <Form.Label className={"required"}>Country Iso</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="DRC"
+                            name="countryIso"
+                            required={true}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formBasicCountryPhone">
+                        <Form.Label className={"required"}>Phone code</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="+243"
+                            name="phoneCode"
+                            required={true}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
                     <Form.Group controlId="formBasicMainCurrency">
-                        <Form.Label>Main currency</Form.Label>
+                        <Form.Label className={"required"}>Main currency</Form.Label>
                         <Form.Control as="select"
                                       name="currencies"
                                       required={true}
@@ -78,7 +108,7 @@ const AddCountryModal = ({showModal, handleModal}) => {
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formBasicMainPM">
-                        <Form.Label>Main currency</Form.Label>
+                        <Form.Label className={"required"}>Main payment method</Form.Label>
                         <Form.Control as="select"
                                       name="paymentMethods"
                                       required={true}

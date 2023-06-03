@@ -6,7 +6,7 @@ import {useMatch, useNavigate} from "react-router-dom";
 
 const CountryItemHeader = () => {
     const navigate = useNavigate();
-    const match = useMatch('admin/countries/:id');
+    const match = useMatch('/admin/countries/:id');
     const countryId = Number(match?.params.id);
     return (
         <div>

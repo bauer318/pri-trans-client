@@ -32,7 +32,7 @@ const UpdatePaymentMethodModal = ({showModal, handleModal, selectedPaymentMethod
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicPM">
-                        <Form.Label>Payment method</Form.Label>
+                        <Form.Label className={isDelete?"":"required"}>Payment method</Form.Label>
                         <Form.Control
                             type="text"
                             name="paymentMethod"

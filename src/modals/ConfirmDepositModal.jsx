@@ -55,7 +55,7 @@ const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleCon
                         </Form.Group>)
                     }
                     <Form.Group controlId={"refNumber"}>
-                        <Form.Label>Reference's number</Form.Label>
+                        <Form.Label className={!isAgent?"required":""}>Reference's number</Form.Label>
                         <Form.Control
                             type={"text"}
                             placeholder={"reference"}

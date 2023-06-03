@@ -113,7 +113,7 @@ const Home = () => {
                 <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                     <Form onSubmit={handleSubmit} className={"login-form"}>
                         <Form.Group controlId="formBasicEmail" className={"form-outline mb-4"}>
-                            <Form.Label>email address</Form.Label>
+                            <Form.Label className={"required"}>Email address</Form.Label>
                             <Form.Control
                                 type="email"
                                 placeholder="example@email.com"
@@ -123,7 +123,7 @@ const Home = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label className={"required"}>Password</Form.Label>
                             <Form.Control
                                 type="password"
                                 placeholder="Password"
