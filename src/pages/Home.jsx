@@ -1,12 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Form} from "react-bootstrap";
-import {ImUserPlus} from "react-icons/im";
 import {Navigate, useNavigate} from "react-router-dom";
 import {get, save,remove} from "../services/LocalStorageService";
 import {refreshP} from "../App";
-import ModeratorHome from "./ModeratorHome";
-import {useDispatch, useSelector} from "react-redux";
-import {login} from '../reducers/userReducers'
 import axios from "axios";
 
 
@@ -51,7 +47,7 @@ const Home = () => {
             password:formData["password"]
         };
         axios.post('http://localhost:8081/api/login',longedUser)
-            .then((res)=>{
+            .then(res=>{
                 if(res.data.email){
                     save("connectedUser",res.data);
                     const user = get("connectedUser");
@@ -62,7 +58,7 @@ const Home = () => {
                 }
 
             })
-            .catch((err)=>{console.log(err); setError('Not connection')});
+            .catch(err=>{console.log(err); setError('Not connection')});
     }
     const handleChange = event => {
         const {name, value} = event.target;

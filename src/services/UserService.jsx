@@ -1,27 +1,44 @@
 import React from 'react';
 import axios from "axios";
+import {printError} from "./Utils";
 
 const baseUrl = 'http://localhost:8081/api/users';
 const authStatusPath = 'auth-status';
 
 const getAll = async () => {
-    const response = await axios.get(baseUrl);
-    return response.data;
+    try {
+        const response = await axios.get(baseUrl);
+        return response.data;
+    } catch (error) {
+        printError(error);
+    }
 }
 
 const getByRoleAndAuthStatus = async (rq) => {
-    console.log(rq);
-    const response = await axios.post(baseUrl + "/sort", rq);
-    return response.data;
+    try {
+        const response = await axios.post(baseUrl + "/sort", rq);
+        return response.data;
+    } catch (error) {
+        printError(error);
+    }
 }
 
 const getByAuthStatus = async (authStatus) => {
-    const response = await axios.get(`${baseUrl}/${authStatusPath}/${authStatus}`);
-    return response.data;
+    try {
+        const response = await axios.get(`${baseUrl}/${authStatusPath}/${authStatus}`);
+        return response.data;
+    } catch (error) {
+        printError(error);
+    }
 }
 const getOne = async (userId) => {
-    const response = await axios.get(`${baseUrl}/${userId}`);
-    return response.data;
+    try {
+        const response = await axios.get(`${baseUrl}/${userId}`);
+        return response.data;
+    } catch (error) {
+        printError(error);
+    }
+
 }
 
 const createNew = async (user) => {
@@ -34,13 +51,22 @@ const createNew = async (user) => {
         blockingStatus: false,
         infos: {}
     }
-    const response = await axios.post(baseUrl, createdUser);
-    return response.data;
+    try {
+        const response = await axios.post(baseUrl, createdUser);
+        return response.data;
+    } catch (error) {
+        printError(error);
+    }
+
 }
 
 const getUserByEmail = async (email) => {
-    const response = await axios.get(`${baseUrl}/${email}`);
-    return response.data;
+    try {
+        const response = await axios.get(`${baseUrl}/${email}`);
+        return response.data;
+    } catch (error) {
+        printError(error);
+    }
 }
 const update = async (id, newUser) => {
     const updatedUser = {
@@ -51,12 +77,21 @@ const update = async (id, newUser) => {
         blockingStatus: newUser.blockingStatus,
         infos: newUser.infos
     }
-    const response = await axios.put(`${baseUrl}/${id}`, updatedUser);
-    return response.data;
+    try {
+        const response = await axios.put(`${baseUrl}/${id}`, updatedUser);
+        return response.data;
+    } catch (error) {
+        printError(error);
+    }
+
 }
 
 const deleteUser = async id => {
-    const response = await axios.delete(`${baseUrl}/${id}`);
-    return response.data;
+    try {
+        const response = await axios.delete(`${baseUrl}/${id}`);
+        return response.data;
+    } catch (error) {
+        printError(error);
+    }
 }
 export default {getAll, getOne, createNew, update, deleteUser, getUserByEmail, getByRoleAndAuthStatus, getByAuthStatus};

@@ -9,7 +9,7 @@ const getAll = async () => {
 }
 const createNew = async (paymentMethod) => {
     const object = {
-        paymentMethod: paymentMethod.paymentMethod
+        paymentMethod: paymentMethod?.paymentMethod
     }
     const response = await axios.post(baseUrl, object);
     return response.data;

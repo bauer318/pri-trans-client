@@ -8,13 +8,14 @@ import {useNavigate} from "react-router-dom";
 import {initializeCountries} from "../reducers/countryReducers";
 
 const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
-    console.log(' update user modal ');
+    console.log('id',userId);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({});
-    const user = useSelector(state => state.users.find(user => user.id === userId));
+    const user = useSelector(state => state.users.find(user => user.userId === userId));
+    console.log('find', user);
     const [updateEmail, setUpdatedEmail] = useState(user?.email);
-    const [updatedRole, setUpdatedRole] = useState(user?.role);
-    const [updatedCountry, setUpdatedCountry] = useState(user?.country);
+    const [updatedRole, setUpdatedRole] = useState(user?.userRole);
+    const [updatedCountry, setUpdatedCountry] = useState(user?.country.countryId);
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -29,7 +30,7 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
             const changedUser = {
                 ...user,
                 email: updateEmail,
-                role: updatedRole,
+                userRole: updatedRole,
                 country: updatedCountry
             }
             dispatch(updateUser(userId, changedUser));
@@ -74,7 +75,7 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
                                       name="role"
                                       required={true}
                                       onChange={handleRoleChange}
-                                      defaultValue={user?.role}
+                                      defaultValue={user?.userRole}
                                       disabled={isDelete}
                         >
                             <option value={3}>Agent</option>
@@ -89,7 +90,7 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
                                 as="select"
                                 name="country"
                             >
-                                <option value={Number(updatedCountry)}>{countries?.find(c=>c.id===Number(updatedCountry))?.country}</option>
+                                <option value={Number(updatedCountry)}>{countries?.find(c=>c.countryId===Number(updatedCountry))?.countryName}</option>
                             </Form.Control>
                         </Form.Group>) : (<Form.Group controlId="formBasicCountry">
                             <Form.Label>Country</Form.Label>
@@ -99,10 +100,10 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
                                 required={true}
                                 onChange={handleCountryChange}
                             >
-                                <option value={Number(updatedCountry)}>{countries?.find(c=>c.id===Number(updatedCountry))?.country}</option>
+                                <option value={Number(updatedCountry)}>{countries?.find(c=>c.countryId===Number(updatedCountry))?.countryName}</option>
                                 {
                                     countries?.map(country =>
-                                        <option value={country.id} key={country.id}>{country.country}</option>
+                                        <option value={country.countryId} key={country.countryId}>{country.countryName}</option>
                                     )
                                }
                             </Form.Control>

@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import LoadingEffect from "./LoadingEffect";
 
 const CountryCard = ({countryId}) => {
-    const country = useSelector(state => state.countries.find(country => country.id === countryId));
+    const country = useSelector(state => state.countries.find(country => country.countryId === countryId));
     const currencies = country?.currencies;
     const paymentMethods = country?.paymentMethods;
     return (
@@ -15,7 +15,7 @@ const CountryCard = ({countryId}) => {
                         {
                             <NavLink to={`/admin/countries/${countryId}`}>
                                 <div className={"card-header"}>
-                                    {country.country}
+                                    {country.countryName}
                                 </div>
                             </NavLink>
                         }
@@ -23,7 +23,7 @@ const CountryCard = ({countryId}) => {
                             <div className={"col"}>
                                 {currencies ? (
                                     currencies.map(currency =>
-                                        <p key={currency.id}>{currency.currency}</p>
+                                        <p key={currency.currencyId}>{currency.currency}</p>
                                     )) : (
                                     <LoadingEffect/>
                                 )
@@ -32,7 +32,7 @@ const CountryCard = ({countryId}) => {
                             <div className={"col"}>
                                 {paymentMethods ? (
                                     paymentMethods.map(paymentMethod =>
-                                        <p key={paymentMethod.id}>{paymentMethod.paymentMethod}</p>
+                                        <p key={paymentMethod.paymentMethodId}>{paymentMethod.paymentMethod}</p>
                                     )) : (<LoadingEffect/>)}
                             </div>
                         </div>

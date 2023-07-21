@@ -1,36 +1,54 @@
 import React from 'react';
 import axios from "axios";
+import {printError} from "./Utils";
 
-const baseUrl = 'http://localhost:3001/countries';
+const baseUrl = 'http://localhost:8081/api/countries';
 
 const getAll = async () => {
-    const response = await axios.get(baseUrl);
-    return response.data;
+    try {
+        const response = await axios.get(baseUrl);
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
 }
 
 const createNew = async (country) => {
     const object = {
-        country:country.country,
-        currencies:country.currencies,
-        paymentMethods:country.paymentMethods
+        country: country?.country,
+        currencies: country?.currencies,
+        paymentMethods: country?.paymentMethods
     }
-    const response = await axios.post(baseUrl,object);
-    return response.data;
+    try {
+        const response = await axios.post(baseUrl, object);
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
 }
 
-const update = async(id, country) =>{
+const update = async (id, country) => {
     const updatedCountry = {
-        country:country.country,
-        currencies:country.currencies,
-        paymentMethods: country.paymentMethods
+        country: country?.country,
+        currencies: country?.currencies,
+        paymentMethods: country?.paymentMethods
     }
-    const resp = await axios.put(`${baseUrl}/${id}`, updatedCountry);
-    return resp.data;
+    try {
+        const resp = await axios.put(`${baseUrl}/${id}`, updatedCountry);
+        return resp?.data;
+    }catch(error){
+        printError(error);
+    }
+
 }
 
-const deleteCountry = async id =>{
-    const response = await axios.delete(`${baseUrl}/${id}`);
-    return response.data;
+const deleteCountry = async id => {
+    try{
+        const response = await axios.delete(`${baseUrl}/${id}`);
+        return response?.data;
+    }catch(error){
+        printError(error);
+    }
 }
 
-export default {getAll,createNew, update, deleteCountry};
+export default {getAll, createNew, update, deleteCountry};
