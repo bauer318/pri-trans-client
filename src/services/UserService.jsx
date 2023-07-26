@@ -42,11 +42,9 @@ const getOne = async (userId) => {
 }
 
 const createNew = async (user) => {
-    const role = user.role ? Number(user.role) : 4;
+    //const role = user.role ? Number(user.role) : 4;
     const createdUser = {
-        email: user.email,
-        role: role,
-        country: user.country,
+        ...user,
         authStatus: false,
         blockingStatus: false,
         infos: {}
@@ -70,12 +68,13 @@ const getUserByEmail = async (email) => {
 }
 const update = async (id, newUser) => {
     const updatedUser = {
+        ... newUser,
         email: newUser.email,
-        role: Number(newUser.role),
+        /*role: Number(newUser.role),
         country: newUser.country,
         authStatus: newUser.authStatus,
         blockingStatus: newUser.blockingStatus,
-        infos: newUser.infos
+        infos: newUser.infos*/
     }
     try {
         const response = await axios.put(`${baseUrl}/${id}`, updatedUser);

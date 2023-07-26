@@ -2,27 +2,41 @@ import React, {useEffect, useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
 import {useDispatch, useSelector} from "react-redux";
-import {createUser} from "../reducers/userReducers";
 import {initializeCountries} from "../reducers/countryReducers";
+import {getOne} from "../services/RoleService";
+import {getById} from "../services/Countries";
+import {createUser} from "../reducers/userReducers";
 
 
 const AddUserModal = ({showModal, handleModal}) => {
-    console.log('Add user modal');
     const [formData, setFormData] = useState({});
     const dispatch = useDispatch();
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(initializeCountries());
-    },[]);
+    }, []);
     const countries = useSelector(state => state.countries);
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(createUser(formData));
+        console.log(formData);
         handleModal();
     };
     const handleChange = (event) => {
         const {name, value} = event.target;
         setFormData({...formData, [name]: value});
     };
+
+    const handleRoleChange = (event) => {
+        const {name, value} = event.target;
+        const role = getOne(value);
+        role.then(res => setFormData({...formData, [name]: res}));
+    }
+
+    const handleCountryChange = (event)=>{
+        const {name, value} = event.target;
+        const country = getById(value);
+        country.then(res => setFormData({...formData, [name]: res}));
+    }
     return (
         <Modal show={showModal} onHide={handleModal}>
             <Modal.Header closeButton>
@@ -44,9 +58,9 @@ const AddUserModal = ({showModal, handleModal}) => {
                     <Form.Group controlId="formBasicUserRole">
                         <Form.Label>User role</Form.Label>
                         <Form.Control as="select"
-                                      name="role"
+                                      name="userRole"
                                       required={true}
-                                      onChange={handleChange}
+                                      onChange={handleRoleChange}
                         >
                             <option value="">Select user role</option>
                             <option value={3}>Agent</option>
@@ -60,13 +74,12 @@ const AddUserModal = ({showModal, handleModal}) => {
                             as="select"
                             name="country"
                             required={true}
-                            onChange={handleChange}
+                            onChange={handleCountryChange}
                         >
                             <option value="">Select user's country</option>
                             {
-                                countries?.map(country=>
-                                    <option value={country.id} key={country.id}>{country.country}</option>
-
+                                countries?.map(country =>
+                                    <option value={country.countryId} key={country.countryId}>{country.countryName}</option>
                                 )
                             }
                         </Form.Control>

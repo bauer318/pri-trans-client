@@ -13,6 +13,24 @@ const getAll = async () => {
     }
 }
 
+const getByName = async name => {
+    try {
+        const response = await axios.get(`${baseUrl}/by-name/${name}`);
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
+export const getById = async id =>{
+    try{
+        const response = await axios.get(`${baseUrl}/${id}`);
+        return response?.data;
+    }catch (error){
+        printError(error);
+    }
+}
+
 const createNew = async (country) => {
     const object = {
         country: country?.country,
@@ -36,17 +54,17 @@ const update = async (id, country) => {
     try {
         const resp = await axios.put(`${baseUrl}/${id}`, updatedCountry);
         return resp?.data;
-    }catch(error){
+    } catch (error) {
         printError(error);
     }
 
 }
 
 const deleteCountry = async id => {
-    try{
+    try {
         const response = await axios.delete(`${baseUrl}/${id}`);
         return response?.data;
-    }catch(error){
+    } catch (error) {
         printError(error);
     }
 }
