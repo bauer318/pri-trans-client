@@ -5,8 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {initializeCountries} from "../reducers/countryReducers";
 import {getOne} from "../services/RoleService";
 import {getById} from "../services/Countries";
-import {createUser} from "../reducers/userReducers";
-
+import {createUser, initializeUsers} from "../reducers/userReducers";
+import userService from '../services/UserService'
 
 const AddUserModal = ({showModal, handleModal}) => {
     const [formData, setFormData] = useState({});
@@ -17,8 +17,8 @@ const AddUserModal = ({showModal, handleModal}) => {
     const countries = useSelector(state => state.countries);
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(createUser(formData));
-        console.log(formData);
+        userService.createNew(formData).then(response => alert(response));
+        dispatch(initializeUsers());
         handleModal();
     };
     const handleChange = (event) => {

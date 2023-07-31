@@ -31,6 +31,15 @@ const getByAuthStatus = async (authStatus) => {
         printError(error);
     }
 }
+
+const getByRole = async roleRq =>{
+    try{
+        const response = await axios.post(baseUrl+"/sort-by-role", roleRq);
+        return response.data;
+    }catch(error){
+        printError(error);
+    }
+}
 const getOne = async (userId) => {
     try {
         const response = await axios.get(`${baseUrl}/${userId}`);
@@ -42,7 +51,6 @@ const getOne = async (userId) => {
 }
 
 const createNew = async (user) => {
-    //const role = user.role ? Number(user.role) : 4;
     const createdUser = {
         ...user,
         authStatus: false,
@@ -70,14 +78,11 @@ const update = async (id, newUser) => {
     const updatedUser = {
         ... newUser,
         email: newUser.email,
-        /*role: Number(newUser.role),
-        country: newUser.country,
-        authStatus: newUser.authStatus,
-        blockingStatus: newUser.blockingStatus,
-        infos: newUser.infos*/
+        userRole:newUser.userRole,
+        country:newUser.country,
     }
     try {
-        const response = await axios.put(`${baseUrl}/${id}`, updatedUser);
+        const response = await axios.put(`${baseUrl}/edit/${id}`, updatedUser);
         return response.data;
     } catch (error) {
         printError(error);
@@ -93,4 +98,4 @@ const deleteUser = async id => {
         printError(error);
     }
 }
-export default {getAll, getOne, createNew, update, deleteUser, getUserByEmail, getByRoleAndAuthStatus, getByAuthStatus};
+export default {getAll, getOne, createNew, update, deleteUser, getUserByEmail, getByRoleAndAuthStatus, getByAuthStatus, getByRole};

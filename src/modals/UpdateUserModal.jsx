@@ -2,24 +2,27 @@ import React, {useEffect, useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
 import {useDispatch, useSelector} from "react-redux";
-import LoadingEffect from "../components/LoadingEffect";
 import {deleteUser, updateUser} from "../reducers/userReducers";
 import {useNavigate} from "react-router-dom";
 import {initializeCountries} from "../reducers/countryReducers";
+import {getByName} from "../services/Countries";
+import {getAll, getOne} from "../services/RoleService";
+
 
 const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
-    console.log('id',userId);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({});
     const user = useSelector(state => state.users.find(user => user.userId === userId));
-    console.log('find', user);
     const [updateEmail, setUpdatedEmail] = useState(user?.email);
     const [updatedRole, setUpdatedRole] = useState(user?.userRole);
-    const [updatedCountry, setUpdatedCountry] = useState(user?.country.countryId);
+    const [updatedCountry, setUpdatedCountry] = useState(user?.country);
+    const [roles, setRoles] = useState([]);
+
 
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(initializeCountries());
+        getAll().then(response => setRoles(response));
     }, []);
     const countries = useSelector(state => state.countries);
     const handleSubmit = (event) => {
@@ -33,6 +36,7 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
                 userRole: updatedRole,
                 country: updatedCountry
             }
+            console.log('updated ', changedUser);
             dispatch(updateUser(userId, changedUser));
         }
         handleModal();
@@ -42,12 +46,14 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
         setUpdatedEmail(email);
     };
     const handleRoleChange = (event) => {
-        const role = event.target.value;
-        setUpdatedRole(role);
+        const role = getOne(event.target.value);
+        role.then(response => setUpdatedRole(response));
     };
     const handleCountryChange = (event) => {
-        const country = event.target.value;
-        setUpdatedCountry(country);
+        const country = getByName(event.target.value);
+        country.then(response => {
+            setUpdatedCountry(response);
+        });
     };
     return (
         <Modal show={showModal} onHide={handleModal}>
@@ -78,21 +84,24 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
                                       defaultValue={user?.userRole}
                                       disabled={isDelete}
                         >
-                            <option value={3}>Agent</option>
-                            <option value={2}>Moderator</option>
-                            <option value={1}>Administrator</option>
+                            <option>{updatedRole?.userRole.substring(5).toLowerCase()}</option>
+                            {roles.length > 0 && roles.filter(role => role.id !== updatedRole.id && role.userRole !== 'ROLE_CLIENT').map(role =>
+                                <option
+                                    value={role.id} key={role.id}>{role.userRole.substring(5).toLowerCase()}</option>)}
                         </Form.Control>
                     </Form.Group>
                     {
-                        isDelete ? (<Form.Group controlId="formBasicCountry">
-                            <Form.Label>Country</Form.Label>
-                            <Form.Control
-                                as="select"
-                                name="country"
-                            >
-                                <option value={Number(updatedCountry)}>{countries?.find(c=>c.countryId===Number(updatedCountry))?.countryName}</option>
-                            </Form.Control>
-                        </Form.Group>) : (<Form.Group controlId="formBasicCountry">
+                        isDelete ? (
+                            <Form.Group controlId="formBasicCountry">
+                                <Form.Label>Country</Form.Label>
+                                <Form.Control
+                                    as="select"
+                                    name="country"
+                                >
+                                    <option
+                                        value={updatedCountry?.countryName} key={updatedCountry.countryId}>{countries?.find(c => c.countryId === Number(updatedCountry?.countryId))?.countryName}</option>
+                                </Form.Control>
+                            </Form.Group>) : (<Form.Group controlId="formBasicCountry">
                             <Form.Label>Country</Form.Label>
                             <Form.Control
                                 as="select"
@@ -100,19 +109,21 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
                                 required={true}
                                 onChange={handleCountryChange}
                             >
-                                <option value={Number(updatedCountry)}>{countries?.find(c=>c.countryId===Number(updatedCountry))?.countryName}</option>
+                                <option
+                                    value={updatedCountry?.countryName}>{countries?.find(c => c.countryId === updatedCountry?.countryId)?.countryName}</option>
                                 {
-                                    countries?.map(country =>
-                                        <option value={country.countryId} key={country.countryId}>{country.countryName}</option>
+                                    countries.filter(country => country.countryId !== updatedCountry.countryId).map(country =>
+                                        <option value={country.countryName}
+                                                key={country.countryId}>{country.countryName}</option>
                                     )
-                               }
+                                }
                             </Form.Control>
                         </Form.Group>)
                     }
 
 
                     <div className={"mt-2"}>
-                        <button className={isDelete ? "btn btn-danger" : "btn btn-primary"} type={"submit"}>
+                        <button className={isDelete ? "btn btn-danger" : "btn btn-primary"} disabled={isDelete} type={"submit"}>
                             <span className={"me-2"}><i><ImUserPlus/></i></span>{isDelete ? "Delete" : "Save"}
                         </button>
                     </div>

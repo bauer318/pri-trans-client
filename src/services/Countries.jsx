@@ -13,7 +13,7 @@ const getAll = async () => {
     }
 }
 
-const getByName = async name => {
+export const getByName = async name => {
     try {
         const response = await axios.get(`${baseUrl}/by-name/${name}`);
         return response?.data;

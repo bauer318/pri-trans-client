@@ -3,42 +3,47 @@ import {ImUserPlus} from "react-icons/im";
 import LogoutBtn from "./LogoutBtn";
 import AddUserModal from "../modals/AddUserModal";
 import {useDispatch} from "react-redux";
-import {getByAuthStatus, getByRoleAndAuthStatus, initializeUsers} from "../reducers/userReducers";
+import {getByAuthStatus, getByRoleAndAuthStatus, initializeUsers, getByRole} from "../reducers/userReducers";
 import {getUserSortRq} from "../services/Utils";
 
 const UsersHeader = () => {
     const [showModal, setShowModal] = useState(false);
     const [role, setRole] = useState(1);
     const [isOnline, setIsOnline] = useState(false);
+    const [authStatus, setAuthStatus] = useState(1);
     const dispatch = useDispatch();
     const handleModal = () => {
         setShowModal(!showModal);
     };
     const handleRoleSelectChange = (event) => {
         const role = Number (event.target.value);
-        if(role!==1){
-            const roleAuthReq = getUserSortRq(role,isOnline);
-            dispatch(getByRoleAndAuthStatus(roleAuthReq));
-        }else{
-            dispatch(initializeUsers());
-        }
+        sortUser(role, isOnline);
         setRole(role);
+    }
+
+    const sortUser = (role,isOnline)=>{
+        if(role===1){
+            if(authStatus===1){
+                dispatch(initializeUsers());
+            }else{
+                dispatch(getByAuthStatus(isOnline));
+            }
+        }else{
+            if(authStatus===1){
+                const roleRq = getUserSortRq(role,isOnline);
+                dispatch(getByRole(roleRq));
+            }else{
+                const roleAuthReq = getUserSortRq(role,isOnline);
+                dispatch(getByRoleAndAuthStatus(roleAuthReq));
+            }
+        }
     }
     const handleAuthStatusSelectChange = (event) => {
         const authStatus = Number (event.target.value);
-        if(role!==1){
-            const roleAuthReq = getUserSortRq(role,authStatus===2);
-            dispatch(getByRoleAndAuthStatus(roleAuthReq));
-        }else{
-            if (authStatus === 2) {
-                dispatch(getByAuthStatus(true));
-            } else if (authStatus === 3) {
-                dispatch(getByAuthStatus(false));
-            } else {
-                dispatch(initializeUsers());
-            }
-        }
-        setIsOnline(authStatus === 2);
+        setAuthStatus(authStatus);
+        const isOnlineC = authStatus===2;
+        sortUser(role, isOnlineC);
+        setIsOnline(isOnlineC);
     }
     return (
         <div>

@@ -34,7 +34,7 @@ export const login = user => {
 export const createUser = user => {
     return async dispatch => {
         const newUser = await userService.createNew(user);
-        dispatch(appendUser(newUser));
+        //dispatch(appendUser(newUser));
     }
 }
 
@@ -42,6 +42,13 @@ export const getByRoleAndAuthStatus = rq => {
     return async dispatch => {
         const userByRoleAndStatus = await userService.getByRoleAndAuthStatus(rq);
         dispatch(setUsers(userByRoleAndStatus));
+    }
+}
+
+export const getByRole = rq =>{
+    return async dispatch =>{
+        const userByRole = await userService.getByRole(rq);
+        dispatch(setUsers(userByRole));
     }
 }
 

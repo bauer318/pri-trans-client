@@ -37,6 +37,7 @@ export const getUserSortRq = (roleKey, authStatus) => {
 
     }
 }
+
 export const printError = (error) =>{
     if(error.response){
         // Request made but the server responded with an error

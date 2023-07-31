@@ -33,7 +33,7 @@ const UsersTable = () => {
     }
 
     return (
-        <>{users ?
+        <>{users?.length>0 ?
             (<div>
                 <table className={"table table-success table-striped table-bordered table-responsive"}>
                     <thead className={"table-light"}>
