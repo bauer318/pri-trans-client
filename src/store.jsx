@@ -6,6 +6,7 @@ import paymentMethodReducers from "./reducers/paymentMethodReducers";
 import exchangeRateReducer from "./reducers/ExchangeRateReducer";
 import sendDetails from "./reducers/sendReducers";
 import userRoleReducers from "./reducers/roleReducers";
+import personalInfoReducer from "./reducers/PersonalInfoReducers"
 
 
 const store = configureStore({
@@ -17,6 +18,7 @@ const store = configureStore({
         rates:exchangeRateReducer,
         send:sendDetails,
         userRole:userRoleReducers,
+        personalInfo:personalInfoReducer
     }
 });
 
