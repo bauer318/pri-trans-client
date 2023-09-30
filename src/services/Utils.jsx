@@ -38,19 +38,51 @@ export const getUserSortRq = (roleKey, authStatus) => {
     }
 }
 
-export const printError = (error) =>{
-    if(error.response){
+export const printError = (error) => {
+    if (error.response) {
         // Request made but the server responded with an error
-        console.log('error 1 ',error.response.data);
-        console.log('error 1 ',error.response.status);
-        console.log('error 1 ',error.response.headers);
-    }
-    else if(error.request){
+        console.log('error 1 ', error.response.data);
+        console.log('error 1 ', error.response.status);
+        console.log('error 1 ', error.response.headers);
+    } else if (error.request) {
         // Request made but no response is received from the server.
-        console.log('error 2 ',error.request);
-    }else{
+        console.log('error 2 ', error.request);
+    } else {
         // Error occured while setting up the request
         console.log('Error', error.message);
     }
+}
+
+const countriesAPI = () => {
+    return [
+        {
+            name: 'Russia',
+            code: 'RU',
+            iso: 'RUS',
+            phoneCode: '+7'
+        },
+        {
+            name: 'USA',
+            code: 'US',
+            iso: 'USA',
+            phoneCode: '+1'
+        },
+        {
+            name: 'DR Congo',
+            code: 'CD',
+            iso: 'COD',
+            phoneCode: '+243'
+        },
+        {
+            name: 'Angola',
+            code: 'AO',
+            iso: 'AGO',
+            phoneCode: '+244'
+        }
+    ]
+}
+
+export const getCountryByName = name => {
+    return countriesAPI().filter(country => country.name === name)[0];
 }
 

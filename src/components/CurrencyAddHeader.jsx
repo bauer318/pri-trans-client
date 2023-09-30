@@ -11,12 +11,12 @@ const CurrencyAddHeader = () => {
     useEffect(()=>{
         dispatch(initializeCountries());
     },[]);
-    const country = useSelector(state=>state.countries.find(country=>country.id===countryId));
+    const country = useSelector(state=>state.countries.find(country=>country.countryId===countryId));
     return (
         <div>
             <div className={"row"}>
                 <div className={"col-lg-6 d-flex justify-content-center"}>
-                    <h3>Add currencies to {country?.country}</h3>
+                    <h3>Add currencies to {country?.countryName}</h3>
                 </div>
                 <div className={"col-lg-6 d-flex justify-content-end"}>
                     <LogoutBtn/>

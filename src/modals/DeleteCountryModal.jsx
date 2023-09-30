@@ -5,14 +5,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteCountry} from "../reducers/countryReducers";
 import {useNavigate} from "react-router-dom";
 
-const DeleteCountryModal = ({showModal, handleModal, countryId}) => {
+const DeleteCountryModal = ({showModal, handleModal, country}) => {
     console.log('Delete country modal');
-    const country = useSelector(state => state.countries.find(country => country.id === countryId));
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(deleteCountry(countryId));
+        dispatch(deleteCountry(country?.countryId));
         navigate('/admin/countries');
     };
     return (
@@ -26,7 +25,7 @@ const DeleteCountryModal = ({showModal, handleModal, countryId}) => {
                         <Form.Label>Country</Form.Label>
                         <Form.Control
                             type="text"
-                            value={country?.country}
+                            value={country?.countryName}
                             readOnly={true}
                         />
                     </Form.Group>

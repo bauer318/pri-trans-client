@@ -6,6 +6,8 @@ import DeleteCountryModal from "../modals/DeleteCountryModal";
 import {useDispatch, useSelector} from "react-redux";
 import {initializeCountries} from "../reducers/countryReducers";
 import LoadingEffect from "./LoadingEffect";
+import {initializeCurrencies} from "../reducers/currencyReducers";
+import {initializePaymentMethods} from "../reducers/paymentMethodReducers";
 
 const Country = () => {
     const navigate = useNavigate();
@@ -14,11 +16,13 @@ const Country = () => {
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        dispatch(initializeCountries())
+        dispatch(initializeCountries());
+        dispatch(initializeCurrencies());
+        dispatch(initializePaymentMethods());
     }, []);
 
     const countryId = Number(match.params.id);
-    const country = useSelector(state => state.countries.find(country => country.id === countryId));
+    const country = useSelector(state => state.countries.find(country => country.countryId === countryId));
 
     const currencies = country?.currencies;
     const paymentMethods = country?.paymentMethods;
@@ -32,7 +36,7 @@ const Country = () => {
                 (<div className={"row mt-2"}>
                     <div className={"col-4"}>
                         <div>
-                            <h1>{country.country}</h1>
+                            <h1>{country?.countryName}</h1>
                         </div>
                         <div>
                             <button className={"btn btn-primary mt-2"}
@@ -41,7 +45,8 @@ const Country = () => {
                             </button>
                         </div>
                         <div>
-                            <button className={"btn btn-danger mt-2"} onClick={() => handleModal()}><span
+                            <button disabled={true} className={"btn btn-danger mt-2"}
+                                    onClick={() => handleModal()}><span
                                 className={"ps-2 pe-2"}><MdDeleteForever/></span>Delete
                             </button>
                         </div>
@@ -53,7 +58,7 @@ const Country = () => {
                                 <tbody>
                                 {currencies ? (
                                     currencies.map(currency =>
-                                        <tr key={currency.id}>
+                                        <tr key={currency.currencyId}>
                                             <td className={"text-start"}>{currency.currency}</td>
                                         </tr>
                                     )) : (
@@ -71,7 +76,7 @@ const Country = () => {
                                 <tbody>
                                 {paymentMethods ?
                                     (paymentMethods.map(pm =>
-                                        <tr key={pm.id}>
+                                        <tr key={pm.paymentMethodId}>
                                             <td className={"text-start"}>{pm.paymentMethod}</td>
                                         </tr>
                                     )) : (
@@ -83,7 +88,7 @@ const Country = () => {
                         </div>
                     </div>
                     {showModal &&
-                        <DeleteCountryModal handleModal={handleModal} showModal={showModal} countryId={countryId}/>}
+                        <DeleteCountryModal handleModal={handleModal} showModal={showModal} country={country}/>}
                 </div>) : (
                     <LoadingEffect/>
                 )}

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from "axios";
 import {printError} from "./Utils";
 
-const baseUrl = 'http://localhost:3001/currencies';
+const baseUrl = 'http://localhost:8081/api/currencies';
 
 const getAll = async () => {
     try {

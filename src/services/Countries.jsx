@@ -22,23 +22,18 @@ export const getByName = async name => {
     }
 }
 
-export const getById = async id =>{
-    try{
+export const getById = async id => {
+    try {
         const response = await axios.get(`${baseUrl}/${id}`);
         return response?.data;
-    }catch (error){
+    } catch (error) {
         printError(error);
     }
 }
 
 const createNew = async (country) => {
-    const object = {
-        country: country?.country,
-        currencies: country?.currencies,
-        paymentMethods: country?.paymentMethods
-    }
     try {
-        const response = await axios.post(baseUrl, object);
+        const response = await axios.post(baseUrl, country);
         return response?.data;
     } catch (error) {
         printError(error);
@@ -47,12 +42,15 @@ const createNew = async (country) => {
 
 const update = async (id, country) => {
     const updatedCountry = {
-        country: country?.country,
+        countryName: country?.name,
+        countryCode: country?.code,
+        countryIso:country?.iso,
+        phoneCode:country?.phoneCode,
         currencies: country?.currencies,
         paymentMethods: country?.paymentMethods
     }
     try {
-        const resp = await axios.put(`${baseUrl}/${id}`, updatedCountry);
+        const resp = await axios.put(`${baseUrl}/${id}/edit`, updatedCountry);
         return resp?.data;
     } catch (error) {
         printError(error);
@@ -62,7 +60,7 @@ const update = async (id, country) => {
 
 const deleteCountry = async id => {
     try {
-        const response = await axios.delete(`${baseUrl}/${id}`);
+        const response = await axios.delete(`${baseUrl}/${id}/delete`);
         return response?.data;
     } catch (error) {
         printError(error);

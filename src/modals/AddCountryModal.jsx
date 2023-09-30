@@ -5,44 +5,49 @@ import {useDispatch, useSelector} from "react-redux";
 import {createCountry} from "../reducers/countryReducers";
 import {initializeCurrencies} from "../reducers/currencyReducers";
 import {initializePaymentMethods} from "../reducers/paymentMethodReducers";
+import {getCountryByName} from "../services/Utils";
 
 const AddCountryModal = ({showModal, handleModal}) => {
-    console.log('Add country modal');
     const [country, setCountry] = useState();
     const [mainCountryCurrency, setMainCountryCurrency] = useState([]);
     const [mainCountryPaymentMethod, setMainCountryPaymentMethod] = useState([]);
     const dispatch = useDispatch();
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(initializePaymentMethods())
-    },[]);
-    useEffect(()=>{
+    }, []);
+    useEffect(() => {
         dispatch(initializeCurrencies())
-    },[]);
+    }, []);
     const handleSubmit = (event) => {
         event.preventDefault();
+        const countryFromAPI = getCountryByName(country);
         const newCountry = {
-            country,
-            currencies:[mainCountryCurrency],
-            paymentMethods:[mainCountryPaymentMethod]
+            countryName:countryFromAPI?.name,
+            countryCode:countryFromAPI?.code,
+            countryIso:countryFromAPI?.iso,
+            phoneCode:countryFromAPI?.phoneCode,
+            currencies: [mainCountryCurrency],
+            paymentMethods: [mainCountryPaymentMethod]
         }
         dispatch(createCountry(newCountry));
-        console.log(newCountry);
+        //console.log(newCountry);
         handleModal();
     };
     const currencies = useSelector(state => state.currencies);
-    const pm = useSelector(state=>state.paymentMethods);
+    const pm = useSelector(state => state.paymentMethods);
+
     const handleChange = (event) => {
         const country = event.target.value;
         setCountry(country);
     };
-    const handleCurrencyChange = (event)=>{
+    const handleCurrencyChange = (event) => {
         const currencyId = event.target.value;
-        const selectedCurrency = currencies.find(cur=>cur.id===Number(currencyId));
+        const selectedCurrency = currencies.find(currency => currency.currencyId === Number(currencyId));
         setMainCountryCurrency(selectedCurrency);
     }
-    const handlePMChange = (event)=>{
+    const handlePMChange = (event) => {
         const pmId = event.target.value;
-        const selectedPm = pm.find(pmEl=>pmEl.id===Number(pmId));
+        const selectedPm = pm.find(pmEl => pmEl.paymentMethodId === Number(pmId));
         setMainCountryPaymentMethod(selectedPm);
     }
     return (
@@ -71,8 +76,8 @@ const AddCountryModal = ({showModal, handleModal}) => {
                         >
                             <option value="">Select main currency</option>
                             {
-                                currencies.map(currency=>
-                                    <option value={currency.id} key={currency.id}>{currency.currency}</option>
+                                currencies.map(currency =>
+                                    <option value={currency.currencyId} key={currency.currencyId}>{currency.currency}</option>
                                 )
                             }
 
@@ -87,8 +92,8 @@ const AddCountryModal = ({showModal, handleModal}) => {
                         >
                             <option value="">Select main payment method</option>
                             {
-                                pm.map(pmEl=>
-                                    <option value={pmEl.id} key={pmEl.id}>{pmEl.paymentMethod}</option>
+                                pm.map(pmEl =>
+                                    <option value={pmEl.paymentMethodId} key={pmEl.paymentMethodId}>{pmEl.paymentMethod}</option>
                                 )
                             }
 

@@ -3,26 +3,23 @@ import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
 import LoadingEffect from "./LoadingEffect";
 
-const CountryCard = ({countryId}) => {
-    const country = useSelector(state => state.countries.find(country => country.countryId === countryId));
-    const currencies = country?.currencies;
-    const paymentMethods = country?.paymentMethods;
+const CountryCard = ({country}) => {
     return (
         <>{
             country ?
                 (<div className={"col"}>
                     <div className={"card mb-3 card-element"}>
                         {
-                            <NavLink to={`/admin/countries/${countryId}`}>
+                            <NavLink to={`/admin/countries/${country?.countryId}`}>
                                 <div className={"card-header"}>
-                                    {country.countryName}
+                                    {country?.countryName}
                                 </div>
                             </NavLink>
                         }
                         <div className={"card-body country-card row"}>
                             <div className={"col"}>
-                                {currencies ? (
-                                    currencies.map(currency =>
+                                {country?.currencies ? (
+                                    country.currencies.map(currency =>
                                         <p key={currency.currencyId}>{currency.currency}</p>
                                     )) : (
                                     <LoadingEffect/>
@@ -30,8 +27,8 @@ const CountryCard = ({countryId}) => {
                                 }
                             </div>
                             <div className={"col"}>
-                                {paymentMethods ? (
-                                    paymentMethods.map(paymentMethod =>
+                                {country?.paymentMethods ? (
+                                    country.paymentMethods.map(paymentMethod =>
                                         <p key={paymentMethod.paymentMethodId}>{paymentMethod.paymentMethod}</p>
                                     )) : (<LoadingEffect/>)}
                             </div>
