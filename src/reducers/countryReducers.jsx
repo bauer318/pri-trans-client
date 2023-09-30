@@ -10,7 +10,7 @@ const countrySlice = createSlice({
         setCountries(state, action) {
             return action.payload;
         },
-        appendCountry(state, action){
+        appendCountry(state, action) {
             state.push(action.payload);
         }
     }
@@ -23,28 +23,44 @@ export const initializeCountries = () => {
     }
 }
 
-export const createCountry = country=>{
-    return async dispatch =>{
+export const createCountry = country => {
+    return async dispatch => {
         const newCountry = await countryService.createNew(country);
         dispatch(appendCountry(newCountry));
     }
 }
 
-export const updateCountry = (id, country)=>{
-    return async dispatch =>{
-        await countryService.update(id,country);
+export const updateCountry = (id, country) => {
+    return async dispatch => {
+        await countryService.update(id, country);
         const countries = await countryService.getAll();
         dispatch(setCountries(countries));
     }
 }
 
-export const deleteCountry = id =>{
-    return async dispatch =>{
+export const deleteCountry = id => {
+    return async dispatch => {
         await countryService.deleteCountry(id);
         const countries = await countryService.getAll();
         dispatch(setCountries(countries));
     }
 }
 
-export const {setCountries,appendCountry} = countrySlice.actions;
+export const addPaymentMethod = (id, paymentMethod) => {
+    return async dispatch => {
+        await countryService.addPaymentMethod(id, paymentMethod);
+        const countries = await countryService.getAll();
+        dispatch(setCountries(countries));
+    }
+}
+
+export const addCurrency = (id, currency) => {
+    return async dispatch => {
+        await countryService.addCurrency(id, currency);
+        const countries = await countryService.getAll();
+        dispatch(setCountries(countries));
+    }
+}
+
+export const {setCountries, appendCountry} = countrySlice.actions;
 export default countrySlice.reducer;

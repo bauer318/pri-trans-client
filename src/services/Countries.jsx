@@ -44,8 +44,8 @@ const update = async (id, country) => {
     const updatedCountry = {
         countryName: country?.name,
         countryCode: country?.code,
-        countryIso:country?.iso,
-        phoneCode:country?.phoneCode,
+        countryIso: country?.iso,
+        phoneCode: country?.phoneCode,
         currencies: country?.currencies,
         paymentMethods: country?.paymentMethods
     }
@@ -58,6 +58,24 @@ const update = async (id, country) => {
 
 }
 
+const addCurrency = async (id, currency) => {
+    try {
+        const resp = await axios.put(`${baseUrl}/${id}/add-currency`, currency);
+        return resp?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
+const addPaymentMethod = async (id, paymentMethod)=>{
+    try{
+        const response = await axios.put(`${baseUrl}/${id}/add-pm`, paymentMethod);
+        return response?.data;
+    }catch(error){
+        printError(error);
+    }
+}
+
 const deleteCountry = async id => {
     try {
         const response = await axios.delete(`${baseUrl}/${id}/delete`);
@@ -67,4 +85,4 @@ const deleteCountry = async id => {
     }
 }
 
-export default {getAll, createNew, update, deleteCountry};
+export default {getAll, createNew, update, deleteCountry, addCurrency, addPaymentMethod};

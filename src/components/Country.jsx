@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FaEdit, FaExchangeAlt} from "react-icons/fa";
+import {FaBackward, FaEdit, FaExchangeAlt} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
 import {useMatch, useNavigate} from "react-router-dom";
 import DeleteCountryModal from "../modals/DeleteCountryModal";
@@ -49,6 +49,10 @@ const Country = () => {
                                     onClick={() => handleModal()}><span
                                 className={"ps-2 pe-2"}><MdDeleteForever/></span>Delete
                             </button>
+                        </div>
+                        <div>
+                            <button className={"btn btn-info mt-2"} onClick={()=>navigate('/admin/countries')}><span
+                                className={"ps-2 pe-2"}><FaBackward/></span>Back</button>
                         </div>
                     </div>
                     <div className={"col-4"}>

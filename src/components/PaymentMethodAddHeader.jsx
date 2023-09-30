@@ -16,7 +16,7 @@ const PaymentMethodAddHeader = () => {
         <div>
             <div className={"row"}>
                 <div className={"col-lg-6 d-flex justify-content-center"}>
-                    <h3>Add payment methods to {country?.country}</h3>
+                    <h3>Add payment methods to {country?.countryName}</h3>
                 </div>
                 <div className={"col-lg-6 d-flex justify-content-end"}>
                     <LogoutBtn/>
