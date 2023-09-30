@@ -10,14 +10,14 @@ const UpdatePaymentMethodModal = ({showModal, handleModal, selectedPaymentMethod
     const dispatch = useDispatch();
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(isDelete){
-            dispatch(deletePaymentMethod(selectedPaymentMethod.id));
-        }else{
+        if (isDelete) {
+            dispatch(deletePaymentMethod(selectedPaymentMethod?.paymentMethodId));
+        } else {
             const updatedPm = {
                 ...selectedPaymentMethod,
                 paymentMethod: paymentM
             }
-            dispatch(updatePaymentMethod(selectedPaymentMethod.id, updatedPm));
+            dispatch(updatePaymentMethod(selectedPaymentMethod?.paymentMethodId, updatedPm));
         }
         handleModal();
     };
@@ -45,7 +45,8 @@ const UpdatePaymentMethodModal = ({showModal, handleModal, selectedPaymentMethod
                     </Form.Group>
 
                     <div className={"mt-2"}>
-                        <button className={isDelete ? "btn btn-danger" : "btn btn-primary"} type={"submit"}>
+                        <button disabled={isDelete} className={isDelete ? "btn btn-danger" : "btn btn-primary"}
+                                type={"submit"}>
                             <span className={"me-2"}><i><FaExchangeAlt/></i></span>{isDelete ? "Delete" : "Save"}
                         </button>
                     </div>

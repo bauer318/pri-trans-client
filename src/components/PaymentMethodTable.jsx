@@ -9,13 +9,12 @@ const PaymentMethodTable = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState();
     const [isDelete, setIsDelete] = useState(false);
-
     const pm = useSelector(state => state.paymentMethods);
     const handleModal = () => {
         setShowModal(!showModal);
     };
     const handleHelp = (paymentMethodIdParam) => {
-        const selectedPm = pm.find(pmEl => pmEl.id === paymentMethodIdParam);
+        const selectedPm = pm.find(pmEl => pmEl?.paymentMethodId === paymentMethodIdParam);
         setSelectedPaymentMethod(selectedPm);
         handleModal();
     };
@@ -30,7 +29,7 @@ const PaymentMethodTable = () => {
         setIsDelete(true);
     };
     return (
-        <>{pm ?
+        <>{pm && pm?.length > 0 ?
             (<div>
                 <table className={"table table-success table-striped table-bordered table-responsive"}>
                     <thead className={"table-light"}>
@@ -41,11 +40,13 @@ const PaymentMethodTable = () => {
                     </thead>
                     <tbody>
                     {
-                        pm.map(pmEl =>
-                            <tr key={pmEl.id}>
-                                <td className={"text-center"}>{pmEl.paymentMethod}</td>
-                                <td className={"text-center"} onClick={() => handleEdit(pmEl.id)}><FaEdit/></td>
-                                <td className={"text-center"} onClick={() => handleDelete(pmEl.id)}><MdDeleteForever/>
+                        pm?.map(pmEl =>
+                            <tr key={pmEl?.paymentMethodId}>
+                                <td className={"text-center"}>{pmEl?.paymentMethod}</td>
+                                <td className={"text-center"} onClick={() => handleEdit(pmEl?.paymentMethodId)}>
+                                    <FaEdit/></td>
+                                <td className={"text-center"} onClick={() => handleDelete(pmEl?.paymentMethodId)}>
+                                    <MdDeleteForever/>
                                 </td>
                             </tr>
                         )

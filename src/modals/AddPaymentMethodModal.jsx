@@ -10,7 +10,10 @@ const AddPaymentMethodModal = ({showModal, handleModal}) => {
     const dispatch = useDispatch();
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(createNewPaymentMethod(formData));
+        const addedPaymentMethod = {
+            paymentMethod:formData?.paymentMethod
+        }
+        dispatch(createNewPaymentMethod(addedPaymentMethod));
         handleModal();
     };
     const handleChange = (event) => {

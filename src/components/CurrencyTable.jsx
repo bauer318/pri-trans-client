@@ -10,7 +10,6 @@ const CurrencyTable = () => {
     const [selectedCurrency, setSelectedCurrency] = useState();
     const [isDelete, setIsDelete] = useState(false);
     const currencies = useSelector(state => state.currencies);
-    console.log('currences ', currencies);
     const handleModal = () => {
         setShowModal(!showModal);
     };

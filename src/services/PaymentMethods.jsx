@@ -1,30 +1,52 @@
 import React from 'react';
 import axios from "axios";
+import {printError} from "./Utils";
 
 const baseUrl = 'http://localhost:8081/api/payment-methods';
 
 const getAll = async () => {
-    const response = await axios.get(baseUrl);
-    return response.data;
+    try {
+        const response = await axios.get(baseUrl);
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
 }
 const createNew = async (paymentMethod) => {
-    const object = {
-        paymentMethod: paymentMethod?.paymentMethod
+    try {
+        const response = await axios.post(baseUrl, paymentMethod);
+        return response?.data;
+    } catch (error) {
+        printError(error);
     }
-    const response = await axios.post(baseUrl, object);
-    return response.data;
 }
 
 const update = async (id, paymentMethod) => {
-    const updatedPM = {
-        paymentMethod: paymentMethod.paymentMethod
-    };
-    const response = await axios.put(`${baseUrl}/${id}`, updatedPM);
-    return response.data;
+    try {
+        const response = await axios.put(`${baseUrl}/${id}/edit`, paymentMethod);
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
 }
 
-const deletePaymentMethod = async id => {
-    const response = await axios.delete(`${baseUrl}/${id}`);
-    return response.data;
+const deletePaymentMethod = async paymentMethodId => {
+    try {
+        const response = await axios.delete(`${baseUrl}/${paymentMethodId}/delete`);
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
 }
-export default {getAll, createNew, update, deletePaymentMethod};
+
+const getByName = async (name, notFoundCallback) => {
+    try {
+        const response = await axios.get(`${baseUrl}/find-by-name/${name}`);
+        return response?.data;
+    } catch (error) {
+        notFoundCallback();
+        printError(error);
+    }
+
+}
+export default {getAll, createNew, update, deletePaymentMethod, getByName};

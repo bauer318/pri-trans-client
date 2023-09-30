@@ -44,6 +44,13 @@ export const deletePaymentMethod = id => {
         dispatch(setPaymentMethods(pm));
     }
 }
+
+export const findPaymentMethodByName = (name, notFoundCallback) => {
+    return async dispatch => {
+        const pm = await pmService.getByName(name, notFoundCallback);
+        dispatch(setPaymentMethods([pm]));
+    }
+}
 export const {setPaymentMethods, appendPaymentMethod} = paymentMethodSlice.actions;
 
 export default paymentMethodSlice.reducer;
