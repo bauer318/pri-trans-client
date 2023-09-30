@@ -45,6 +45,13 @@ export const deleteCurrency = id => {
         dispatch(setCurrencies(currencies));
     }
 }
+
+export const findCurrencyByName = (name, notFoundCallback) => {
+    return async dispatch => {
+        const currency = await currencyService.findCurrencyByName(name, notFoundCallback);
+        dispatch(setCurrencies([currency]));
+    }
+}
 export const {setCurrencies, appendCurrency} = currencySlice.actions;
 
 export default currencySlice.reducer;

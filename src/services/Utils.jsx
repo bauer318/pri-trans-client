@@ -48,7 +48,7 @@ export const printError = (error) => {
         // Request made but no response is received from the server.
         console.log('error 2 ', error.request);
     } else {
-        // Error occured while setting up the request
+        // Error occurred while setting up the request
         console.log('Error', error.message);
     }
 }
@@ -82,7 +82,41 @@ const countriesAPI = () => {
     ]
 }
 
+const currenciesAPI = () => {
+    return [
+        {
+            name: 'Angolan kwanza',
+            code: 'AOA',
+            symbol: 'Kz'
+        },
+        {
+            name: 'Congolese franc',
+            code: 'CDF',
+            symbol: 'FC'
+        },
+        {
+            name: 'Euro',
+            code: 'EUR',
+            symbol: '£'
+        },
+        {
+            name: 'Russian ruble',
+            code: 'RUB',
+            symbol: '₽'
+        },
+        {
+            name: 'United States dollar',
+            code: 'USN',
+            symbol: '$'
+        },
+    ]
+}
+
 export const getCountryByName = name => {
     return countriesAPI().filter(country => country.name === name)[0];
+}
+
+export const getCurrencyByName = name => {
+    return currenciesAPI().filter(currency => currency.name === name)[0];
 }
 

@@ -3,23 +3,23 @@ import {Form, Modal} from "react-bootstrap";
 import {GrCurrency} from "react-icons/gr";
 import {useDispatch} from "react-redux";
 import {deleteCurrency, updateCurrency} from "../reducers/currencyReducers";
+import {getCurrencyByName} from "../services/Utils";
 
 const UpdateCurrencyModal = ({showModal, handleModal, selectedCurrency, isDelete}) => {
-    console.log('Update currency ');
     const dispatch = useDispatch();
     const [currency, setCurrency] = useState(selectedCurrency.currency);
-    const [symbol, setSymbol] = useState(selectedCurrency.symbol);
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(isDelete){
-            dispatch(deleteCurrency(selectedCurrency.id));
-        }else{
+        if (isDelete) {
+            dispatch(deleteCurrency(selectedCurrency.currencyId));
+        } else {
+            const currencyFromAPI = getCurrencyByName(currency);
             const updatedCurrency = {
-                ...selectedCurrency,
+                code: currencyFromAPI?.code,
+                symbol: currencyFromAPI?.symbol,
                 currency,
-                symbol
             }
-            dispatch(updateCurrency(selectedCurrency.id, updatedCurrency));
+            dispatch(updateCurrency(selectedCurrency.currencyId, updatedCurrency));
         }
         handleModal();
     };
@@ -27,10 +27,7 @@ const UpdateCurrencyModal = ({showModal, handleModal, selectedCurrency, isDelete
         const currency = event.target.value;
         setCurrency(currency);
     };
-    const handleSymbolChange = (event) => {
-        const symbol = event.target.value;
-        setSymbol(symbol);
-    };
+
     return (
         <Modal show={showModal} onHide={handleModal}>
             <Modal.Header closeButton>
@@ -50,20 +47,8 @@ const UpdateCurrencyModal = ({showModal, handleModal, selectedCurrency, isDelete
                         />
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicSymbol">
-                        <Form.Label>Symbol</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="symbol"
-                            defaultValue={selectedCurrency.symbol}
-                            required={true}
-                            onChange={handleSymbolChange}
-                            readOnly={isDelete}
-                        />
-                    </Form.Group>
-
                     <div className={"mt-2"}>
-                        <button className={isDelete ? "btn btn-danger" : "btn btn-primary"} type={"submit"}>
+                        <button disabled={isDelete} className={isDelete ? "btn btn-danger" : "btn btn-primary"} type={"submit"}>
                             <span className={"me-2"}><i><GrCurrency/></i></span>{isDelete ? "Delete" : "Save"}
                         </button>
                     </div>

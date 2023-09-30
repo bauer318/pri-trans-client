@@ -9,13 +9,13 @@ const CurrencyTable = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedCurrency, setSelectedCurrency] = useState();
     const [isDelete, setIsDelete] = useState(false);
-
     const currencies = useSelector(state => state.currencies);
+    console.log('currences ', currencies);
     const handleModal = () => {
         setShowModal(!showModal);
     };
     const handleHelp = (currencyIdParam) => {
-        const selectedCurrency = currencies.find(currency => currency.id === currencyIdParam);
+        const selectedCurrency = currencies.find(currency => currency.currencyId === currencyIdParam);
         setSelectedCurrency(selectedCurrency);
         handleModal();
     };
@@ -31,7 +31,7 @@ const CurrencyTable = () => {
     };
 
     return (
-        <>{currencies ?
+        <>{currencies?.length > 0 && currencies ?
             (<div>
                 <table className={"table table-success table-striped table-bordered table-responsive"}>
                     <thead className={"table-light"}>
@@ -43,12 +43,13 @@ const CurrencyTable = () => {
                     </thead>
                     <tbody>
                     {
-                        currencies.map(currency =>
-                            <tr key={currency.id}>
-                                <td className={"text-center"}>{currency.currency}</td>
-                                <td className={"text-center"}>{currency.symbol}</td>
-                                <td className={"text-center"} onClick={() => handleEdit(currency.id)}><FaEdit/></td>
-                                <td className={"text-center"} onClick={() => handleDelete(currency.id)}>
+                        currencies?.map(currency =>
+                            <tr key={currency?.currencyId}>
+                                <td className={"text-center"}>{currency?.currency}</td>
+                                <td className={"text-center"}>{currency?.symbol}</td>
+                                <td className={"text-center"} onClick={() => handleEdit(currency?.currencyId)}><FaEdit/>
+                                </td>
+                                <td className={"text-center"} onClick={() => handleDelete(currency?.currencyId)}>
                                     <MdDeleteForever/>
                                 </td>
                             </tr>
@@ -57,7 +58,8 @@ const CurrencyTable = () => {
                     </tbody>
                 </table>
                 {selectedCurrency &&
-                    <UpdateCurrencyModal showModal={showModal} handleModal={handleModal} selectedCurrency={selectedCurrency}
+                    <UpdateCurrencyModal showModal={showModal} handleModal={handleModal}
+                                         selectedCurrency={selectedCurrency}
                                          isDelete={isDelete}/>}
             </div>) : (<LoadingEffect/>)}
         </>

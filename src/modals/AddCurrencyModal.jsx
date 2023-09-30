@@ -3,14 +3,16 @@ import {Form, Modal} from "react-bootstrap";
 import {GrCurrency} from "react-icons/gr";
 import {useDispatch} from "react-redux";
 import {createCurrency} from "../reducers/currencyReducers";
+import {getCurrencyByName} from "../services/Utils";
 
-const AddCurrencyModal = ({showModal , handleModal}) => {
+const AddCurrencyModal = ({showModal, handleModal}) => {
     console.log('Add currency  modal');
     const [formData, setFormData] = useState({});
     const dispatch = useDispatch();
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(createCurrency(formData));
+        const addedCurrency = getCurrencyByName(formData?.currency);
+        dispatch(createCurrency(addedCurrency));
         handleModal();
     };
     const handleChange = (event) => {
@@ -35,16 +37,6 @@ const AddCurrencyModal = ({showModal , handleModal}) => {
                         />
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicSymbol">
-                        <Form.Label>Symbol</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Fc"
-                            name="symbol"
-                            required={true}
-                            onChange={handleChange}
-                        />
-                    </Form.Group>
                     <div className={"mt-2"}>
                         <button className={"btn btn-primary"} type={"submit"}><span className={"me-2"}><i><GrCurrency/></i></span>Add
                         </button>

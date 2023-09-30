@@ -15,8 +15,9 @@ const getAll = async () => {
 
 const createNew = async (currency) => {
     const object = {
-        currency: currency?.currency,
+        currency: currency?.name,
         symbol: currency?.symbol,
+        code: currency?.code
     };
     try {
         const response = await axios.post(baseUrl, object);
@@ -29,10 +30,11 @@ const createNew = async (currency) => {
 const update = async (id, currency) => {
     const updatedCurrency = {
         currency: currency?.currency,
-        symbol: currency?.symbol
+        symbol: currency?.symbol,
+        code: currency?.code
     };
     try {
-        const response = await axios.put(`${baseUrl}/${id}`, updatedCurrency);
+        const response = await axios.put(`${baseUrl}/${id}/edit`, updatedCurrency);
         return response?.data;
     } catch (error) {
         printError(error);
@@ -42,11 +44,20 @@ const update = async (id, currency) => {
 
 const deleteCurrency = async id => {
     try {
-        const response = await axios.delete(`${baseUrl}/${id}`);
+        const response = await axios.delete(`${baseUrl}/${id}/delete`);
         return response?.data;
     } catch (error) {
         printError(error);
     }
-
 }
-export default {getAll, createNew, update, deleteCurrency};
+
+const findCurrencyByName = async (name, notFoundCallback) => {
+    try {
+        const response = await axios.get(`${baseUrl}/find-by-name/${name}`);
+        return response?.data;
+    } catch (error) {
+        notFoundCallback();
+        printError(error);
+    }
+}
+export default {getAll, createNew, update, deleteCurrency, findCurrencyByName};
