@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import {printError} from "./Utils";
+import {getToken, printError} from "./Utils";
 
 const baseUrl = 'http://localhost:8081/api/countries';
 
@@ -67,11 +67,11 @@ const addCurrency = async (id, currency) => {
     }
 }
 
-const addPaymentMethod = async (id, paymentMethod)=>{
-    try{
+const addPaymentMethod = async (id, paymentMethod) => {
+    try {
         const response = await axios.put(`${baseUrl}/${id}/add-pm`, paymentMethod);
         return response?.data;
-    }catch(error){
+    } catch (error) {
         printError(error);
     }
 }

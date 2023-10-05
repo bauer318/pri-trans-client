@@ -1,4 +1,7 @@
 import React from 'react';
+import {get} from "./LocalStorageService";
+import {useNavigate} from "react-router-dom";
+
 
 export const getUserSortRq = (roleKey, authStatus) => {
     switch (roleKey) {
@@ -41,15 +44,16 @@ export const getUserSortRq = (roleKey, authStatus) => {
 export const printError = (error) => {
     if (error.response) {
         // Request made but the server responded with an error
-        console.log('error 1 ', error.response.data);
-        console.log('error 1 ', error.response.status);
-        console.log('error 1 ', error.response.headers);
+        console.log('error response data ', error.response.data);
+        console.log('error response status ', error.response.status);
+        console.log('error response headers ', error.response.headers);
     } else if (error.request) {
         // Request made but no response is received from the server.
-        console.log('error 2 ', error.request);
+        console.log('error request ', error.request);
+        alert("Something went wrong please try again later");
     } else {
         // Error occurred while setting up the request
-        console.log('Error', error.message);
+        console.log('others error', error.message);
     }
 }
 
@@ -118,5 +122,47 @@ export const getCountryByName = name => {
 
 export const getCurrencyByName = name => {
     return currenciesAPI().filter(currency => currency.name === name)[0];
+}
+
+export const getToken = () => {
+    return {Authorization: get('jwtToken')};
+}
+
+export const extractRegisteredUserId = locationArray => {
+    const length = locationArray?.length;
+    return locationArray[length - 1];
+}
+
+
+export const getUserHomePath = userRole => {
+    switch (userRole) {
+        case 'ROLE_ADMIN':
+            return '/admin/users';
+        case 'ROLE_MODERATOR':
+            return 'moderator/users';
+        case 'ROLE_AGENT':
+            return 'agent/account';
+        case 'ROLE_CLIENT':
+            return 'client/home';
+    }
+}
+const reverseArray = arrayIn => {
+    let arrayOut = [];
+    for (let i = arrayIn.length; i--; i >= 0) {
+        arrayOut.push(arrayIn[i]);
+    }
+    return arrayOut;
+}
+export const formatDate = date => {
+    const dateArr = date.split('-');
+    const dateArrayReverse = reverseArray(dateArr);
+    let dateOut = "";
+    dateArrayReverse.map((dateElem, it) => {
+        dateOut += dateElem;
+        if (it < dateArrayReverse.length - 1) {
+            dateOut += '/';
+        }
+    });
+    return dateOut;
 }
 

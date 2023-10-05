@@ -1,44 +1,47 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import {Form} from "react-bootstrap";
 import {AiOutlineArrowRight} from "react-icons/ai";
+import {useDispatch, useSelector} from "react-redux";
+import {initializeCountries} from "../reducers/countryReducers";
+import {get} from "../services/LocalStorageService";
+import {formatDate} from "../services/Utils";
 
 const PersonalInfo = () => {
     const {state} = useLocation();
     const storedInfo = state?.infos;
     const [formData, setFormData] = useState(state?.infos);
     const navigate = useNavigate();
-    const wordCountries = [
-        {
-            id: 1,
-            country: "DR Congo"
-        },
-        {
-            id: 2,
-            country: "Russia"
-        },
-        {
-            id: 3,
-            country: "Angola"
-        },
-        {
-            id:4,
-            country: "Others"
-        }
-    ]
+    const dispatch = useDispatch();
+    const [connectedUser, setConnectedUser] = useState({});
+    useEffect(() => {
+        dispatch(initializeCountries());
+        setConnectedUser(get('connectedUser'));
+    }, []);
+    const countries = useSelector(state => state.countries);
+
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(formData);
-        navigate('/register/1/personal-info/address',{state:{infos : formData}});
+        navigate(`/register/${connectedUser?.userId}/personal-info/address`, {state: {infos: formData}});
     }
     const handleChange = event => {
         const {name, value} = event.target;
         setFormData({...formData, [name]: value});
+        if (!formData.userId) {
+            setFormData({...formData, ['userId']: connectedUser?.userId});
+        }
+    }
+    const handleDateChange = event =>{
+        const {name, value} = event.target;
+        setFormData({...formData, [name]:formatDate(value)});
     }
     const handleCountryChange = event => {
         const id = Number(event.target.value);
         if (id) {
-            setFormData({...formData, [event.target.name]: wordCountries.find(country => country.id === id)});
+            setFormData({
+                ...formData,
+                [event.target.name]: countries?.find(country => country.countryId === id)?.countryName
+            });
         }
     }
     return (
@@ -51,14 +54,15 @@ const PersonalInfo = () => {
                     <Form.Group controlId="country">
                         <Form.Label className={"required"}>Nationality</Form.Label>
                         <Form.Control as="select"
-                                      name="country"
+                                      name="nationality"
                                       defaultValue={storedInfo?.country}
                                       required={true}
                                       onChange={handleCountryChange}
                         >
                             <option value="">Select your country</option>
-                            {wordCountries?.map(country =>
-                                <option value={country.id} key={country.id}>{country.country}</option>
+                            {countries?.map(country =>
+                                <option value={country?.countryId}
+                                        key={country?.countryId}>{country?.countryName}</option>
                             )}
                         </Form.Control>
                     </Form.Group>
@@ -88,12 +92,12 @@ const PersonalInfo = () => {
                     </Form.Group>
 
                     <Form.Group controlId="middleName" className={"form-outline mb-4"}>
-                        <Form.Label >Middle names</Form.Label>
+                        <Form.Label>Middle names</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder="middle name"
                             defaultValue={storedInfo?.middleName}
-                            name="middleName"
+                            name="middlename"
                             onChange={handleChange}
                         />
                     </Form.Group>
@@ -103,10 +107,10 @@ const PersonalInfo = () => {
                         <Form.Control
                             type={"date"}
                             placeholder="first name"
-                            name="birthDate"
+                            name="birthdate"
                             defaultValue={storedInfo?.birthDate}
                             required={true}
-                            onChange={handleChange}
+                            onChange={handleDateChange}
                         />
                     </Form.Group>
 

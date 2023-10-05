@@ -85,7 +85,7 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
                                       disabled={isDelete}
                         >
                             <option>{updatedRole?.userRole.substring(5).toLowerCase()}</option>
-                            {roles.length > 0 && roles.filter(role => role.id !== updatedRole.id && role.userRole !== 'ROLE_CLIENT').map(role =>
+                            {roles?.length > 0 && roles?.filter(role => role.id !== updatedRole.id && role.userRole !== 'ROLE_CLIENT')?.map(role =>
                                 <option
                                     value={role.id} key={role.id}>{role.userRole.substring(5).toLowerCase()}</option>)}
                         </Form.Control>

@@ -1,69 +1,67 @@
 import React, {useEffect, useState} from 'react';
 import {Form} from "react-bootstrap";
 import {Navigate, useNavigate} from "react-router-dom";
-import {get, save,remove} from "../services/LocalStorageService";
+import {get, save, remove} from "../services/LocalStorageService";
 import {refreshP} from "../App";
 import axios from "axios";
 
 
 const Home = () => {
     const [formData, setFormData] = useState({});
-    const [error,setError] = useState(null);
+    const [error, setError] = useState(null);
     const user = get('connectedUser');
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+
     const redirectTo = userRole => {
         switch (userRole) {
             case 'ROLE_ADMIN':
                 navigate('/admin/users');
                 break;
             case 'ROLE_MODERATOR':
-                navigate('moderator/users');
+                navigate('/moderator/users');
                 break;
             case 'ROLE_AGENT':
-                navigate('agent/account');
+                navigate('/agent/account');
                 break;
             case 'ROLE_CLIENT':
-                navigate('client/home');
+                navigate('/client/home');
                 break;
-        }
-    }
-    const getUserHomePath = userRole => {
-        switch (userRole) {
-            case 'ROLE_ADMIN':
-                return '/admin/users';
-            case 'ROLE_MODERATOR':
-                return 'moderator/users';
-            case 'ROLE_AGENT':
-                return 'agent/account';
-            case 'ROLE_CLIENT':
-                return 'client/home';
         }
     }
 
     const handleSubmit = event => {
         event.preventDefault();
+        setIsLoading(true);
         const longedUser = {
             email: formData["email"],
-            password:formData["password"]
+            password: formData["password"]
         };
-        axios.post('http://localhost:8081/api/login',longedUser)
-            .then(res=>{
-                if(res.data.email){
-                    save("connectedUser",res.data);
-                    const user = get("connectedUser");
-                    redirectTo(user.userRole.userRole);
-                    refreshP();
-                }else{
-                    setError('bad credential');
-                }
-
+        axios.post('http://localhost:8081/api/login', longedUser)
+            .then(res => {
+                save("connectedUser", res.data?.userRs);
+                save("jwtToken", `Bearer ${res.data?.jwtToken}`);
+                setIsLoading(false);
+                const user = get("connectedUser");
+                redirectTo(user.userRole.userRole);
+                refreshP();
             })
-            .catch(err=>{console.log(err); setError('Not connection')});
+            .catch(err => {
+                const errorResponse = err.response;
+                setIsLoading(false);
+                if (errorResponse?.status === 403 || errorResponse?.status === 400) {
+                    setError("Bad credential");
+                } else if (errorResponse?.status === 500) {
+                    setError('Not connection');
+                } else if (err.request) {
+                    setError("Something went wrong please try again later");
+                }
+            });
     }
     const handleChange = event => {
         const {name, value} = event.target;
         setFormData({...formData, [name]: value});
-        if(error){
+        if (error) {
             setError(null);
         }
     }
@@ -99,20 +97,21 @@ const Home = () => {
                                 onChange={handleChange}
                             />
                         </Form.Group>
+                        {isLoading && <h4 className={"text-center text-secondary"}>Wait please...</h4>}
                         <div className={"mt-3 d-flex justify-content-around"}>
-                            <button className={"btn btn-primary w-100"} type={"submit"}>
+                            <button disabled={isLoading} className={"btn btn-primary w-100"} type={"submit"}>
                                 Login
                             </button>
                         </div>
                         {
-                            error&&
+                            error &&
                             <p className={"text-danger text-center"}>{error}</p>
                         }
                     </Form>
                 </div>
                 <div className="d-flex align-items-center justify-content-center pb-4 mt-3">
                     <p className="mb-0 me-2">Don't have an account?</p>
-                    <button type="button" className="btn btn-outline-info"
+                    <button disabled={isLoading} type="button" className="btn btn-outline-info"
                             onClick={() => navigate('/register')}>Register
                     </button>
                 </div>

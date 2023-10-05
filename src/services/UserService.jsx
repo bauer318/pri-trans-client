@@ -1,13 +1,15 @@
 import React from 'react';
+
+import {extractRegisteredUserId, getToken, printError} from "./Utils";
+import {get, save} from "./LocalStorageService";
 import axios from "axios";
-import {printError} from "./Utils";
 
 const baseUrl = 'http://localhost:8081/api/users';
 const authStatusPath = 'auth-status';
 
 const getAll = async () => {
     try {
-        const response = await axios.get(baseUrl);
+        const response = await axios.get(baseUrl, {headers: getToken()});
         return response.data;
     } catch (error) {
         printError(error);
@@ -32,11 +34,11 @@ const getByAuthStatus = async (authStatus) => {
     }
 }
 
-const getByRole = async roleRq =>{
-    try{
-        const response = await axios.post(baseUrl+"/sort-by-role", roleRq);
+const getByRole = async roleRq => {
+    try {
+        const response = await axios.post(baseUrl + "/sort-by-role", roleRq);
         return response.data;
-    }catch(error){
+    } catch (error) {
         printError(error);
     }
 }
@@ -50,7 +52,7 @@ const getOne = async (userId) => {
 
 }
 
-const createNew = async (user) => {
+const createNew = async (user, errorCallBack) => {
     const createdUser = {
         ...user,
         authStatus: false,
@@ -58,10 +60,19 @@ const createNew = async (user) => {
         infos: {}
     }
     try {
-        const response = await axios.post(baseUrl, createdUser);
+        const response = await axios.post(`${baseUrl}/register`, createdUser);
+        console.log('user created ');
         return response.data;
     } catch (error) {
-        printError(error);
+        errorCallBack();
+        if (error?.response?.status === 409) {
+            const message = error.response.data?.message;
+            alert(message);
+        } else if (error?.response?.status === 400) {
+            console.log('400 ', error.response);
+        } else if (error.request) {
+            alert("Something went wrong please try again later");
+        }
     }
 
 }
@@ -76,10 +87,10 @@ const getUserByEmail = async (email) => {
 }
 const update = async (id, newUser) => {
     const updatedUser = {
-        ... newUser,
+        ...newUser,
         email: newUser.email,
-        userRole:newUser.userRole,
-        country:newUser.country,
+        userRole: newUser.userRole,
+        country: newUser.country,
     }
     try {
         const response = await axios.put(`${baseUrl}/edit/${id}`, updatedUser);
@@ -98,4 +109,14 @@ const deleteUser = async id => {
         printError(error);
     }
 }
-export default {getAll, getOne, createNew, update, deleteUser, getUserByEmail, getByRoleAndAuthStatus, getByAuthStatus, getByRole};
+export default {
+    getAll,
+    getOne,
+    createNew,
+    update,
+    deleteUser,
+    getUserByEmail,
+    getByRoleAndAuthStatus,
+    getByAuthStatus,
+    getByRole
+};

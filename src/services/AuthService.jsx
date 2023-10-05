@@ -6,11 +6,10 @@ import {printError} from "./Utils";
 const baseUrl = 'http://localhost:8081/api/login';
 
 const login = async (user) => {
-    try{
-        const response = await axios.post(baseUrl,user);
+    try {
+        const response = await axios.post(baseUrl, user);
         return response.data;
-        
-    }catch(error){
+    } catch (error) {
         printError(error);
     }
 

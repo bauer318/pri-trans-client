@@ -17,7 +17,8 @@ const AddUserModal = ({showModal, handleModal}) => {
     const countries = useSelector(state => state.countries);
     const handleSubmit = (event) => {
         event.preventDefault();
-        userService.createNew(formData).then(response => alert(response));
+        userService.createNew(formData)
+            .then(r => console.log(r));
         dispatch(initializeUsers());
         handleModal();
     };

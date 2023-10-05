@@ -55,8 +55,8 @@ const App = () => {
                     <Routes>
                         <Route path={"/"} element={<Home/>}/>
                         <Route path={"/register"} element={<CreateAccount/>}/>
-                        <Route path={"/register/1/personal-info"} element={<PersonalInfo/>}/>
-                        <Route path={'/register/1/personal-info/address'} element={<HomeAddress/>}/>
+                        <Route path={"/register/:id/personal-info"} element={<PersonalInfo/>}/>
+                        <Route path={'/register/:id/personal-info/address'} element={<HomeAddress/>}/>
                         {longedUser?.userRole?.userRole==='ROLE_ADMIN' && <Route path={"/admin/users"} element={<UserList/>}/>}
                         <Route path={"/admin/users/:id"} element={<User/>} />
                         <Route path={"/admin/countries"} element={<CountryList/>}/>
