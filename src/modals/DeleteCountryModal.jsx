@@ -6,7 +6,6 @@ import {deleteCountry} from "../reducers/countryReducers";
 import {useNavigate} from "react-router-dom";
 
 const DeleteCountryModal = ({showModal, handleModal, country}) => {
-    console.log('Delete country modal');
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleSubmit = (event) => {

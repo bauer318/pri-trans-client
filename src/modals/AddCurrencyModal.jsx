@@ -6,7 +6,6 @@ import {createCurrency} from "../reducers/currencyReducers";
 import {getCurrencyByName} from "../services/Utils";
 
 const AddCurrencyModal = ({showModal, handleModal}) => {
-    console.log('Add currency  modal');
     const [formData, setFormData] = useState({});
     const dispatch = useDispatch();
     const handleSubmit = (event) => {

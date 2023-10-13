@@ -3,7 +3,6 @@ import {Form, Modal} from "react-bootstrap";
 import {TfiWallet} from "react-icons/tfi";
 
 const AddBalanceModal = ({showModal, handleModal}) => {
-    console.log('Add balance modal');
     const balances = [
         {
             "id":1,

@@ -5,7 +5,6 @@ import {AiOutlineArrowUp} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
 
 const SendModal = ({showModal, handleModal, recipientEmail}) => {
-    console.log('Send modal');
     const sendDetails = useSelector(state => state.send);
     const navigate = useNavigate();
     const handleSubmit = event => {

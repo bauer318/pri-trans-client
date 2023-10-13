@@ -3,11 +3,9 @@ import {Form, Modal} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
 
 const AddUserInfoModal = ({showModal, handleModal, userId}) => {
-    console.log('Add user info modal');
     const [formData, setFormData] = useState({});
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Here you can add your code to post the form data to your backend
         console.log(formData);
         handleModal();
     };

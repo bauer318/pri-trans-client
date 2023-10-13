@@ -1,11 +1,11 @@
 import axios from "axios";
-import {printError} from "./Utils";
+import {getToken, printError} from "./Utils";
 
 const baseUrl = 'http://193.187.174.234:8080/api/currencies';
 
 const getAll = async () => {
     try {
-        const response = await axios.get(baseUrl);
+        const response = await axios.get(baseUrl,{headers: getToken()});
         return response?.data;
     } catch (error) {
         printError(error);
@@ -19,7 +19,7 @@ const createNew = async (currency) => {
         code: currency?.code
     };
     try {
-        const response = await axios.post(baseUrl, object);
+        const response = await axios.post(baseUrl, object,{headers: getToken()});
         return response?.data;
     } catch (error) {
         printError(error);
@@ -33,7 +33,7 @@ const update = async (id, currency) => {
         code: currency?.code
     };
     try {
-        const response = await axios.put(`${baseUrl}/${id}/edit`, updatedCurrency);
+        const response = await axios.put(`${baseUrl}/${id}/edit`, updatedCurrency,{headers: getToken()});
         return response?.data;
     } catch (error) {
         printError(error);
@@ -43,7 +43,7 @@ const update = async (id, currency) => {
 
 const deleteCurrency = async id => {
     try {
-        const response = await axios.delete(`${baseUrl}/${id}/delete`);
+        const response = await axios.delete(`${baseUrl}/${id}/delete`,{headers: getToken()});
         return response?.data;
     } catch (error) {
         printError(error);
@@ -52,7 +52,7 @@ const deleteCurrency = async id => {
 
 const findCurrencyByName = async (name, notFoundCallback) => {
     try {
-        const response = await axios.get(`${baseUrl}/find-by-name/${name}`);
+        const response = await axios.get(`${baseUrl}/find-by-name/${name}`,{headers: getToken()});
         return response?.data;
     } catch (error) {
         notFoundCallback();

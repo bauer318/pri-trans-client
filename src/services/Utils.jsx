@@ -41,16 +41,13 @@ export const getUserSortRq = (roleKey, authStatus) => {
 
 export const printError = (error) => {
     if (error.response) {
-        // Request made but the server responded with an error
         console.log('error response data ', error.response.data);
         console.log('error response status ', error.response.status);
         console.log('error response headers ', error.response.headers);
     } else if (error.request) {
-        // Request made but no response is received from the server.
         console.log('error request ', error.request);
         alert("Something went wrong please try again later");
     } else {
-        // Error occurred while setting up the request
         console.log('others error', error.message);
     }
 }

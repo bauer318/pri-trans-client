@@ -33,7 +33,7 @@ const UsersTable = () => {
     }
 
     return (
-        <>{users?.length>0 ?
+        <>{users?.length > 0 ?
             (<div>
                 <table className={"table table-success table-striped table-bordered table-responsive"}>
                     <thead className={"table-light"}>
@@ -50,8 +50,14 @@ const UsersTable = () => {
                             <td>{user?.email}</td>
                             <td className={"text-center"} style={{color: user.authStatus ? "green" : "red"}}>
                                 {user.authStatus ? "Online" : "offline"}</td>
-                            <td className={"text-center"} onClick={() => handleEdit(user?.userId)}><FaEdit/></td>
-                            <td className={"text-center"} onClick={() => handleDelete(user?.userId)}><MdDeleteForever/></td>
+                            {user?.userRole?.userRole === 'ROLE_CLIENT' ? <td></td> :
+                                <td className={"text-center"} onClick={() => handleEdit(user?.userId)}><FaEdit/></td>}
+
+                            {user?.userRole?.userRole === 'ROLE_CLIENT' ? <td></td> :
+                                <td className={"text-center"} onClick={() => handleDelete(user?.userId)}>
+                                    <MdDeleteForever/></td>
+                            }
+
                             <td className={"text-center"}>
                                 {<NavLink to={`/admin/users/${user?.userId}`}>
                                     <BsInfoCircleFill/>
@@ -62,7 +68,8 @@ const UsersTable = () => {
                     </tbody>
                 </table>
                 {showModal &&
-                    <UpdateUserModal handleModal={handleModal} showModal={showModal} userId={userId} isDelete={isDelete}/>}
+                    <UpdateUserModal handleModal={handleModal} showModal={showModal} userId={userId}
+                                     isDelete={isDelete}/>}
             </div>) : (<LoadingEffect/>)}
         </>
     );

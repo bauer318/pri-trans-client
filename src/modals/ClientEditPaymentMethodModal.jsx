@@ -3,7 +3,6 @@ import {Form, Modal} from "react-bootstrap";
 import {FaEdit} from "react-icons/fa";
 
 const ClientEditPaymentMethodModal = ({paymentMethod, showModal, handleModal}) => {
-    console.log('C edit pm modal');
     const [pm, setPm] = useState(paymentMethod?.paymentMethod);
     const [number, setNumber] = useState(paymentMethod?.number);
     const [accountName, setAccountName] = useState(paymentMethod?.accountName);

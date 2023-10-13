@@ -30,7 +30,6 @@ const AddCountryModal = ({showModal, handleModal}) => {
             paymentMethods: [mainCountryPaymentMethod]
         }
         dispatch(createCountry(newCountry));
-        //console.log(newCountry);
         handleModal();
     };
     const currencies = useSelector(state => state.currencies);
@@ -47,7 +46,7 @@ const AddCountryModal = ({showModal, handleModal}) => {
     }
     const handlePMChange = (event) => {
         const pmId = event.target.value;
-        const selectedPm = pm.find(pmEl => pmEl.paymentMethodId === Number(pmId));
+        const selectedPm = pm.find(pmEl => pmEl.id === Number(pmId));
         setMainCountryPaymentMethod(selectedPm);
     }
     return (
@@ -75,10 +74,8 @@ const AddCountryModal = ({showModal, handleModal}) => {
                                       onChange={handleCurrencyChange}
                         >
                             <option value="">Select main currency</option>
-                            {
-                                currencies.map(currency =>
-                                    <option value={currency.currencyId} key={currency.currencyId}>{currency.currency}</option>
-                                )
+                            {currencies.map((currency, key) =>
+                                    <option value={currency.currencyId} key={key}>{currency.currency}</option>)
                             }
 
                         </Form.Control>
@@ -86,14 +83,14 @@ const AddCountryModal = ({showModal, handleModal}) => {
                     <Form.Group controlId="formBasicMainPM">
                         <Form.Label>Main currency</Form.Label>
                         <Form.Control as="select"
-                                      name="paymentMethods"
+                                      name="method"
                                       required={true}
                                       onChange={handlePMChange}
                         >
                             <option value="">Select main payment method</option>
                             {
                                 pm.map(pmEl =>
-                                    <option value={pmEl.paymentMethodId} key={pmEl.paymentMethodId}>{pmEl.paymentMethod}</option>
+                                    <option value={pmEl.id} key={pmEl.id}>{pmEl.method}</option>
                                 )
                             }
 

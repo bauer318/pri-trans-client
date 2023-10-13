@@ -15,7 +15,7 @@ const getAll = async () => {
 
 const getByRoleAndAuthStatus = async (rq) => {
     try {
-        const response = await axios.post(baseUrl + "/sort", rq);
+        const response = await axios.post(baseUrl + "/sort", rq,{headers: getToken()});
         return response.data;
     } catch (error) {
         printError(error);
@@ -24,7 +24,7 @@ const getByRoleAndAuthStatus = async (rq) => {
 
 const getByAuthStatus = async (authStatus) => {
     try {
-        const response = await axios.get(`${baseUrl}/${authStatusPath}/${authStatus}`);
+        const response = await axios.get(`${baseUrl}/${authStatusPath}/${authStatus}`,{headers: getToken()});
         return response.data;
     } catch (error) {
         printError(error);
@@ -33,7 +33,7 @@ const getByAuthStatus = async (authStatus) => {
 
 const getByRole = async roleRq => {
     try {
-        const response = await axios.post(baseUrl + "/sort-by-role", roleRq);
+        const response = await axios.post(baseUrl + "/sort-by-role", roleRq,{headers: getToken()});
         return response.data;
     } catch (error) {
         printError(error);
@@ -41,7 +41,7 @@ const getByRole = async roleRq => {
 }
 const getOne = async (userId) => {
     try {
-        const response = await axios.get(`${baseUrl}/${userId}`);
+        const response = await axios.get(`${baseUrl}/${userId}`,{headers: getToken()});
         return response.data;
     } catch (error) {
         printError(error);
@@ -57,7 +57,7 @@ const createNew = async (user, errorCallBack) => {
         infos: {}
     }
     try {
-        const response = await axios.post(`${baseUrl}/register`, createdUser);
+        const response = await axios.post(`${baseUrl}/register`, createdUser,{headers: getToken()});
         console.log('user created ');
         return response.data;
     } catch (error) {
@@ -76,7 +76,7 @@ const createNew = async (user, errorCallBack) => {
 
 const getUserByEmail = async (email) => {
     try {
-        const response = await axios.get(`${baseUrl}/${email}`);
+        const response = await axios.get(`${baseUrl}/${email}`,{headers: getToken()});
         return response.data;
     } catch (error) {
         printError(error);
@@ -90,7 +90,7 @@ const update = async (id, newUser) => {
         country: newUser.country,
     }
     try {
-        const response = await axios.put(`${baseUrl}/edit/${id}`, updatedUser);
+        const response = await axios.put(`${baseUrl}/edit/${id}`, updatedUser,{headers: getToken()});
         return response.data;
     } catch (error) {
         printError(error);
@@ -100,7 +100,7 @@ const update = async (id, newUser) => {
 
 const deleteUser = async id => {
     try {
-        const response = await axios.delete(`${baseUrl}/${id}`);
+        const response = await axios.delete(`${baseUrl}/${id}`,{headers: getToken()});
         return response.data;
     } catch (error) {
         printError(error);

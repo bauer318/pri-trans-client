@@ -5,7 +5,7 @@ const baseUrl = 'http://193.187.174.234:8080/api/countries';
 
 const getAll = async () => {
     try {
-        const response = await axios.get(baseUrl);
+        const response = await axios.get(baseUrl,{headers: getToken()});
         return response?.data;
     } catch (error) {
         printError(error);
@@ -14,7 +14,7 @@ const getAll = async () => {
 
 export const getByName = async name => {
     try {
-        const response = await axios.get(`${baseUrl}/by-name/${name}`);
+        const response = await axios.get(`${baseUrl}/by-name/${name}`,{headers: getToken()});
         return response?.data;
     } catch (error) {
         printError(error);
@@ -23,7 +23,7 @@ export const getByName = async name => {
 
 export const getById = async id => {
     try {
-        const response = await axios.get(`${baseUrl}/${id}`);
+        const response = await axios.get(`${baseUrl}/${id}`,{headers: getToken()});
         return response?.data;
     } catch (error) {
         printError(error);
@@ -32,7 +32,7 @@ export const getById = async id => {
 
 const createNew = async (country) => {
     try {
-        const response = await axios.post(baseUrl, country);
+        const response = await axios.post(baseUrl, country,{headers: getToken()});
         return response?.data;
     } catch (error) {
         printError(error);
@@ -49,7 +49,7 @@ const update = async (id, country) => {
         paymentMethods: country?.paymentMethods
     }
     try {
-        const resp = await axios.put(`${baseUrl}/${id}/edit`, updatedCountry);
+        const resp = await axios.put(`${baseUrl}/${id}/edit`, updatedCountry,{headers: getToken()});
         return resp?.data;
     } catch (error) {
         printError(error);
@@ -59,7 +59,7 @@ const update = async (id, country) => {
 
 const addCurrency = async (id, currency) => {
     try {
-        const resp = await axios.put(`${baseUrl}/${id}/add-currency`, currency);
+        const resp = await axios.put(`${baseUrl}/${id}/add-currency`, currency,{headers: getToken()});
         return resp?.data;
     } catch (error) {
         printError(error);
@@ -68,7 +68,7 @@ const addCurrency = async (id, currency) => {
 
 const addPaymentMethod = async (id, paymentMethod) => {
     try {
-        const response = await axios.put(`${baseUrl}/${id}/add-pm`, paymentMethod);
+        const response = await axios.put(`${baseUrl}/${id}/add-pm`, paymentMethod,{headers: getToken()});
         return response?.data;
     } catch (error) {
         printError(error);
@@ -77,7 +77,7 @@ const addPaymentMethod = async (id, paymentMethod) => {
 
 const deleteCountry = async id => {
     try {
-        const response = await axios.delete(`${baseUrl}/${id}/delete`);
+        const response = await axios.delete(`${baseUrl}/${id}/delete`,{headers: getToken()});
         return response?.data;
     } catch (error) {
         printError(error);

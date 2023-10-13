@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 
 const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleConfirmModal}) => {
-    console.log('confirm pm modal');
     const [formData, setFormData] = useState(depositDetails);
     const handleSubmit = (event) => {
         event.preventDefault();

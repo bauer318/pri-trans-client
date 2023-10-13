@@ -5,13 +5,12 @@ import {useDispatch} from "react-redux";
 import {createNewPaymentMethod} from "../reducers/paymentMethodReducers";
 
 const AddPaymentMethodModal = ({showModal, handleModal}) => {
-    console.log('Add pm modal');
     const [formData, setFormData] = useState({});
     const dispatch = useDispatch();
     const handleSubmit = (event) => {
         event.preventDefault();
         const addedPaymentMethod = {
-            paymentMethod:formData?.paymentMethod
+            method:formData?.method
         }
         dispatch(createNewPaymentMethod(addedPaymentMethod));
         handleModal();
@@ -32,7 +31,7 @@ const AddPaymentMethodModal = ({showModal, handleModal}) => {
                         <Form.Control
                             type="text"
                             placeholder="Airtel money"
-                            name="paymentMethod"
+                            name="method"
                             required={true}
                             onChange={handleChange}
                         />

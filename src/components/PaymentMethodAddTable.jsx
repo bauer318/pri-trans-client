@@ -18,12 +18,11 @@ const PaymentMethodAddTable = () => {
     const navigate = useNavigate();
     useEffect(() => {
         setIsLoading(true);
-        console.log(refreshTable);
         setIsLoading(false);
     }, [refreshTable]);
     const containsPaymentMethod = paymentMethodId => {
         for (let i = 0; i < countryPaymentMethods.length; i++) {
-            if (countryPaymentMethods[i].paymentMethodId === paymentMethodId) {
+            if (countryPaymentMethods[i].id === paymentMethodId) {
                 return true;
             }
         }
@@ -33,7 +32,7 @@ const PaymentMethodAddTable = () => {
     const paymentMethodsToAdd = () => {
         const result = [];
         pm.map(paymentMethod => {
-            if (!containsPaymentMethod(paymentMethod.paymentMethodId)) {
+            if (!containsPaymentMethod(paymentMethod.id)) {
                 result.push(paymentMethod);
             }
         });
@@ -41,7 +40,7 @@ const PaymentMethodAddTable = () => {
     }
 
     const handleAddPaymentMethodClick = paymentMethodId => {
-        const addedPaymentMethod = pm.find(paymentMethod => paymentMethod.paymentMethodId === paymentMethodId);
+        const addedPaymentMethod = pm.find(paymentMethod => paymentMethod.id === paymentMethodId);
         dispatch(addPaymentMethod(countryId, addedPaymentMethod));
         setRefreshTable(!refreshTable);
     }
@@ -61,11 +60,11 @@ const PaymentMethodAddTable = () => {
                     {
                         pm?.length > 0 ? (
                             paymentMethodsToAdd()?.map(paymentMethod =>
-                                <tr key={paymentMethod.paymentMethodId}>
+                                <tr key={paymentMethod.id}>
                                     <td className={"text-center"}>{paymentMethod.paymentMethod}</td>
                                     <td className={"text-center"}>
                                         <button className={"btn btn-secondary"}
-                                                onClick={() => handleAddPaymentMethodClick(paymentMethod.paymentMethodId)}>Add
+                                                onClick={() => handleAddPaymentMethodClick(paymentMethod.id)}>Add
                                         </button>
                                     </td>
                                 </tr>

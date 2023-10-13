@@ -4,7 +4,6 @@ import {TbArrowsExchange2} from "react-icons/tb";
 import {useNavigate} from "react-router-dom";
 
 const ConvertModal = ({showModal, handleModal, fromAmount, toAmount, liveRate}) => {
-    console.log('convert modal');
     const navigate = useNavigate();
     const handleSubmit = (event)=>{
         event.preventDefault();

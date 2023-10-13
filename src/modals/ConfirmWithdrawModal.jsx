@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 
 const ConfirmWithdrawModal = ({withdrawDetails,isAgent,showModal, handleModal}) => {
-    console.log('Confirm withdraw modal');
     const [formData, setFormData] = useState(withdrawDetails);
     const handleSubmit = event => {
         event.preventDefault();

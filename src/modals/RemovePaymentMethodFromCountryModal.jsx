@@ -3,7 +3,6 @@ import {Form, Modal} from "react-bootstrap";
 import {FaExchangeAlt} from "react-icons/fa";
 
 const RemovePaymentMethodFromCountryModal = ({showModal, handleModal,selectedPaymentMethod, country}) => {
-    console.log('Remove pm from country modal');
     const handleSubmit = (event) => {
         event.preventDefault();
 

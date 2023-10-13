@@ -32,7 +32,7 @@ import AgentHistory from "./pages/AgentHistory";
 import AgentDeposits from "./pages/AgentDeposits";
 import AgentWithdrawals from "./pages/AgentWithdrawals";
 import ModeratorHome from "./pages/ModeratorHome";
-import {get} from "./services/LocalStorageService";
+import {get, remove} from "./services/LocalStorageService";
 
 export var logout = ()=>{};
 export var refreshP = ()=>{};

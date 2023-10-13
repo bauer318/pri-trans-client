@@ -5,19 +5,18 @@ import {useDispatch} from "react-redux";
 import {deletePaymentMethod, updatePaymentMethod} from "../reducers/paymentMethodReducers";
 
 const UpdatePaymentMethodModal = ({showModal, handleModal, selectedPaymentMethod, isDelete}) => {
-    console.log('Update pm modal ');
-    const [paymentM, setPaymentM] = useState(selectedPaymentMethod.paymentMethod);
+    const [paymentM, setPaymentM] = useState(selectedPaymentMethod.method);
     const dispatch = useDispatch();
     const handleSubmit = (event) => {
         event.preventDefault();
         if (isDelete) {
-            dispatch(deletePaymentMethod(selectedPaymentMethod?.paymentMethodId));
+            dispatch(deletePaymentMethod(selectedPaymentMethod?.id));
         } else {
             const updatedPm = {
                 ...selectedPaymentMethod,
-                paymentMethod: paymentM
+                method: paymentM
             }
-            dispatch(updatePaymentMethod(selectedPaymentMethod?.paymentMethodId, updatedPm));
+            dispatch(updatePaymentMethod(selectedPaymentMethod?.id, updatedPm));
         }
         handleModal();
     };
@@ -36,8 +35,8 @@ const UpdatePaymentMethodModal = ({showModal, handleModal, selectedPaymentMethod
                         <Form.Label>Payment method</Form.Label>
                         <Form.Control
                             type="text"
-                            name="paymentMethod"
-                            defaultValue={selectedPaymentMethod.paymentMethod}
+                            name="method"
+                            defaultValue={selectedPaymentMethod.method}
                             required={true}
                             onChange={handleChange}
                             readOnly={isDelete}

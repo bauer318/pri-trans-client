@@ -12,36 +12,40 @@ const UsersHeader = () => {
     const [isOnline, setIsOnline] = useState(false);
     const [authStatus, setAuthStatus] = useState(1);
     const dispatch = useDispatch();
+    const [roles, setRoles] = useState([]);
     const handleModal = () => {
         setShowModal(!showModal);
     };
     const handleRoleSelectChange = (event) => {
-        const role = Number (event.target.value);
+        const role = Number(event.target.value);
         sortUser(role, isOnline);
         setRole(role);
     }
 
-    const sortUser = (role,isOnline)=>{
-        if(role===1){
-            if(authStatus===1){
+    const sortUser = (role, isOnline) => {
+        console.log('role ', role);
+        console.log('online ', isOnline);
+        console.log('role auth status ', getUserSortRq(role, isOnline));
+        if (role === 1) {
+            if (authStatus === 1) {
                 dispatch(initializeUsers());
-            }else{
+            } else {
                 dispatch(getByAuthStatus(isOnline));
             }
-        }else{
-            if(authStatus===1){
-                const roleRq = getUserSortRq(role,isOnline);
+        } else {
+            if (authStatus === 1) {
+                const roleRq = getUserSortRq(role, isOnline);
                 dispatch(getByRole(roleRq));
-            }else{
-                const roleAuthReq = getUserSortRq(role,isOnline);
+            } else {
+                const roleAuthReq = getUserSortRq(role, isOnline);
                 dispatch(getByRoleAndAuthStatus(roleAuthReq));
             }
         }
     }
     const handleAuthStatusSelectChange = (event) => {
-        const authStatus = Number (event.target.value);
+        const authStatus = Number(event.target.value);
         setAuthStatus(authStatus);
-        const isOnlineC = authStatus===2;
+        const isOnlineC = authStatus === 2;
         sortUser(role, isOnlineC);
         setIsOnline(isOnlineC);
     }

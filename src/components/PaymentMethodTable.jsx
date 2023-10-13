@@ -14,7 +14,7 @@ const PaymentMethodTable = () => {
         setShowModal(!showModal);
     };
     const handleHelp = (paymentMethodIdParam) => {
-        const selectedPm = pm.find(pmEl => pmEl?.paymentMethodId === paymentMethodIdParam);
+        const selectedPm = pm.find(pmEl => pmEl?.id === paymentMethodIdParam);
         setSelectedPaymentMethod(selectedPm);
         handleModal();
     };
@@ -41,11 +41,11 @@ const PaymentMethodTable = () => {
                     <tbody>
                     {
                         pm?.map(pmEl =>
-                            <tr key={pmEl?.paymentMethodId}>
-                                <td className={"text-center"}>{pmEl?.paymentMethod}</td>
-                                <td className={"text-center"} onClick={() => handleEdit(pmEl?.paymentMethodId)}>
+                            <tr key={pmEl?.id}>
+                                <td className={"text-center"}>{pmEl?.method}</td>
+                                <td className={"text-center"} onClick={() => handleEdit(pmEl?.id)}>
                                     <FaEdit/></td>
-                                <td className={"text-center"} onClick={() => handleDelete(pmEl?.paymentMethodId)}>
+                                <td className={"text-center"} onClick={() => handleDelete(pmEl?.id)}>
                                     <MdDeleteForever/>
                                 </td>
                             </tr>

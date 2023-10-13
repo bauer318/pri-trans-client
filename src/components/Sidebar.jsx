@@ -20,9 +20,11 @@ const Sidebar = ({children, user}) => {
                 return 2;
             case 'ROLE_CLIENT':
                 return 3;
+            default:
+                return 4;
         }
     }
-    const menuIndex = getMenuIndexByRole(user?.userRole.userRole);
+    const menuIndex = getMenuIndexByRole(user?.userRole?.userRole);
     const menuItem = [
         [
             {
@@ -101,7 +103,14 @@ const Sidebar = ({children, user}) => {
                 name: "Payment methods",
                 icon: <FaExchangeAlt/>
             },
-        ]
+        ],
+        [
+            {
+                path: "/",
+                name: "",
+                icon: <FaUsers/>
+            },
+        ],
 
     ];
     const userLogo = ['Admin', 'Moder', 'Agent', 'Client']
@@ -109,7 +118,8 @@ const Sidebar = ({children, user}) => {
         <div className="container-sidebar">
             <div className="sidebar" style={{width: isOpen ? "300px" : "50px"}}>
                 <div className="top_section">
-                    <h1 style={{display: isOpen ? "block" : "none"}} className="logo">{user? userLogo[menuIndex]:'Home'}</h1>
+                    <h1 style={{display: isOpen ? "block" : "none"}}
+                        className="logo">{user ? userLogo[menuIndex] : 'Home'}</h1>
                     <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
                         <FaBars onClick={() => setIsOpen(!isOpen)}/>
                     </div>

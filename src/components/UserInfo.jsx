@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useMatch} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import LoadingEffect from "./LoadingEffect";
@@ -6,13 +6,16 @@ import {initializePersonalInfo} from "../reducers/PersonalInfoReducers";
 
 const UserInfo = () => {
     const match = useMatch("admin/users/:id");
+    const [canWait, setCanWait] = useState(false);
     const userId = Number(match.params?.id);
     const dispatch = useDispatch();
-    useEffect(()=>{
+    useEffect(() => {
+        setCanWait(true);
         dispatch(initializePersonalInfo(userId))
+        setCanWait(false);
     }, []);
     const personalInfo = useSelector(state => state.personalInfo);
-    const user = useSelector(state=>state.users.find(user=>user.userId===userId));
+    const user = useSelector(state => state.users.find(user => user.userId === userId));
     console.log(personalInfo);
     const roleStr = (role) => {
         switch (role) {
@@ -29,7 +32,7 @@ const UserInfo = () => {
         }
     }
     return (
-        <>{personalInfo!=='' ?
+        <>{personalInfo.length > 0 && !canWait ?
             (<div>
                 <div className={"row"}>
                     <div className={"col-4"}>
@@ -48,7 +51,7 @@ const UserInfo = () => {
                         <h3>{personalInfo?.birthdate}</h3>
                     </div>
                 </div>
-            </div>) : (<LoadingEffect/>)}
+            </div>) : !canWait ? <div> Not personal info for this user </div>:(<LoadingEffect/>)}
         </>
     );
 };
