@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {initializeCountries} from "../reducers/countryReducers";
 import {getOne} from "../services/RoleService";
 import {getById} from "../services/Countries";
-import {createUser, initializeUsers} from "../reducers/userReducers";
+import {initializeUsers} from "../reducers/userReducers";
 import userService from '../services/UserService'
 
 const AddUserModal = ({showModal, handleModal}) => {

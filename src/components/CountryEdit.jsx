@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {FaBackward, FaSave} from "react-icons/fa";
-import {MdCancel, MdDeleteForever} from "react-icons/md";
+import {FaBackward} from "react-icons/fa";
+import {MdDeleteForever} from "react-icons/md";
 import RemoveCurrencyFromCountryModal from "../modals/RemoveCurrencyFromCountryModal";
 import RemovePaymentMethodFromCountryModal from "../modals/RemovePaymentMethodFromCountryModal";
 import {useMatch, useNavigate} from "react-router-dom";

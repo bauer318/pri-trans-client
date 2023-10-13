@@ -1,6 +1,5 @@
 import React from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {FaCity} from "react-icons/fa";
 import {TfiWallet} from "react-icons/tfi";
 
 const AddBalanceModal = ({showModal, handleModal}) => {

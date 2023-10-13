@@ -1,8 +1,6 @@
-import React from 'react';
 import {createSlice} from "@reduxjs/toolkit";
 import userService from '../services/UserService'
 import authService from '../services/AuthService'
-import {save} from "../services/LocalStorageService";
 
 
 const userSlice = createSlice({

@@ -1,8 +1,7 @@
-import React from 'react';
 import axios from "axios";
-import {getToken, printError} from "./Utils";
+import {printError} from "./Utils";
 
-const baseUrl = 'http://localhost:8081/api/countries';
+const baseUrl = 'http://localhost:8080/api/countries';
 
 const getAll = async () => {
     try {

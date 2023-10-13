@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
 import {Navigate, useNavigate} from "react-router-dom";
-import {get, save, remove} from "../services/LocalStorageService";
+import {get, save} from "../services/LocalStorageService";
 import {refreshP} from "../App";
 import axios from "axios";
 
@@ -37,7 +37,7 @@ const Home = () => {
             email: formData["email"],
             password: formData["password"]
         };
-        axios.post('http://localhost:8081/api/login', longedUser)
+        axios.post('http://localhost:8080/api/login', longedUser)
             .then(res => {
                 save("connectedUser", res.data?.userRs);
                 save("jwtToken", `Bearer ${res.data?.jwtToken}`);

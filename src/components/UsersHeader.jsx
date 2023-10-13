@@ -3,7 +3,7 @@ import {ImUserPlus} from "react-icons/im";
 import LogoutBtn from "./LogoutBtn";
 import AddUserModal from "../modals/AddUserModal";
 import {useDispatch} from "react-redux";
-import {getByAuthStatus, getByRoleAndAuthStatus, initializeUsers, getByRole} from "../reducers/userReducers";
+import {getByAuthStatus, getByRole, getByRoleAndAuthStatus, initializeUsers} from "../reducers/userReducers";
 import {getUserSortRq} from "../services/Utils";
 
 const UsersHeader = () => {

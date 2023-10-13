@@ -1,4 +1,3 @@
-import React from 'react';
 import {createSlice} from "@reduxjs/toolkit";
 import countryService from '../services/Countries'
 

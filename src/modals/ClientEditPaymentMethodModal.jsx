@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {ImUserPlus} from "react-icons/im";
 import {FaEdit} from "react-icons/fa";
 
 const ClientEditPaymentMethodModal = ({paymentMethod, showModal, handleModal}) => {

@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  pri-trans-ui:
+    container_name: pri_trans_ui
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+    tty: true
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - pri-trans-ui_bridge
+
+networks:
+  pri-trans-ui_bridge:
+    driver: bridge

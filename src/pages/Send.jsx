@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import CSWHeader from "../components/CSWHeader";
-import {RxCross2} from "react-icons/rx";
 import {useDispatch, useSelector} from "react-redux";
 import {getRate} from "../reducers/ExchangeRateReducer";
 import {initializeSendDetails} from "../reducers/sendReducers";

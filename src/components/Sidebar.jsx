@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
-import {
-    FaBars, FaCity, FaExchangeAlt, FaHistory, FaUsers
-} from 'react-icons/fa';
+import {FaBars, FaCity, FaExchangeAlt, FaHistory, FaUsers} from 'react-icons/fa';
 import {NavLink} from "react-router-dom";
 import {HiHome, HiUsers} from "react-icons/hi";
 import {MdOutlineAccountBalanceWallet} from "react-icons/md";
 import {RiLuggageDepositLine} from "react-icons/ri";
 import {BiMoneyWithdraw} from "react-icons/bi";
-import Home from "../pages/Home";
 import {GrCurrency} from "react-icons/gr";
 
 

@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {MdDoneOutline} from "react-icons/md";
 import {useDispatch, useSelector} from "react-redux";
-import {initializePaymentMethods} from "../reducers/paymentMethodReducers";
 import LoadingEffect from "./LoadingEffect";
-import {useMatch, useNavigate, useNavigation} from "react-router-dom";
+import {useMatch, useNavigate} from "react-router-dom";
 import {addPaymentMethod} from "../reducers/countryReducers";
 import BackToCountryMainPageComponent from "./BackToCountryMainPageComponent";
 import {FaBackward} from "react-icons/fa";

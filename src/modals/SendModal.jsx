@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {TfiWallet} from "react-icons/tfi";
 import {useSelector} from "react-redux";
 import {AiOutlineArrowUp} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";

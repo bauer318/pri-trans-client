@@ -1,4 +1,3 @@
-import React from 'react';
 import currencyService from '../services/Currencies';
 import {createSlice} from "@reduxjs/toolkit";
 

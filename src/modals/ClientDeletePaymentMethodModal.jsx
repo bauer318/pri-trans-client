@@ -1,6 +1,5 @@
 import React from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {FaEdit} from "react-icons/fa";
 import {AiOutlineDelete} from "react-icons/ai";
 
 const ClientDeletePaymentMethodModal = ({paymentMethod, showModal, handleModal}) => {

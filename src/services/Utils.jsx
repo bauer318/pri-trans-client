@@ -1,6 +1,4 @@
-import React from 'react';
 import {get} from "./LocalStorageService";
-import {useNavigate} from "react-router-dom";
 
 
 export const getUserSortRq = (roleKey, authStatus) => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import LogoutBtn from "../components/LogoutBtn";
 import HistoryHeader from "../components/HistoryHeader";
 
 const ClientHistory = () => {

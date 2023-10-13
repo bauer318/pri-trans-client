@@ -3,7 +3,6 @@ import {RiLogoutCircleRLine} from "react-icons/ri";
 import {get, remove} from "../services/LocalStorageService";
 import {useNavigate} from "react-router-dom";
 import {logout, refreshP} from "../App";
-import async from "async";
 import {logoutUser} from "../services/LogoutService";
 import {printError} from "../services/Utils";
 

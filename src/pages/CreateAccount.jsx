@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Form} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {createUser, getUserByEmail} from "../reducers/userReducers";
+import {createUser} from "../reducers/userReducers";
 import {initializeCountries} from "../reducers/countryReducers";
 import axios from "axios";
 import LoadingEffect from "../components/LoadingEffect";
@@ -26,7 +26,7 @@ const CreateAccount = () => {
             email: formData?.email,
             password: formData?.password
         };
-        axios.post('http://localhost:8081/api/login', registeredUser)
+        axios.post('http://localhost:8080/api/login', registeredUser)
             .then(response => {
                 save("connectedUser", response.data?.userRs);
                 save("jwtToken", `Bearer ${response.data?.jwtToken}`);

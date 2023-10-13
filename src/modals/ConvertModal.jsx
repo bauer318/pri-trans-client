@@ -1,6 +1,5 @@
 import React from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {TfiWallet} from "react-icons/tfi";
 import {TbArrowsExchange2} from "react-icons/tb";
 import {useNavigate} from "react-router-dom";
 

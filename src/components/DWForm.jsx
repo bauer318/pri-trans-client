@@ -1,6 +1,5 @@
 import React from 'react';
 import {Form} from "react-bootstrap";
-import {AiOutlineArrowRight} from "react-icons/ai";
 import LoadingEffect from "./LoadingEffect";
 
 //Deposit Withdraw DW

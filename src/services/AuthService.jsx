@@ -1,9 +1,7 @@
-import React from 'react';
 import axios from "axios";
-import {save} from "./LocalStorageService";
 import {printError} from "./Utils";
 
-const baseUrl = 'http://localhost:8081/api/login';
+const baseUrl = 'http://localhost:8080/api/login';
 
 const login = async (user) => {
     try {

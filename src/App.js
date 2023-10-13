@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './bootstrap.min.css';
 import './App.css';
 import Sidebar from "./components/Sidebar";

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {FaCity} from "react-icons/fa";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {deleteCountry} from "../reducers/countryReducers";
 import {useNavigate} from "react-router-dom";
 

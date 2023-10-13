@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const save = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value));
 }

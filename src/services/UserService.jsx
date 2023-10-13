@@ -1,10 +1,7 @@
-import React from 'react';
-
-import {extractRegisteredUserId, getToken, printError} from "./Utils";
-import {get, save} from "./LocalStorageService";
+import {getToken, printError} from "./Utils";
 import axios from "axios";
 
-const baseUrl = 'http://localhost:8081/api/users';
+const baseUrl = 'http://localhost:8080/api/users';
 const authStatusPath = 'auth-status';
 
 const getAll = async () => {

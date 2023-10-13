@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FaBackward, FaEdit, FaExchangeAlt} from "react-icons/fa";
+import {FaBackward, FaEdit} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
 import {useMatch, useNavigate} from "react-router-dom";
 import DeleteCountryModal from "../modals/DeleteCountryModal";

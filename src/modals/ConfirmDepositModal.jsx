@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
 
 const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleConfirmModal}) => {
     console.log('confirm pm modal');

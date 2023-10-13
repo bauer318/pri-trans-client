@@ -1,8 +1,7 @@
-import React from 'react';
 import {printError} from "./Utils";
 import axios from "axios";
 
-const baseUrl = 'http://localhost:8081/api/roles';
+const baseUrl = 'http://localhost:8080/api/roles';
 
 const getAll = async () => {
     try {
