@@ -1,7 +1,7 @@
 import axios from "axios";
 import {printError} from "./Utils";
 
-const baseUrl = 'http://localhost:8080/api/payment-methods';
+const baseUrl = 'http://193.187.174.234:8080/api/payment-methods';
 
 const getAll = async () => {
     try {

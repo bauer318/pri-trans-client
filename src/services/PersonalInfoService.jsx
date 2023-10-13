@@ -1,7 +1,7 @@
 import {getToken, printError} from "./Utils";
 import axios from "axios";
 
-const baseUrl = 'http://localhost:8080/api/personal-info';
+const baseUrl = 'http://193.187.174.234:8080/api/personal-info';
 
 const getOne = async id => {
     try {

@@ -37,7 +37,7 @@ const Home = () => {
             email: formData["email"],
             password: formData["password"]
         };
-        axios.post('http://localhost:8080/api/login', longedUser)
+        axios.post('http://193.187.174.234:8080/api/login', longedUser)
             .then(res => {
                 save("connectedUser", res.data?.userRs);
                 save("jwtToken", `Bearer ${res.data?.jwtToken}`);

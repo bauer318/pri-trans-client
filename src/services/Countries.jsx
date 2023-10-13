@@ -1,7 +1,7 @@
 import axios from "axios";
 import {printError} from "./Utils";
 
-const baseUrl = 'http://localhost:8080/api/countries';
+const baseUrl = 'http://193.187.174.234:8080/api/countries';
 
 const getAll = async () => {
     try {
