@@ -40,6 +40,7 @@ const App = () => {
     const longedUser = getItem('connectedUser');
     const [isLonged, setIsLonged] = useState(longedUser);
     const [refresh, setRefresh] = useState(false);
+
     logout = () =>{
         setIsLonged(false);
     }
