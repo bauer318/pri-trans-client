@@ -6,7 +6,6 @@ import ConfirmWithdrawModal from "../modals/ConfirmWithdrawModal";
 import RejectWithdrawalsModal from "../modals/RejectWithdrawalsModal";
 
 const AgentWithdrawals = () => {
-    console.log('Agent withdrawals');
     const [selectedWithdraw, setSelectedWithdraw] = useState(null);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showRejectModal, setShowRejectModal] = useState(false);

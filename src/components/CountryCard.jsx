@@ -3,6 +3,7 @@ import {NavLink} from "react-router-dom";
 import LoadingEffect from "./LoadingEffect";
 
 const CountryCard = ({country}) => {
+    console.log(country);
     return (
         <>{
             country ?
@@ -18,8 +19,8 @@ const CountryCard = ({country}) => {
                         <div className={"card-body country-card row"}>
                             <div className={"col"}>
                                 {country?.currencies ? (
-                                    country.currencies.map(currency =>
-                                        <p key={currency.currencyId}>{currency.currency}</p>
+                                    country.currencies.map((currency, key) =>
+                                        <p key={key}>{currency.currency}</p>
                                     )) : (
                                     <LoadingEffect/>
                                 )
@@ -27,8 +28,8 @@ const CountryCard = ({country}) => {
                             </div>
                             <div className={"col"}>
                                 {country?.paymentMethods ? (
-                                    country.paymentMethods.map(paymentMethod =>
-                                        <p key={paymentMethod.id}>{paymentMethod.method}</p>
+                                    country.paymentMethods.map((paymentMethod, key) =>
+                                        <p key={key}>{paymentMethod.method}</p>
                                     )) : (<LoadingEffect/>)}
                             </div>
                         </div>

@@ -12,10 +12,8 @@ const roleSlice = createSlice({
     }
 });
 export const getRoleById = (id) => {
-    console.log('id ', id);
     return async dispatch => {
         const role = await roleService.getOne(id);
-        console.log('role in ', role);
         dispatch(setRole(role));
     }
 }

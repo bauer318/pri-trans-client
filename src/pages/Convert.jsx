@@ -10,7 +10,6 @@ import {round} from "lodash";
 
 
 const Convert = () => {
-    console.log('Convert');
     const [showModal, setShowModal] = useState(false);
     const [rates, setRates] = useState(0);
     const [baseCurrency, setBaseCurrency] = useState('USD');

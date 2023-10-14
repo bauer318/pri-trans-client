@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteUser, updateUser} from "../reducers/userReducers";
 import {useNavigate} from "react-router-dom";
 import {initializeCountries} from "../reducers/countryReducers";
-import {getByName} from "../services/Countries";
+import {getByName} from "../services/CountryService";
 import {getAll, getOne} from "../services/RoleService";
 
 

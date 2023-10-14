@@ -5,7 +5,6 @@ const ConfirmWithdrawModal = ({withdrawDetails,isAgent,showModal, handleModal}) 
     const [formData, setFormData] = useState(withdrawDetails);
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(formData);
         handleModal();
     }
     const handleChange = event =>{

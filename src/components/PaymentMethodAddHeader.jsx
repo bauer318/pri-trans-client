@@ -11,7 +11,7 @@ const PaymentMethodAddHeader = () => {
     useEffect(()=>{
        dispatch(initializeCountries());
     },[]);
-    const country = useSelector(state => state.countries.find(country=>country.id===countryId));
+    const country = useSelector(state => state.countries.find(country=>country.countryId===countryId));
     return (
         <div>
             <div className={"row"}>

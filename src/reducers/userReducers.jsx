@@ -31,6 +31,7 @@ export const login = user => {
 }
 export const createUser = (user, errorCallBack) => {
     return async dispatch => {
+        console.log('user ', user);
         const newUser = await userService.createNew(user, errorCallBack);
         if (newUser) {
             initializeUsers();

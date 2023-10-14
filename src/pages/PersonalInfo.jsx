@@ -4,7 +4,7 @@ import {Form} from "react-bootstrap";
 import {AiOutlineArrowRight} from "react-icons/ai";
 import {useDispatch, useSelector} from "react-redux";
 import {initializeCountries} from "../reducers/countryReducers";
-import {get} from "../services/LocalStorageService";
+import {getItem} from "../services/LocalStorageService";
 import {formatDate} from "../services/Utils";
 
 const PersonalInfo = () => {
@@ -16,7 +16,7 @@ const PersonalInfo = () => {
     const [connectedUser, setConnectedUser] = useState({});
     useEffect(() => {
         dispatch(initializeCountries());
-        setConnectedUser(get('connectedUser'));
+        setConnectedUser(getItem('connectedUser'));
     }, []);
     const countries = useSelector(state => state.countries);
 

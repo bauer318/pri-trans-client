@@ -1,4 +1,5 @@
-import {get} from "./LocalStorageService";
+import {getItem} from "./LocalStorageService";
+import axios from "axios";
 
 
 export const getUserSortRq = (roleKey, authStatus) => {
@@ -120,7 +121,7 @@ export const getCurrencyByName = name => {
 }
 
 export const getToken = () => {
-    return {Authorization: get('jwtToken')};
+    return {Authorization: getItem('jwtToken')};
 }
 
 export const extractRegisteredUserId = locationArray => {
@@ -160,4 +161,11 @@ export const formatDate = date => {
     });
     return dateOut;
 }
+export const baseURL = 'http://193.187.174.234:8080/api';
+//export const baseURL = 'http://localhost:8080/api';
+const instance = axios.create({
+    baseURL: baseURL,
+    headers: {Authorization: getItem('jwtToken')}
+});
+export default instance;
 

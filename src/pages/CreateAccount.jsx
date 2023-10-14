@@ -4,9 +4,10 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createUser} from "../reducers/userReducers";
 import {initializeCountries} from "../reducers/countryReducers";
-import axios from "axios";
 import LoadingEffect from "../components/LoadingEffect";
-import {get, save} from "../services/LocalStorageService";
+import {getItem, removeItem, saveItem} from "../services/LocalStorageService";
+import instance, {baseURL} from "../services/Utils";
+import axios from "axios";
 
 const CreateAccount = () => {
     const [formData, setFormData] = useState({userRole: {userRole: "ROLE_CLIENT"}});
@@ -17,21 +18,22 @@ const CreateAccount = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(initializeCountries());
+        removeItem('connectedUser');
+        removeItem('jwtToken');
     }, []);
     const countries = useSelector(state => state.countries);
-
 
     const performLoginAfterSignUp = () => {
         const registeredUser = {
             email: formData?.email,
             password: formData?.password
         };
-        axios.post('http://193.187.174.234:8080/api/login', registeredUser)
+        axios.post(`${baseURL}/login`, registeredUser)
             .then(response => {
-                save("connectedUser", response.data?.userRs);
-                save("jwtToken", `Bearer ${response.data?.jwtToken}`);
+                saveItem("connectedUser", response.data?.userRs);
+                saveItem("jwtToken", `Bearer ${response.data?.jwtToken}`);
                 setIsLoading(false);
-                const registeredUser = get('connectedUser');
+                const registeredUser = getItem('connectedUser');
                 navigate(`/register/${registeredUser?.userId}/personal-info`);
             })
             .catch(error => {
@@ -68,7 +70,10 @@ const CreateAccount = () => {
     const handleCountryChange = event => {
         const id = Number(event.target.value);
         if (id) {
-            setFormData({...formData, [event.target.name]: countries?.find(country => country?.countryId === id)});
+            const selectedCountry = {
+                countryId: id
+            };
+            setFormData({...formData, [event.target.name]: selectedCountry});
         }
     }
     return (

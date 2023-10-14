@@ -22,7 +22,7 @@ const PaymentMethodAddTable = () => {
     }, [refreshTable]);
     const containsPaymentMethod = paymentMethodId => {
         for (let i = 0; i < countryPaymentMethods.length; i++) {
-            if (countryPaymentMethods[i].id === paymentMethodId) {
+            if (countryPaymentMethods[i].paymentMethodId === paymentMethodId) {
                 return true;
             }
         }
@@ -40,8 +40,10 @@ const PaymentMethodAddTable = () => {
     }
 
     const handleAddPaymentMethodClick = paymentMethodId => {
-        const addedPaymentMethod = pm.find(paymentMethod => paymentMethod.id === paymentMethodId);
-        dispatch(addPaymentMethod(countryId, addedPaymentMethod));
+        const toAdd = {
+            paymentMethodId:paymentMethodId
+        };
+        dispatch(addPaymentMethod(countryId, toAdd));
         setRefreshTable(!refreshTable);
     }
     return (
@@ -61,7 +63,7 @@ const PaymentMethodAddTable = () => {
                         pm?.length > 0 ? (
                             paymentMethodsToAdd()?.map(paymentMethod =>
                                 <tr key={paymentMethod.id}>
-                                    <td className={"text-center"}>{paymentMethod.paymentMethod}</td>
+                                    <td className={"text-center"}>{paymentMethod.method}</td>
                                     <td className={"text-center"}>
                                         <button className={"btn btn-secondary"}
                                                 onClick={() => handleAddPaymentMethodClick(paymentMethod.id)}>Add

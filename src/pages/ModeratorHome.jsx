@@ -25,7 +25,6 @@ const ModeratorHome = () => {
     const handleBlockUnblock = id =>{
         let user = users?.find(user=>user.id===id);
         user.blockingStatus = !user?.blockingStatus;
-        console.log(user);
     }
     return (
         <div className={"container"}>

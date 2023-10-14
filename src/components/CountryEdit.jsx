@@ -19,6 +19,7 @@ const CountryEdit = () => {
     const match = useMatch('/admin/countries/:id/edit');
     const countryId = Number(match.params.id);
     const country = useSelector(state => state.countries.find(country => country.countryId === countryId));
+    console.log(country);
     const [countryName, setCountryName] = useState(country.countryName);
     const navigate = useNavigate();
     const dispatch = useDispatch();

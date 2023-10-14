@@ -32,22 +32,20 @@ import AgentHistory from "./pages/AgentHistory";
 import AgentDeposits from "./pages/AgentDeposits";
 import AgentWithdrawals from "./pages/AgentWithdrawals";
 import ModeratorHome from "./pages/ModeratorHome";
-import {get, remove} from "./services/LocalStorageService";
+import {getItem, removeItem} from "./services/LocalStorageService";
 
 export var logout = ()=>{};
 export var refreshP = ()=>{};
 const App = () => {
-    const longedUser = get('connectedUser');
+    const longedUser = getItem('connectedUser');
     const [isLonged, setIsLonged] = useState(longedUser);
     const [refresh, setRefresh] = useState(false);
     logout = () =>{
-        console.log(isLonged);
         setIsLonged(false);
     }
     refreshP = () =>{
         setRefresh(!refresh);
     }
-    console.log('longed user', longedUser);
     return (
         <div>
             <BrowserRouter>

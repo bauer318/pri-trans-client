@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
 import {Navigate, useNavigate} from "react-router-dom";
-import {get, save} from "../services/LocalStorageService";
+import {getItem, saveItem} from "../services/LocalStorageService";
 import {refreshP} from "../App";
 import axios from "axios";
+import instance, {baseURL} from "../services/Utils";
 
 
 const Home = () => {
     const [formData, setFormData] = useState({});
     const [error, setError] = useState(null);
-    const user = get('connectedUser');
+    const user = getItem('connectedUser');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -37,12 +38,12 @@ const Home = () => {
             email: formData["email"],
             password: formData["password"]
         };
-        axios.post('http://193.187.174.234:8080/api/login', longedUser)
+        axios.post(`${baseURL}/login`, longedUser)
             .then(res => {
-                save("connectedUser", res.data?.userRs);
-                save("jwtToken", `Bearer ${res.data?.jwtToken}`);
+                saveItem("connectedUser", res.data?.userRs);
+                saveItem("jwtToken", `Bearer ${res.data?.jwtToken}`);
                 setIsLoading(false);
-                const user = get("connectedUser");
+                const user = getItem("connectedUser");
                 redirectTo(user.userRole.userRole);
                 refreshP();
             })

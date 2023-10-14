@@ -1,11 +1,11 @@
 import axios from "axios";
-import {printError} from "./Utils";
+import {getToken, printError} from "./Utils";
 
-const baseUrl = 'http://193.187.174.234:8080/api/login';
+const baseUrl = '/login';
 
 const login = async (user) => {
     try {
-        const response = await axios.post(baseUrl, user);
+        const response = await axios.post(baseUrl, user,{headers:getToken()});
         return response.data;
     } catch (error) {
         printError(error);

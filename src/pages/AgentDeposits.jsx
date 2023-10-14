@@ -6,7 +6,6 @@ import ConfirmDepositModal from "../modals/ConfirmDepositModal";
 import RejectDepositModal from "../modals/RejectDepositModal";
 
 const AgentDeposits = () => {
-    console.log('Agent deposits');
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showRejectModal, setShowRejectModal] = useState(false);
     const [selectedDeposit, setSelectedDeposit] = useState(null);
@@ -50,7 +49,6 @@ const AgentDeposits = () => {
     const handleRejectDeposit = id => {
         setSelectedDeposit(findDepositById(id));
         handleRejectModal();
-        console.log(id);
     }
     return (
         <div className={"container"}>

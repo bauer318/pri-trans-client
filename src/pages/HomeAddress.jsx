@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import {Form} from "react-bootstrap";
 import {AiOutlineArrowLeft} from "react-icons/ai";
 import {MdPostAdd} from "react-icons/md";
 import {useDispatch} from "react-redux";
 import {createPersonalInfo} from "../reducers/PersonalInfoReducers";
-import {get} from "../services/LocalStorageService";
+import {getItem} from "../services/LocalStorageService";
 
 const HomeAddress = () => {
     const {state} = useLocation();
@@ -14,6 +14,12 @@ const HomeAddress = () => {
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const [telephone, setTelephone] = useState("");
+
+    useEffect(() => {
+        if (!formData?.phone) {
+            setFormData({...formData, ['phone']: ""});
+        }
+    }, []);
     const redirectTo = userRole => {
         switch (userRole) {
             case 'ROLE_ADMIN':
@@ -31,7 +37,7 @@ const HomeAddress = () => {
         }
     }
     const toUserHomeCallback = () => {
-        redirectTo(get('connectedUser')?.userRole.userRole);
+        redirectTo(getItem('connectedUser')?.userRole.userRole);
     }
     const handleSubmit = event => {
         event.preventDefault();

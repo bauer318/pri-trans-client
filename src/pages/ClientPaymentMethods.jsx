@@ -4,7 +4,6 @@ import PaymentMethodCard from "../components/PaymentMethodCard";
 import ClientAddPaymentMethodModal from "../modals/ClientAddPaymentMethodModal";
 
 const ClientPaymentMethods = () => {
-    console.log('CPM ');
     const [showModal, setShowModal] = useState(false);
     const paymentMethods = [
         {

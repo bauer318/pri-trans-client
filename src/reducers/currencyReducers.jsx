@@ -1,4 +1,4 @@
-import currencyService from '../services/Currencies';
+import currencyService from '../services/CurrencyService';
 import {createSlice} from "@reduxjs/toolkit";
 
 ;
