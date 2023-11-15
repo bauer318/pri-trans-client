@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import LogoutBtn from "./LogoutBtn";
+import {useDispatch, useSelector} from "react-redux";
+import {initializeCountries} from "../reducers/countryReducers";
 
 const HomeHeader = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(initializeCountries());
+    }, []);
+    const countries = useSelector(state => state.countries);
     const handleRecipientCountrySelectChange = (event) => {
         const selectedCountry = event.target.value;
-            console.log({selectedCountry});
     }
     return (
         <div>
@@ -15,8 +21,7 @@ const HomeHeader = () => {
                 <div className={"col-lg-3 d-flex justify-content-start"}>
                     <select className={"form-select"} aria-label={"Default select example"}
                             onChange={handleRecipientCountrySelectChange}>
-                        <option value={1}>DR Congo</option>
-                        <option value={2}>Russia</option>
+                        {countries?.map((country, key)=> <option value={country?.countryId} key={key}>{country?.countryName}</option>)}
                     </select>
                 </div>
                 <div className={"col-lg-6 d-flex justify-content-end"}>

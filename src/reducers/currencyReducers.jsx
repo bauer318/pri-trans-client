@@ -29,6 +29,13 @@ export const initializeCurrencies = () => {
         dispatch(setCurrencies(currencies));
     }
 }
+
+export const initializeNeedUserCurrencies = userId => {
+    return async dispatch => {
+        const currencies = await currencyService.findCurrenciesNotBelongUser(userId);
+        dispatch(setCurrencies(currencies));
+    }
+}
 export const updateCurrency = (id, currency) => {
     return async dispatch => {
         await currencyService.update(id, currency);

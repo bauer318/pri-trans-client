@@ -5,7 +5,6 @@ const baseUrl = baseURL.concat('/currencies');
 
 const getAll = async () => {
     try {
-        console.log('getting currencies with token ', getToken());
         const response = await axios.get(baseUrl, {headers: getToken()});
         return response?.data;
     } catch (error) {
@@ -15,7 +14,7 @@ const getAll = async () => {
 
 const createNew = async (currency) => {
     const object = {
-        currency: currency?.name,
+        currencyId: currency?.name,
         symbol: currency?.symbol,
         code: currency?.code
     };
@@ -60,4 +59,13 @@ const findCurrencyByName = async (name, notFoundCallback) => {
         printError(error);
     }
 }
-export default {getAll, createNew, update, deleteCurrency, findCurrencyByName};
+
+const findCurrenciesNotBelongUser = async userId =>{
+    try {
+        const response = await axios.get(`${baseUrl}/not-user/${userId}`, {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+export default {getAll, createNew, update, deleteCurrency, findCurrencyByName, findCurrenciesNotBelongUser};

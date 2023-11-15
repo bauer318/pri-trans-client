@@ -1,8 +1,11 @@
 import React from 'react';
 import HomeHeader from "../components/HomeHeader";
 import HomeTable from "../components/HomeTable";
+import {useSelector} from "react-redux";
 
 const ClientHome = () => {
+    const countries = useSelector(state => state.countries);
+    console.log(countries);
     return (
         <div className={"container"}>
             <HomeHeader/>

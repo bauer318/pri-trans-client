@@ -1,11 +1,11 @@
 import axios from "axios";
 import {baseURL, getToken, printError} from "./Utils";
 
-const baseUrlCountry = '/countries';
+const baseUrlCountry = baseURL.concat('/countries');
 
 const getAll = async () => {
     try {
-        const response = await axios.get(`${baseURL}${baseUrlCountry}`);
+        const response = await axios.get(`${baseUrlCountry}`);
         return response?.data;
     } catch (error) {
         printError(error);

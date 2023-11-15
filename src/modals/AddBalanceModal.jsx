@@ -1,24 +1,31 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {TfiWallet} from "react-icons/tfi";
+import {useDispatch, useSelector} from "react-redux";
+import {initializeCurrencies, initializeNeedUserCurrencies} from "../reducers/currencyReducers";
+import {createAccount} from "../reducers/accountReducer";
+import {getItem} from "../services/LocalStorageService";
 
 const AddBalanceModal = ({showModal, handleModal}) => {
-    const balances = [
-        {
-            "id":1,
-            "devise":"USD Dollar"
-        },
-        {
-            "id":2,
-            "devise":"Russian Ruble"
-        },
-    ];
+    const dispatch = useDispatch();
+    const [currencyId, setCurrencyId] = useState(0);
+    useEffect(() => {
+        dispatch(initializeCurrencies());
+    }, []);
+    const currencies = useSelector(state => state.currencies);
+    console.log(currencies);
     const handleSubmit = (event) =>{
         handleModal();
+        if(currencyId>0){
+            dispatch(createAccount(currencyId));
+        }
     }
+    console.log(useSelector(state => state.accounts));
     const handleBalanceChange = (event)=>{
-        const balanceId = Number(event.target.value);
-        const balance = balances.find(balance=>balance.id===balanceId);
+        const currencyIdP = Number(event.target.value);
+        if(currencyIdP>=1)
+            setCurrencyId(currencyIdP);
+
     }
     return (
         <Modal show={showModal} onHide={handleModal}>
@@ -37,8 +44,8 @@ const AddBalanceModal = ({showModal, handleModal}) => {
                         >
                             <option value="">Select devise</option>
                             {
-                                balances.map(balance=>
-                                    <option value={balance.id} key={balance.id}>{balance.devise}</option>
+                                currencies?.map((currency,key)=>
+                                    <option value={currency?.currencyId} key={key}>{currency?.currency}</option>
                                 )
                             }
 

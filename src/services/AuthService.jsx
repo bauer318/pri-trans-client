@@ -1,7 +1,7 @@
 import axios from "axios";
-import {getToken, printError} from "./Utils";
+import {baseURL, getToken, printError} from "./Utils";
 
-const baseUrl = '/login';
+const baseUrl = baseURL.concat('/login');
 
 const login = async (user) => {
     try {

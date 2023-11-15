@@ -1,10 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TfiWallet} from "react-icons/tfi";
 import LogoutBtn from "./LogoutBtn";
 import AddBalanceModal from "../modals/AddBalanceModal";
+import {useDispatch} from "react-redux";
+import {initializeAccounts} from "../reducers/accountReducer";
 
-const AccountHeader = () => {
+const AccountHeader = ({perform}) => {
     const [showModal, setShowModal] = useState(false);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(initializeAccounts());
+        perform();
+    }, [showModal]);
     const handleModal = () => {
         setShowModal(!showModal);
     };

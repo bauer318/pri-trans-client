@@ -1,20 +1,20 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 
-const BalanceCard = () => {
+const BalanceCard = ({account}) => {
     return (
         <div className={"col"}>
-            <NavLink style={{textDecoration: 'none'}} to={"/agent/account/1"}>
+            <NavLink style={{textDecoration: 'none'}} to={`/agent/account/${account?.accountId}`}>
                 <div className={"card mb-3 card-element"}>
                     <div className={"card-header"}>
-                        <h3>Balance $</h3>
+                        <h3>Balance {account?.currency?.code}</h3>
                     </div>
                     <div className={"card-body"}>
                         <div>
-                            <h3>82.82</h3>
+                            <h3>{account?.balance} {account?.currency?.symbol}</h3>
                         </div>
                         <div>
-                            <i>US Dollar</i>
+                            <i>{account?.currency?.currency}</i>
                         </div>
                     </div>
                 </div>
