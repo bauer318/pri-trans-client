@@ -3,7 +3,6 @@ import {NavLink} from "react-router-dom";
 import LoadingEffect from "./LoadingEffect";
 
 const CountryCard = ({country}) => {
-    console.log(country);
     return (
         <>{
             country ?
