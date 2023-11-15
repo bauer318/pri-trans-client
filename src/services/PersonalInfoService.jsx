@@ -1,7 +1,7 @@
-import {getToken, printError} from "./Utils";
+import {baseURL,getToken, printError} from "./Utils";
 import axios from "axios";
 
-const baseUrl = '/personal-info';
+const baseUrl = baseURL.concat('/personal-info');
 
 const getOne = async id => {
     try {

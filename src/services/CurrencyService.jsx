@@ -1,10 +1,11 @@
 import axios from "axios";
-import instance, {getToken, printError} from "./Utils";
+import instance, {baseURL, getToken, printError} from "./Utils";
 
-const baseUrl = '/currencies';
+const baseUrl = baseURL.concat('/currencies');
 
 const getAll = async () => {
     try {
+        console.log('getting currencies with token ', getToken());
         const response = await axios.get(baseUrl, {headers: getToken()});
         return response?.data;
     } catch (error) {
