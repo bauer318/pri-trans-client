@@ -4,31 +4,26 @@ import {getItem, removeItem} from "../services/LocalStorageService";
 import {useNavigate} from "react-router-dom";
 import {logout, refreshP} from "../App";
 import {logoutUser} from "../services/LogoutService";
-import {printError} from "../services/Utils";
+import {callBackRemoveData, printError} from "../services/Utils";
 
 
 const LogoutBtn = () => {
     const navigate = useNavigate();
-    const callBackRemoveData = () => {
-        removeItem('connectedUser');
-        removeItem('jwtToken');
-        navigate('/');
-        logout();
-        refreshP();
-    }
+
     const logoutUserG = (callBackRemoveData) => {
         const b = logoutUser(getItem('connectedUser')?.userId);
         b.then(response => {
             callBackRemoveData();
-            console.log(response);
         }).catch(error => {
             printError(error);
         });
         removeItem('connectedUser');
         removeItem('jwtToken');
+        localStorage.clear();
     }
     const handleLogout = () => {
         logoutUserG(callBackRemoveData);
+        navigate('/');
     }
 
     return (

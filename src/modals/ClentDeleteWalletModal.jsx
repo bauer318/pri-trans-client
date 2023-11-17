@@ -2,7 +2,7 @@ import React from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {AiOutlineDelete} from "react-icons/ai";
 
-const ClientDeletePaymentMethodModal = ({paymentMethod, showModal, handleModal}) => {
+const ClentDeleteWalletModal = ({paymentMethod, showModal, handleModal}) => {
     const handleSubmit = event => {
         event.preventDefault();
         console.log(paymentMethod);
@@ -59,4 +59,4 @@ const ClientDeletePaymentMethodModal = ({paymentMethod, showModal, handleModal})
     );
 };
 
-export default ClientDeletePaymentMethodModal;
+export default ClentDeleteWalletModal;

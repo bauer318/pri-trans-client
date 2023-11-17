@@ -1,5 +1,6 @@
-import {getItem} from "./LocalStorageService";
+import {getItem, removeItem} from "./LocalStorageService";
 import axios from "axios";
+import {logout, refreshP} from "../App";
 
 
 export const getUserSortRq = (roleKey, authStatus) => {
@@ -45,12 +46,25 @@ export const printError = (error) => {
         console.log('error response data ', error.response.data);
         console.log('error response status ', error.response.status);
         console.log('error response headers ', error.response.headers);
+        if(error?.response?.status===403){
+            callBackRemoveData();
+            window.location = "/";
+
+        }
     } else if (error.request) {
         console.log('error request ', error.request);
         alert("Something went wrong please try again later");
     } else {
         console.log('others error', error.message);
     }
+}
+
+export  const callBackRemoveData = () => {
+    removeItem('connectedUser');
+    removeItem('jwtToken');
+    localStorage.clear();
+    logout();
+    refreshP();
 }
 
 const countriesAPI = () => {

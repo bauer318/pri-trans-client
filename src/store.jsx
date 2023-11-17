@@ -8,6 +8,7 @@ import sendDetails from "./reducers/sendReducers";
 import userRoleReducers from "./reducers/roleReducers";
 import personalInfoReducer from "./reducers/PersonalInfoReducers"
 import accountReducer from "./reducers/accountReducer";
+import walletReducer from "./reducers/walletReducer";
 
 
 const store = configureStore({
@@ -20,7 +21,8 @@ const store = configureStore({
         send:sendDetails,
         userRole:userRoleReducers,
         personalInfo:personalInfoReducer,
-        accounts:accountReducer
+        accounts:accountReducer,
+        wallets:walletReducer
     }
 });
 

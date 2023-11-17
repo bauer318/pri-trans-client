@@ -1,36 +1,39 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {FaPlus} from "react-icons/fa";
+import {getItem} from "../services/LocalStorageService";
+import {useDispatch} from "react-redux";
+import {createWallet} from "../reducers/walletReducer";
 
-const ClientAddPaymentMethodModal = ({showModal, handleModal}) => {
+const ClientAddWalletModal = ({showModal, handleModal}) => {
     const [formData, setFormData] = useState({});
-    const paymentsM = [
-        {
-            id: 1,
-            pm: "Airtel money"
-        },
-        {
-            id: 2,
-            pm: "M-pesa"
-        },
-        {
-            id: 3,
-            pm: "Sberbank"
-        }
-    ];
+    const dispatch = useDispatch();
+    const [paymentMethods, setPaymentMethods] = useState([]);
+    const [currencies, setCurrencies] = useState([]);
+    useEffect(() => {
+        const user = getItem('connectedUser');
+        setFormData({...formData, participantId:user?.userId});
+        setPaymentMethods(user?.country?.paymentMethods);
+        setCurrencies(user?.country?.currencies);
+    }, []);
+
     const handleSubmit = event => {
         event.preventDefault();
         console.log(formData);
-
+        dispatch(createWallet(formData));
         handleModal();
     }
     const handlePMChange = event => {
         const id = Number(event.target.value);
-        if(id){
-            const pm = paymentsM.find(pm=>pm.id===id);
-            setFormData({...formData, [event.target.name]: pm});
-        }
+        if(id)
+        setFormData({...formData, paymentMethod:{paymentMethodId:id}});
+    }
 
+    const handleCurrencyChange = event=>{
+        const id = Number(event.target.value);
+        if(id){
+            setFormData({...formData, currency:{currencyId:id}});
+        }
     }
     const handleChange = event => {
         const {name, value} = event.target;
@@ -39,7 +42,7 @@ const ClientAddPaymentMethodModal = ({showModal, handleModal}) => {
     return (
         <Modal show={showModal} onHide={handleModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Add payment method</Modal.Title>
+                <Modal.Title>Add wallet</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
@@ -53,8 +56,25 @@ const ClientAddPaymentMethodModal = ({showModal, handleModal}) => {
                         >
                             <option value="">Select payment method</option>
                             {
-                                paymentsM?.map(pm =>
-                                    <option value={pm.id} key={pm.id}>{pm.pm}</option>
+                                paymentMethods?.map(pm =>
+                                    <option value={pm.paymentMethodId} key={pm.paymentMethodId}>{pm.paymentMethod}</option>
+                                )
+                            }
+                        </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId="pm">
+                        <Form.Label>Currency</Form.Label>
+                        <Form.Control
+                            as="select"
+                            name="paymentMethod"
+                            required={true}
+                            onChange={handleCurrencyChange}
+                        >
+                            <option value="">Select currency</option>
+                            {
+                                currencies?.map(currency =>
+                                    <option value={currency?.currencyId} key={currency?.currencyId}>{currency?.currency} , {currency?.symbol}</option>
                                 )
                             }
                         </Form.Control>
@@ -64,8 +84,8 @@ const ClientAddPaymentMethodModal = ({showModal, handleModal}) => {
                         <Form.Label>Number</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder={"wallet's number"}
-                            name="number"
+                            placeholder={"Phone number or credit card number"}
+                            name="walletNumber"
                             required={true}
                             onChange={handleChange}
                         />
@@ -74,8 +94,8 @@ const ClientAddPaymentMethodModal = ({showModal, handleModal}) => {
                         <Form.Label>Account name</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder={"wallet's user name"}
-                            name="accountName"
+                            placeholder={"User name attached to this number"}
+                            name="ownerName"
                             required={true}
                             onChange={handleChange}
                         />
@@ -93,4 +113,4 @@ const ClientAddPaymentMethodModal = ({showModal, handleModal}) => {
     );
 };
 
-export default ClientAddPaymentMethodModal;
+export default ClientAddWalletModal;
