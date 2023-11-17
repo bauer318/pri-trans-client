@@ -10,17 +10,17 @@ const AddBalanceModal = ({showModal, handleModal}) => {
     const dispatch = useDispatch();
     const [currencyId, setCurrencyId] = useState(0);
     useEffect(() => {
-        dispatch(initializeCurrencies());
+        const user = getItem('connectedUser');
+        dispatch(initializeNeedUserCurrencies(user?.userId));
     }, []);
     const currencies = useSelector(state => state.currencies);
-    console.log(currencies);
     const handleSubmit = (event) =>{
-        handleModal();
+        event.preventDefault();
         if(currencyId>0){
             dispatch(createAccount(currencyId));
         }
+        handleModal();
     }
-    console.log(useSelector(state => state.accounts));
     const handleBalanceChange = (event)=>{
         const currencyIdP = Number(event.target.value);
         if(currencyIdP>=1)
@@ -42,7 +42,7 @@ const AddBalanceModal = ({showModal, handleModal}) => {
                                       required={true}
                                       onChange={handleBalanceChange}
                         >
-                            <option value="">Select devise</option>
+                            <option value="">{currencies?.length===0? "You have all devices":"Select device"}</option>
                             {
                                 currencies?.map((currency,key)=>
                                     <option value={currency?.currencyId} key={key}>{currency?.currency}</option>

@@ -23,7 +23,15 @@ const getAllByUser = async () => {
     } catch (error) {
         printError(error);
     }
-
 }
 
-export default {createNew, getAllByUser}
+const getFundingAccount = async fromAccountId =>{
+    try {
+        const response = await axios.get(baseUrl.concat(`/funding-account/${fromAccountId}`), {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
+export default {createNew, getAllByUser,getFundingAccount}

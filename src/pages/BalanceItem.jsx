@@ -1,13 +1,24 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import LogoutBtn from "../components/LogoutBtn";
 import {BiArrowBack} from "react-icons/bi";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {AiOutlineArrowDown, AiOutlineArrowUp, AiOutlinePlus} from "react-icons/ai";
 import CircleBtn from "../components/CircleBtn";
 import {TbArrowsExchange2} from "react-icons/tb";
+import accountService from "../services/accountService";
 
 const BalanceItem = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [account, setAccount] = useState(location.state?.selectedAccount);
+    console.log(account);
+    const [fundingAccount,setFundingAccount] = useState();
+    useEffect(() => {
+        const fundingAccountResponse = accountService.getFundingAccount(account?.accountId);
+        fundingAccountResponse.then(fundingAccount=>setFundingAccount(fundingAccount));
+        console.log(fundingAccount);
+    }, []);
+
     return (
         <div className={"container"}>
             <div className={"row"}>
@@ -21,10 +32,10 @@ const BalanceItem = () => {
                     <LogoutBtn/>
                 </div>
             </div>
-            <div className={"row mt-5"}>
+            {account && <div className={"row mt-5"}>
                 <div className={"col-lg-4"}>
-                    <h4>USD main balance</h4>
-                    <h1>82.82 USD</h1>
+                    <h4>{account?.currency?.code} {account?.accountType?.accountType} balance</h4>
+                    <h1>{account?.balance} {account?.currency?.symbol}</h1>
                 </div>
                 <CircleBtn onClick={() => navigate("/client/account/1/deposit/new")} icon={<AiOutlinePlus size={28}/>}
                            content={"Deposit"}/>
@@ -34,12 +45,14 @@ const BalanceItem = () => {
                            content={"Send"}/>
                 <CircleBtn onClick={() => navigate("/client/account/1/withdraw")} icon={<AiOutlineArrowDown size={28}/>}
                            content={"Withdraw"}/>
-            </div>
+            </div>}
+
             <hr/>
-            <div className={"col-lg-4"}>
-                <h4>USD funding balance</h4>
-                <h1>0.00 USD</h1>
-            </div>
+            {fundingAccount &&     <div className={"col-lg-4"}>
+                <h4>{fundingAccount?.currency?.code} {fundingAccount?.accountType?.accountType} balance</h4>
+                <h1>{fundingAccount?.balance} {fundingAccount?.currency?.symbol}</h1>
+            </div>}
+
         </div>
     );
 };

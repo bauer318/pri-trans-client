@@ -67,7 +67,7 @@ const App = () => {
                         <Route path={"/admin/payment-methods"} element={<PaymentMethodList/>}/>
                         <Route path={"/client/home"} element={<ClientHome/>} />
                         <Route path={"/client/account"} element={<ClientAccount/>} />
-                        <Route path={"/client/account/1"} element={<BalanceItem/>} />
+                        <Route path={"/client/account/item"} element={<BalanceItem/>} />
                         <Route path={"/client/account/1/convert"} element={<Convert/>}/>
                         <Route path={"/client/account/1/send"} element={<Send/>}/>
                         <Route path={"/client/account/1/send/to"} element={<SendTo/>}/>
