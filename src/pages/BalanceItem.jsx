@@ -37,13 +37,13 @@ const BalanceItem = () => {
                     <h4>{account?.currency?.code} {account?.accountType?.accountType} balance</h4>
                     <h1>{account?.balance} {account?.currency?.symbol}</h1>
                 </div>
-                <CircleBtn onClick={() => navigate("/client/account/1/deposit/new")} icon={<AiOutlinePlus size={28}/>}
+                <CircleBtn onClick={() => navigate("/client/account/deposit/new",{state:{currentAccount:account}})} icon={<AiOutlinePlus size={28}/>}
                            content={"Deposit"}/>
-                <CircleBtn onClick={() => navigate("/client/account/1/convert")} icon={<TbArrowsExchange2 size={28}/>}
+                <CircleBtn onClick={() => navigate("/client/account/convert",{state:{currentAccount:account}})} icon={<TbArrowsExchange2 size={28}/>}
                            content={"Convert"}/>
-                <CircleBtn onClick={() => navigate("/client/account/1/send")} icon={<AiOutlineArrowUp size={28}/>}
+                <CircleBtn onClick={() => navigate("/client/account/send",{state:{currentAccount:account}})} icon={<AiOutlineArrowUp size={28}/>}
                            content={"Send"}/>
-                <CircleBtn onClick={() => navigate("/client/account/1/withdraw")} icon={<AiOutlineArrowDown size={28}/>}
+                <CircleBtn onClick={() => navigate("/client/account/withdraw",{state:{currentAccount:account}})} icon={<AiOutlineArrowDown size={28}/>}
                            content={"Withdraw"}/>
             </div>}
 

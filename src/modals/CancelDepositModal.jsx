@@ -1,10 +1,17 @@
 import React from 'react';
 import {Form, Modal} from "react-bootstrap";
+import orderService from "../services/orderService";
+import {responsivePropType} from "react-bootstrap/createUtilityClasses";
 
 const CancelDepositModal = ({depositDetails,showCancelModal, handleCancelModal}) => {
+    console.log(depositDetails);
     const handleSubmit = (event)=>{
         event.preventDefault();
-
+        orderService.deleteOrder(depositDetails?.orderId).then(
+            response=>{
+                handleCancelModal();
+            }
+        )
     }
     return (
         <Modal show={showCancelModal} onHide={handleCancelModal}>
@@ -26,7 +33,7 @@ const CancelDepositModal = ({depositDetails,showCancelModal, handleCancelModal})
                         <Form.Label>Payment method</Form.Label>
                         <Form.Control
                             type={"text"}
-                            value={depositDetails?.paymentMethod.pm}
+                            value={depositDetails?.paymentMethod}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -35,7 +42,7 @@ const CancelDepositModal = ({depositDetails,showCancelModal, handleCancelModal})
                         <Form.Label>Agent's number</Form.Label>
                         <Form.Control
                             type={"text"}
-                            value={depositDetails?.agentNumber}
+                            value={depositDetails?.agentWalletNumber}
                             readOnly={true}
                         />
                     </Form.Group>

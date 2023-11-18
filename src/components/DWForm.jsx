@@ -1,23 +1,15 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form} from "react-bootstrap";
 import LoadingEffect from "./LoadingEffect";
+import {getItem} from "../services/LocalStorageService";
 
 //Deposit Withdraw DW
 const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange}) => {
-    const paymentMethods = [
-        {
-            id: 1,
-            paymentMethod: "Sberbank"
-        },
-        {
-            id: 2,
-            paymentMethod: "Airtel Money"
-        },
-        {
-            id: 3,
-            paymentMethod: "M-Pesa"
-        }
-    ]
+    const [paymentMethods, setPaymentMethods] = useState([]);
+    useEffect(() => {
+        const user = getItem('connectedUser');
+        setPaymentMethods(user?.country?.paymentMethods);
+    }, []);
     return (
         <>
             {formDetails ? (
@@ -36,8 +28,8 @@ const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange})
                                         <Form.Control
                                             type={"text"}
                                             className={"text-secondary border-0 me-5"}
-                                            pattern={"[0-9]+"}
-                                            placeholder={"100.00"}
+                                            pattern={"[0-9.]+"}
+                                            placeholder={"1000.00"}
                                             required={true}
                                             onChange={handleAmountChange}
                                         />
@@ -56,7 +48,7 @@ const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange})
                                 >
                                     <option value={""}>Select payment method</option>
                                     {paymentMethods.map(pm =>
-                                        <option value={pm.id} key={pm.id}>{pm.paymentMethod}</option>
+                                        <option value={pm?.paymentMethod} key={pm?.paymentMethodId}>{pm?.paymentMethod}</option>
                                     )
                                     }
                                 </Form.Control>

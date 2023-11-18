@@ -34,4 +34,23 @@ const getFundingAccount = async fromAccountId =>{
     }
 }
 
-export default {createNew, getAllByUser,getFundingAccount}
+const getAgentAccountWithMin = async agentAccountRq =>{
+    try {
+        const response = await axios.post(baseUrl.concat(`/agents-account-min`),agentAccountRq, {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
+const deposit = async depositRq =>{
+    try {
+        const response = await axios.post(baseUrl.concat(`/deposit`),depositRq, {headers: getToken()});
+        console.log('resp', response?.data);
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
+export default {createNew, getAllByUser,getFundingAccount,getAgentAccountWithMin,deposit}

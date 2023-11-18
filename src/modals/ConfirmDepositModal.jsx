@@ -1,12 +1,23 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
+import {useDispatch} from "react-redux";
+import orderService from "../services/orderService";
 
 const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleConfirmModal}) => {
     const [formData, setFormData] = useState(depositDetails);
+    const dispatch = useDispatch();
+
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(formData);
-        handleConfirmModal();
+        const orderDetails = {
+            orderId:depositDetails?.orderId,
+            paidAmount:depositDetails?.amount,
+            reference:formData?.reference
+        }
+        orderService.confirmDeposit(orderDetails,true).then(resp=>
+            handleConfirmModal()
+        )
     }
     const handleChange = event =>{
         const {value, name} = event.target;
@@ -32,7 +43,7 @@ const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleCon
                         <Form.Label>Paying with</Form.Label>
                         <Form.Control
                             type={"text"}
-                            value={depositDetails.paymentMethod.pm}
+                            value={depositDetails.paymentMethod}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -48,7 +59,7 @@ const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleCon
                             <Form.Label>Agent's number</Form.Label>
                             <Form.Control
                                 type={"text"}
-                                value={depositDetails?.agentNumber}
+                                value={depositDetails?.agentWalletNumber}
                                 readOnly={true}
                             />
                         </Form.Group>)
@@ -58,8 +69,8 @@ const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleCon
                         <Form.Control
                             type={"text"}
                             placeholder={"reference"}
-                            defaultValue={depositDetails?.ref}
-                            name={"ref"}
+                            defaultValue={depositDetails?.reference}
+                            name={"reference"}
                             required={!isAgent}
                             readOnly={isAgent}
                             onChange={handleChange}

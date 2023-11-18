@@ -9,6 +9,7 @@ import userRoleReducers from "./reducers/roleReducers";
 import personalInfoReducer from "./reducers/PersonalInfoReducers"
 import accountReducer from "./reducers/accountReducer";
 import walletReducer from "./reducers/walletReducer";
+import orderReducer from "./reducers/orderReducer";
 
 
 const store = configureStore({
@@ -22,7 +23,8 @@ const store = configureStore({
         userRole:userRoleReducers,
         personalInfo:personalInfoReducer,
         accounts:accountReducer,
-        wallets:walletReducer
+        wallets:walletReducer,
+        orders:orderReducer
     }
 });
 

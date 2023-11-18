@@ -1,38 +1,35 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import CancelDepositModal from "../modals/CancelDepositModal";
 import ConfirmDepositModal from "../modals/ConfirmDepositModal";
+import {useLocation} from "react-router-dom";
+import {getItem, saveItem} from "../services/LocalStorageService";
+import {useDispatch, useSelector} from "react-redux";
+import {getOrdersToParticipant} from "../reducers/orderReducer";
 
 const PendingDeposit = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showCancelModal, setShowCancelModal] = useState(false);
     const [selectedPendingDeposit, setSelectedPendingDeposit] = useState(null);
-    const pendingDeposits = [
-        {
-            id: 1,
-            amount: 251.21,
-            paymentMethod: {
-                id: 1,
-                pm: 'Sberbank'
-            },
-            currency: {
-                id: 1,
-                currency: 'usd'
-            },
-            agentNumber: 'ag214-856',
-            status: 'pending',
-            note: ''
-        }
-    ];
-    const handleConfirmDeposit = id => {
-        setSelectedPendingDeposit(findDepositById(id));
+    const dispatch = useDispatch();
+    useEffect(() => {
+        const connectedUser = getItem('connectedUser');
+        const pendingOrderRequest = {
+            fromToParticipantId:connectedUser?.userId,
+            orderStatus:'requested',
+            transactionType:'deposit'
+        };
+        dispatch(getOrdersToParticipant(pendingOrderRequest));
+    }, [showCancelModal, showConfirmModal]);
+
+    const pendingDeposits = useSelector(state => state.orders);
+    const handleConfirmDeposit = depositPending => {
+        console.log(depositPending);
+        setSelectedPendingDeposit(depositPending);
         handleConfirmModal();
     }
-    const handleCancelDeposit = id => {
-        setSelectedPendingDeposit(findDepositById(id));
+    const handleCancelDeposit = depositPending => {
+        setSelectedPendingDeposit(depositPending);
         handleCancelModal();
-    }
-    const findDepositById = id => {
-        return pendingDeposits?.find(p => p.id === id);
     }
     const handleConfirmModal = () => {
         setShowConfirmModal(!showConfirmModal);
@@ -59,27 +56,30 @@ const PendingDeposit = () => {
             <tbody>
             {
                 pendingDeposits?.map(pendingDeposit =>
-                    <tr key={pendingDeposit?.id}>
-                        <td className={"text-center"}>{pendingDeposit?.paymentMethod.pm}</td>
+                    <tr key={pendingDeposit?.orderId}>
+                        <td className={"text-center"}>{pendingDeposit?.paymentMethod}</td>
                         <td className={"text-center"}>{pendingDeposit?.amount}</td>
-                        <td className={"text-center"}>{pendingDeposit?.currency.currency}</td>
-                        <td className={"text-center"}>{pendingDeposit?.agentNumber}</td>
+                        <td className={"text-center"}>{pendingDeposit?.currency}</td>
+                        <td className={"text-center"}>{pendingDeposit?.agentWalletNumber}</td>
                         <td className={"text-center"}>{pendingDeposit?.status}</td>
                         <td className={"text-center"}></td>
-                        <td className={"text-center"} onClick={() => handleConfirmDeposit(pendingDeposit?.id)}>Confirm
+                        <td className={"text-center"} onClick={() => handleConfirmDeposit(pendingDeposit)}>Confirm
                         </td>
-                        <td className={"text-center"} onClick={() => handleCancelDeposit(pendingDeposit?.id)}>Cancel
+                        <td className={"text-center"} onClick={() => handleCancelDeposit(pendingDeposit)}>Cancel
                         </td>
                     </tr>)
             }
             </tbody>
         </table>
-        <div className={"text-secondary"}>
-            <p>Send exactly the amount from the pending deposit's request to agent's number using the mentioned payment
-                method.</p>
-            <p>After that, confirm the deposit putting the reference's number.</p>
-            <p><i>The reference's number is the transaction's unique id.</i></p>
-        </div>
+        {pendingDeposits?.length>0 &&
+            <div className={"text-secondary"}>
+                <p>Send exactly the amount from the pending deposit's request to agent's number using the mentioned payment
+                    method.</p>
+                <p>After that, confirm the deposit putting the reference's number.</p>
+                <p><i>The reference's number is the transaction's unique id.</i></p>
+            </div>
+        }
+
         {
             showCancelModal &&
             <CancelDepositModal handleCancelModal={handleCancelModal} showCancelModal={showCancelModal}

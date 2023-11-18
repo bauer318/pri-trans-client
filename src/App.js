@@ -68,12 +68,12 @@ const App = () => {
                         <Route path={"/client/home"} element={<ClientHome/>} />
                         <Route path={"/client/account"} element={<ClientAccount/>} />
                         <Route path={"/client/account/item"} element={<BalanceItem/>} />
-                        <Route path={"/client/account/1/convert"} element={<Convert/>}/>
-                        <Route path={"/client/account/1/send"} element={<Send/>}/>
-                        <Route path={"/client/account/1/send/to"} element={<SendTo/>}/>
-                        <Route path={"/client/account/1/withdraw"} element={<Withdraw/>}/>
-                        <Route path={"/client/account/1/deposit/new"} element={<Deposit/>} />
-                        <Route path={"/client/account/1/deposit/confirm"} element={<DepositConfirm/>}/>
+                        <Route path={"/client/account/convert"} element={<Convert/>}/>
+                        <Route path={"/client/account/send"} element={<Send/>}/>
+                        <Route path={"/client/account/send/to"} element={<SendTo/>}/>
+                        <Route path={"/client/account/withdraw"} element={<Withdraw/>}/>
+                        <Route path={"/client/account/deposit/new"} element={<Deposit/>} />
+                        <Route path={"/client/account/deposit/confirm"} element={<DepositConfirm/>}/>
                         <Route path={"/client/history"} element={<ClientHistory/>} />
                         <Route path={"/client/wallet"} element={<ClientWallets/>} />
                         <Route path={"/agent/account"} element={<ClientAccount/>}/>
