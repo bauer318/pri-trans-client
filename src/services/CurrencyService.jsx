@@ -14,7 +14,7 @@ const getAll = async () => {
 
 const createNew = async (currency) => {
     const object = {
-        currencyId: currency?.name,
+        currency: currency?.name,
         symbol: currency?.symbol,
         code: currency?.code
     };

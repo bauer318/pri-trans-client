@@ -121,7 +121,7 @@ const currenciesAPI = () => {
             name: 'United States dollar',
             code: 'USD',
             symbol: '$'
-        },
+        }
     ]
 }
 
