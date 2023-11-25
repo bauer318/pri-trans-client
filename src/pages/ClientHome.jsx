@@ -5,7 +5,6 @@ import {useSelector} from "react-redux";
 
 const ClientHome = () => {
     const countries = useSelector(state => state.countries);
-    console.log(countries);
     return (
         <div className={"container"}>
             <HomeHeader/>

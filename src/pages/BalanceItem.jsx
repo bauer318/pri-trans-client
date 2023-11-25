@@ -11,12 +11,10 @@ const BalanceItem = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [account, setAccount] = useState(location.state?.selectedAccount);
-    console.log(account);
     const [fundingAccount,setFundingAccount] = useState();
     useEffect(() => {
         const fundingAccountResponse = accountService.getFundingAccount(account?.accountId);
         fundingAccountResponse.then(fundingAccount=>setFundingAccount(fundingAccount));
-        console.log(fundingAccount);
     }, []);
 
     return (

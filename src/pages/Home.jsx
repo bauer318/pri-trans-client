@@ -5,6 +5,7 @@ import {getItem, saveItem} from "../services/LocalStorageService";
 import {refreshP} from "../App";
 import axios from "axios";
 import instance, {baseURL} from "../services/Utils";
+import {reject} from "lodash";
 
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
     const user = getItem('connectedUser');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const [isBlockedUser, setIsBlockedUser] = useState(false);
 
     const redirectTo = userRole => {
         switch (userRole) {
@@ -50,10 +52,22 @@ const Home = () => {
             .catch(err => {
                 const errorResponse = err.response;
                 setIsLoading(false);
-                if (errorResponse?.status === 403 || errorResponse?.status === 400) {
+                if (errorResponse?.status === 400 || errorResponse?.status === 401) {
                     setError("Bad credential");
+                } else if (errorResponse?.status === 403) {
+                    setError("Forbidden");
                 } else if (errorResponse?.status === 500) {
-                    setError('Not connection');
+                    axios.get(`${baseURL}/users/is-blocked/${longedUser?.email}`)
+                        .then(response => {
+                            if (response.data) {
+                                setIsBlockedUser(response.data);
+                                setError("Blocked");
+                            } else {
+                                setError('Not connection');
+                            }
+                        }).catch(error => {
+                        reject(error);
+                    })
                 } else if (err.request) {
                     setError("Something went wrong please try again later");
                 }
@@ -101,7 +115,7 @@ const Home = () => {
                         </Form.Group>
                         {isLoading && <h4 className={"text-center text-secondary"}>Wait please...</h4>}
                         <div className={"mt-3 d-flex justify-content-around"}>
-                            <button disabled={isLoading} className={"btn btn-primary w-100"} type={"submit"}>
+                            <button disabled={isLoading || isBlockedUser} className={"btn btn-primary w-100"} type={"submit"}>
                                 Login
                             </button>
                         </div>

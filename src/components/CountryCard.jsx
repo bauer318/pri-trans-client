@@ -28,7 +28,7 @@ const CountryCard = ({country}) => {
                             <div className={"col"}>
                                 {country?.paymentMethods ? (
                                     country.paymentMethods.map((paymentMethod, key) =>
-                                        <p key={key}>{paymentMethod.method}</p>
+                                        <p key={key}>{paymentMethod?.paymentMethod}</p>
                                     )) : (<LoadingEffect/>)}
                             </div>
                         </div>

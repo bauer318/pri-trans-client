@@ -33,10 +33,11 @@ const ConvertForm = ({
                                 />
                             </Form.Group>
                             <div className={"vr"}></div>
-                            <div className={"ms-5"}>USD</div>
+                            <div className={"ms-3"}>{formTitles?.fromAccountCurrency?.code}</div>
                         </div>
                         <div className={"text-secondary mt-2 ps-3"}>
-                            You have {formTitles.availableBalance} usd available in your balance
+                            You have {formTitles.availableBalance} {formTitles?.fromAccountCurrency?.symbol} available
+                            in your balance
                         </div>
                     </div>
                     <div className={"vr h-25 ms-4"}>
@@ -66,7 +67,7 @@ const ConvertForm = ({
                                 />
                             </Form.Group>
                             <div className={"vr"}></div>
-                            <div className={"ms-5"}>
+                            <div className={"ms-3"}>
                                 <Form.Group>
                                     <Form.Control
                                         as="select"
@@ -75,11 +76,11 @@ const ConvertForm = ({
                                         onChange={handleToCurrencyChange}
                                     >
                                         <option
-                                            value={formTitles.defaultToCurrency.currency}>{formTitles.defaultToCurrency.currency}</option>
+                                            value={formTitles?.fromAccountCurrency?.code}>{formTitles?.fromAccountCurrency?.code}</option>
                                         {
                                             currencies.map(currency =>
-                                                <option value={currencies.currency}
-                                                        key={currency.id}>{currency.currency}</option>
+                                                <option value={currencies?.currency}
+                                                        key={currency?.currencyId}>{currency?.code}</option>
                                             )
                                         }
                                     </Form.Control>

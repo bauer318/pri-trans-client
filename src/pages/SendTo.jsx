@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import CSWHeader from "../components/CSWHeader";
 import {Form} from "react-bootstrap";
 import {AiOutlineArrowRight} from "react-icons/ai";
 import {useSelector} from "react-redux";
 import SendModal from "../modals/SendModal";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import {baseURL, getToken, printError} from "../services/Utils";
+import currencyService from "../services/CurrencyService";
 
 const SendTo = () => {
     const [showModal, setShowModal] = useState(false);
@@ -14,15 +17,35 @@ const SendTo = () => {
     const handleModal = () => {
         setShowModal(!showModal);
     }
+
+    useEffect(() => {
+        console.log(sendDetails);
+    }, []);
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(sendDetails.toCurrency){
+        axios.get(`${baseURL}/users/from-different-country/${recipientEmail}`, {headers: getToken()})
+            .then(response => {
+                if(response.data){
+                   currencyService.findCurrencyByName(sendDetails?.toCurrencyName).then(
+                        response=>{
+                            const accountRq ={
+                                currency:response,
+                                accountType:"main"
+                            }
+                        }
+                    )
+
+                }
+            }).catch(error => {
+            printError(error);
+        })
+        if (sendDetails.toCurrency) {
             handleModal();
-        }else{
-            navigate('/client/account/1/send');
+        } else {
+            navigate('/client/account/send');
         }
     }
-    const handleRecipientEmailChange = event =>{
+    const handleRecipientEmailChange = event => {
         const recipientEmail = event.target.value;
         setRecipientEmail(recipientEmail);
     }

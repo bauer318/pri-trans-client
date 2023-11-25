@@ -4,7 +4,6 @@ import orderService from "../services/orderService";
 import {responsivePropType} from "react-bootstrap/createUtilityClasses";
 
 const CancelDepositModal = ({depositDetails,showCancelModal, handleCancelModal}) => {
-    console.log(depositDetails);
     const handleSubmit = (event)=>{
         event.preventDefault();
         orderService.deleteOrder(depositDetails?.orderId).then(

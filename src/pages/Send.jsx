@@ -7,7 +7,11 @@ import {round} from "lodash";
 import LoadingEffect from "../components/LoadingEffect";
 import ConvertForm from "../components/ConvertForm";
 import {AiOutlineArrowRight} from "react-icons/ai";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import {initializeCurrencies} from "../reducers/currencyReducers";
+import {saveItem} from "../services/LocalStorageService";
+import axios from "axios";
+import {baseURL, getToken} from "../services/Utils";
 
 const Send = () => {
     const [rates, setRates] = useState(0);
@@ -16,72 +20,74 @@ const Send = () => {
     const [toAmount, setToAmount] = useState(0.00);
     const [fromAmount, setFromAmount] = useState(100.00);
     const [toStrCurrency, setToStrCurrency] = useState('USD');
+    const [formDetails, setFormDetails] = useState({});
+    const [account, setAccount] = useState();
+    const location = useLocation();
     const navigate = useNavigate();
-    const defaultToCurrency = {
-        id: 3,
-        currency: "USD"
-    }
-    const availableBalance = 82.52;
-    const formTitles = {
-        title: "How much do you want to send?",
-        fromSubTitle: "You send exactly",
-        toSubtitle: "Recipient gets",
-        availableBalance: 82.52,
-        icon: <AiOutlineArrowRight size={28}/>,
-        actionTitle: "Continue",
-        defaultToCurrency: defaultToCurrency
-    }
     const dispatch = useDispatch();
-    const currencies = [
-        {
-            id: 1,
-            currency: "EUR"
-        },
-        {
-            id: 2,
-            currency: "RUB"
-        },
-    ]
+    const [fromAccountCurrency, setFromAccountCurrency] = useState();
+    const [toCurrency, setToCurrency] = useState();
+    const [canSend, setCanSend]=useState(false);
+    const currencies = useSelector(state => state?.currencies)
+        .filter(currency => currency.currencyId !== account?.currency?.currencyId);
     useEffect(() => {
-        dispatch(getRate(baseCurrency))
+        dispatch(getRate(baseCurrency));
+        dispatch(initializeCurrencies());
+        const currentAccount = location?.state?.currentAccount;
+        setAccount(currentAccount);
+        setFromAccountCurrency(currentAccount?.currency);
+        setFormDetails({
+            title: "How much do you want to send?",
+            fromSubTitle: "You send exactly",
+            toSubtitle: "Recipient gets",
+            availableBalance: currentAccount?.balance,
+            icon: <AiOutlineArrowRight size={28}/>,
+            actionTitle: "Continue",
+            fromAccountCurrency: currentAccount?.currency
+        })
+        setToStrCurrency(currentAccount?.currency?.code);
     }, []);
     const rate = useSelector(state => state.rates);
-    if (rate.rates) {
+    if (rate?.rates) {
         if (rates === 0) {
             setRates(rate.rates);
         }
-        if (rates !== 0 && liveRate === 0) {
-            setLiveRate(rates['USD']);
-            setToAmount(round(rates['USD'] * fromAmount, 2));
+        if (rates !== 0 && liveRate === 0 && account) {
+            const usdFromAmount = rates[account?.currency?.code];
+            const usdToAmount = rates[`${toStrCurrency}`];
+            setLiveRate(usdToAmount/usdFromAmount);
+            setToAmount(round((usdToAmount/usdFromAmount) * fromAmount, 2));
         }
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        findCurrency(toStrCurrency);
-        const sendDetails = {
-            fromAmount: fromAmount,
-            toAmount: toAmount,
-            fromCurrency: findCurrency(baseCurrency),
-            toCurrency: findCurrency(toStrCurrency),
-            liveRate: liveRate
-        };
-        dispatch(initializeSendDetails(sendDetails));
-        localStorage.setItem('details', JSON.stringify(sendDetails));
-        navigate('/client/account/1/send/to');
-    }
-    const findCurrency = currencyStr =>{
-        const currency = currencies.find(currency => currency.currency.toLowerCase() === currencyStr.toLowerCase());
-        if(currency){
-            return currency;
-        }
-        return defaultToCurrency;
+        axios.get(`${baseURL}/accounts/can-send-amount/${account?.accountId}/${fromAmount}`,{headers:getToken()})
+            .then(response=>{
+                if(response.data){
+                    setCanSend(true);
+                    const sendDetails = {
+                        fromAmount: fromAmount,
+                        toAmount: toAmount,
+                        fromCurrency: fromAccountCurrency,
+                        toCurrencyName: toStrCurrency,
+                        liveRate: liveRate,
+                    };
+                    dispatch(initializeSendDetails(sendDetails));
+                    navigate('/client/account/send/to');
+                }else{
+                    setCanSend(false);
+                    alert("insufficient balance to send");
+                }
+            })
 
     }
     const handleAmountSendChange = (e) => {
         const fromA = Number(e.target.value);
         setFromAmount(fromA);
         if (liveRate !== 0) {
-            setToAmount(round(liveRate * fromA, 2));
+            const usdFromAmount = rates[account?.currency?.code];
+            const usdToAmount = rates[`${toStrCurrency}`];
+            setToAmount(round((usdToAmount/usdFromAmount) * fromA, 2));
         }
     }
     const handleReceiveCurrencyChange = (e) => {
@@ -90,13 +96,15 @@ const Send = () => {
         if (rates !== 0) {
             setLiveRate(rates[`${toCurrency}`]);
         }
-        setToAmount(round(rates[`${toCurrency}`] * fromAmount, 2));
+        const usdFromAmount = rates[account?.currency?.code];
+        const usdToAmount = rates[`${toCurrency}`];
+        setToAmount(round((usdToAmount/usdFromAmount) * fromAmount, 2));
     }
     return (
         <div className={"container"}>
             <CSWHeader title={"Send money"}/>
             {liveRate ? (
-                <ConvertForm formTitles={formTitles}
+                <ConvertForm formTitles={formDetails}
                              currencies={currencies} handleToCurrencyChange={handleReceiveCurrencyChange}
                              handleFromAmountChange={handleAmountSendChange} handleSubmit={handleSubmit}
                              liveRate={liveRate}

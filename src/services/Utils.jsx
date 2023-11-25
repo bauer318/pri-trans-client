@@ -174,8 +174,8 @@ export const formatDate = date => {
     });
     return dateOut;
 }
-export const baseURL = 'http://193.187.174.234:8080/api';
-//export const baseURL = 'http://localhost:8080/api';
+//export const baseURL = 'http://193.187.174.234:8080/api';
+export const baseURL = 'http://localhost:8080/api';
 const instance = axios.create({
     baseURL: baseURL,
     headers: {Authorization: getItem('jwtToken')}
