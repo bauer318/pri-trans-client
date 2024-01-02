@@ -16,6 +16,16 @@ const createNew = async (currencyId) => {
 
 }
 
+const sendTo = async orderRq => {
+    try {
+        const response = await axios.post(baseUrl.concat(`/send`), orderRq, {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        console.log(error)
+        //printError(error);
+    }
+}
+
 const getAllByUser = async () => {
     try {
         const response = await axios.get(baseUrl.concat("/all-user-accounts"), {headers: getToken()});
@@ -25,7 +35,7 @@ const getAllByUser = async () => {
     }
 }
 
-const getFundingAccount = async fromAccountId =>{
+const getFundingAccount = async fromAccountId => {
     try {
         const response = await axios.get(baseUrl.concat(`/funding-account/${fromAccountId}`), {headers: getToken()});
         return response?.data;
@@ -34,23 +44,39 @@ const getFundingAccount = async fromAccountId =>{
     }
 }
 
-const getAgentAccountWithMin = async agentAccountRq =>{
+const getAgentAccountWithMin = async agentAccountRq => {
     try {
-        const response = await axios.post(baseUrl.concat(`/agents-account-min`),agentAccountRq, {headers: getToken()});
+        const response = await axios.post(baseUrl.concat(`/agents-account-min`), agentAccountRq, {headers: getToken()});
         return response?.data;
     } catch (error) {
         printError(error);
     }
 }
 
-const deposit = async depositRq =>{
+const deposit = async depositRq => {
     try {
-        const response = await axios.post(baseUrl.concat(`/deposit`),depositRq, {headers: getToken()});
-        console.log('resp', response?.data);
+        const response = await axios.post(baseUrl.concat(`/deposit`), depositRq, {headers: getToken()});
         return response?.data;
     } catch (error) {
         printError(error);
     }
 }
 
-export default {createNew, getAllByUser,getFundingAccount,getAgentAccountWithMin,deposit}
+const getUserMainAccount = async (email, currencyCode) => {
+    try {
+        const response = await axios.get(baseUrl.concat(`/user-main-account/${email}/${currencyCode}`), {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
+export default {
+    createNew,
+    getAllByUser,
+    getFundingAccount,
+    getAgentAccountWithMin,
+    deposit,
+    getUserMainAccountId: getUserMainAccount,
+    sendTo
+}

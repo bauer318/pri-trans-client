@@ -9,6 +9,7 @@ import {formatDate} from "../services/Utils";
 
 const PersonalInfo = () => {
     const {state} = useLocation();
+    const [isLoading, setIsLoading] = useState(false);
     const storedInfo = state?.infos;
     const [formData, setFormData] = useState(state?.infos);
     const navigate = useNavigate();
@@ -21,8 +22,10 @@ const PersonalInfo = () => {
     const countries = useSelector(state => state.countries);
 
     const handleSubmit = event => {
+        setIsLoading(true);
         event.preventDefault();
         navigate(`/register/${connectedUser?.userId}/personal-info/address`, {state: {infos: formData}});
+        setIsLoading(false);
     }
     const handleChange = event => {
         const {name, value} = event.target;
@@ -31,9 +34,9 @@ const PersonalInfo = () => {
             setFormData({...formData, ['userId']: connectedUser?.userId});
         }
     }
-    const handleDateChange = event =>{
+    const handleDateChange = event => {
         const {name, value} = event.target;
-        setFormData({...formData, [name]:formatDate(value)});
+        setFormData({...formData, [name]: formatDate(value)});
     }
     const handleCountryChange = event => {
         const id = Number(event.target.value);
@@ -113,9 +116,9 @@ const PersonalInfo = () => {
                             onChange={handleDateChange}
                         />
                     </Form.Group>
-
+                    {isLoading && <h4 className={"text-center text-secondary"}>Wait please...</h4>}
                     <div className={"mt-3 d-flex justify-content-end"}>
-                        <button className={"btn btn-primary"} type={"submit"}>
+                        <button className={"btn btn-primary"} type={"submit"} disabled={isLoading}>
                             Continue <span><i><AiOutlineArrowRight size={28}/></i></span>
                         </button>
                     </div>

@@ -33,12 +33,12 @@ const NewDeposit = () => {
         event.preventDefault();
        const agentAccountRq = getAgentAccountRq();
        const agentAccountMin = accountService.getAgentAccountWithMin(agentAccountRq);
-       agentAccountMin.then(account=>{
-          const depositRq = getDepositRq(account?.accountId);
+       agentAccountMin.then(accountResponse=>{
+          const depositRq = getDepositRq(accountResponse?.accountId);
           accountService.deposit(depositRq).then(
               response=>{
                   if(response){
-                      navigate('/client/account/deposit/confirm',{state:{agentAccount:account,depositRq:depositRq,paymentMethod:paymentMethod,orderId:response}});
+                      navigate('/client/account/deposit/confirm',{state:{agentAccount:accountResponse,depositRq:depositRq,paymentMethod:paymentMethod,orderId:response}});
                   }
               }
           )

@@ -59,8 +59,17 @@ const findCurrencyByName = async (name, notFoundCallback) => {
         printError(error);
     }
 }
+const findCurrencyByCode = async (code, notFoundCallback) => {
+    try {
+        const response = await axios.get(`${baseUrl}/find-by-code/${code}`, {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        notFoundCallback();
+        printError(error);
+    }
+}
 
-const findCurrenciesNotBelongUser = async userId =>{
+const findCurrenciesNotBelongUser = async userId => {
     try {
         const response = await axios.get(`${baseUrl}/not-user/${userId}`, {headers: getToken()});
         return response?.data;
@@ -68,4 +77,4 @@ const findCurrenciesNotBelongUser = async userId =>{
         printError(error);
     }
 }
-export default {getAll, createNew, update, deleteCurrency, findCurrencyByName, findCurrenciesNotBelongUser};
+export default {getAll, createNew, update, deleteCurrency, findCurrencyByName, findCurrenciesNotBelongUser,findCurrencyByCode};

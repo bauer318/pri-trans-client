@@ -37,13 +37,13 @@ const HomeAddress = () => {
         }
     }
     const toUserHomeCallback = () => {
+        setIsLoading(false);
         redirectTo(getItem('connectedUser')?.userRole.userRole);
     }
     const handleSubmit = event => {
         event.preventDefault();
         setIsLoading(true);
         dispatch(createPersonalInfo(formData, toUserHomeCallback));
-        setIsLoading(false);
 
     }
     const handleChange = event => {
@@ -96,7 +96,7 @@ const HomeAddress = () => {
                     </Form.Group>
 
                     <Form.Group controlId="phone" className={"form-outline mb-4"}>
-                        <Form.Label>Last name</Form.Label>
+                        <Form.Label>Phone</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder={"012-345-67-89"}

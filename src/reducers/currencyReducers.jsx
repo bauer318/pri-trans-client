@@ -58,6 +58,13 @@ export const findCurrencyByName = (name, notFoundCallback) => {
         dispatch(setCurrencies([currency]));
     }
 }
+
+export const findCurrencyByCode = (code, notFoundCallback)=>{
+    return async dispatch => {
+        const currency = await currencyService.findCurrencyByCode(code, notFoundCallback);
+        dispatch(setCurrencies([currency]));
+    }
+}
 export const {setCurrencies, appendCurrency} = currencySlice.actions;
 
 export default currencySlice.reducer;

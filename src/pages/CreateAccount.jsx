@@ -24,6 +24,7 @@ const CreateAccount = () => {
     const countries = useSelector(state => state.countries);
 
     const performLoginAfterSignUp = () => {
+        setIsLoading(true);
         const registeredUser = {
             email: formData?.email,
             password: formData?.password
