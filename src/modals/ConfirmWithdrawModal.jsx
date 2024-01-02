@@ -1,15 +1,39 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
+import walletService from "../services/walletService";
+import {printError} from "../services/Utils";
+import accountService from "../services/accountService";
+import {useNavigate} from "react-router-dom";
 
-const ConfirmWithdrawModal = ({withdrawDetails,isAgent,showModal, handleModal}) => {
+const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}) => {
     const [formData, setFormData] = useState(withdrawDetails);
+    const [userWallet, setUserWallet] = useState();
+    const navigate = useNavigate();
     const handleSubmit = event => {
         event.preventDefault();
+        accountService.withdraw(withdrawDetails?.withdrawRq).then(
+            response => {
+                console.log(response);
+                navigate("/client/account")
+            }
+        ).catch(error => {
+            printError(error);
+        })
         handleModal();
     }
-    const handleChange = event =>{
+    useEffect(() => {
+        console.log(withdrawDetails);
+        walletService.getWallet(withdrawDetails?.participantId, withdrawDetails?.currency?.currency, withdrawDetails?.paymentMethod)
+            .then(r => {
+                setUserWallet(r);
+            })
+            .catch(error => {
+                printError(error);
+            })
+    }, []);
+    const handleChange = event => {
         const {value, name} = event.target;
-        setFormData({...formData, [name]:value});
+        setFormData({...formData, [name]: value});
     }
     return (
         <Modal show={showModal} onHide={handleModal}>
@@ -22,7 +46,7 @@ const ConfirmWithdrawModal = ({withdrawDetails,isAgent,showModal, handleModal}) 
                         <Form.Label>Withdraw amount</Form.Label>
                         <Form.Control
                             type={"text"}
-                            defaultValue={withdrawDetails?.amount}
+                            defaultValue={withdrawDetails?.amount.toString().concat(" " + withdrawDetails?.currency?.symbol)}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -31,7 +55,7 @@ const ConfirmWithdrawModal = ({withdrawDetails,isAgent,showModal, handleModal}) 
                         <Form.Label>Receiving via</Form.Label>
                         <Form.Control
                             type={"text"}
-                            defaultValue={withdrawDetails?.paymentMethod?.paymentMethod}
+                            defaultValue={withdrawDetails?.paymentMethod}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -40,7 +64,7 @@ const ConfirmWithdrawModal = ({withdrawDetails,isAgent,showModal, handleModal}) 
                         <Form.Label>Wallet's number</Form.Label>
                         <Form.Control
                             type={"text"}
-                            defaultValue={withdrawDetails?.paymentMethod?.number}
+                            defaultValue={userWallet?.walletNumber}
                             readOnly={true}
                         />
                     </Form.Group>

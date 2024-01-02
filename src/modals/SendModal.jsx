@@ -5,7 +5,6 @@ import {AiOutlineArrowUp} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
 import accountService from "../services/accountService";
 import {printError} from "../services/Utils";
-import orderService from "../services/orderService";
 
 const SendModal = ({showModal, handleModal, recipientEmail}) => {
     const sendDetails = useSelector(state => state.send);

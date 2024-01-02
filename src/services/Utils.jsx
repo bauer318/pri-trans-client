@@ -45,7 +45,7 @@ export const printError = (error) => {
         console.log('error response data ', error.response.data);
         console.log('error response status ', error.response.status);
         console.log('error response headers ', error.response.headers);
-        if(error?.response?.status===403){
+        if (error?.response?.status === 403) {
             callBackRemoveData();
             window.location = "/";
 
@@ -58,7 +58,7 @@ export const printError = (error) => {
     }
 }
 
-export  const callBackRemoveData = () => {
+export const callBackRemoveData = () => {
     removeItem('connectedUser');
     removeItem('jwtToken');
     localStorage.clear();
@@ -173,6 +173,18 @@ export const formatDate = date => {
         }
     });
     return dateOut;
+}
+
+export const getAgentAccountRq = (account, connectedUser) => {
+    return {
+        currency: {
+            currencyId: account?.currency?.currencyId
+        },
+        accountType: {
+            accountTypeId: account?.accountType?.accountTypeId
+        },
+        country: connectedUser?.country?.countryName
+    }
 }
 //export const baseURL = 'http://193.187.174.234:8080/api';
 export const baseURL = 'http://localhost:8080/api';

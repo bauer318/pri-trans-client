@@ -2,26 +2,41 @@ import React, {useEffect, useState} from 'react';
 import {Form} from "react-bootstrap";
 import LoadingEffect from "./LoadingEffect";
 import {getItem} from "../services/LocalStorageService";
+import walletService from "../services/walletService";
+import {printError} from "../services/Utils";
 
 //Deposit Withdraw DW
-const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange}) => {
+const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange, isDeposit}) => {
     const [paymentMethods, setPaymentMethods] = useState([]);
     useEffect(() => {
         const user = getItem('connectedUser');
-        setPaymentMethods(user?.country?.paymentMethods);
-    }, []);
+        if (isDeposit) {
+            setPaymentMethods(user?.country?.paymentMethods);
+        } else {
+            if (formDetails?.currency.currency) {
+                walletService.getUserPaymentMethodByCurrency(user?.userId, formDetails?.currency.currency)
+                    .then(r => {
+                        setPaymentMethods(r);
+                    })
+                    .catch(error => {
+                        printError(error);
+                    })
+            }
+        }
+
+    }, [formDetails]);
     return (
         <>
             {formDetails ? (
                 <div className={"row mt-2"}>
                     <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                         <Form onSubmit={handleSubmit}>
-                            <h3>{formDetails.title}</h3>
+                            <h3>{formDetails?.title}</h3>
                             <p className={"text-secondary"}>Your balance right now is <span className={"text-body"}>
-                                {`${formDetails.availableBalance} ${formDetails.currency}`} </span></p>
+                                {`${formDetails?.availableBalance} ${formDetails?.currency?.code}`} </span></p>
                             <div className={"border border-secondary"}>
                                 <div className={"text-primary ps-3"}>
-                                    {formDetails.subTitle}
+                                    {formDetails?.subTitle}
                                 </div>
                                 <div className={"d-flex mb-2"}>
                                     <Form.Group>
@@ -29,13 +44,13 @@ const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange})
                                             type={"text"}
                                             className={"text-secondary border-0 me-5"}
                                             pattern={"[0-9.]+"}
-                                            placeholder={"1000.00"}
+                                            placeholder={"100.00"}
                                             required={true}
                                             onChange={handleAmountChange}
                                         />
                                     </Form.Group>
                                     <div className={"vr"}></div>
-                                    <div className={"ms-5"}>{formDetails.currency}</div>
+                                    <div className={"ms-5"}>{formDetails?.currency?.code}</div>
                                 </div>
                             </div>
                             <Form.Group className={"mt-2"}>
@@ -47,8 +62,9 @@ const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange})
                                     onChange={handlePMChange}
                                 >
                                     <option value={""}>Select payment method</option>
-                                    {paymentMethods.map(pm =>
-                                        <option value={pm?.paymentMethod} key={pm?.paymentMethodId}>{pm?.paymentMethod}</option>
+                                    {paymentMethods?.map((pm, key) =>
+                                        <option value={pm?.paymentMethod}
+                                                key={key}>{pm?.paymentMethod}</option>
                                     )
                                     }
                                 </Form.Control>

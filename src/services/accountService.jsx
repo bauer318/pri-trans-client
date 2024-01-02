@@ -21,8 +21,16 @@ const sendTo = async orderRq => {
         const response = await axios.post(baseUrl.concat(`/send`), orderRq, {headers: getToken()});
         return response?.data;
     } catch (error) {
-        console.log(error)
-        //printError(error);
+        printError(error);
+    }
+}
+
+const withdraw = async orderRq => {
+    try {
+        const response = await axios.post(baseUrl.concat(`/withdraw`), orderRq, {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
     }
 }
 
@@ -53,6 +61,15 @@ const getAgentAccountWithMin = async agentAccountRq => {
     }
 }
 
+const getAgentAccountWithMax = async agentAccountRq => {
+    try {
+        const response = await axios.post(baseUrl.concat(`/agents-account-max`), agentAccountRq, {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
 const deposit = async depositRq => {
     try {
         const response = await axios.post(baseUrl.concat(`/deposit`), depositRq, {headers: getToken()});
@@ -71,6 +88,16 @@ const getUserMainAccount = async (email, currencyCode) => {
     }
 }
 
+const canWithdraw = async (accountId, amount) => {
+
+    try {
+        const response = await axios.get(baseUrl.concat(`/can-withdraw/${accountId}/${amount}`), {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
 export default {
     createNew,
     getAllByUser,
@@ -78,5 +105,8 @@ export default {
     getAgentAccountWithMin,
     deposit,
     getUserMainAccountId: getUserMainAccount,
-    sendTo
+    sendTo,
+    withdraw,
+    getAgentAccountWithMax,
+    canWithdraw
 }
