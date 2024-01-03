@@ -9,7 +9,6 @@ const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleC
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(formData);
         const orderDetails = {
             orderId: depositDetails?.orderId,
             paidAmount: depositDetails?.amount,
@@ -52,7 +51,7 @@ const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleC
                             <Form.Label>Client</Form.Label>
                             <Form.Control
                                 type={"text"}
-                                value={depositDetails?.clientFullName}
+                                value={depositDetails?.ownerName}
                                 readOnly={true}
                             />
                         </Form.Group>) : (<Form.Group controlId={"toAgent"}>

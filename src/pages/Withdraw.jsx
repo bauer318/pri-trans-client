@@ -34,7 +34,7 @@ const Withdraw = () => {
             icon: <AiOutlineArrowRight size={28}/>
         });
         setConnectedUser(getItem('connectedUser'));
-    }, []);
+    }, [showModal]);
 
     const handelModal = () => {
         setShowModal(!showModal);
@@ -48,7 +48,6 @@ const Withdraw = () => {
                         const agentAccountMax = accountService.getAgentAccountWithMax(agentAccountRq);
                         agentAccountMax.then(accountResponse => {
                             const withdrawRq = getWithdrawRq(accountResponse?.accountId);
-                            //console.log(accountResponse);
                             setWithdrawDetails({
                                 withdrawRq: withdrawRq,
                                 amount: amount,
@@ -65,13 +64,12 @@ const Withdraw = () => {
             ).catch(error => {
             printError(error);
         })
-
     }
 
-    const getWithdrawRq = fromAccountId => {
+    const getWithdrawRq = toAgentAccountId => {
         return {
-            fromAccountId: fromAccountId,
-            toAccountId: account?.accountId,
+            fromAccountId: account?.accountId,
+            toAccountId: toAgentAccountId,
             transactionType: "withdraw",
             amount: amount,
             rate: 1.00,

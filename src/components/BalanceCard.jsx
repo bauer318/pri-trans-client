@@ -7,7 +7,7 @@ const BalanceCard = ({account}) => {
     useEffect(() => {
         const connectedUser = getItem("connectedUser");
         if (connectedUser?.userRole?.userRole === "ROLE_AGENT") {
-            setToLink("/agent/account");
+            setToLink("/agent/account/item");
         } else if (connectedUser?.userRole?.userRole === "ROLE_CLIENT") {
             setToLink("/client/account/item")
         }

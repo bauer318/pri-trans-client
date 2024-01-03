@@ -1,12 +1,21 @@
-import React from 'react';
-import {useNavigate} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from "react-router-dom";
 import {BiArrowBack} from "react-icons/bi";
 import LogoutBtn from "../components/LogoutBtn";
 import CircleBtn from "../components/CircleBtn";
 import {TbArrowsExchange2} from "react-icons/tb";
+import accountService from "../services/accountService";
 
 const AgentBalanceItem = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [account, setAccount] = useState(location.state?.selectedAccount);
+    const [fundingAccount, setFundingAccount] = useState();
+    useEffect(() => {
+        const fundingAccountResponse = accountService.getFundingAccount(account?.accountId);
+        fundingAccountResponse.then(fundingAccount => setFundingAccount(fundingAccount));
+    }, []);
+
     return (
         <div className={"container"}>
             <div className={"row"}>
@@ -22,17 +31,15 @@ const AgentBalanceItem = () => {
             </div>
             <div className={"row mt-5"}>
                 <div className={"col-lg-4"}>
-                    <h4>USD main balance</h4>
-                    <h1>82.82 USD</h1>
+                    <h4>{account?.currency?.code} {account?.accountType?.accountType} balance</h4>
+                    <h1>{account?.balance} {account?.currency?.symbol}</h1>
                 </div>
-                <CircleBtn onClick={() => navigate("/agent/account/1/convert")} icon={<TbArrowsExchange2 size={28}/>}
-                           content={"Convert"}/>
             </div>
             <hr/>
-            <div className={"col-lg-4"}>
-                <h4>USD funding balance</h4>
-                <h1>0.00 USD</h1>
-            </div>
+            {fundingAccount && <div className={"col-lg-4"}>
+                <h4>{fundingAccount?.currency?.code} {fundingAccount?.accountType?.accountType} balance</h4>
+                <h1>{fundingAccount?.balance} {fundingAccount?.currency?.symbol}</h1>
+            </div>}
         </div>
     );
 };

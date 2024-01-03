@@ -10,19 +10,19 @@ const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange, 
     const [paymentMethods, setPaymentMethods] = useState([]);
     useEffect(() => {
         const user = getItem('connectedUser');
-        if (isDeposit) {
+        /*if (isDeposit) {
             setPaymentMethods(user?.country?.paymentMethods);
-        } else {
-            if (formDetails?.currency.currency) {
-                walletService.getUserPaymentMethodByCurrency(user?.userId, formDetails?.currency.currency)
-                    .then(r => {
-                        setPaymentMethods(r);
-                    })
-                    .catch(error => {
-                        printError(error);
-                    })
-            }
+        } else {*/
+        if (formDetails?.currency?.currency) {
+            walletService.getUserPaymentMethodByCurrency(user?.userId, formDetails?.currency.currency)
+                .then(r => {
+                    setPaymentMethods(r);
+                })
+                .catch(error => {
+                    printError(error);
+                })
         }
+        /*}*/
 
     }, [formDetails]);
     return (

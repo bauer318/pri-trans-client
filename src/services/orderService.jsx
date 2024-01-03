@@ -39,6 +39,15 @@ const confirmDeposit = async (orderDetails, isFromClient) => {
     }
 }
 
+const confirmWithdrawByAgent = async orderDetails => {
+    try {
+        const response = await axios.post(baseUrl.concat(`/confirm-withdraw`), orderDetails, {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
 const getDepositOrders = async (toParticipantId, orderStatus, transactionType) => {
     try {
         const response = await axios.get(baseUrl.concat(`/to-from-participant-status-transaction/${toParticipantId}/${orderStatus}/${transactionType}`), {headers: getToken()});
@@ -48,5 +57,22 @@ const getDepositOrders = async (toParticipantId, orderStatus, transactionType) =
     }
 }
 
+const getWithdrawOrders = async fromToParticipantId => {
+    try {
+        const response = await axios.get(baseUrl.concat(`/to-agent/${fromToParticipantId}`), {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
 
-export default {getTransactionType, getToParticipantOrderByStatusAndTransactionType, deleteOrder, confirmDeposit, getDepositOrders}
+
+export default {
+    getTransactionType,
+    getToParticipantOrderByStatusAndTransactionType,
+    deleteOrder,
+    confirmDeposit,
+    getDepositOrders,
+    getWithdrawOrders,
+    confirmWithdrawByAgent
+}

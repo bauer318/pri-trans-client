@@ -16,7 +16,7 @@ const AgentDeposits = () => {
     useEffect(() => {
         const connectedUser = getItem("connectedUser");
         dispatch(getOrdersToFromParticipant(connectedUser?.userId, "processing", "deposit"))
-    }, []);
+    }, [showConfirmModal, showRejectModal]);
 
     const pendingDeposits = useSelector(state => state.orders);
     const handleConfirmModal = () => {
@@ -53,7 +53,7 @@ const AgentDeposits = () => {
                         <tr key={key}>
                             <td>{pendingDeposit?.createdAt}</td>
                             <td>{pendingDeposit?.amount} {pendingDeposit?.currency}</td>
-                            <td>{pendingDeposit?.clientFullName}</td>
+                            <td>{pendingDeposit?.ownerName}</td>
                             <td>{pendingDeposit?.reference}</td>
                             <td>{pendingDeposit?.paymentMethod}</td>
                             <td className={"text-center"} onClick={() => handleConfirmDeposit(pendingDeposit)}>

@@ -4,6 +4,7 @@ import walletService from "../services/walletService";
 import {printError} from "../services/Utils";
 import accountService from "../services/accountService";
 import {useNavigate} from "react-router-dom";
+import orderService from "../services/orderService";
 
 const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}) => {
     const [formData, setFormData] = useState(withdrawDetails);
@@ -11,25 +12,42 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
     const navigate = useNavigate();
     const handleSubmit = event => {
         event.preventDefault();
-        accountService.withdraw(withdrawDetails?.withdrawRq).then(
-            response => {
-                console.log(response);
-                navigate("/client/account")
+        if (isAgent) {
+            const orderDetails = {
+                orderId: withdrawDetails?.orderId,
+                paidAmount: withdrawDetails?.amount,
+                reference: formData["reference"]
             }
-        ).catch(error => {
-            printError(error);
-        })
-        handleModal();
-    }
-    useEffect(() => {
-        console.log(withdrawDetails);
-        walletService.getWallet(withdrawDetails?.participantId, withdrawDetails?.currency?.currency, withdrawDetails?.paymentMethod)
-            .then(r => {
-                setUserWallet(r);
-            })
-            .catch(error => {
+            orderService.confirmWithdrawByAgent(orderDetails).then(
+                response => {
+                    navigate("/agent/withdrawals")
+                }
+            ).catch(error => {
                 printError(error);
             })
+            handleModal();
+        } else {
+            accountService.withdraw(withdrawDetails?.withdrawRq).then(
+                response => {
+                    navigate("/client/account")
+                }
+            ).catch(error => {
+                printError(error);
+            })
+            handleModal();
+        }
+    }
+    useEffect(() => {
+        if (!isAgent) {
+            walletService.getWallet(withdrawDetails?.participantId, withdrawDetails?.currency?.currency, withdrawDetails?.paymentMethod)
+                .then(r => {
+                    setUserWallet(r);
+                })
+                .catch(error => {
+                    printError(error);
+                })
+        }
+
     }, []);
     const handleChange = event => {
         const {value, name} = event.target;
@@ -46,7 +64,7 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
                         <Form.Label>Withdraw amount</Form.Label>
                         <Form.Control
                             type={"text"}
-                            defaultValue={withdrawDetails?.amount.toString().concat(" " + withdrawDetails?.currency?.symbol)}
+                            defaultValue={withdrawDetails?.amount.toString().concat(" ").concat(isAgent ? withdrawDetails?.currency : withdrawDetails?.currency?.symbol)}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -64,10 +82,22 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
                         <Form.Label>Wallet's number</Form.Label>
                         <Form.Control
                             type={"text"}
-                            defaultValue={userWallet?.walletNumber}
+                            defaultValue={isAgent ? withdrawDetails?.clientWalletNumber : userWallet?.walletNumber}
                             readOnly={true}
                         />
                     </Form.Group>
+                    {
+                        isAgent &&
+                        <Form.Group controlId={"ownerName"}>
+                            <Form.Label>Wallet's owner name</Form.Label>
+                            <Form.Control
+                                type={"text"}
+                                defaultValue={withdrawDetails?.ownerName}
+                                readOnly={true}
+                            />
+                        </Form.Group>
+                    }
+
                     {
                         isAgent &&
                         <Form.Group controlId={"ref"}>
@@ -75,12 +105,13 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
                             <Form.Control
                                 type={"text"}
                                 placeholder={"reference number"}
-                                name={"ref"}
+                                name={"reference"}
                                 required={true}
                                 onChange={handleChange}
                             />
                         </Form.Group>
                     }
+
                     <div className={"mt-2"}>
                         <button className={"btn btn-primary"} type={"submit"}>Confirm withdraw</button>
                     </div>
