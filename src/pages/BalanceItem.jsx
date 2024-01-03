@@ -11,10 +11,10 @@ const BalanceItem = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [account, setAccount] = useState(location.state?.selectedAccount);
-    const [fundingAccount,setFundingAccount] = useState();
+    const [fundingAccount, setFundingAccount] = useState();
     useEffect(() => {
         const fundingAccountResponse = accountService.getFundingAccount(account?.accountId);
-        fundingAccountResponse.then(fundingAccount=>setFundingAccount(fundingAccount));
+        fundingAccountResponse.then(fundingAccount => setFundingAccount(fundingAccount));
     }, []);
 
     return (
@@ -35,18 +35,21 @@ const BalanceItem = () => {
                     <h4>{account?.currency?.code} {account?.accountType?.accountType} balance</h4>
                     <h1>{account?.balance} {account?.currency?.symbol}</h1>
                 </div>
-                <CircleBtn onClick={() => navigate("/client/account/deposit/new",{state:{currentAccount:account}})} icon={<AiOutlinePlus size={28}/>}
+                <CircleBtn onClick={() => navigate("/client/account/deposit/new", {state: {currentAccount: account}})}
+                           icon={<AiOutlinePlus size={28}/>}
                            content={"Deposit"}/>
-                <CircleBtn onClick={() => navigate("/client/account/convert",{state:{currentAccount:account}})} icon={<TbArrowsExchange2 size={28}/>}
-                           content={"Convert"}/>
-                <CircleBtn onClick={() => navigate("/client/account/send",{state:{currentAccount:account}})} icon={<AiOutlineArrowUp size={28}/>}
+                {/*<CircleBtn  onClick={() => navigate("/client/account/convert",{state:{currentAccount:account}})} icon={<TbArrowsExchange2 size={28}/>}
+                           content={"Convert"}/>*/}
+                <CircleBtn onClick={() => navigate("/client/account/send", {state: {currentAccount: account}})}
+                           icon={<AiOutlineArrowUp size={28}/>}
                            content={"Send"}/>
-                <CircleBtn onClick={() => navigate("/client/account/withdraw",{state:{currentAccount:account}})} icon={<AiOutlineArrowDown size={28}/>}
+                <CircleBtn onClick={() => navigate("/client/account/withdraw", {state: {currentAccount: account}})}
+                           icon={<AiOutlineArrowDown size={28}/>}
                            content={"Withdraw"}/>
             </div>}
 
             <hr/>
-            {fundingAccount &&     <div className={"col-lg-4"}>
+            {fundingAccount && <div className={"col-lg-4"}>
                 <h4>{fundingAccount?.currency?.code} {fundingAccount?.accountType?.accountType} balance</h4>
                 <h1>{fundingAccount?.balance} {fundingAccount?.currency?.symbol}</h1>
             </div>}

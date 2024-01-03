@@ -4,7 +4,7 @@ import BalanceCard from "../components/BalanceCard";
 import {useDispatch, useSelector} from "react-redux";
 import {initializeAccounts} from "../reducers/accountReducer";
 
-const ClientAccount = () => {
+const UserAccount = () => {
     const dispatch = useDispatch();
     const [refresh, setRefresh] = useState(false);
     const performRefresh = ()=>{
@@ -25,4 +25,4 @@ const ClientAccount = () => {
     );
 };
 
-export default ClientAccount;
+export default UserAccount;

@@ -4,7 +4,7 @@ import ConfirmDepositModal from "../modals/ConfirmDepositModal";
 import {useLocation} from "react-router-dom";
 import {getItem, saveItem} from "../services/LocalStorageService";
 import {useDispatch, useSelector} from "react-redux";
-import {getOrdersToParticipant} from "../reducers/orderReducer";
+import {getOrdersToFromParticipant, getOrdersToParticipant} from "../reducers/orderReducer";
 
 const PendingDeposit = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -14,11 +14,11 @@ const PendingDeposit = () => {
     useEffect(() => {
         const connectedUser = getItem('connectedUser');
         const pendingOrderRequest = {
-            fromToParticipantId:connectedUser?.userId,
-            orderStatus:'requested',
-            transactionType:'deposit'
+            fromToParticipantId: connectedUser?.userId,
+            orderStatus: 'requested',
+            transactionType: 'deposit'
         };
-        dispatch(getOrdersToParticipant(pendingOrderRequest));
+        dispatch(getOrdersToFromParticipant(connectedUser?.userId, "requested", "deposit"));
     }, [showCancelModal, showConfirmModal]);
 
     const pendingDeposits = useSelector(state => state.orders);
@@ -71,9 +71,10 @@ const PendingDeposit = () => {
             }
             </tbody>
         </table>
-        {pendingDeposits?.length>0 &&
+        {pendingDeposits?.length > 0 &&
             <div className={"text-secondary"}>
-                <p>Send exactly the amount from the pending deposit's request to agent's number using the mentioned payment
+                <p>Send exactly the amount from the pending deposit's request to agent's number using the mentioned
+                    payment
                     method.</p>
                 <p>After that, confirm the deposit putting the reference's number.</p>
                 <p><i>The reference's number is the transaction's unique id.</i></p>

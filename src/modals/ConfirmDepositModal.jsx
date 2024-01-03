@@ -3,7 +3,7 @@ import {Form, Modal} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import orderService from "../services/orderService";
 
-const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleConfirmModal}) => {
+const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleConfirmModal}) => {
     const [formData, setFormData] = useState(depositDetails);
     const dispatch = useDispatch();
 
@@ -11,17 +11,17 @@ const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleCon
         event.preventDefault();
         console.log(formData);
         const orderDetails = {
-            orderId:depositDetails?.orderId,
-            paidAmount:depositDetails?.amount,
-            reference:formData?.reference
+            orderId: depositDetails?.orderId,
+            paidAmount: depositDetails?.amount,
+            reference: formData?.reference
         }
-        orderService.confirmDeposit(orderDetails,true).then(resp=>
+        orderService.confirmDeposit(orderDetails, !isAgent).then(resp =>
             handleConfirmModal()
         )
     }
-    const handleChange = event =>{
+    const handleChange = event => {
         const {value, name} = event.target;
-        setFormData({...formData, [name]:value});
+        setFormData({...formData, [name]: value});
     }
     return (
         <Modal show={showConfirmModal} onHide={handleConfirmModal}>
@@ -34,7 +34,7 @@ const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleCon
                         <Form.Label>Deposit's amount</Form.Label>
                         <Form.Control
                             type={"text"}
-                            value={depositDetails?.amount}
+                            value={depositDetails?.amount.toString().concat(" ").concat(depositDetails?.currency)}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -52,7 +52,7 @@ const ConfirmDepositModal = ({depositDetails,isAgent,showConfirmModal, handleCon
                             <Form.Label>Client</Form.Label>
                             <Form.Control
                                 type={"text"}
-                                value={depositDetails?.client}
+                                value={depositDetails?.clientFullName}
                                 readOnly={true}
                             />
                         </Form.Group>) : (<Form.Group controlId={"toAgent"}>

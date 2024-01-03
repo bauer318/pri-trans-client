@@ -78,9 +78,9 @@ const ConvertForm = ({
                                         <option
                                             value={formTitles?.fromAccountCurrency?.code}>{formTitles?.fromAccountCurrency?.code}</option>
                                         {
-                                            currencies.map(currency =>
+                                            currencies.map((currency, key) =>
                                                 <option value={currencies?.currency}
-                                                        key={currency?.currencyId}>{currency?.code}</option>
+                                                        key={key}>{currency?.code}</option>
                                             )
                                         }
                                     </Form.Control>

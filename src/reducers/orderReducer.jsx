@@ -23,6 +23,13 @@ export const getOrdersToParticipant = (request) => {
     }
 };
 
+export const getOrdersToFromParticipant = (toFromParticipantId, orderStatus, transactionType) => {
+    return async dispatch => {
+        const orders = await orderService.getDepositOrders(toFromParticipantId, orderStatus, transactionType);
+        dispatch(setOrders(orders));
+    }
+}
+
 
 export const {setOrders, appendOrder} = orderSlice.actions;
 export default orderSlice.reducer;

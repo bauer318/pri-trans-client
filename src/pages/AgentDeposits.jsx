@@ -1,53 +1,36 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import CSWHeader from "../components/CSWHeader";
 import {MdDoNotDisturbAlt} from "react-icons/md";
 import {GiConfirmed} from "react-icons/gi";
 import ConfirmDepositModal from "../modals/ConfirmDepositModal";
 import RejectDepositModal from "../modals/RejectDepositModal";
+import {useDispatch, useSelector} from "react-redux";
+import {getItem} from "../services/LocalStorageService";
+import {getOrdersToFromParticipant} from "../reducers/orderReducer";
 
 const AgentDeposits = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showRejectModal, setShowRejectModal] = useState(false);
     const [selectedDeposit, setSelectedDeposit] = useState(null);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        const connectedUser = getItem("connectedUser");
+        dispatch(getOrdersToFromParticipant(connectedUser?.userId, "processing", "deposit"))
+    }, []);
+
+    const pendingDeposits = useSelector(state => state.orders);
     const handleConfirmModal = () => {
         setShowConfirmModal(!showConfirmModal);
     }
-    const handleRejectModal = ()=>{
+    const handleRejectModal = () => {
         setShowRejectModal(!showRejectModal);
     }
-    const deposits = [
-        {
-            id: 1,
-            dateTime: "2023-16-05 22:12",
-            amount: 251.12,
-            client: 'client full name',
-            ref: '254ref-895',
-            paymentMethod: {
-                id: 3,
-                pm: 'Sberbank'
-            },
-            status: 'requested'
-        },
-        {
-            id: 2,
-            dateTime: "2023-16-05 22:12",
-            amount: 100,
-            client: 'other client full name',
-            ref: '245-895',
-            paymentMethod: {
-                id: 2,
-                pm: 'Airtel money'
-            },
-            status: 'requested'
-        }
-    ];
-    const handleConfirmDeposit = id => {
-        setSelectedDeposit(findDepositById(id));
+    const handleConfirmDeposit = selectedPendingDeposit => {
+        setSelectedDeposit(selectedPendingDeposit);
         handleConfirmModal();
     }
-    const findDepositById = id => deposits?.find(deposit=>deposit.id===id);
-    const handleRejectDeposit = id => {
-        setSelectedDeposit(findDepositById(id));
+    const handleRejectDeposit = selectedPendingDeposit => {
+        setSelectedDeposit(selectedPendingDeposit);
         handleRejectModal();
     }
     return (
@@ -65,19 +48,20 @@ const AgentDeposits = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {deposits?.map(deposit =>
-                    <tr key={deposit?.id}>
-                        <td>{deposit?.dateTime}</td>
-                        <td>{deposit?.amount}</td>
-                        <td>{deposit?.client}</td>
-                        <td>{deposit?.ref}</td>
-                        <td>{deposit?.paymentMethod?.pm}</td>
-                        <td className={"text-center"} onClick={() => handleConfirmDeposit(deposit?.id)}><GiConfirmed/>
-                        </td>
-                        <td className={"text-center"} onClick={() => handleRejectDeposit(deposit?.id)}>
-                            <MdDoNotDisturbAlt/></td>
-                    </tr>
-                )}
+                {
+                    pendingDeposits?.map((pendingDeposit, key) =>
+                        <tr key={key}>
+                            <td>{pendingDeposit?.createdAt}</td>
+                            <td>{pendingDeposit?.amount} {pendingDeposit?.currency}</td>
+                            <td>{pendingDeposit?.clientFullName}</td>
+                            <td>{pendingDeposit?.reference}</td>
+                            <td>{pendingDeposit?.paymentMethod}</td>
+                            <td className={"text-center"} onClick={() => handleConfirmDeposit(pendingDeposit)}>
+                                <GiConfirmed/>
+                            </td>
+                            <td className={"text-center"} onClick={() => handleRejectDeposit(pendingDeposit)}>
+                                <MdDoNotDisturbAlt/></td>
+                        </tr>)}
                 </tbody>
             </table>
             {
@@ -87,10 +71,12 @@ const AgentDeposits = () => {
             }
             {
                 selectedDeposit && showRejectModal &&
-                <RejectDepositModal depositDetails={selectedDeposit} showModal={showRejectModal} handleModal={handleRejectModal} />
+                <RejectDepositModal depositDetails={selectedDeposit} showModal={showRejectModal}
+                                    handleModal={handleRejectModal}/>
             }
         </div>
-    );
+    )
+        ;
 };
 
 export default AgentDeposits;

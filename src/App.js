@@ -13,7 +13,7 @@ import CountryItemEdit from "./pages/CountryItemEdit";
 import CurrencyAdd from "./pages/CurrencyAdd";
 import PaymentMethodAdd from "./pages/PaymentMethodAdd";
 import ClientHome from "./pages/ClientHome";
-import ClientAccount from "./pages/ClientAccount";
+import UserAccount from "./pages/UserAccount";
 import ClientHistory from "./pages/ClientHistory";
 import ClientWallets from "./pages/ClientWallets";
 import BalanceItem from "./pages/BalanceItem";
@@ -66,7 +66,7 @@ const App = () => {
                         <Route path={"/admin/currencies"} element={<CurrencyList/>}/>
                         <Route path={"/admin/payment-methods"} element={<PaymentMethodList/>}/>
                         <Route path={"/client/home"} element={<ClientHome/>} />
-                        <Route path={"/client/account"} element={<ClientAccount/>} />
+                        <Route path={"/client/account"} element={<UserAccount/>} />
                         <Route path={"/client/account/item"} element={<BalanceItem/>} />
                         <Route path={"/client/account/convert"} element={<Convert/>}/>
                         <Route path={"/client/account/send"} element={<Send/>}/>
@@ -76,8 +76,8 @@ const App = () => {
                         <Route path={"/client/account/deposit/confirm"} element={<DepositConfirm/>}/>
                         <Route path={"/client/history"} element={<ClientHistory/>} />
                         <Route path={"/client/wallet"} element={<ClientWallets/>} />
-                        <Route path={"/agent/account"} element={<ClientAccount/>}/>
-                        <Route path={"/agent/account/1"} element={<AgentBalanceItem/>}/>
+                        <Route path={"/agent/account"} element={<UserAccount/>}/>
+                        <Route path={"/agent/account/item"} element={<AgentBalanceItem/>}/>
                         <Route path={"/agent/account/1/convert"} element={<Convert/>}/>
                         <Route path={"/agent/history"} element={<AgentHistory/>}/>
                         <Route path={"/agent/payment-methods"} element={<ClientWallets/>} />

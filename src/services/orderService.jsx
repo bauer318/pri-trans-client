@@ -39,5 +39,14 @@ const confirmDeposit = async (orderDetails, isFromClient) => {
     }
 }
 
+const getDepositOrders = async (toParticipantId, orderStatus, transactionType) => {
+    try {
+        const response = await axios.get(baseUrl.concat(`/to-from-participant-status-transaction/${toParticipantId}/${orderStatus}/${transactionType}`), {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
 
-export default {getTransactionType, getToParticipantOrderByStatusAndTransactionType, deleteOrder, confirmDeposit}
+
+export default {getTransactionType, getToParticipantOrderByStatusAndTransactionType, deleteOrder, confirmDeposit, getDepositOrders}
