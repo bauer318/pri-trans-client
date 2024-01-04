@@ -66,7 +66,7 @@ const getWithdrawOrders = async fromToParticipantId => {
     }
 }
 
-const getOrderHistory = async (participantId, isClient)=>{
+const getOrderHistory = async (participantId, isClient) => {
     try {
         const response = await axios.get(baseUrl.concat(`/history/${participantId}/${isClient}`), {headers: getToken()});
         return response?.data;
@@ -76,6 +76,19 @@ const getOrderHistory = async (participantId, isClient)=>{
 }
 
 
+const rejectOrder = async (rejectDepositPut, isDepositOrder) => {
+    let subUrl = "withdraw";
+    if (isDepositOrder) {
+        subUrl = "deposit";
+    }
+    try {
+        const response = await axios.put(baseUrl.concat(`/reject-${subUrl}`), rejectDepositPut, {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
 export default {
     getTransactionType,
     getToParticipantOrderByStatusAndTransactionType,
@@ -84,5 +97,6 @@ export default {
     getDepositOrders,
     getWithdrawOrders,
     confirmWithdrawByAgent,
-    getOrderHistory
+    getOrderHistory,
+    rejectDepositOrder: rejectOrder
 }

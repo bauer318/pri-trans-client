@@ -1,12 +1,24 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
+import orderService from "../services/orderService";
+import {printError} from "../services/Utils";
 
 const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
     const [formData, setFormData] = useState(depositDetails);
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(formData);
-        handleModal();
+        const rejectDepositPut = {
+            orderId: formData?.orderId,
+            rejectCause: formData?.note
+        }
+        orderService.rejectDepositOrder(rejectDepositPut, true)
+            .then(response => {
+                handleModal();
+            }).catch(error => {
+            printError(error);
+            handleModal();
+        })
+
     }
     const handleChange = event => {
         const {value, name} = event.target;
@@ -24,7 +36,7 @@ const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
                         <Form.Label>Deposit's amount</Form.Label>
                         <Form.Control
                             type={"text"}
-                            value={depositDetails?.amount}
+                            value={depositDetails?.amount.toString().concat(` ${depositDetails?.currency}`)}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -33,7 +45,7 @@ const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
                         <Form.Label>Paying with</Form.Label>
                         <Form.Control
                             type={"text"}
-                            value={depositDetails.paymentMethod.pm}
+                            value={depositDetails?.paymentMethod}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -42,7 +54,7 @@ const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
                         <Form.Label>Client</Form.Label>
                         <Form.Control
                             type={"text"}
-                            value={depositDetails?.client}
+                            value={depositDetails?.ownerName}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -51,8 +63,8 @@ const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
                         <Form.Label>Reference's number</Form.Label>
                         <Form.Control
                             type={"text"}
-                            value={depositDetails?.ref}
-                            name={"note"}
+                            value={depositDetails?.reference}
+                            name={"reference"}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -62,6 +74,7 @@ const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
                         <Form.Control
                             as="textarea"
                             rows={3}
+                            name={"note"}
                             placeholder={"why rejected?..."}
                             required={true}
                             onChange={handleChange}

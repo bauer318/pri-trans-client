@@ -3,6 +3,7 @@ import HistoryHeader from "../components/HistoryHeader";
 import {useDispatch, useSelector} from "react-redux";
 import {getOrderHistory} from "../reducers/orderReducer";
 import {getItem} from "../services/LocalStorageService";
+import TransactionStatusTdComponent from "../components/transactionStatusTdComponent";
 
 const ClientHistory = () => {
     const dispatch = useDispatch();
@@ -34,15 +35,15 @@ const ClientHistory = () => {
                             <tr key={key}>
                                 <td className={"text-center"}>{transaction?.createdAt ? transaction.createdAt : "No date"}</td>
                                 <td className={"text-center"}>{transaction?.type}</td>
-                                <td className={"text-center"}>{transaction?.amount}</td>
-                                <td className={"text-center"}>{transaction?.paidAmount}</td>
+                                <td className={"text-center"}>{transaction?.amount}
+                                    <mark>{transaction?.currencySymbol}</mark>
+                                </td>
+                                <td className={"text-center"}>{transaction?.paidAmount}
+                                    <mark>{transaction?.currencySymbol}</mark>
+                                </td>
                                 <td className={"text-center"}>{transaction?.recipient}</td>
                                 <td className={"text-center"}>{transaction?.reference === "" ? "No ref" : transaction.reference}</td>
-                                <td className={"text-center"}
-                                    style={{background: transaction.status === 'processing' ? "yellow" : transaction.status === 'completed' ? "green" : "red"}}>
-                                    <span
-                                        style={{color: transaction.status === 'processing' ? "black" : transaction.status === 'completed' ? "yellow" : "black"}}>{transaction.status}</span>
-                                </td>
+                                <TransactionStatusTdComponent transaction={transaction}/>
                             </tr>)
                     }
                     </tbody>

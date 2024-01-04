@@ -1,12 +1,25 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
+import orderService from "../services/orderService";
+import {printError} from "../services/Utils";
 
 const RejectWithdrawalsModal = ({withdrawDetails, showModal, handleModal}) => {
     const [formData, setFormData] = useState(withdrawDetails);
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(formData);
-        handleModal();
+        const rejectWithdrawPut = {
+            orderId: formData?.orderId,
+            rejectCause: formData?.note
+        }
+        orderService.rejectDepositOrder(rejectWithdrawPut, false)
+            .then(
+                response => {
+                    handleModal();
+                }
+            ).catch(error => {
+            printError(error);
+            handleModal();
+        })
     }
     const handleChange = event => {
         const {value, name} = event.target;
@@ -23,7 +36,7 @@ const RejectWithdrawalsModal = ({withdrawDetails, showModal, handleModal}) => {
                         <Form.Label>Withdraw amount</Form.Label>
                         <Form.Control
                             type={"text"}
-                            defaultValue={withdrawDetails?.amount}
+                            defaultValue={withdrawDetails?.amount.toString().concat(` ${withdrawDetails?.currency}`)}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -32,7 +45,7 @@ const RejectWithdrawalsModal = ({withdrawDetails, showModal, handleModal}) => {
                         <Form.Label>Receiving via</Form.Label>
                         <Form.Control
                             type={"text"}
-                            defaultValue={withdrawDetails?.paymentMethod?.paymentMethod}
+                            defaultValue={withdrawDetails?.paymentMethod}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -41,7 +54,7 @@ const RejectWithdrawalsModal = ({withdrawDetails, showModal, handleModal}) => {
                         <Form.Label>Wallet's number</Form.Label>
                         <Form.Control
                             type={"text"}
-                            defaultValue={withdrawDetails?.paymentMethod?.number}
+                            defaultValue={withdrawDetails?.clientWalletNumber}
                             readOnly={true}
                         />
                     </Form.Group>
