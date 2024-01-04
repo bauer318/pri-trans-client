@@ -30,21 +30,19 @@ const SendModal = ({showModal, handleModal, recipientEmail}) => {
                 amount: sendDetails?.toAmount,
                 transactionType: "transfert"
             }
-            console.log(orderRq);
             accountService.sendTo(orderRq)
                 .then(orderId => {
                     if (orderId > 0) {
                         console.log(orderId);
+                        handleModal();
+                        navigate('/client/account');
                     }
                 }).catch(error => {
-
                 printError(error);
+                handleModal();
             })
-            //to server
-            //navigate('/client/account/1/');
         }
-
-
+        handleModal();
     }
     return (
         <Modal show={showModal} onHide={handleModal}>

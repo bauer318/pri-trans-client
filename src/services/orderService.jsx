@@ -66,6 +66,15 @@ const getWithdrawOrders = async fromToParticipantId => {
     }
 }
 
+const getOrderHistory = async (participantId, isClient)=>{
+    try {
+        const response = await axios.get(baseUrl.concat(`/history/${participantId}/${isClient}`), {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
 
 export default {
     getTransactionType,
@@ -74,5 +83,6 @@ export default {
     confirmDeposit,
     getDepositOrders,
     getWithdrawOrders,
-    confirmWithdrawByAgent
+    confirmWithdrawByAgent,
+    getOrderHistory
 }

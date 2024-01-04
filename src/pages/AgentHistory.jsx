@@ -1,40 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import HistoryHeader from "../components/HistoryHeader";
+import {useDispatch, useSelector} from "react-redux";
+import {getItem} from "../services/LocalStorageService";
+import {getOrderHistory} from "../reducers/orderReducer";
 
 const AgentHistory = () => {
-    const transactions = [
-        {
-            id: 1,
-            dateTime: '2023.05.16 23:20',
-            type: 'deposit',
-            amountMain: 100.25,
-            amountPaid: 25.00,
-            recipient: 'bauer@gmail.com',
-            status: 'completed',
-            ref: '2145-erde'
-        },
-        {
-            id: 2,
-            dateTime: '2023.05.16 23:20',
-            type: 'withdraw',
-            amountMain: 250.00,
-            amountPaid: 250.00,
-            recipient: 'connected@user.com',
-            status: 'rejected',
-            ref: ''
-        },
-        {
-            id: 3,
-            dateTime: '2023.05.16 23:20',
-            type: 'withdraw',
-            amountMain: 100.00,
-            amountPaid: 0.00,
-            recipient: '245-895',
-            status: 'completed',
-            ref: 'gdtr254-85',
-        },
-
-    ]
+    const dispatch = useDispatch();
+    useEffect(() => {
+        const connectedUser = getItem("connectedUser");
+        dispatch(getOrderHistory(connectedUser?.userId, false));
+    }, []);
+    const transactions = useSelector(state => state.orders);
     return (
         <div className={"container"}>
             <HistoryHeader/>
@@ -54,15 +30,15 @@ const AgentHistory = () => {
                     {
                         transactions?.map(transaction =>
                             <tr key={transaction.id}>
-                                <td className={"text-center"}>{transaction.dateTime}</td>
-                                <td className={"text-center"}>{transaction.type}</td>
-                                <td className={"text-center"}>{transaction.amountMain}</td>
-                                <td className={"text-center"}>{transaction.recipient}</td>
-                                <td className={"text-center"}>{transaction.ref}</td>
+                                <td className={"text-center"}>{transaction?.createdAt ? transaction.createdAt : "No date"}</td>
+                                <td className={"text-center"}>{transaction?.type}</td>
+                                <td className={"text-center"}>{transaction?.amount}</td>
+                                <td className={"text-center"}>{transaction?.client}</td>
+                                <td className={"text-center"}>{transaction?.reference === "" ? "No ref" : transaction.reference}</td>
                                 <td className={"text-center"}
-                                    style={{background: transaction.status === 'completed' ? "green" : "red"}}>
+                                    style={{background: transaction.status === 'processing' ? "yellow" : transaction.status === 'completed' ? "green" : "red"}}>
                                     <span
-                                        style={{color: transaction.status === 'completed' ? "yellow" : "black"}}>{transaction.status}</span>
+                                        style={{color: transaction.status === 'processing' ? "black" : transaction.status === 'completed' ? "yellow" : "black"}}>{transaction.status}</span>
                                 </td>
                             </tr>)
                     }

@@ -23,7 +23,6 @@ const PendingDeposit = () => {
 
     const pendingDeposits = useSelector(state => state.orders);
     const handleConfirmDeposit = depositPending => {
-        console.log(depositPending);
         setSelectedPendingDeposit(depositPending);
         handleConfirmModal();
     }
@@ -55,8 +54,8 @@ const PendingDeposit = () => {
             </thead>
             <tbody>
             {
-                pendingDeposits?.map(pendingDeposit =>
-                    <tr key={pendingDeposit?.orderId}>
+                pendingDeposits?.map((pendingDeposit, key) =>
+                    <tr key={key}>
                         <td className={"text-center"}>{pendingDeposit?.paymentMethod}</td>
                         <td className={"text-center"}>{pendingDeposit?.amount}</td>
                         <td className={"text-center"}>{pendingDeposit?.currency}</td>

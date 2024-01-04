@@ -17,35 +17,10 @@ const AgentWithdrawals = () => {
     useEffect(() => {
         const connectedUser = getItem("connectedUser");
         dispatch(getWithdrawOrdersToAgent(connectedUser?.userId));
-    }, [showConfirmModal, showRejectModal]);
+    }, [showConfirmModal]);
 
     const pendingWithdrawals = useSelector(state => state.orders);
 
-    const withdrawals = [
-        {
-            id: 1,
-            dateTime: "2023-16-05 22:12",
-            amount: 251.12,
-            paymentMethod: {
-                id: 3,
-                paymentMethod: 'Sberbank',
-                number: '245-8952',
-            },
-            status: 'requested'
-        },
-        {
-            id: 2,
-            dateTime: "2023-16-05 22:12",
-            amount: 100,
-            paymentMethod: {
-                id: 2,
-                paymentMethod: 'Airtel money',
-                number: '245-Dere',
-            },
-            status: 'requested'
-        }
-    ];
-    const findWithdrawalById = id => withdrawals?.find(withdrawal => withdrawal.id === id);
     const handleConfirmModal = () => {
         setShowConfirmModal(!showConfirmModal);
     }

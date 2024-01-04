@@ -30,9 +30,15 @@ export const getOrdersToFromParticipant = (toFromParticipantId, orderStatus, tra
     }
 }
 
-export const getWithdrawOrdersToAgent = toAgentId =>{
+export const getWithdrawOrdersToAgent = toAgentId => {
     return async dispatch => {
         const orders = await orderService.getWithdrawOrders(toAgentId);
+        dispatch(setOrders(orders));
+    }
+}
+export const getOrderHistory = (participantId, isClient) => {
+    return async dispatch => {
+        const orders = await orderService.getOrderHistory(participantId, isClient);
         dispatch(setOrders(orders));
     }
 }
