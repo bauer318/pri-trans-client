@@ -28,6 +28,7 @@ const SendModal = ({showModal, handleModal, recipientEmail}) => {
                 toAccountId: receiverAccountId,
                 rate: sendDetails?.liveRate,
                 amount: sendDetails?.toAmount,
+                fromAmount:sendDetails?.fromAmount,
                 transactionType: "transfert"
             }
             accountService.sendTo(orderRq)

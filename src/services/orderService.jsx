@@ -89,6 +89,24 @@ const rejectOrder = async (rejectDepositPut, isDepositOrder) => {
     }
 }
 
+const getOrderRate = async (usdFromRate, usdToRate) => {
+    try {
+        const response = await axios.get(baseUrl.concat(`/rate/${usdFromRate}/${usdToRate}`), {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
+const getToAmount = async (fromAmount, rate) => {
+    try {
+        const response = await axios.get(baseUrl.concat(`/to-amount/${fromAmount}/${rate}`), {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
 export default {
     getTransactionType,
     getToParticipantOrderByStatusAndTransactionType,
@@ -98,5 +116,7 @@ export default {
     getWithdrawOrders,
     confirmWithdrawByAgent,
     getOrderHistory,
-    rejectDepositOrder: rejectOrder
+    rejectDepositOrder: rejectOrder,
+    getOrderRate,
+    getToAmount
 }

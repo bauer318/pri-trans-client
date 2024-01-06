@@ -26,7 +26,7 @@ const ConvertForm = ({
                                 <Form.Control
                                     type={"text"}
                                     className={"text-secondary border-0 me-5"}
-                                    pattern={"[0-9]+"}
+                                    pattern={"[0-9.]+"}
                                     placeholder={fromAmount.toString()}
                                     required={true}
                                     onChange={handleFromAmountChange}
