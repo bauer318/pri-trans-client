@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getOrderHistory} from "../reducers/orderReducer";
 import {getItem} from "../services/LocalStorageService";
 import TransactionStatusTdComponent from "../components/transactionStatusTdComponent";
+import {roundValue} from "../services/Utils";
 
 const ClientHistory = () => {
     const dispatch = useDispatch();
@@ -35,10 +36,10 @@ const ClientHistory = () => {
                             <tr key={key}>
                                 <td className={"text-center"}>{transaction?.createdAt ? transaction.createdAt : "No date"}</td>
                                 <td className={"text-center"}>{transaction?.type}</td>
-                                <td className={"text-center"}>{transaction?.amount}
+                                <td className={"text-center"}>{roundValue(transaction?.amount)}
                                     <mark>{transaction?.currencySymbol}</mark>
                                 </td>
-                                <td className={"text-center"}>{transaction?.paidAmount}
+                                <td className={"text-center"}>{roundValue(transaction?.paidAmount)}
                                     <mark>{transaction?.currencySymbol}</mark>
                                 </td>
                                 <td className={"text-center"}>{transaction?.recipient}</td>

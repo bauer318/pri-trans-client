@@ -3,7 +3,8 @@ import {Form} from "react-bootstrap";
 import LoadingEffect from "./LoadingEffect";
 import {getItem} from "../services/LocalStorageService";
 import walletService from "../services/walletService";
-import {printError} from "../services/Utils";
+import {printError, roundValue} from "../services/Utils";
+import {round} from "lodash";
 
 //Deposit Withdraw DW
 const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange, isDeposit}) => {
@@ -33,7 +34,7 @@ const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange, 
                         <Form onSubmit={handleSubmit}>
                             <h3>{formDetails?.title}</h3>
                             <p className={"text-secondary"}>Your balance right now is <span className={"text-body"}>
-                                {`${formDetails?.availableBalance} ${formDetails?.currency?.code}`} </span></p>
+                                {`${roundValue(formDetails?.availableBalance)} ${formDetails?.currency?.code}`} </span></p>
                             <div className={"border border-secondary"}>
                                 <div className={"text-primary ps-3"}>
                                     {formDetails?.subTitle}

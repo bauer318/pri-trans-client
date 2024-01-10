@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {FaEdit} from "react-icons/fa";
 import {AiOutlineDelete} from "react-icons/ai";
 import ClientEditWallet from "../modals/ClientEditWalletModal";
-import ClentDeleteWalletModal from "../modals/ClentDeleteWalletModal";
+import ClientDeleteWalletModal from "../modals/ClentDeleteWalletModal";
 
 
 const WalletCard = ({wallet, refresh}) => {
@@ -39,7 +39,7 @@ const WalletCard = ({wallet, refresh}) => {
             }
             {
                 showDeleteModal &&
-                <ClentDeleteWalletModal wallet={wallet} handleModal={handleDeleteModal}
+                <ClientDeleteWalletModal wallet={wallet} handleModal={handleDeleteModal}
                                         showModal={showDeleteModal}/>
             }
         </div>

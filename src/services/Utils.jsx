@@ -192,5 +192,14 @@ const instance = axios.create({
     baseURL: baseURL,
     headers: {Authorization: getItem('jwtToken')}
 });
+
+export const roundToOnlyToDisplay = (sourceAmount, callbackSetState) => {
+    const roundedAmount = roundValue(sourceAmount);
+    callbackSetState(roundedAmount);
+}
+
+export const roundValue = value => {
+    return Math.round(value * 100) / 100;
+}
 export default instance;
 

@@ -107,6 +107,24 @@ const getToAmount = async (fromAmount, rate) => {
     }
 }
 
+const getRequestedOrdersFromConnectedUser = async selectedCountryId => {
+    try {
+        const response = await axios.get(baseUrl.concat(`/orders-from-connected-user-country-to/${selectedCountryId}`), {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
+const getRequestedOrdersToConnectedUserCountry = async selectedCountryId => {
+    try {
+        const response = await axios.get(baseUrl.concat(`/orders-to-connected-user-country-from/${selectedCountryId}`), {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
 export default {
     getTransactionType,
     getToParticipantOrderByStatusAndTransactionType,
@@ -118,5 +136,7 @@ export default {
     getOrderHistory,
     rejectDepositOrder: rejectOrder,
     getOrderRate,
-    getToAmount
+    getToAmount,
+    getRequestedOrdersFromConnectedUser,
+    getRequestedOrdersToConnectedUserCountry
 }

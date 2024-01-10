@@ -16,6 +16,7 @@ import {Form} from "react-bootstrap";
 import {initializeCountries} from "../reducers/countryReducers";
 import useDebounce from "../hooks/useDebounce";
 import orderService from "../services/orderService";
+import countryService from "../services/CountryService";
 
 const Send = () => {
     const [rates, setRates] = useState(0);
@@ -32,13 +33,14 @@ const Send = () => {
     const [fromAccount, setFromAccount] = useState();
     const [toCurrency, setToCurrency] = useState();
     const [canSend, setCanSend] = useState(false);
-    const countries = useSelector(state => state?.countries)
+    const [countries, setCountries] = useState([]);
+    const [isLoadingCountriesToSend, setIsLoadingCountriesToSend] = useState(true);
     const [currencies, setCurrencies] = useState();
     const [isDestinationSelected, setIsDestinationSelected] = useState(false)
     const [countryId, setCountryId] = useState();
     const [usdFromCurrencyRate, setUsdFromCurrencyRate] = useState(1.0);
     const [usdToCurrencyRate, setUsdToCurrencyRate] = useState(1.0);
-    const [isTaping, setIsTaping] = useState(false);
+    const [isCalculating, setIsCalculating] = useState(false);
 
     const debouncedToAmount = useDebounce(fromAmount, 500);
     const debouncedRate = useDebounce(toStrCurrencyCode, 500);
@@ -59,6 +61,7 @@ const Send = () => {
             fromAccountCurrency: currentAccount?.currency,
         })
         setToStrCurrencyCode(currentAccount?.currency?.code);
+        getAvailableCountriesToSend();
 
     }, []);
     useEffect(() => {
@@ -68,30 +71,40 @@ const Send = () => {
             setToAmount(toAmount);
         }
         if (debouncedRate) {
-            setIsTaping(true);
+            setIsCalculating(true);
             orderService.getOrderRate(usdFromCurrencyRate, usdToCurrencyRate)
                 .then(orderRate => {
                     setLiveRate(orderRate);
                     calculateToAmount(orderRate);
-                    setIsTaping(false);
+                    setIsCalculating(false);
                 }).catch(error => {
                 printError(error);
-                setIsTaping(false);
+                setIsCalculating(false);
             })
         } else {
             setLiveRate(liveRate);
         }
     }, [debouncedRate, debouncedToAmount]);
+
+    const getAvailableCountriesToSend = () => {
+        setIsLoadingCountriesToSend(true);
+        countryService.getUserAvailableCountriesToSend().then(response => {
+            setCountries(response);
+            setIsLoadingCountriesToSend(false);
+        }).catch(error => {
+            printError(error);
+        })
+    }
     const calculateToAmount = (rate) => {
-        setIsTaping(true);
+        setIsCalculating(true);
         orderService.getToAmount(fromAmount, rate)
             .then(toAmountResponse => {
-                    setToAmount(toAmountResponse);
-                    setIsTaping(false);
+                    setToAmount(toAmountResponse?.toAmount);
+                    setIsCalculating(false);
                 }
             ).catch(error => {
             printError(error);
-            setIsTaping(false);
+            setIsCalculating(false);
         })
     }
     const rate = useSelector(state => state.rates);
@@ -131,30 +144,16 @@ const Send = () => {
     }
     const handleAmountSendChange = (e) => {
         const fromA = Number(e.target.value);
-        //setInputFromAmount(fromA);
         setFromAmount(fromA);
-        /*if (liveRate !== 0) {
-            const r = round(usdToCurrencyRate / usdFromCurrencyRate, 6);
-            const t = round(r * fromA, 6);
-            setToAmount(t);
-        }*/
     }
     const handleReceiveCurrencyChange = (e) => {
         const toCurrency = e.target.value;
         const fromCurrency = account?.currency?.code;
         setToStrCurrencyCode(toCurrency);
-        //let usdFromCurrencyRateP;
-        //let usdToCurrencyRateP;
         if (rates !== 0) {
-            //usdFromCurrencyRateP = rates[`${fromCurrency}`];
-            //usdToCurrencyRateP = rates[`${toCurrency}`];
-            //setLiveRate(round(usdToCurrencyRateP / usdFromCurrencyRateP, 6));
             setUsdFromCurrencyRate(rates[`${fromCurrency}`])
             setUsdToCurrencyRate(rates[`${toCurrency}`]);
         }
-        //const r = round(usdToCurrencyRateP / usdFromCurrencyRateP, 6);
-        //const t = round(r * fromAmount, 6);
-        //setToAmount(t);
     }
     const handleDestinationChange = (e) => {
         const selectedCountry = e.target.value;
@@ -174,6 +173,11 @@ const Send = () => {
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                 Where
             </div>
+            {isLoadingCountriesToSend &&
+                <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
+                    Loading...
+                </div>}
+
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                 <Form.Group>
                     <Form.Control
@@ -199,7 +203,7 @@ const Send = () => {
                              handleFromAmountChange={handleAmountSendChange} handleSubmit={handleSubmit}
                              liveRate={liveRate}
                              fromAmount={fromAmount}
-                             toAmount={toAmount}/>) : (<LoadingEffect/>)}
+                             toAmount={toAmount} calculating={isCalculating}/>) : (<LoadingEffect/>)}
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form} from "react-bootstrap";
 import {RxCross2} from "react-icons/rx";
+import {roundValue} from "../services/Utils";
 
 const ConvertForm = ({
                          formTitles,
@@ -10,7 +11,8 @@ const ConvertForm = ({
                          handleFromAmountChange,
                          currencies,
                          handleToCurrencyChange,
-                         handleSubmit
+                         handleSubmit,
+                         calculating
                      }) => {
     return (
         <div className={"row mt-2"}>
@@ -36,7 +38,8 @@ const ConvertForm = ({
                             <div className={"ms-3"}>{formTitles?.fromAccountCurrency?.code}</div>
                         </div>
                         <div className={"text-secondary mt-2 ps-3"}>
-                            You have {formTitles.availableBalance} {formTitles?.fromAccountCurrency?.symbol} available
+                            You
+                            have <mark>{roundValue(formTitles.availableBalance)} {formTitles?.fromAccountCurrency?.symbol} </mark> available
                             in your balance
                         </div>
                     </div>
@@ -48,7 +51,8 @@ const ConvertForm = ({
                                 className={"product-convert bg-primary mt-1"}><span><i><RxCross2 size={28}/></i></span></span>
                         </div>
                         <div className={"mt-1"}>
-                            <span className={"ms-2"}>{liveRate}</span> <span className={"text-primary"}>Live rate</span>
+                            <span className={"ms-2"}>{calculating ? "calculating..." : liveRate}</span> <span
+                            className={"text-primary"}>Live rate</span>
                         </div>
                     </div>
                     <div className={"vr h-25 ms-5"}>
@@ -62,7 +66,7 @@ const ConvertForm = ({
                                 <Form.Control
                                     type={"text"}
                                     className={"text-secondary border-0 me-5"}
-                                    value={toAmount}
+                                    value={roundValue(toAmount)}
                                     readOnly={true}
                                 />
                             </Form.Group>

@@ -6,6 +6,7 @@ import {AiOutlineArrowDown, AiOutlineArrowUp, AiOutlinePlus} from "react-icons/a
 import CircleBtn from "../components/CircleBtn";
 import {TbArrowsExchange2} from "react-icons/tb";
 import accountService from "../services/accountService";
+import {roundValue} from "../services/Utils";
 
 const BalanceItem = () => {
     const navigate = useNavigate();
@@ -14,7 +15,9 @@ const BalanceItem = () => {
     const [fundingAccount, setFundingAccount] = useState();
     useEffect(() => {
         const fundingAccountResponse = accountService.getFundingAccount(account?.accountId);
-        fundingAccountResponse.then(fundingAccount => setFundingAccount(fundingAccount));
+        fundingAccountResponse.then(fundingAccount => {
+            setFundingAccount(fundingAccount);
+        });
     }, []);
 
     return (
@@ -33,7 +36,7 @@ const BalanceItem = () => {
             {account && <div className={"row mt-5"}>
                 <div className={"col-lg-4"}>
                     <h4>{account?.currency?.code} {account?.accountType?.accountType} balance</h4>
-                    <h1>{account?.balance} {account?.currency?.symbol}</h1>
+                    <h1>{roundValue(account?.balance)} {account?.currency?.symbol}</h1>
                 </div>
                 <CircleBtn onClick={() => navigate("/client/account/deposit/new", {state: {currentAccount: account}})}
                            icon={<AiOutlinePlus size={28}/>}
@@ -51,7 +54,7 @@ const BalanceItem = () => {
             <hr/>
             {fundingAccount && <div className={"col-lg-4"}>
                 <h4>{fundingAccount?.currency?.code} {fundingAccount?.accountType?.accountType} balance</h4>
-                <h1>{fundingAccount?.balance} {fundingAccount?.currency?.symbol}</h1>
+                <h1>{roundValue(fundingAccount?.balance)} {fundingAccount?.currency?.symbol}</h1>
             </div>}
 
         </div>

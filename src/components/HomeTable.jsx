@@ -1,6 +1,7 @@
 import React from 'react';
+import {roundValue} from "../services/Utils";
 
-const HomeTable = ({fromCountry, toCountry}) => {
+const HomeTable = ({fromCountry, toCountry, orders}) => {
     return (
         <div>
             <div>
@@ -15,21 +16,11 @@ const HomeTable = ({fromCountry, toCountry}) => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td className={"text-center"}>J***</td>
-                    <td className={"text-center"}>10.00</td>
-                    <td className={"text-center"}>EUR</td>
-                </tr>
-                <tr>
-                    <td className={"text-center"}>M***</td>
-                    <td className={"text-center"}>150.25</td>
-                    <td className={"text-center"}>USD</td>
-                </tr>
-                <tr>
-                    <td className={"text-center"}>J***</td>
-                    <td className={"text-center"}>5000.00</td>
-                    <td className={"text-center"}>Rub</td>
-                </tr>
+                {orders?.map((order, key) => <tr key={key}>
+                    <td className={"text-center"}>{order?.email}</td>
+                    <td className={"text-center"}>{roundValue(order?.amount)}</td>
+                    <td className={"text-center"}>{order?.devise}</td>
+                </tr>)}
                 </tbody>
             </table>
         </div>

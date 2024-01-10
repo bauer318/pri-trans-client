@@ -2,9 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import {BiArrowBack} from "react-icons/bi";
 import LogoutBtn from "../components/LogoutBtn";
-import CircleBtn from "../components/CircleBtn";
-import {TbArrowsExchange2} from "react-icons/tb";
 import accountService from "../services/accountService";
+import {roundValue} from "../services/Utils";
 
 const AgentBalanceItem = () => {
     const navigate = useNavigate();
@@ -32,13 +31,13 @@ const AgentBalanceItem = () => {
             <div className={"row mt-5"}>
                 <div className={"col-lg-4"}>
                     <h4>{account?.currency?.code} {account?.accountType?.accountType} balance</h4>
-                    <h1>{account?.balance} {account?.currency?.symbol}</h1>
+                    <h1>{roundValue(account?.balance)} {account?.currency?.symbol}</h1>
                 </div>
             </div>
             <hr/>
             {fundingAccount && <div className={"col-lg-4"}>
                 <h4>{fundingAccount?.currency?.code} {fundingAccount?.accountType?.accountType} balance</h4>
-                <h1>{fundingAccount?.balance} {fundingAccount?.currency?.symbol}</h1>
+                <h1>{roundValue(fundingAccount?.balance)} {fundingAccount?.currency?.symbol}</h1>
             </div>}
         </div>
     );

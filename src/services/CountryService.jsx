@@ -84,4 +84,13 @@ const deleteCountry = async id => {
     }
 }
 
-export default {getAll, createNew, update, deleteCountry, addCurrency, addPaymentMethod};
+const getUserAvailableCountriesToSend = async () => {
+    try {
+        const response = await axios.get(`${baseUrlCountry}/to`, {headers: getToken()});
+        return response?.data;
+    } catch (error) {
+        printError(error);
+    }
+}
+
+export default {getAll, createNew, update, deleteCountry, addCurrency, addPaymentMethod, getUserAvailableCountriesToSend, getById};

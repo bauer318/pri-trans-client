@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink} from "react-router-dom";
 import {getItem} from "../services/LocalStorageService";
+import {roundValue} from "../services/Utils";
 
 const BalanceCard = ({account}) => {
     const [toLink, setToLink] = useState("");
+    //const [roundedBalance, setRoundedBalance]
     useEffect(() => {
         const connectedUser = getItem("connectedUser");
         if (connectedUser?.userRole?.userRole === "ROLE_AGENT") {
@@ -21,7 +23,7 @@ const BalanceCard = ({account}) => {
                     </div>
                     <div className={"card-body"}>
                         <div>
-                            <h3>{account?.balance} {account?.currency?.symbol}</h3>
+                            <h3>{roundValue(account?.balance)} {account?.currency?.symbol}</h3>
                         </div>
                         <div>
                             <i>{account?.currency?.currency}</i>
