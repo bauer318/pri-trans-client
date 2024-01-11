@@ -9,9 +9,6 @@ const DepositHeader = () => {
             <div className={"col-lg-6 d-flex justify-content-start"}>
                 <button className={"btn btn-info"} onClick={()=>navigate("/client/account/deposit/confirm")}>Confirm deposit</button>
             </div>
-            <div className={"col-lg-6 d-flex justify-content-end"}>
-                <LogoutBtn/>
-            </div>
         </div>
     );
 };

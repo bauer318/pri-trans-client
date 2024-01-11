@@ -29,9 +29,6 @@ const BalanceItem = () => {
                     }}><span><i><BiArrowBack size={28}/></i></span> Back
                     </button>
                 </div>
-                <div className={"col-lg-6 d-flex justify-content-end"}>
-                    <LogoutBtn/>
-                </div>
             </div>
             {account && <div className={"row mt-5"}>
                 <div className={"col-lg-4"}>

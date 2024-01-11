@@ -7,6 +7,8 @@ import {RiLuggageDepositLine} from "react-icons/ri";
 import {BiMoneyWithdraw} from "react-icons/bi";
 import {GrCurrency} from "react-icons/gr";
 import {BsFillWalletFill} from "react-icons/bs";
+import NewSidebar from "./newSidebar";
+import LogoutBtn from "./LogoutBtn";
 
 
 const Sidebar = ({children, user}) => {
@@ -117,25 +119,31 @@ const Sidebar = ({children, user}) => {
     const userLogo = ['Admin', 'Moder', 'Agent', 'Client']
     return (
         <div className="container-sidebar">
-            <div className="sidebar" style={{width: isOpen ? "300px" : "50px"}}>
+            <div className="sidebar min-vh-100">
                 <div className="top_section">
-                    <h1 style={{display: isOpen ? "block" : "none"}}
-                        className="logo">{user ? userLogo[menuIndex] : 'Home'}</h1>
-                    <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
-                        <FaBars onClick={() => setIsOpen(!isOpen)}/>
-                    </div>
+                    <h1 className="logo d-none d-sm-inline">{user ? userLogo[menuIndex] : 'Home'}</h1>
                 </div>
-                {user ? (
-                    menuItem[menuIndex]?.map((item, index) => (
-                        <NavLink to={item.path} key={index} className="link" activeclassname="active">
-                            <div className="icon">{item.icon}</div>
-                            <div className="link_text" style={{display: isOpen ? "" : "none"}}>{item.name}</div>
-                        </NavLink>
-                    ))) : (
-                    <div>
+                {user ?
+                    (
+                        menuItem[menuIndex]?.map((item, index) => (
+                                <NavLink to={item.path} key={index} className="link nav-item fs-4" activeclassname="active">
+                                    <div className="icon">{item.icon}</div>
+                                    <div className="link_text ms-2 d-none d-sm-inline">{item.name}</div>
+                                </NavLink>
+                            )
+                        )
+                    ) :
+                    (
+                        <div>
 
+                        </div>
+                    )
+                }
+                {
+                    user &&
+                    <div className={"col justify-content-center mt-5"}>
+                        <LogoutBtn/>
                     </div>
-                )
                 }
             </div>
             <main>{children}</main>

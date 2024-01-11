@@ -5,6 +5,8 @@ import {useLocation} from "react-router-dom";
 import {getItem, saveItem} from "../services/LocalStorageService";
 import {useDispatch, useSelector} from "react-redux";
 import {getOrdersToFromParticipant, getOrdersToParticipant} from "../reducers/orderReducer";
+import {roundValue} from "../services/Utils";
+import PendingDepositCard from "./pendingDepositCard";
 
 const PendingDeposit = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -40,37 +42,7 @@ const PendingDeposit = () => {
         <div className={"d-flex justify-content-center"}>
             <p className={"text-secondary"}>Pending deposit</p>
         </div>
-        <table className={"table table-success table-striped table-bordered table-responsive"}>
-            <thead className={"table-light"}>
-            <tr>
-                <th scope={"col"} className={"text-center"}>Payment method</th>
-                <th scope={"col"} className={"text-center"}>Amount</th>
-                <th scope={"col"} className={"text-center"}>Currency</th>
-                <th scope={"col"} className={"text-center"}>Agent's number</th>
-                <th scope={"col"} className={"text-center"}>Status</th>
-                <th scope={"col"} className={"text-center"}>Note</th>
-                <th scope={"col"} className={"text-center"} colSpan={2}>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            {
-                pendingDeposits?.map((pendingDeposit, key) =>
-                    <tr key={key}>
-                        <td className={"text-center"}>{pendingDeposit?.paymentMethod}</td>
-                        <td className={"text-center"}>{pendingDeposit?.amount}</td>
-                        <td className={"text-center"}>{pendingDeposit?.currency}</td>
-                        <td className={"text-center"}>{pendingDeposit?.agentWalletNumber}</td>
-                        <td className={"text-center"}>{pendingDeposit?.status}</td>
-                        <td className={"text-center"}></td>
-                        <td className={"text-center"} onClick={() => handleConfirmDeposit(pendingDeposit)}>Confirm
-                        </td>
-                        <td className={"text-center"} onClick={() => handleCancelDeposit(pendingDeposit)}>Cancel
-                        </td>
-                    </tr>)
-            }
-            </tbody>
-        </table>
-        {pendingDeposits?.length > 0 &&
+        {pendingDeposits?.length > 0 && <div className={"d-flex justify-content-center"}>
             <div className={"text-secondary"}>
                 <p>Send exactly the amount from the pending deposit's request to agent's number using the mentioned
                     payment
@@ -78,8 +50,18 @@ const PendingDeposit = () => {
                 <p>After that, confirm the deposit putting the reference's number.</p>
                 <p><i>The reference's number is the transaction's unique id.</i></p>
             </div>
-        }
+        </div>
 
+        }
+        <div className={"row container mx-auto d-flex justify-content-center mt-2"}>
+            {
+                pendingDeposits?.map((pendingDeposit, key) =>
+                    <PendingDepositCard key={key} pendingDeposit={pendingDeposit}
+                                        handleConfirmDeposit={handleConfirmDeposit}
+                                        handleCancelDeposit={handleCancelDeposit}/>
+                )
+            }
+        </div>
         {
             showCancelModal &&
             <CancelDepositModal handleCancelModal={handleCancelModal} showCancelModal={showCancelModal}

@@ -8,9 +8,6 @@ const CSWHeader = ({title}) => {
             <div className={"col-lg-6 d-flex justify-content-start"}>
                 <h3>{title}</h3>
             </div>
-            <div className={"col-lg-6 d-flex justify-content-end"}>
-                <LogoutBtn/>
-            </div>
         </div>
     );
 };

@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import {AiOutlineArrowUp} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
 import accountService from "../services/accountService";
-import {printError} from "../services/Utils";
+import {printError, roundValue} from "../services/Utils";
 
 const SendModal = ({showModal, handleModal, recipientEmail}) => {
     const sendDetails = useSelector(state => state.send);
@@ -53,7 +53,7 @@ const SendModal = ({showModal, handleModal, recipientEmail}) => {
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <h4 className={"text-secondary"}>You're sending <span
-                        className={"text-body"}> {`${sendDetails?.toAmount} ${sendDetails?.toCurrencyCode}`} </span>
+                        className={"text-body"}> {`${roundValue(sendDetails?.toAmount)} ${sendDetails?.toCurrencyCode}`} </span>
                     </h4>
                     <h4 className={"text-secondary"}>To <span className={"text-body"}>{recipientEmail}</span></h4>
                     <div className={"mt-2"}>

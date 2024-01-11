@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import LogoutBtn from "./LogoutBtn";
-import {useDispatch, useSelector} from "react-redux";
-import {initializeCountries} from "../reducers/countryReducers";
+import {useSelector} from "react-redux";
 import countryService from "../services/CountryService";
 import {printError} from "../services/Utils";
 
 const HomeHeader = ({setSelectedCountry}) => {
-    const dispatch = useDispatch();
     const [countriesToSend, setCountriesToSend] = useState([]);
     const [isLoadingCountriesToSend, setIsLoadingCountriesToSend] = useState(true);
     const getAvailableCountriesToSend = () => {
@@ -39,9 +37,6 @@ const HomeHeader = ({setSelectedCountry}) => {
                         {countriesToSend?.map((country, key) => <option value={country?.countryId}
                                                                         key={key}>{country?.countryName}</option>)}
                     </select>
-                </div>
-                <div className={"col-lg-6 d-flex justify-content-end"}>
-                    <LogoutBtn/>
                 </div>
             </div>
         </div>

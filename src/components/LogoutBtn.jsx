@@ -27,8 +27,8 @@ const LogoutBtn = () => {
     }
 
     return (
-        <button className={"btn btn-danger"} onClick={handleLogout}>
-            <span><i><RiLogoutCircleRLine/></i></span> Logout
+        <button className={"btn btn-danger "} onClick={handleLogout}>
+            <span><i><RiLogoutCircleRLine/></i></span> <span className={'d-none d-sm-inline'}>Logout</span>
         </button>
     );
 };

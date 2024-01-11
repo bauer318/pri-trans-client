@@ -17,13 +17,10 @@ const AccountHeader = ({perform}) => {
     };
     return (
         <div className={"row"}>
-            <div className={"col-lg-6 d-flex justify-content-start"}>
+            <div className={"col-lg-3 d-flex justify-content-start"}>
                 <button className={"btn btn-primary"} onClick={handleModal}>
                     <span><i><TfiWallet/></i></span> Add Balance
                 </button>
-            </div>
-            <div className={"col-lg-6 d-flex justify-content-end"}>
-                <LogoutBtn/>
             </div>
             {showModal &&
                 <AddBalanceModal handleModal={handleModal} showModal={showModal}/>

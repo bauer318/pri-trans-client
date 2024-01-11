@@ -168,7 +168,7 @@ const Send = () => {
 
     }
     return (
-        <div className={"container"}>
+        <div>
             <CSWHeader title={"Send money"}/>
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                 Where

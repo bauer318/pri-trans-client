@@ -16,7 +16,7 @@ const ConvertForm = ({
                      }) => {
     return (
         <div className={"row mt-2"}>
-            <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
+            <div className={"col-md-8 mx-lg-auto d-flex justify-content-center"}>
                 <Form onSubmit={handleSubmit}>
                     <h3>{formTitles.title}</h3>
                     <div className={"border border-secondary"}>
@@ -32,6 +32,7 @@ const ConvertForm = ({
                                     placeholder={fromAmount.toString()}
                                     required={true}
                                     onChange={handleFromAmountChange}
+                                    onPaste={handleFromAmountChange}
                                 />
                             </Form.Group>
                             <div className={"vr"}></div>
@@ -71,7 +72,7 @@ const ConvertForm = ({
                                 />
                             </Form.Group>
                             <div className={"vr"}></div>
-                            <div className={"ms-3"}>
+                            <div className={"ms-3 form-select form-select-sm"}>
                                 <Form.Group>
                                     <Form.Control
                                         as="select"
@@ -80,7 +81,7 @@ const ConvertForm = ({
                                         onChange={handleToCurrencyChange}
                                     >
                                         <option
-                                            value={formTitles?.fromAccountCurrency?.code}>{formTitles?.fromAccountCurrency?.code}</option>
+                                            value={""}>...To</option>
                                         {
                                             currencies.map((currency, key) =>
                                                 <option value={currencies?.currency}
@@ -92,7 +93,7 @@ const ConvertForm = ({
                             </div>
                         </div>
                     </div>
-                    <div className={"mt-2"}>
+                    <div className={"mt-2 mb-2"}>
                         <button className={"btn btn-primary"} type={"submit"}>{formTitles.actionTitle}<span
                             className={"ms-2"}><i>{formTitles.icon}</i></span>
                         </button>
