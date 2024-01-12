@@ -16,8 +16,12 @@ const CreateAccount = () => {
     const [continueTo, setContinueTo] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     useEffect(() => {
-        dispatch(initializeCountries());
+        dispatch(initializeCountries(callBack));
         removeItem('connectedUser');
         removeItem('jwtToken');
     }, []);
@@ -31,10 +35,10 @@ const CreateAccount = () => {
         };
         axios.post(`${baseURL}/login`, registeredUser)
             .then(response => {
-                saveItem("connectedUser", response.data?.userRs);
+                saveItem("loginUSer", response.data?.userRs);
                 saveItem("jwtToken", `Bearer ${response.data?.jwtToken}`);
                 setIsLoading(false);
-                const registeredUser = getItem('connectedUser');
+                const registeredUser = getItem('loginUSer');
                 navigate(`/register/${registeredUser?.userId}/personal-info`);
             })
             .catch(error => {

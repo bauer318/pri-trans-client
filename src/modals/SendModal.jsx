@@ -10,8 +10,11 @@ const SendModal = ({showModal, handleModal, recipientEmail}) => {
     const sendDetails = useSelector(state => state.send);
     const navigate = useNavigate();
     const [receiverAccountId, setReceiverAccountId] = useState();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
 
-    console.log(sendDetails);
     useEffect(() => {
         accountService.getUserMainAccountId(recipientEmail, sendDetails?.toCurrencyCode)
             .then(data => {
@@ -28,15 +31,17 @@ const SendModal = ({showModal, handleModal, recipientEmail}) => {
                 toAccountId: receiverAccountId,
                 rate: sendDetails?.liveRate,
                 amount: sendDetails?.toAmount,
-                fromAmount:sendDetails?.fromAmount,
+                fromAmount: sendDetails?.fromAmount,
                 transactionType: "transfert"
             }
+            setCanWait(true);
             accountService.sendTo(orderRq)
                 .then(orderId => {
                     if (orderId > 0) {
                         console.log(orderId);
                         handleModal();
                         navigate('/client/account');
+                        callBack();
                     }
                 }).catch(error => {
                 printError(error);
@@ -57,7 +62,7 @@ const SendModal = ({showModal, handleModal, recipientEmail}) => {
                     </h4>
                     <h4 className={"text-secondary"}>To <span className={"text-body"}>{recipientEmail}</span></h4>
                     <div className={"mt-2"}>
-                        <button className={"btn btn-primary"} type={"submit"}><span
+                        <button className={"btn btn-primary"} type={"submit"} disabled={canWait}><span
                             className={"me-2"}><i><AiOutlineArrowUp size={28}/></i></span>Send
                         </button>
                     </div>

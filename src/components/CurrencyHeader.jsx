@@ -4,6 +4,7 @@ import {GrCurrency} from "react-icons/gr";
 import AddCurrencyModal from "../modals/AddCurrencyModal";
 import {useDispatch} from "react-redux";
 import {findCurrencyByName, initializeCurrencies} from "../reducers/currencyReducers";
+import LoadingEffect from "./LoadingEffect";
 
 const CurrencyHeader = () => {
     const [showModal, setShowModal] = useState(false);
@@ -11,15 +12,19 @@ const CurrencyHeader = () => {
     const dispatch = useDispatch();
     const [notFound, setNotFound] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     const currencyWasNotFound = () => {
         setNotFound(true);
     }
 
     useEffect(() => {
         if (notFound) {
+            setCanWait(true);
             setErrorMessage("Currency with name " + currency + " was not found");
-            dispatch(initializeCurrencies());
+            dispatch(initializeCurrencies(callBack));
         } else {
             setErrorMessage("");
         }
@@ -58,10 +63,8 @@ const CurrencyHeader = () => {
                 <div className={"col-lg-3"}>
                     {notFound && <span className={"text-center text-danger"}>{errorMessage}</span>}
                 </div>
-                <div className={`col-lg-3 d-flex justify-content-end`}>
-                    <LogoutBtn/>
-                </div>
             </div>
+            {canWait && <div className={"text-center"}><LoadingEffect/></div>}
             {
                 showModal &&
                 <AddCurrencyModal handleModal={handleModal} showModal={showModal}/>

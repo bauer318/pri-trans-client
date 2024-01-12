@@ -4,12 +4,18 @@ import LogoutBtn from "./LogoutBtn";
 import AddBalanceModal from "../modals/AddBalanceModal";
 import {useDispatch} from "react-redux";
 import {initializeAccounts} from "../reducers/accountReducer";
+import LoadingEffect from "./LoadingEffect";
 
 const AccountHeader = ({perform}) => {
     const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     useEffect(() => {
-        dispatch(initializeAccounts());
+        setCanWait(true);
+        dispatch(initializeAccounts(callBack));
         perform();
     }, [showModal]);
     const handleModal = () => {
@@ -22,6 +28,9 @@ const AccountHeader = ({perform}) => {
                     <span><i><TfiWallet/></i></span> Add Balance
                 </button>
             </div>
+            {canWait && <div className={"text-center"}>
+                <LoadingEffect/>
+            </div>}
             {showModal &&
                 <AddBalanceModal handleModal={handleModal} showModal={showModal}/>
             }

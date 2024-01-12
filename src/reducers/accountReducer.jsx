@@ -1,7 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
 import accountService from "../services/accountService";
-import userService from "../services/UserService";
-import {initializeUsers} from "./userReducers";
 
 
 const accountSlice = createSlice({
@@ -17,18 +15,18 @@ const accountSlice = createSlice({
     }
 });
 
-export const initializeAccounts = () => {
+export const initializeAccounts = (callBack) => {
     return async dispatch => {
-        const account = await accountService.getAllByUser();
+        const account = await accountService.getAllByUser(callBack);
         dispatch(setAccounts(account));
     }
 };
 
-export const createAccount = (currencyId) => {
+export const createAccount = (currencyId, callBack) => {
     return async dispatch => {
-        const newAccount = await accountService.createNew(currencyId);
+        const newAccount = await accountService.createNew(currencyId,callBack);
         if (newAccount) {
-            initializeAccounts();
+            initializeAccounts(callBack);
         }
     }
 }

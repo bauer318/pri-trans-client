@@ -5,15 +5,21 @@ import {printError} from "../services/Utils";
 
 const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
     const [formData, setFormData] = useState(depositDetails);
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     const handleSubmit = (event) => {
         event.preventDefault();
         const rejectDepositPut = {
             orderId: formData?.orderId,
             rejectCause: formData?.note
         }
+        setCanWait(true);
         orderService.rejectDepositOrder(rejectDepositPut, true)
             .then(response => {
                 handleModal();
+                callBack();
             }).catch(error => {
             printError(error);
             handleModal();
@@ -81,7 +87,7 @@ const RejectDepositModal = ({depositDetails, showModal, handleModal}) => {
                         />
                     </Form.Group>
                     <div className={"mt-2"}>
-                        <button className={"btn btn-danger"} type={"submit"}>Reject deposit</button>
+                        <button className={"btn btn-danger"} type={"submit"} disabled={canWait}>Reject deposit</button>
                     </div>
                 </Form>
             </Modal.Body>

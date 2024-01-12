@@ -16,6 +16,11 @@ const PaymentMethodAddTable = () => {
     const [refreshTable, setRefreshTable] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
+
     useEffect(() => {
         setIsLoading(true);
         setIsLoading(false);
@@ -41,9 +46,10 @@ const PaymentMethodAddTable = () => {
 
     const handleAddPaymentMethodClick = paymentMethodId => {
         const toAdd = {
-            paymentMethodId:paymentMethodId
+            paymentMethodId: paymentMethodId
         };
-        dispatch(addPaymentMethod(countryId, toAdd));
+        setCanWait(true);
+        dispatch(addPaymentMethod(countryId, toAdd, callBack));
         setRefreshTable(!refreshTable);
     }
     return (
@@ -84,6 +90,7 @@ const PaymentMethodAddTable = () => {
                     className={"ps-2 pe-2"}><FaBackward/></span>Back
                 </button>
             </div>
+            {canWait && <LoadingEffect/>}
         </div>
     )
         ;

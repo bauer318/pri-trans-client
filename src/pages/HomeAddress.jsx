@@ -5,7 +5,7 @@ import {AiOutlineArrowLeft} from "react-icons/ai";
 import {MdPostAdd} from "react-icons/md";
 import {useDispatch} from "react-redux";
 import {createPersonalInfo} from "../reducers/PersonalInfoReducers";
-import {getItem} from "../services/LocalStorageService";
+import {getItem, saveItem} from "../services/LocalStorageService";
 
 const HomeAddress = () => {
     const {state} = useLocation();
@@ -38,7 +38,9 @@ const HomeAddress = () => {
     }
     const toUserHomeCallback = () => {
         setIsLoading(false);
-        redirectTo(getItem('connectedUser')?.userRole.userRole);
+        saveItem("connectedUser", getItem("loginUSer"));
+
+        redirectTo(getItem('loginUSer')?.userRole.userRole);
     }
     const handleSubmit = event => {
         event.preventDefault();
@@ -96,14 +98,16 @@ const HomeAddress = () => {
                     </Form.Group>
 
                     <Form.Group controlId="phone" className={"form-outline mb-4"}>
-                        <Form.Label>Phone</Form.Label>
+                        <Form.Label>Phone [012-345-67-89]</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder={"012-345-67-89"}
                             name="phone"
+                            pattern={"[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"}
                             value={formData?.phone}
                             required={true}
                             onChange={handlePhoneChange}
+                            onPaste={handlePhoneChange}
                         />
                     </Form.Group>
 

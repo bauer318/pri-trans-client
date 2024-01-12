@@ -26,7 +26,6 @@ const SendTo = () => {
     }
 
     useEffect(() => {
-        console.log(sendDetails);
     }, []);
 
     const notFoundCallBack = () => {
@@ -134,7 +133,7 @@ const SendTo = () => {
             {
                 !differentCountry &&
                 <div className={"col-md-8 mx-auto d-flex justify-content-center mt-5"}>
-                    <h5 className={"text-danger"}>You can send only to different country from your</h5>
+                    <h5 className={"text-danger"}>User {recipientEmail} does not live in the selected country</h5>
                 </div>
             }
             {recipientEmail && showModal &&

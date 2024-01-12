@@ -6,17 +6,27 @@ import {AiOutlineArrowDown, AiOutlineArrowUp, AiOutlinePlus} from "react-icons/a
 import CircleBtn from "../components/CircleBtn";
 import {TbArrowsExchange2} from "react-icons/tb";
 import accountService from "../services/accountService";
-import {roundValue} from "../services/Utils";
+import {printError, roundValue} from "../services/Utils";
+import LoadingEffect from "../components/LoadingEffect";
 
 const BalanceItem = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [account, setAccount] = useState(location.state?.selectedAccount);
     const [fundingAccount, setFundingAccount] = useState();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     useEffect(() => {
         const fundingAccountResponse = accountService.getFundingAccount(account?.accountId);
+        setCanWait(true);
         fundingAccountResponse.then(fundingAccount => {
             setFundingAccount(fundingAccount);
+            callBack();
+        }).catch(error => {
+            callBack();
+            printError(error);
         });
     }, []);
 
@@ -53,6 +63,9 @@ const BalanceItem = () => {
                 <h4>{fundingAccount?.currency?.code} {fundingAccount?.accountType?.accountType} balance</h4>
                 <h1>{roundValue(fundingAccount?.balance)} {fundingAccount?.currency?.symbol}</h1>
             </div>}
+            {
+                canWait && <div className={"text-center"}><LoadingEffect/></div>
+            }
 
         </div>
     );

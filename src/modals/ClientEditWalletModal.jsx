@@ -10,31 +10,36 @@ const ClientEditWalletModal = ({wallet, showModal, handleModal}) => {
     const [paymentMethods, setPaymentMethods] = useState([]);
     const [currencies, setCurrencies] = useState([]);
     const dispatch = useDispatch();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     useEffect(() => {
         const user = getItem('connectedUser');
-        setPaymentMethods(user?.country?.paymentMethods.filter(pm=>pm.paymentMethodId!==formData?.paymentMethod?.paymentMethodId));
-        setCurrencies(user?.country?.currencies.filter(currency=>currency.currencyId!==formData?.currency?.currencyId));
+        setPaymentMethods(user?.country?.paymentMethods.filter(pm => pm.paymentMethodId !== formData?.paymentMethod?.paymentMethodId));
+        setCurrencies(user?.country?.currencies.filter(currency => currency.currencyId !== formData?.currency?.currencyId));
     }, []);
 
-    const handleSubmit = event =>{
+    const handleSubmit = event => {
         event.preventDefault();
-        dispatch(updateWallet(formData,formData?.walletId));
+        setCanWait(true)
+        dispatch(updateWallet(formData, formData?.walletId, callBack));
         handleModal();
     }
-    const handlePMChange = event =>{
+    const handlePMChange = event => {
         const pmId = Number(event.target.value);
-        setFormData({...formData,paymentMethod:{paymentMethodId:pmId}});
+        setFormData({...formData, paymentMethod: {paymentMethodId: pmId}});
     }
 
 
-    const handleChange = event=>{
-        const {name,value}= event.target;
-        setFormData({...formData, [name]:value});
+    const handleChange = event => {
+        const {name, value} = event.target;
+        setFormData({...formData, [name]: value});
     }
 
-    const handleCurrencyChange = event =>{
+    const handleCurrencyChange = event => {
         const currencyId = Number(event.target.value);
-        setFormData({...formData,currency:{currencyId:currencyId}});
+        setFormData({...formData, currency: {currencyId: currencyId}});
     }
 
     return (
@@ -52,10 +57,12 @@ const ClientEditWalletModal = ({wallet, showModal, handleModal}) => {
                             required={true}
                             onChange={handlePMChange}
                         >
-                            <option value={formData?.paymentMethod?.paymentMethodId}>{formData?.paymentMethod?.paymentMethod}</option>
+                            <option
+                                value={formData?.paymentMethod?.paymentMethodId}>{formData?.paymentMethod?.paymentMethod}</option>
                             {
                                 paymentMethods?.map(pm =>
-                                    <option value={pm.paymentMethodId} key={pm.paymentMethodId}>{pm.paymentMethod}</option>
+                                    <option value={pm.paymentMethodId}
+                                            key={pm.paymentMethodId}>{pm.paymentMethod}</option>
                                 )
                             }
                         </Form.Control>
@@ -72,7 +79,8 @@ const ClientEditWalletModal = ({wallet, showModal, handleModal}) => {
                             <option value={formData?.currency?.currencyId}>{formData?.currency?.currency}</option>
                             {
                                 currencies?.map(currency =>
-                                    <option value={currency?.currencyId} key={currency?.currencyId}>{currency?.currency} , {currency?.symbol}</option>
+                                    <option value={currency?.currencyId}
+                                            key={currency?.currencyId}>{currency?.currency} , {currency?.symbol}</option>
                                 )
                             }
                         </Form.Control>
@@ -101,7 +109,8 @@ const ClientEditWalletModal = ({wallet, showModal, handleModal}) => {
                         />
                     </Form.Group>
                     <div className={"mt-2"}>
-                        <button className={"btn btn-primary"} type={"submit"}><span className={"me-2"}><i><BsSave/></i></span>Save
+                        <button className={"btn btn-primary"} type={"submit"} disabled={canWait}><span
+                            className={"me-2"}><i><BsSave/></i></span>Save
                         </button>
                     </div>
                 </Form>

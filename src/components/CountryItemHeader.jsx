@@ -21,9 +21,6 @@ const CountryItemHeader = () => {
                         <span><i><FaExchangeAlt/></i></span> Add payment method
                     </button>
                 </div>
-                <div className={"col-lg-6 d-flex justify-content-end"}>
-                    <LogoutBtn/>
-                </div>
             </div>
         </div>
     );

@@ -23,9 +23,9 @@ export const createCurrency = currency => {
         dispatch(appendCurrency(newCurrency));
     }
 }
-export const initializeCurrencies = () => {
+export const initializeCurrencies = (callBack) => {
     return async dispatch => {
-        const currencies = await currencyService.getAll();
+        const currencies = await currencyService.getAll(callBack);
         dispatch(setCurrencies(currencies));
     }
 }

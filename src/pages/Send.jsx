@@ -9,7 +9,6 @@ import ConvertForm from "../components/ConvertForm";
 import {AiOutlineArrowRight} from "react-icons/ai";
 import {useLocation, useNavigate} from "react-router-dom";
 import {initializeCurrencies} from "../reducers/currencyReducers";
-import {saveItem} from "../services/LocalStorageService";
 import axios from "axios";
 import {baseURL, getToken, printError} from "../services/Utils";
 import {Form} from "react-bootstrap";
@@ -31,7 +30,6 @@ const Send = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [fromAccount, setFromAccount] = useState();
-    const [toCurrency, setToCurrency] = useState();
     const [canSend, setCanSend] = useState(false);
     const [countries, setCountries] = useState([]);
     const [isLoadingCountriesToSend, setIsLoadingCountriesToSend] = useState(true);
@@ -41,13 +39,16 @@ const Send = () => {
     const [usdFromCurrencyRate, setUsdFromCurrencyRate] = useState(1.0);
     const [usdToCurrencyRate, setUsdToCurrencyRate] = useState(1.0);
     const [isCalculating, setIsCalculating] = useState(false);
-
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     const debouncedToAmount = useDebounce(fromAmount, 500);
     const debouncedRate = useDebounce(toStrCurrencyCode, 500);
     useEffect(() => {
         dispatch(getRate(baseCurrency));
-        dispatch(initializeCurrencies());
-        dispatch(initializeCountries());
+        dispatch(initializeCurrencies(callBack));
+        dispatch(initializeCountries(callBack));
         const currentAccount = location?.state?.currentAccount;
         setAccount(currentAccount);
         setFromAccount(currentAccount);
@@ -160,7 +161,7 @@ const Send = () => {
         if (selectedCountry !== "") {
             setIsDestinationSelected(true)
             const c = countries.filter(country => country?.countryId === Number(selectedCountry))[0]
-            setCurrencies(c.currencies.filter(currency => currency.currencyId !== account?.currency?.currencyId));
+            setCurrencies(c.currencies);//.filter(currency => currency.currencyId !== account?.currency?.currencyId));
             setCountryId(c.countryId);
         } else {
             setIsDestinationSelected(false)

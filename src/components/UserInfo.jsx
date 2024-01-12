@@ -9,14 +9,18 @@ const UserInfo = () => {
     const [canWait, setCanWait] = useState(false);
     const userId = Number(match.params?.id);
     const dispatch = useDispatch();
+    const [notFound, setNotFound] = useState(false);
+    const notFoundUserInfoCallback = () => {
+        setNotFound(true);
+    }
     useEffect(() => {
         setCanWait(true);
-        dispatch(initializePersonalInfo(userId))
+        setNotFound(false);
+        dispatch(initializePersonalInfo(userId, notFoundUserInfoCallback))
         setCanWait(false);
     }, []);
     const personalInfo = useSelector(state => state.personalInfo);
     const user = useSelector(state => state.users.find(user => user.userId === userId));
-    console.log(personalInfo);
     const roleStr = (role) => {
         switch (role) {
             case 1:
@@ -32,7 +36,7 @@ const UserInfo = () => {
         }
     }
     return (
-        <>{personalInfo.length > 0 && !canWait ?
+        <>{personalInfo && !notFound && !canWait ?
             (<div>
                 <div className={"row"}>
                     <div className={"col-4"}>
@@ -51,7 +55,7 @@ const UserInfo = () => {
                         <h3>{personalInfo?.birthdate}</h3>
                     </div>
                 </div>
-            </div>) : !canWait ? <div> Not personal info for this user </div>:(<LoadingEffect/>)}
+            </div>) : !canWait ? <div> Not personal info for this user </div> : (<LoadingEffect/>)}
         </>
     );
 };

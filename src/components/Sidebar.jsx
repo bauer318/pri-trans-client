@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {FaBars, FaCity, FaExchangeAlt, FaHistory, FaUsers} from 'react-icons/fa';
+import {FaCity, FaExchangeAlt, FaHistory, FaUsers} from 'react-icons/fa';
 import {NavLink} from "react-router-dom";
 import {HiHome, HiUsers} from "react-icons/hi";
 import {MdOutlineAccountBalanceWallet} from "react-icons/md";
@@ -7,8 +7,8 @@ import {RiLuggageDepositLine} from "react-icons/ri";
 import {BiMoneyWithdraw} from "react-icons/bi";
 import {GrCurrency} from "react-icons/gr";
 import {BsFillWalletFill} from "react-icons/bs";
-import NewSidebar from "./newSidebar";
 import LogoutBtn from "./LogoutBtn";
+import {FiSettings} from "react-icons/fi";
 
 
 const Sidebar = ({children, user}) => {
@@ -141,10 +141,16 @@ const Sidebar = ({children, user}) => {
                 }
                 {
                     user &&
-                    <div className={"col justify-content-center mt-5"}>
+                    <div className={"col d-flex justify-content-center mt-5"}>
                         <LogoutBtn/>
                     </div>
                 }
+                <hr className={"mt-5"}/>
+                <NavLink to={"https://forms.yandex.ru/cloud/65a1190b2530c22b1d534c82/"}
+                         className="link nav-item fs-1" activeclassname="active">
+                    <div className="icon"><FiSettings/></div>
+                    <div className="link_text ms-2 d-none d-sm-inline">{"Something to fix"}</div>
+                </NavLink>
             </div>
             <main>{children}</main>
         </div>

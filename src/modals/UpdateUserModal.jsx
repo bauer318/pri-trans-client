@@ -17,11 +17,15 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
     const [updatedRole, setUpdatedRole] = useState(user?.userRole);
     const [updatedCountry, setUpdatedCountry] = useState(user?.country);
     const [roles, setRoles] = useState([]);
-
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(initializeCountries());
+        setCanWait(true);
+        dispatch(initializeCountries(callBack));
         getAll().then(response => setRoles(response));
     }, []);
     const countries = useSelector(state => state.countries);

@@ -11,14 +11,20 @@ import userService from '../services/UserService'
 const AddUserModal = ({showModal, handleModal}) => {
     const [formData, setFormData] = useState({});
     const dispatch = useDispatch();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     useEffect(() => {
-        dispatch(initializeCountries());
+        setCanWait(true);
+        dispatch(initializeCountries(callBack));
     }, []);
     const countries = useSelector(state => state.countries);
     const handleSubmit = (event) => {
         event.preventDefault();
+        setCanWait(true);
         userService.createNew(formData)
-            .then(r => console.log(r));
+            .then(r => setCanWait(false));
         dispatch(initializeUsers());
         handleModal();
     };
@@ -33,7 +39,7 @@ const AddUserModal = ({showModal, handleModal}) => {
         role.then(res => setFormData({...formData, [name]: res}));
     }
 
-    const handleCountryChange = (event)=>{
+    const handleCountryChange = (event) => {
         const {name, value} = event.target;
         const country = getById(value);
         country.then(res => setFormData({...formData, [name]: res}));
@@ -80,7 +86,8 @@ const AddUserModal = ({showModal, handleModal}) => {
                             <option value="">Select user's country</option>
                             {
                                 countries?.map(country =>
-                                    <option value={country.countryId} key={country.countryId}>{country.countryName}</option>
+                                    <option value={country.countryId}
+                                            key={country.countryId}>{country.countryName}</option>
                                 )
                             }
                         </Form.Control>
@@ -97,7 +104,8 @@ const AddUserModal = ({showModal, handleModal}) => {
                         />
                     </Form.Group>
                     <div className={"mt-2"}>
-                        <button className={"btn btn-primary"} type={"submit"}><span className={"me-2"}><i><ImUserPlus/></i></span>Add
+                        <button className={"btn btn-primary"} type={"submit"} disabled={canWait}><span
+                            className={"me-2"}><i><ImUserPlus/></i></span>Add
                         </button>
                     </div>
                 </Form>

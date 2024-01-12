@@ -7,6 +7,7 @@ import orderService from "../services/orderService";
 import {printError} from "../services/Utils";
 import LoadingEffect from "../components/LoadingEffect";
 import countryService from "../services/CountryService";
+import {refreshP} from "../App";
 
 const ClientHome = () => {
     const [isLoadingFromOrder, setIsLoadingFromOrder] = useState(false);
@@ -18,6 +19,7 @@ const ClientHome = () => {
     const [selectedCountry, setSelectedCountry] = useState();
     useEffect(() => {
         const connectedUser = getItem("connectedUser");
+        refreshP();
         setFromCountry(connectedUser?.country)
         if (selectedCountryId) {
             setIsLoadingFromOrder(true);

@@ -15,9 +15,9 @@ const countrySlice = createSlice({
     }
 });
 
-export const initializeCountries = () => {
+export const initializeCountries = (callBack) => {
     return async dispatch => {
-        const countries = await countryService.getAll();
+        const countries = await countryService.getAll(callBack);
         dispatch(setCountries(countries));
     }
 }
@@ -29,34 +29,34 @@ export const createCountry = country => {
     }
 }
 
-export const updateCountry = (id, country) => {
+export const updateCountry = (id, country,callBack) => {
     return async dispatch => {
         await countryService.update(id, country);
-        const countries = await countryService.getAll();
+        const countries = await countryService.getAll(callBack);
         dispatch(setCountries(countries));
     }
 }
 
-export const deleteCountry = id => {
+export const deleteCountry = (id,callBack) => {
     return async dispatch => {
         await countryService.deleteCountry(id);
-        const countries = await countryService.getAll();
+        const countries = await countryService.getAll(callBack);
         dispatch(setCountries(countries));
     }
 }
 
-export const addPaymentMethod = (id, paymentMethod) => {
+export const addPaymentMethod = (id, paymentMethod,callBack) => {
     return async dispatch => {
         await countryService.addPaymentMethod(id, paymentMethod);
-        const countries = await countryService.getAll();
+        const countries = await countryService.getAll(callBack);
         dispatch(setCountries(countries));
     }
 }
 
-export const addCurrency = (id, currency) => {
+export const addCurrency = (id, currency,callBack) => {
     return async dispatch => {
         await countryService.addCurrency(id, currency);
-        const countries = await countryService.getAll();
+        const countries = await countryService.getAll(callBack);
         dispatch(setCountries(countries));
     }
 }

@@ -15,15 +15,15 @@ const paymentMethodSlice = createSlice({
     }
 });
 
-export const createNewPaymentMethod = paymentMethod => {
+export const createNewPaymentMethod = (paymentMethod,callBack) => {
     return async dispatch => {
-        const newPm = await pmService.createNew(paymentMethod);
+        const newPm = await pmService.createNew(paymentMethod, callBack);
         dispatch(appendPaymentMethod(newPm));
     }
 }
-export const initializePaymentMethods = () => {
+export const initializePaymentMethods = (callBack) => {
     return async dispatch => {
-        const pm = await pmService.getAll();
+        const pm = await pmService.getAll(callBack);
         dispatch(setPaymentMethods(pm));
     }
 }

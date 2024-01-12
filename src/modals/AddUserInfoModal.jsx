@@ -6,7 +6,6 @@ const AddUserInfoModal = ({showModal, handleModal, userId}) => {
     const [formData, setFormData] = useState({});
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(formData);
         handleModal();
     };
     const handleChange = (event) => {

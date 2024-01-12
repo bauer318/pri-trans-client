@@ -3,12 +3,13 @@ import axios from "axios";
 
 const baseUrl = baseURL.concat('/accounts');
 
-const createNew = async (currencyId) => {
+const createNew = async (currencyId,callBack) => {
     const object = {
         currencyId: currencyId
     };
     try {
         const response = await axios.post(baseUrl, object, {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
         printError(error);
@@ -25,18 +26,20 @@ const sendTo = async orderRq => {
     }
 }
 
-const withdraw = async orderRq => {
+const withdraw = async (orderRq,callBack) => {
     try {
         const response = await axios.post(baseUrl.concat(`/withdraw`), orderRq, {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
         printError(error);
     }
 }
 
-const getAllByUser = async () => {
+const getAllByUser = async (callBack) => {
     try {
         const response = await axios.get(baseUrl.concat("/all-user-accounts"), {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
         printError(error);
@@ -70,9 +73,10 @@ const getAgentAccountWithMax = async agentAccountRq => {
     }
 }
 
-const deposit = async depositRq => {
+const deposit = async (depositRq,callBack) => {
     try {
         const response = await axios.post(baseUrl.concat(`/deposit`), depositRq, {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
         printError(error);

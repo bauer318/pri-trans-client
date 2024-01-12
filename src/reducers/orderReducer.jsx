@@ -36,9 +36,9 @@ export const getWithdrawOrdersToAgent = toAgentId => {
         dispatch(setOrders(orders));
     }
 }
-export const getOrderHistory = (participantId, isClient) => {
+export const getOrderHistory = (participantId, isClient,callBack) => {
     return async dispatch => {
-        const orders = await orderService.getOrderHistory(participantId, isClient);
+        const orders = await orderService.getOrderHistory(participantId, isClient,callBack);
         dispatch(setOrders(orders));
     }
 }

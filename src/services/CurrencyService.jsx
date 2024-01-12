@@ -3,11 +3,13 @@ import instance, {baseURL, getToken, printError} from "./Utils";
 
 const baseUrl = baseURL.concat('/currencies');
 
-const getAll = async () => {
+const getAll = async (callBack) => {
     try {
         const response = await axios.get(baseUrl, {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
+        callBack();
         printError(error);
     }
 }

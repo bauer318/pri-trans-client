@@ -1,8 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
 import walletService from "../services/walletService";
-import userService from "../services/UserService";
-import {initializeUsers} from "./userReducers";
-import async from "async";
 
 const walletSlice = createSlice({
     name: 'wallet',
@@ -26,19 +23,19 @@ export const createWallet = wallet => {
     }
 }
 
-export const getWalletsByParticipant = participantId=>{
+export const getWalletsByParticipant = (participantId, callBack) => {
     return async dispatch => {
-        const wallets = await walletService.getAllByUser(participantId);
+        const wallets = await walletService.getAllByUser(participantId, callBack);
         if (wallets) {
             dispatch(setWallets(wallets));
         }
     }
 }
 
-export const updateWallet = (wallet, id) =>{
-    return async  dispatch=>{
-        const updatedWallet = await walletService.updateWallet(wallet,id);
-        if(updatedWallet){
+export const updateWallet = (wallet, id, callBack) => {
+    return async dispatch => {
+        const updatedWallet = await walletService.updateWallet(wallet, id, callBack);
+        if (updatedWallet) {
             getWalletsByParticipant(wallet?.participantId);
         }
     }

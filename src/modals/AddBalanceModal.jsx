@@ -11,6 +11,10 @@ const AddBalanceModal = ({showModal, handleModal}) => {
     const dispatch = useDispatch();
     const [currencyId, setCurrencyId] = useState(0);
     const [notify, setNotify] = useState(false);
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     useEffect(() => {
         const user = getItem('connectedUser');
         dispatch(initializeNeedUserCurrencies(user?.userId));
@@ -20,7 +24,8 @@ const AddBalanceModal = ({showModal, handleModal}) => {
         setNotify(true);
         event.preventDefault();
         if (currencyId > 0) {
-            dispatch(createAccount(currencyId));
+            setCanWait(true);
+            dispatch(createAccount(currencyId, callBack));
         }
         handleModal();
     }
@@ -37,7 +42,6 @@ const AddBalanceModal = ({showModal, handleModal}) => {
                     <Modal.Title>Open a balance</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicMainCurrency">
                             <Form.Label>Balance's devise</Form.Label>
@@ -56,7 +60,7 @@ const AddBalanceModal = ({showModal, handleModal}) => {
                             </Form.Control>
                         </Form.Group>
                         <div className={"mt-2"}>
-                            <button className={"btn btn-primary"} type={"submit"}><span
+                            <button className={"btn btn-primary"} type={"submit"} disabled={canWait}><span
                                 className={"me-2"}><i><TfiWallet/></i></span>Open
                             </button>
                         </div>

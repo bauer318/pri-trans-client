@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
-import {useDispatch} from "react-redux";
 import orderService from "../services/orderService";
+import {printError} from "../services/Utils";
 
 const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleConfirmModal}) => {
     const [formData, setFormData] = useState(depositDetails);
-    const dispatch = useDispatch();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -14,9 +17,15 @@ const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleC
             paidAmount: depositDetails?.amount,
             reference: formData?.reference
         }
-        orderService.confirmDeposit(orderDetails, !isAgent).then(resp =>
-            handleConfirmModal()
-        )
+        setCanWait(true);
+        orderService.confirmDeposit(orderDetails, !isAgent)
+            .then(resp => {
+                    handleConfirmModal();
+                    setCanWait(false);
+                }
+            ).catch(error => {
+            printError(error);
+        })
     }
     const handleChange = event => {
         const {value, name} = event.target;
@@ -76,7 +85,8 @@ const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleC
                         />
                     </Form.Group>
                     <div className={"mt-2"}>
-                        <button className={"btn btn-primary"} type={"submit"}>Confirm deposit</button>
+                        <button className={"btn btn-primary"} type={"submit"} disabled={canWait}>Confirm deposit
+                        </button>
                     </div>
                 </Form>
             </Modal.Body>

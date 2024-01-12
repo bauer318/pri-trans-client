@@ -14,7 +14,10 @@ const NewDeposit = () => {
     const location = useLocation();
     const [formDetails, setFormDetails] = useState({});
     const [connectedUser, setConnectedUser] = useState();
-
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     useEffect(() => {
         const currentAccount = location?.state?.currentAccount;
         setAccount(currentAccount);
@@ -36,7 +39,8 @@ const NewDeposit = () => {
         const agentAccountMin = accountService.getAgentAccountWithMin(agentAccountRq);
         agentAccountMin.then(accountResponse => {
             const depositRq = getDepositRq(accountResponse?.accountId);
-            accountService.deposit(depositRq).then(
+            setCanWait(true);
+            accountService.deposit(depositRq,callBack).then(
                 response => {
                     if (response) {
                         navigate('/client/account/deposit/confirm', {

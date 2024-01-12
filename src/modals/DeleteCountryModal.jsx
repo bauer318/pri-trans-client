@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {FaCity} from "react-icons/fa";
 import {useDispatch} from "react-redux";
@@ -8,9 +8,15 @@ import {useNavigate} from "react-router-dom";
 const DeleteCountryModal = ({showModal, handleModal, country}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(deleteCountry(country?.countryId));
+        setCanWait(true);
+        dispatch(deleteCountry(country?.countryId,callBack));
         navigate('/admin/countries');
     };
     return (
@@ -45,7 +51,7 @@ const DeleteCountryModal = ({showModal, handleModal, country}) => {
                         />
                     </Form.Group>
                     <div className={"mt-2"}>
-                        <button className={"btn btn-danger"} type={"submit"}><span
+                        <button className={"btn btn-danger"} type={"submit"} disabled={canWait}><span
                             className={"me-2"}><i><FaCity/></i></span>Delete
                         </button>
                     </div>

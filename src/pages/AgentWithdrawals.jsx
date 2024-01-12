@@ -7,6 +7,8 @@ import RejectWithdrawalsModal from "../modals/RejectWithdrawalsModal";
 import {useDispatch, useSelector} from "react-redux";
 import {getItem} from "../services/LocalStorageService";
 import {getWithdrawOrdersToAgent} from "../reducers/orderReducer";
+import AgentPendingDepositCard from "../components/agentPendingDepositCard";
+import AgentPendingWithdrawCard from "../components/AgentPendingWithdrawCard";
 
 const AgentWithdrawals = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -17,7 +19,7 @@ const AgentWithdrawals = () => {
     useEffect(() => {
         const connectedUser = getItem("connectedUser");
         dispatch(getWithdrawOrdersToAgent(connectedUser?.userId));
-    }, [showConfirmModal]);
+    }, [showConfirmModal,showRejectModal]);
 
     const pendingWithdrawals = useSelector(state => state.orders);
 
@@ -50,34 +52,15 @@ const AgentWithdrawals = () => {
     return (
         <div className={"container"}>
             <CSWHeader title={"Withdrawals"}/>
-            <table className={"table table-success table-striped table-bordered table-responsive mt-3"}>
-                <thead className={"table-light"}>
-                <tr>
-                    <th scope={"col"}>Date and time</th>
-                    <th scope={"col"}>Amount</th>
-                    <th scope={"col"}>Client wallet's number</th>
-                    <th scope={"col"}>Client wallet's name</th>
-                    <th scope={"col"}>Payment method</th>
-                    <th scope={"col"} className={"text-center"} colSpan={2}>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {pendingWithdrawals?.map((withdrawal, key) =>
-                    <tr key={key}>
-                        <td>{withdrawal?.createdAt}</td>
-                        <td>{withdrawal?.amount} {withdrawal?.currency}</td>
-                        <td>{withdrawal?.clientWalletNumber}</td>
-                        <td>{withdrawal?.ownerName}</td>
-                        <td>{withdrawal?.paymentMethod}</td>
-                        <td className={"text-center"} onClick={() => handleConfirmWithdraw(withdrawal)}>
-                            <GiConfirmed/>
-                        </td>
-                        <td className={"text-center"} onClick={() => handleRejectWithdraw(withdrawal)}>
-                            <MdDoNotDisturbAlt/></td>
-                    </tr>
-                )}
-                </tbody>
-            </table>
+            <div className={"row container mx-auto d-flex justify-content-center mt-2"}>
+                {
+                    pendingWithdrawals?.map((withdrawal, key) =>
+                        <AgentPendingWithdrawCard key={key} pendingWithdrawals={withdrawal}
+                                                  handleConfirmWithdraw={handleConfirmWithdraw}
+                                                  handleRejectWithdraw={handleRejectWithdraw}/>
+                    )
+                }
+            </div>
             {
                 withdrawDetails && showConfirmModal &&
                 <ConfirmWithdrawModal handleModal={handleConfirmModal} showModal={showConfirmModal} isAgent={true}

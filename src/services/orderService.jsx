@@ -66,11 +66,13 @@ const getWithdrawOrders = async fromToParticipantId => {
     }
 }
 
-const getOrderHistory = async (participantId, isClient) => {
+const getOrderHistory = async (participantId, isClient, callBack) => {
     try {
         const response = await axios.get(baseUrl.concat(`/history/${participantId}/${isClient}`), {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
+        callBack();
         printError(error);
     }
 }

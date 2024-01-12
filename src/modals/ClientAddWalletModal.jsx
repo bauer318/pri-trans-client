@@ -12,27 +12,26 @@ const ClientAddWalletModal = ({showModal, handleModal}) => {
     const [currencies, setCurrencies] = useState([]);
     useEffect(() => {
         const user = getItem('connectedUser');
-        setFormData({...formData, participantId:user?.userId});
+        setFormData({...formData, participantId: user?.userId});
         setPaymentMethods(user?.country?.paymentMethods);
         setCurrencies(user?.country?.currencies);
     }, []);
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(formData);
         dispatch(createWallet(formData));
         handleModal();
     }
     const handlePMChange = event => {
         const id = Number(event.target.value);
-        if(id)
-        setFormData({...formData, paymentMethod:{paymentMethodId:id}});
+        if (id)
+            setFormData({...formData, paymentMethod: {paymentMethodId: id}});
     }
 
-    const handleCurrencyChange = event=>{
+    const handleCurrencyChange = event => {
         const id = Number(event.target.value);
-        if(id){
-            setFormData({...formData, currency:{currencyId:id}});
+        if (id) {
+            setFormData({...formData, currency: {currencyId: id}});
         }
     }
     const handleChange = event => {
@@ -57,7 +56,8 @@ const ClientAddWalletModal = ({showModal, handleModal}) => {
                             <option value="">Select payment method</option>
                             {
                                 paymentMethods?.map(pm =>
-                                    <option value={pm.paymentMethodId} key={pm.paymentMethodId}>{pm.paymentMethod}</option>
+                                    <option value={pm.paymentMethodId}
+                                            key={pm.paymentMethodId}>{pm.paymentMethod}</option>
                                 )
                             }
                         </Form.Control>
@@ -74,14 +74,15 @@ const ClientAddWalletModal = ({showModal, handleModal}) => {
                             <option value="">Select currency</option>
                             {
                                 currencies?.map(currency =>
-                                    <option value={currency?.currencyId} key={currency?.currencyId}>{currency?.currency} , {currency?.symbol}</option>
+                                    <option value={currency?.currencyId}
+                                            key={currency?.currencyId}>{currency?.currency} , {currency?.symbol}</option>
                                 )
                             }
                         </Form.Control>
                     </Form.Group>
 
                     <Form.Group controlId="num">
-                        <Form.Label>Number</Form.Label>
+                        <Form.Label>Number [Phone or credit card]</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder={"Phone number or credit card number"}

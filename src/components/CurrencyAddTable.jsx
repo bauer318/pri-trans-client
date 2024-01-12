@@ -15,9 +15,13 @@ const CurrencyAddTable = () => {
     const dispatch = useDispatch();
     const [refreshTable, setRefreshTable] = useState(false);
     const navigate = useNavigate();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
 
     useEffect(() => {
-        console.log(refreshTable);
+
     }, [refreshTable]);
 
     const containsCurrency = currencyId => {
@@ -40,7 +44,8 @@ const CurrencyAddTable = () => {
 
     const handleAddCurrencyClick = currencyId => {
         const addedCurrency = currencies.find(currency => currency.currencyId === currencyId);
-        dispatch(addCurrency(countryId, addedCurrency));
+        setCanWait(true);
+        dispatch(addCurrency(countryId, addedCurrency, callBack));
         setRefreshTable(!refreshTable);
     }
 
@@ -79,6 +84,7 @@ const CurrencyAddTable = () => {
                     className={"ps-2 pe-2"}><FaBackward/></span>Back
                 </button>
             </div>
+            {canWait && <LoadingEffect/>}
         </div>
     );
 };

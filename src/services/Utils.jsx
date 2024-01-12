@@ -42,19 +42,19 @@ export const getUserSortRq = (roleKey, authStatus) => {
 
 export const printError = (error) => {
     if (error.response) {
-        console.log('error response data ', error.response.data);
+        /*console.log('error response data ', error.response.data);
         console.log('error response status ', error.response.status);
-        console.log('error response headers ', error.response.headers);
+        console.log('error response headers ', error.response.headers);*/
         if (error?.response?.status === 403) {
             callBackRemoveData();
             window.location = "/";
 
         }
     } else if (error.request) {
-        console.log('error request ', error.request);
+        //console.log('error request ', error.request);
         alert("Something went wrong please try again later");
     } else {
-        console.log('others error', error.message);
+        //console.log('others error', error.message);
     }
 }
 
@@ -91,7 +91,32 @@ const countriesAPI = () => {
             code: 'AO',
             iso: 'AGO',
             phoneCode: '+244'
+        },
+        {
+            name: 'Cameroon',
+            code: 'CM',
+            iso: 'CMR',
+            phoneCode: '+237'
+        },
+        {
+            name: 'CONGO',
+            code: 'CG',
+            iso: 'COG',
+            phoneCode: '+242'
+        },
+        {
+            name: 'Ivory Coast',
+            code: 'CI',
+            iso: 'CIV',
+            phoneCode: '+225'
+        },
+        {
+            name: 'Benin',
+            code: 'BJ',
+            iso: 'BEN',
+            phoneCode: '+229'
         }
+
     ]
 }
 
@@ -121,7 +146,18 @@ const currenciesAPI = () => {
             name: 'United States dollar',
             code: 'USD',
             symbol: '$'
-        }
+        },
+        {
+            name: 'Central African CFA franc',
+            code: 'XAF',
+            symbol: 'F.CFA'
+        },
+        {
+            name: 'West African CFA franc',
+            code: 'XOF',
+            symbol: 'F.CFA'
+        },
+
     ]
 }
 

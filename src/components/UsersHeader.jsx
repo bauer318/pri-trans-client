@@ -12,7 +12,6 @@ const UsersHeader = () => {
     const [isOnline, setIsOnline] = useState(false);
     const [authStatus, setAuthStatus] = useState(1);
     const dispatch = useDispatch();
-    const [roles, setRoles] = useState([]);
     const handleModal = () => {
         setShowModal(!showModal);
     };
@@ -23,9 +22,6 @@ const UsersHeader = () => {
     }
 
     const sortUser = (role, isOnline) => {
-        console.log('role ', role);
-        console.log('online ', isOnline);
-        console.log('role auth status ', getUserSortRq(role, isOnline));
         if (role === 1) {
             if (authStatus === 1) {
                 dispatch(initializeUsers());
@@ -74,9 +70,6 @@ const UsersHeader = () => {
                     <button className={"btn btn-primary"} onClick={handleModal}>
                         <span><i><ImUserPlus/></i></span> Add user
                     </button>
-                </div>
-                <div className={"col-lg-3 d-flex justify-content-end"}>
-                    <LogoutBtn/>
                 </div>
             </div>
             {showModal &&

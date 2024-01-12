@@ -12,11 +12,16 @@ const AddCountryModal = ({showModal, handleModal}) => {
     const [mainCountryCurrency, setMainCountryCurrency] = useState([]);
     const [mainCountryPaymentMethod, setMainCountryPaymentMethod] = useState([]);
     const dispatch = useDispatch();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = ()=>{
+        setCanWait(false);
+    }
     useEffect(() => {
-        dispatch(initializePaymentMethods())
+        setCanWait(true);
+        dispatch(initializePaymentMethods(callBack))
     }, []);
     useEffect(() => {
-        dispatch(initializeCurrencies())
+        dispatch(initializeCurrencies(callBack))
     }, []);
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -25,9 +30,7 @@ const AddCountryModal = ({showModal, handleModal}) => {
             countryName:countryFromAPI?.name,
             countryCode:countryFromAPI?.code,
             countryIso:countryFromAPI?.iso,
-            phoneCode:countryFromAPI?.phoneCode,
-            currencies: [mainCountryCurrency],
-            paymentMethods: [mainCountryPaymentMethod]
+            phoneCode:countryFromAPI?.phoneCode
         }
         dispatch(createCountry(newCountry));
         handleModal();
@@ -66,7 +69,7 @@ const AddCountryModal = ({showModal, handleModal}) => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="formBasicMainCurrency">
+                    {/*<Form.Group controlId="formBasicMainCurrency">
                         <Form.Label>Main currency</Form.Label>
                         <Form.Control as="select"
                                       name="currencies"
@@ -95,9 +98,9 @@ const AddCountryModal = ({showModal, handleModal}) => {
                             }
 
                         </Form.Control>
-                    </Form.Group>
+                    </Form.Group>*/}
                     <div className={"mt-2"}>
-                        <button className={"btn btn-primary"} type={"submit"}><span className={"me-2"}><i><FaCity/></i></span>Add
+                        <button className={"btn btn-primary"} type={"submit"} disabled={canWait}><span className={"me-2"}><i><FaCity/></i></span>Add
                         </button>
                     </div>
                 </Form>

@@ -3,16 +3,28 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {BiArrowBack} from "react-icons/bi";
 import LogoutBtn from "../components/LogoutBtn";
 import accountService from "../services/accountService";
-import {roundValue} from "../services/Utils";
+import {printError, roundValue} from "../services/Utils";
+import LoadingEffect from "../components/LoadingEffect";
 
 const AgentBalanceItem = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [account, setAccount] = useState(location.state?.selectedAccount);
     const [fundingAccount, setFundingAccount] = useState();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     useEffect(() => {
         const fundingAccountResponse = accountService.getFundingAccount(account?.accountId);
-        fundingAccountResponse.then(fundingAccount => setFundingAccount(fundingAccount));
+        setCanWait(true);
+        fundingAccountResponse.then(fundingAccount => {
+            setFundingAccount(fundingAccount);
+            callBack();
+        }).catch(error => {
+            printError(error);
+            callBack();
+        });
     }, []);
 
     return (
@@ -23,9 +35,6 @@ const AgentBalanceItem = () => {
                         navigate("/agent/account")
                     }}><span><i><BiArrowBack size={28}/></i></span> Back
                     </button>
-                </div>
-                <div className={"col-lg-6 d-flex justify-content-end"}>
-                    <LogoutBtn/>
                 </div>
             </div>
             <div className={"row mt-5"}>
@@ -39,6 +48,7 @@ const AgentBalanceItem = () => {
                 <h4>{fundingAccount?.currency?.code} {fundingAccount?.accountType?.accountType} balance</h4>
                 <h1>{roundValue(fundingAccount?.balance)} {fundingAccount?.currency?.symbol}</h1>
             </div>}
+            {canWait && <div className={"text-center"}><LoadingEffect/></div>}
         </div>
     );
 };

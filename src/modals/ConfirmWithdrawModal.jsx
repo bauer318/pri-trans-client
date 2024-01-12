@@ -10,6 +10,10 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
     const [formData, setFormData] = useState(withdrawDetails);
     const [userWallet, setUserWallet] = useState();
     const navigate = useNavigate();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     const handleSubmit = event => {
         event.preventDefault();
         if (isAgent) {
@@ -18,20 +22,23 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
                 paidAmount: withdrawDetails?.amount,
                 reference: formData["reference"]
             }
+            setCanWait(true);
             orderService.confirmWithdrawByAgent(orderDetails).then(
                 response => {
-                    navigate("/agent/withdrawals")
+                    navigate("/agent/withdrawals");
+                    callBack();
                 }
             ).catch(error => {
                 printError(error);
             })
             handleModal();
         } else {
-            accountService.withdraw(withdrawDetails?.withdrawRq).then(
-                response => {
-                    navigate("/client/account")
-                }
-            ).catch(error => {
+            accountService.withdraw(withdrawDetails?.withdrawRq)
+                .then(
+                    response => {
+                        navigate("/client/account")
+                    }
+                ).catch(error => {
                 printError(error);
             })
             handleModal();
@@ -113,7 +120,8 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
                     }
 
                     <div className={"mt-2"}>
-                        <button className={"btn btn-primary"} type={"submit"}>Confirm withdraw</button>
+                        <button className={"btn btn-primary"} type={"submit"} disabled={canWait}>Confirm withdraw
+                        </button>
                     </div>
                 </Form>
             </Modal.Body>

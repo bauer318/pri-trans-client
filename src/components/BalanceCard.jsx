@@ -5,7 +5,6 @@ import {roundValue} from "../services/Utils";
 
 const BalanceCard = ({account}) => {
     const [toLink, setToLink] = useState("");
-    //const [roundedBalance, setRoundedBalance]
     useEffect(() => {
         const connectedUser = getItem("connectedUser");
         if (connectedUser?.userRole?.userRole === "ROLE_AGENT") {

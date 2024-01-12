@@ -13,9 +13,9 @@ const personalInfoSlice = createSlice(
     }
 );
 
-export const initializePersonalInfo = id => {
+export const initializePersonalInfo = (id,notFoundCallBack) => {
     return async dispatch => {
-        const personalInfo = await personalInfoService.getOne(id);
+        const personalInfo = await personalInfoService.getOne(id,notFoundCallBack);
         dispatch(setPersonalInfo(personalInfo));
     }
 }

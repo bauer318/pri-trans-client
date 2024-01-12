@@ -4,12 +4,18 @@ import {FaExchangeAlt} from "react-icons/fa";
 import AddPaymentMethodModal from "../modals/AddPaymentMethodModal";
 import {useDispatch} from "react-redux";
 import {findPaymentMethodByName, initializePaymentMethods} from "../reducers/paymentMethodReducers";
+import LoadingEffect from "./LoadingEffect";
 
 const PaymentMethodHeader = () => {
     const [showModal, setShowModal] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState("");
     const dispatch = useDispatch();
     const [notFound, setNotFound] = useState(false);
+    const [canWait, setCanWait] = useState(false);
+
+    const callBack = () => {
+        setCanWait(false);
+    }
     const [errorMessage, setErrorMessage] = useState("");
 
     const paymentMethodWasNotFound = () => {
@@ -19,7 +25,8 @@ const PaymentMethodHeader = () => {
     useEffect(() => {
         if (notFound) {
             setErrorMessage("Payment method " + paymentMethod + " was not found");
-            dispatch(initializePaymentMethods());
+            setCanWait(true);
+            dispatch(initializePaymentMethods(callBack));
         } else {
             setErrorMessage("");
         }
@@ -59,10 +66,8 @@ const PaymentMethodHeader = () => {
                 <div className={"col-lg-3"}>
                     {notFound && <span className={"text-center text-danger"}>{errorMessage}</span>}
                 </div>
-                <div className={"col-lg-3 d-flex justify-content-end"}>
-                    <LogoutBtn/>
-                </div>
             </div>
+            {canWait && <div className={"text-center"}><LoadingEffect/></div>}
             {showModal &&
                 <AddPaymentMethodModal handleModal={handleModal} showModal={showModal}/>}
         </div>

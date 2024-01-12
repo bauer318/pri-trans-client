@@ -14,11 +14,28 @@ const Country = () => {
     const dispatch = useDispatch();
     const match = useMatch('/admin/countries/:id');
     const [showModal, setShowModal] = useState(false);
+    const [countryLoaded, setCountryLoaded] = useState(false);
+    const [currencyLoaded, setCurrencyLoaded] = useState(false);
+    const [pmLoaded, setPmLoaded] = useState(false);
+
+    const countryCallback = () => {
+        setCountryLoaded(false);
+    }
+
+    const currencyCallback = () => {
+        setCurrencyLoaded(false);
+    }
+    const pmCallback = () => {
+        setPmLoaded(false);
+    }
 
     useEffect(() => {
-        dispatch(initializeCountries());
-        dispatch(initializeCurrencies());
-        dispatch(initializePaymentMethods());
+        setCountryLoaded(true);
+        dispatch(initializeCountries(countryCallback));
+        setCurrencyLoaded(true);
+        dispatch(initializeCurrencies(currencyCallback));
+        setPmLoaded(true);
+        dispatch(initializePaymentMethods(pmCallback));
     }, []);
 
     const countryId = Number(match.params.id);
@@ -32,6 +49,15 @@ const Country = () => {
 
     return (
         <>
+            {countryLoaded && <div className={"text-center"}>
+                <LoadingEffect/>
+            </div>}
+            {currencyLoaded && <div className={"text-center"}>
+                <LoadingEffect/>
+            </div>}
+            {pmLoaded && <div className={"text-center"}>
+                <LoadingEffect/>
+            </div>}
             {country ?
                 (<div className={"row mt-2"}>
                     <div className={"col-4"}>
@@ -51,8 +77,9 @@ const Country = () => {
                             </button>
                         </div>
                         <div>
-                            <button className={"btn btn-info mt-2"} onClick={()=>navigate('/admin/countries')}><span
-                                className={"ps-2 pe-2"}><FaBackward/></span>Back</button>
+                            <button className={"btn btn-info mt-2"} onClick={() => navigate('/admin/countries')}><span
+                                className={"ps-2 pe-2"}><FaBackward/></span>Back
+                            </button>
                         </div>
                     </div>
                     <div className={"col-4"}>

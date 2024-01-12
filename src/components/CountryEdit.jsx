@@ -19,10 +19,13 @@ const CountryEdit = () => {
     const match = useMatch('/admin/countries/:id/edit');
     const countryId = Number(match.params.id);
     const country = useSelector(state => state.countries.find(country => country.countryId === countryId));
-    console.log(country);
     const [countryName, setCountryName] = useState(country.countryName);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
 
     const handleCurrencyModal = (selectedCurrencyIdParam) => {
         const selectedCurrency = country.currencies.find(currency => currency.currencyId === selectedCurrencyIdParam);
@@ -36,12 +39,12 @@ const CountryEdit = () => {
         setSelectedPaymentMethod(selectedPM);
     }
 
-    const handleEmailChange = (event)=>{
+    const handleEmailChange = (event) => {
         const countryName = event.target.value;
         setCountryName(countryName);
     }
 
-    const handleSubmitCountryName = (event)=>{
+    const handleSubmitCountryName = (event) => {
         event.preventDefault();
         const countryFromAPI = getCountryByName(countryName);
         const updatedCountry = {
@@ -49,7 +52,7 @@ const CountryEdit = () => {
             currencies: country.currencies,
             paymentMethods: country.paymentMethods
         }
-        dispatch(updateCountry(countryId, updatedCountry));
+        dispatch(updateCountry(countryId, updatedCountry, callBack));
         navigate('/admin/countries');
     }
     const handleCancelClick = () => {
@@ -90,7 +93,8 @@ const CountryEdit = () => {
                                 country?.currencies.map(currency =>
                                     <tr key={currency.currencyId}>
                                         <td className={"text-start"}>{currency.currency}</td>
-                                        <td className={"text-center"} onClick={() => handleCurrencyModal(currency.currencyId)}>
+                                        <td className={"text-center"}
+                                            onClick={() => handleCurrencyModal(currency.currencyId)}>
                                             <MdDeleteForever/></td>
                                     </tr>
                                 )

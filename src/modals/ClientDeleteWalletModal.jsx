@@ -2,10 +2,9 @@ import React from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {AiOutlineDelete} from "react-icons/ai";
 
-const ClentDeleteWalletModal = ({paymentMethod, showModal, handleModal}) => {
+const ClientDeleteWalletModal = ({paymentMethod, showModal, handleModal}) => {
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(paymentMethod);
         //delete payment methode
         handleModal();
     }
@@ -59,4 +58,4 @@ const ClentDeleteWalletModal = ({paymentMethod, showModal, handleModal}) => {
     );
 };
 
-export default ClentDeleteWalletModal;
+export default ClientDeleteWalletModal;

@@ -15,9 +15,15 @@ const PersonalInfo = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [connectedUser, setConnectedUser] = useState({});
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+        setIsLoading(false);
+    }
     useEffect(() => {
-        dispatch(initializeCountries());
-        setConnectedUser(getItem('connectedUser'));
+        setCanWait(true);
+        dispatch(initializeCountries(callBack));
+        setConnectedUser(getItem('loginUSer'));
     }, []);
     const countries = useSelector(state => state.countries);
 
@@ -106,7 +112,7 @@ const PersonalInfo = () => {
                     </Form.Group>
 
                     <Form.Group controlId="birthDate" className={"form-outline mb-4"}>
-                        <Form.Label className={"required"}>Date of birth</Form.Label>
+                        <Form.Label className={"required"}>Date of birth [mm/DD/YYYY]</Form.Label>
                         <Form.Control
                             type={"date"}
                             placeholder="first name"

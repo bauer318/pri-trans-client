@@ -3,11 +3,13 @@ import {baseURL, getToken, printError} from "./Utils";
 
 const baseUrl = baseURL.concat('/wallets');
 
-const getAllByUser = async participantId => {
+const getAllByUser = async (participantId, callBack) => {
     try {
         const response = await axios.get(baseUrl.concat(`/by-participant/${participantId}`), {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
+        callBack();
         printError(error);
     }
 }
@@ -20,11 +22,13 @@ const createNew = async (wallet) => {
     }
 }
 
-const updateWallet = async (wallet, id) => {
+const updateWallet = async (wallet, id, callBack) => {
     try {
         const response = await axios.put(baseUrl.concat(`/${id}/edit`), wallet, {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
+        callBack();
         printError(error);
     }
 }

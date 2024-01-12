@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import CancelDepositModal from "../modals/CancelDepositModal";
 import ConfirmDepositModal from "../modals/ConfirmDepositModal";
-import {useLocation} from "react-router-dom";
-import {getItem, saveItem} from "../services/LocalStorageService";
+import {getItem} from "../services/LocalStorageService";
 import {useDispatch, useSelector} from "react-redux";
-import {getOrdersToFromParticipant, getOrdersToParticipant} from "../reducers/orderReducer";
-import {roundValue} from "../services/Utils";
+import {getOrdersToFromParticipant} from "../reducers/orderReducer";
 import PendingDepositCard from "./pendingDepositCard";
 
 const PendingDeposit = () => {
@@ -15,11 +13,6 @@ const PendingDeposit = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         const connectedUser = getItem('connectedUser');
-        const pendingOrderRequest = {
-            fromToParticipantId: connectedUser?.userId,
-            orderStatus: 'requested',
-            transactionType: 'deposit'
-        };
         dispatch(getOrdersToFromParticipant(connectedUser?.userId, "requested", "deposit"));
     }, [showCancelModal, showConfirmModal]);
 
