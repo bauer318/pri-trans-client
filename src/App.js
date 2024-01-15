@@ -33,6 +33,9 @@ import AgentDeposits from "./pages/AgentDeposits";
 import AgentWithdrawals from "./pages/AgentWithdrawals";
 import ModeratorHome from "./pages/ModeratorHome";
 import {getItem, removeItem} from "./services/LocalStorageService";
+import ProfilePage from "./pages/ProfilePage";
+import AgentProfilePage from "./pages/AgentProfilePage";
+import EditProfilePage from "./pages/EditProfilePage";
 
 export var logout = () => {
 };
@@ -56,7 +59,7 @@ const App = () => {
                     <Routes>
                         <Route path={"/"} element={<Home/>}/>
                         <Route path={"/register"} element={<CreateAccount/>}/>
-                        <Route path={"/register/:id/personal-info"} element={<PersonalInfo/>}/>
+                        <Route path={"/personal-info"} element={<PersonalInfo/>}/>
                         <Route path={'/register/:id/personal-info/address'} element={<HomeAddress/>}/>
                         {longedUser?.userRole?.userRole === 'ROLE_ADMIN' &&
                             <Route path={"/admin/users"} element={<UserList/>}/>}
@@ -69,6 +72,8 @@ const App = () => {
                         <Route path={"/admin/currencies"} element={<CurrencyList/>}/>
                         <Route path={"/admin/payment-methods"} element={<PaymentMethodList/>}/>
                         <Route path={"/client/home"} element={<ClientHome/>}/>
+                        <Route path={"/client/profile"} element={<ProfilePage/>}/>
+                        <Route path={"/client/profile/edit"} element={<EditProfilePage/>}/>
                         <Route path={"/client/account"} element={<UserAccount/>}/>
                         <Route path={"/client/account/item"} element={<BalanceItem/>}/>
                         <Route path={"/client/account/convert"} element={<Convert/>}/>
@@ -80,6 +85,8 @@ const App = () => {
                         <Route path={"/client/history"} element={<ClientHistory/>}/>
                         <Route path={"/client/wallet"} element={<ClientWallets/>}/>
                         <Route path={"/agent/account"} element={<UserAccount/>}/>
+                        <Route path={"/agent/profile"} element={<ProfilePage/>}/>
+                        <Route path={"/agent/profile/edit"} element={<EditProfilePage/>}/>
                         <Route path={"/agent/account/item"} element={<AgentBalanceItem/>}/>
                         <Route path={"/agent/account/1/convert"} element={<Convert/>}/>
                         <Route path={"/agent/history"} element={<AgentHistory/>}/>

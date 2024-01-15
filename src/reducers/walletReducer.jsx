@@ -14,9 +14,9 @@ const walletSlice = createSlice({
     }
 });
 
-export const createWallet = wallet => {
+export const createWallet = (wallet,callBack) => {
     return async dispatch => {
-        const newWallet = await walletService.createNew(wallet);
+        const newWallet = await walletService.createNew(wallet,callBack);
         if (newWallet) {
             appendWallet(newWallet);
         }

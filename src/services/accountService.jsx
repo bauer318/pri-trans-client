@@ -3,7 +3,7 @@ import axios from "axios";
 
 const baseUrl = baseURL.concat('/accounts');
 
-const createNew = async (currencyId,callBack) => {
+const createNew = async (currencyId, callBack) => {
     const object = {
         currencyId: currencyId
     };
@@ -26,12 +26,13 @@ const sendTo = async orderRq => {
     }
 }
 
-const withdraw = async (orderRq,callBack) => {
+const withdraw = async (orderRq, callBack) => {
     try {
         const response = await axios.post(baseUrl.concat(`/withdraw`), orderRq, {headers: getToken()});
         callBack();
         return response?.data;
     } catch (error) {
+        callBack();
         printError(error);
     }
 }
@@ -73,12 +74,13 @@ const getAgentAccountWithMax = async agentAccountRq => {
     }
 }
 
-const deposit = async (depositRq,callBack) => {
+const deposit = async (depositRq, callBack) => {
     try {
         const response = await axios.post(baseUrl.concat(`/deposit`), depositRq, {headers: getToken()});
         callBack();
         return response?.data;
     } catch (error) {
+        callBack();
         printError(error);
     }
 }
@@ -102,6 +104,17 @@ const canWithdraw = async (accountId, amount) => {
     }
 }
 
+const cancelTransfert = async (orderId, callBack) => {
+    try {
+        const response = await axios.get(baseUrl.concat(`/cancel-transfert/${orderId}`), {headers: getToken()});
+        callBack();
+        return response?.data;
+    } catch (error) {
+        callBack();
+        printError(error);
+    }
+}
+
 export default {
     createNew,
     getAllByUser,
@@ -112,5 +125,6 @@ export default {
     sendTo,
     withdraw,
     getAgentAccountWithMax,
-    canWithdraw
+    canWithdraw,
+    cancelTransfert
 }

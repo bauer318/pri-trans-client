@@ -13,6 +13,7 @@ const SendModal = ({showModal, handleModal, recipientEmail}) => {
     const [canWait, setCanWait] = useState(false);
     const callBack = () => {
         setCanWait(false);
+        handleModal();
     }
 
     useEffect(() => {
@@ -38,17 +39,18 @@ const SendModal = ({showModal, handleModal, recipientEmail}) => {
             accountService.sendTo(orderRq)
                 .then(orderId => {
                     if (orderId > 0) {
-                        console.log(orderId);
-                        handleModal();
                         navigate('/client/account');
                         callBack();
                     }
                 }).catch(error => {
                 printError(error);
-                handleModal();
+                callBack();
+
             })
+        } else {
+            handleModal();
         }
-        handleModal();
+
     }
     return (
         <Modal show={showModal} onHide={handleModal}>
@@ -63,13 +65,14 @@ const SendModal = ({showModal, handleModal, recipientEmail}) => {
                     <h4 className={"text-secondary"}>To <span className={"text-body"}>{recipientEmail}</span></h4>
                     <div className={"mt-2"}>
                         <button className={"btn btn-primary"} type={"submit"} disabled={canWait}><span
-                            className={"me-2"}><i><AiOutlineArrowUp size={28}/></i></span>Send
+                            className={"me-2"}><i><AiOutlineArrowUp
+                            size={28}/></i></span>{canWait ? "Sending..." : "Send"}
                         </button>
                     </div>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <button className={"btn btn-secondary"} onClick={handleModal}>Close</button>
+                <button className={"btn btn-secondary"} onClick={handleModal} disabled={canWait}>Close</button>
             </Modal.Footer>
         </Modal>
     );

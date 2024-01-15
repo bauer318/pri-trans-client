@@ -33,12 +33,15 @@ const deletePersonalInfo = async id => {
     }
 }
 
-const create = async (personalInfo, callBackToUserHomePage) => {
+const create = async (personalInfo, callBackToUserHomePage, phoneNumberExist) => {
     try {
         const response = await axios.post(`${baseUrl}`, personalInfo, {headers: getToken()});
         callBackToUserHomePage();
         return response.data;
     } catch (error) {
+        if (error.response.status === 409) {
+            phoneNumberExist();
+        }
         callBackToUserHomePage();
         printError(error);
     }

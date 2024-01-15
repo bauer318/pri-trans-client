@@ -13,11 +13,14 @@ const getAllByUser = async (participantId, callBack) => {
         printError(error);
     }
 }
-const createNew = async (wallet) => {
+const createNew = async (wallet, callBack) => {
     try {
         const response = await axios.post(baseUrl, wallet, {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
+        callBack();
+        alert("Failed");
         printError(error);
     }
 }

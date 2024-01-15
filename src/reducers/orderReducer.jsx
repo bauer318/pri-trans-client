@@ -23,9 +23,9 @@ export const getOrdersToParticipant = (request) => {
     }
 };
 
-export const getOrdersToFromParticipant = (toFromParticipantId, orderStatus, transactionType) => {
+export const getOrdersToFromParticipant = (toFromParticipantId, orderStatus, transactionType,callBack) => {
     return async dispatch => {
-        const orders = await orderService.getDepositOrders(toFromParticipantId, orderStatus, transactionType);
+        const orders = await orderService.getDepositOrders(toFromParticipantId, orderStatus, transactionType,callBack);
         dispatch(setOrders(orders));
     }
 }

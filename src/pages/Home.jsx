@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form} from "react-bootstrap";
 import {Navigate, useNavigate} from "react-router-dom";
-import {getItem, saveItem} from "../services/LocalStorageService";
+import {getItem, removeItem, saveItem} from "../services/LocalStorageService";
 import {refreshP} from "../App";
 import axios from "axios";
 import instance, {baseURL} from "../services/Utils";
@@ -15,6 +15,16 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [isBlockedUser, setIsBlockedUser] = useState(false);
+    const [firstTime, setFirstTime] = useState(false);
+
+    useEffect(() => {
+        if (getItem("successMessage")) {
+            setFirstTime(true);
+            removeItem("successMessage");
+        } else {
+            setFirstTime(false);
+        }
+    }, []);
 
     const redirectTo = userRole => {
         switch (userRole) {
@@ -44,10 +54,10 @@ const Home = () => {
             .then(res => {
                 saveItem("connectedUser", res.data?.userRs);
                 saveItem("jwtToken", `Bearer ${res.data?.jwtToken}`);
-                setIsLoading(false);
                 const user = getItem("connectedUser");
                 redirectTo(user.userRole.userRole);
                 refreshP();
+                setIsLoading(false);
             })
             .catch(err => {
                 const errorResponse = err.response;
@@ -91,14 +101,18 @@ const Home = () => {
                 <div className={"text-center mt-5"}>
                     <h3>Login</h3>
                 </div>
+                {firstTime &&
+                    <div className={"text-center"}><h4 className={"text-info"}>The account has been successfully
+                        created!</h4></div>}
                 <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                     <Form onSubmit={handleSubmit} className={"login-form"}>
                         <Form.Group controlId="formBasicEmail" className={"form-outline mb-4"}>
                             <Form.Label className="required">Email address</Form.Label>
                             <Form.Control
                                 type="email"
-                                placeholder="example@email.com"
+                                placeholder="example_123@email.com"
                                 name="email"
+                                pattern={"^[a-z0-9_]+\@[a-z0-9]+\.[a-z0-9]+$"}
                                 required={true}
                                 onChange={handleChange}
                             />
@@ -115,7 +129,8 @@ const Home = () => {
                         </Form.Group>
                         {isLoading && <h4 className={"text-center text-secondary"}>Wait please...</h4>}
                         <div className={"mt-3 d-flex justify-content-around"}>
-                            <button disabled={isLoading || isBlockedUser} className={"btn btn-primary w-100"} type={"submit"}>
+                            <button disabled={isLoading || isBlockedUser} className={"btn btn-primary w-100"}
+                                    type={"submit"}>
                                 Login
                             </button>
                         </div>

@@ -193,18 +193,18 @@ export const getUserHomePath = userRole => {
 }
 const reverseArray = arrayIn => {
     let arrayOut = [];
-    for (let i = arrayIn.length; i--; i >= 0) {
+    for (let i = arrayIn?.length; i--; i >= 0) {
         arrayOut.push(arrayIn[i]);
     }
     return arrayOut;
 }
 export const formatDate = date => {
-    const dateArr = date.split('-');
+    const dateArr = date?.split('-');
     const dateArrayReverse = reverseArray(dateArr);
     let dateOut = "";
-    dateArrayReverse.map((dateElem, it) => {
+    dateArrayReverse?.map((dateElem, it) => {
         dateOut += dateElem;
-        if (it < dateArrayReverse.length - 1) {
+        if (it < dateArrayReverse?.length - 1) {
             dateOut += '/';
         }
     });

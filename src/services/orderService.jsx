@@ -21,38 +21,46 @@ const getToParticipantOrderByStatusAndTransactionType = async request => {
     }
 }
 
-const deleteOrder = async orderId => {
+const deleteOrder = async (orderId, callBack) => {
     try {
         const response = await axios.delete(baseUrl.concat(`/${orderId}/delete`), {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
+        callBack();
         printError(error);
     }
 }
 
-const confirmDeposit = async (orderDetails, isFromClient) => {
+const confirmDeposit = async (orderDetails, isFromClient, callBack) => {
     try {
         const response = await axios.post(baseUrl.concat(`/confirm-deposit/${isFromClient}`), orderDetails, {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
+        callBack();
         printError(error);
     }
 }
 
-const confirmWithdrawByAgent = async orderDetails => {
+const confirmWithdrawByAgent = async (orderDetails, callBack) => {
     try {
         const response = await axios.post(baseUrl.concat(`/confirm-withdraw`), orderDetails, {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
+        callBack();
         printError(error);
     }
 }
 
-const getDepositOrders = async (toParticipantId, orderStatus, transactionType) => {
+const getDepositOrders = async (toParticipantId, orderStatus, transactionType, callBack) => {
     try {
         const response = await axios.get(baseUrl.concat(`/to-from-participant-status-transaction/${toParticipantId}/${orderStatus}/${transactionType}`), {headers: getToken()});
+        callBack();
         return response?.data;
     } catch (error) {
+        callBack();
         printError(error);
     }
 }

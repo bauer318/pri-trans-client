@@ -6,15 +6,21 @@ import {useDispatch, useSelector} from "react-redux";
 import {getItem} from "../services/LocalStorageService";
 import {getOrdersToFromParticipant} from "../reducers/orderReducer";
 import AgentPendingDepositCard from "../components/agentPendingDepositCard";
+import LoadingEffect from "../components/LoadingEffect";
 
 const AgentDeposits = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showRejectModal, setShowRejectModal] = useState(false);
     const [selectedDeposit, setSelectedDeposit] = useState(null);
     const dispatch = useDispatch();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     useEffect(() => {
         const connectedUser = getItem("connectedUser");
-        dispatch(getOrdersToFromParticipant(connectedUser?.userId, "processing", "deposit"))
+        setCanWait(true);
+        dispatch(getOrdersToFromParticipant(connectedUser?.userId, "processing", "deposit", callBack))
     }, [showConfirmModal, showRejectModal]);
 
     const pendingDeposits = useSelector(state => state.orders);
@@ -35,6 +41,7 @@ const AgentDeposits = () => {
     return (
         <div className={"container"}>
             <CSWHeader title={"Deposits"}/>
+            {canWait && <LoadingEffect/>}
             <div className={"row container mx-auto d-flex justify-content-center mt-2"}>
                 {
                     pendingDeposits?.map((pendingDeposit, key) =>

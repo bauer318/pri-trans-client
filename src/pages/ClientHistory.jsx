@@ -9,14 +9,19 @@ import LoadingEffect from "../components/LoadingEffect";
 const ClientHistory = () => {
     const dispatch = useDispatch();
     const [canWait, setCanWait] = useState(false);
+    const [canRefresh, setCanRefresh] = useState(false);
+
+    const refresh = () => {
+        setCanRefresh(!canRefresh);
+    }
     const callBack = () => {
         setCanWait(false);
     }
     useEffect(() => {
         const connectedUser = getItem("connectedUser");
         setCanWait(true);
-        dispatch(getOrderHistory(connectedUser?.userId, true,callBack));
-    }, []);
+        dispatch(getOrderHistory(connectedUser?.userId, true, callBack));
+    }, [canRefresh]);
 
     const transactions = useSelector(state => state.orders);
     return (
@@ -26,7 +31,7 @@ const ClientHistory = () => {
                 {canWait && <div className={"text-center"}><LoadingEffect/></div>}
                 {
                     transactions?.map((transaction, key) =>
-                        <TransactionHistoryCard key={key} transaction={transaction}/>)
+                        <TransactionHistoryCard key={key} transaction={transaction} refresh={refresh}/>)
                 }
 
             </div>

@@ -10,6 +10,7 @@ const ClientAddWalletModal = ({showModal, handleModal}) => {
     const dispatch = useDispatch();
     const [paymentMethods, setPaymentMethods] = useState([]);
     const [currencies, setCurrencies] = useState([]);
+    const [canWait, setCanWait] = useState(false);
     useEffect(() => {
         const user = getItem('connectedUser');
         setFormData({...formData, participantId: user?.userId});
@@ -17,10 +18,14 @@ const ClientAddWalletModal = ({showModal, handleModal}) => {
         setCurrencies(user?.country?.currencies);
     }, []);
 
+    const callBack = () => {
+        handleModal();
+        setCanWait(false);
+    }
     const handleSubmit = event => {
         event.preventDefault();
-        dispatch(createWallet(formData));
-        handleModal();
+        setCanWait(true);
+        dispatch(createWallet(formData, callBack));
     }
     const handlePMChange = event => {
         const id = Number(event.target.value);
@@ -102,13 +107,14 @@ const ClientAddWalletModal = ({showModal, handleModal}) => {
                         />
                     </Form.Group>
                     <div className={"mt-2"}>
-                        <button className={"btn btn-primary"} type={"submit"}><span className={"me-2"}><i><FaPlus/></i></span>Add
+                        <button className={"btn btn-primary"} type={"submit"} disabled={canWait}><span
+                            className={"me-2"}><i><FaPlus/></i></span>{canWait ? "Adding..." : "Add"}
                         </button>
                     </div>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <button className={"btn btn-secondary"} onClick={handleModal}>Cancel</button>
+                <button className={"btn btn-secondary"} onClick={handleModal} disabled={canWait}>Cancel</button>
             </Modal.Footer>
         </Modal>
     );

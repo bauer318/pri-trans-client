@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "react-bootstrap";
 import {RxCross2} from "react-icons/rx";
 import {roundValue} from "../services/Utils";
@@ -12,8 +12,12 @@ const ConvertForm = ({
                          currencies,
                          handleToCurrencyChange,
                          handleSubmit,
-                         calculating
+                         calculating,
+                         canWait
                      }) => {
+    useEffect(() => {
+
+    }, [canWait]);
     return (
         <div className={"row mt-2"}>
             <div className={"col-md-8 mx-lg-auto d-flex justify-content-center"}>
@@ -81,7 +85,8 @@ const ConvertForm = ({
                                         onChange={handleToCurrencyChange}
                                     >
                                         <option
-                                            value={""}>...To</option>
+                                            value={""}>...To
+                                        </option>
                                         {
                                             currencies.map((currency, key) =>
                                                 <option value={currencies?.currency}
@@ -94,7 +99,8 @@ const ConvertForm = ({
                         </div>
                     </div>
                     <div className={"mt-2 mb-2"}>
-                        <button className={"btn btn-primary"} type={"submit"}>{formTitles.actionTitle}<span
+                        <button className={"btn btn-primary"} type={"submit"}
+                                disabled={canWait}>{canWait ? "Loading..." : formTitles.actionTitle}<span
                             className={"ms-2"}><i>{formTitles.icon}</i></span>
                         </button>
                     </div>

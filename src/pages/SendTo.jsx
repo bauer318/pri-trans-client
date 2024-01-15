@@ -78,9 +78,6 @@ const SendTo = () => {
             printError(error);
         }).catch(error => {
             setCanWait(false);
-            if (error?.response?.status === 404) {
-                console.log("402")
-            }
         })
     }
     const handleRecipientEmailChange = event => {
@@ -107,7 +104,8 @@ const SendTo = () => {
                             onChange={handleRecipientEmailChange}
                         />
                     </Form.Group>
-                    <button className={"btn btn-primary mt-2"} type={"submit"}>Continue<span
+                    <button className={"btn btn-primary mt-2"} type={"submit"}
+                            disabled={canWait}>{canWait ? "Loading..." : "Continue"}<span
                         className={"ms-2"}><i><AiOutlineArrowRight size={28}/></i></span>
                     </button>
                 </Form>
@@ -133,7 +131,8 @@ const SendTo = () => {
             {
                 !differentCountry &&
                 <div className={"col-md-8 mx-auto d-flex justify-content-center mt-5"}>
-                    <h5 className={"text-danger"}>User {recipientEmail} does not live in the selected country</h5>
+                    <h5 className={"text-danger"}>User {recipientEmail} does not live in the selected country or is
+                        unverified user</h5>
                 </div>
             }
             {recipientEmail && showModal &&

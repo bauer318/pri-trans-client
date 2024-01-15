@@ -77,7 +77,7 @@ const NewDeposit = () => {
         setPaymentMethod(pm);
     }
     return (
-        <DWForm handleSubmit={handleSubmit} handlePMChange={handlePMChange} handleAmountChange={handleAmountChange}
+        <DWForm handleSubmit={handleSubmit} canWait={canWait} handlePMChange={handlePMChange} handleAmountChange={handleAmountChange}
                 formDetails={formDetails} isDeposit={true}/>
     );
 };

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {FaCity, FaExchangeAlt, FaHistory, FaUsers} from 'react-icons/fa';
 import {NavLink} from "react-router-dom";
 import {HiHome, HiUsers} from "react-icons/hi";
-import {MdOutlineAccountBalanceWallet} from "react-icons/md";
+import {MdOutlineAccountBalanceWallet, MdOutlinePermIdentity} from "react-icons/md";
 import {RiLuggageDepositLine} from "react-icons/ri";
 import {BiMoneyWithdraw} from "react-icons/bi";
 import {GrCurrency} from "react-icons/gr";
@@ -84,6 +84,11 @@ const Sidebar = ({children, user}) => {
                 name: "Payment methods",
                 icon: <FaExchangeAlt/>
             },
+            {
+                path: "/agent/profile",
+                name: "Profile",
+                icon: <MdOutlinePermIdentity/>
+            }
         ],
         [
             {
@@ -106,6 +111,11 @@ const Sidebar = ({children, user}) => {
                 name: "Wallets",
                 icon: <BsFillWalletFill/>
             },
+            {
+                path: "/client/profile",
+                name: "Profile",
+                icon: <MdOutlinePermIdentity/>
+            }
         ],
         [
             {
@@ -146,7 +156,7 @@ const Sidebar = ({children, user}) => {
                     </div>
                 }
                 <hr className={"mt-5"}/>
-                <NavLink to={"https://forms.yandex.ru/cloud/65a1190b2530c22b1d534c82/"}
+                <NavLink to={"https://forms.yandex.ru/u/65a25274d0468848f12a169b/"}
                          className="link nav-item fs-1" activeclassname="active">
                     <div className="icon"><FiSettings/></div>
                     <div className="link_text ms-2 d-none d-sm-inline">{"Something to fix"}</div>

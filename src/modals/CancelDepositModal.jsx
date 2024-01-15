@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import orderService from "../services/orderService";
 import {responsivePropType} from "react-bootstrap/createUtilityClasses";
 
-const CancelDepositModal = ({depositDetails,showCancelModal, handleCancelModal}) => {
-    const handleSubmit = (event)=>{
+const CancelDepositModal = ({depositDetails, showCancelModal, handleCancelModal}) => {
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        handleCancelModal();
+        setCanWait(false);
+    }
+    const handleSubmit = (event) => {
         event.preventDefault();
-        orderService.deleteOrder(depositDetails?.orderId).then(
-            response=>{
+        setCanWait(true);
+        orderService.deleteOrder(depositDetails?.orderId, callBack).then(
+            response => {
                 handleCancelModal();
             }
         )
@@ -46,15 +52,17 @@ const CancelDepositModal = ({depositDetails,showCancelModal, handleCancelModal})
                         />
                     </Form.Group>
                     <div className={"mt-2"}>
-                        <button className={"btn btn-danger"} type={"submit"}>Cancel deposit</button>
-                    </div>
-                </Form>
-            </Modal.Body>
-            <Modal.Footer>
-                <button className={"btn btn-secondary"} onClick={handleCancelModal}>Close</button>
-            </Modal.Footer>
+                        <button className={"btn btn-danger"} type={"submit"}
+                                disabled={canWait}>{canWait ? "Loading..." : "Cancel deposit" }< /button>
+                            </div>
+                            </Form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                            <button className={"btn btn-secondary"} onClick={handleCancelModal} disabled={canWait}>Close
+                        </button>
+                    </Modal.Footer>
         </Modal>
-    );
+);
 };
 
 export default CancelDepositModal;

@@ -29,9 +29,9 @@ export const login = user => {
         dispatch(setUsers(connectedUser));
     }
 }
-export const createUser = (user, errorCallBack) => {
+export const createUser = (user, errorCallBack,toHome) => {
     return async dispatch => {
-        const newUser = await userService.createNew(user, errorCallBack);
+        const newUser = await userService.createNew(user, errorCallBack,toHome);
         if (newUser) {
             initializeUsers();
         }

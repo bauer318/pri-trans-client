@@ -122,6 +122,7 @@ const Send = () => {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
+        setCanWait(true);
         axios.get(`${baseURL}/accounts/can-send-amount/${account?.accountId}/${fromAmount}`, {headers: getToken()})
             .then(response => {
                 if (response.data) {
@@ -136,8 +137,10 @@ const Send = () => {
                     };
                     dispatch(initializeSendDetails(sendDetails));
                     navigate('/client/account/send/to');
+                    callBack();
                 } else {
                     setCanSend(false);
+                    callBack();
                     alert("insufficient balance to send");
                 }
             })
@@ -204,6 +207,7 @@ const Send = () => {
                              handleFromAmountChange={handleAmountSendChange} handleSubmit={handleSubmit}
                              liveRate={liveRate}
                              fromAmount={fromAmount}
+                             canWait={canWait}
                              toAmount={toAmount} calculating={isCalculating}/>) : (<LoadingEffect/>)}
         </div>
     );

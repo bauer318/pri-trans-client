@@ -13,6 +13,7 @@ const ClientEditWalletModal = ({wallet, showModal, handleModal}) => {
     const [canWait, setCanWait] = useState(false);
     const callBack = () => {
         setCanWait(false);
+        handleModal();
     }
     useEffect(() => {
         const user = getItem('connectedUser');
@@ -24,7 +25,6 @@ const ClientEditWalletModal = ({wallet, showModal, handleModal}) => {
         event.preventDefault();
         setCanWait(true)
         dispatch(updateWallet(formData, formData?.walletId, callBack));
-        handleModal();
     }
     const handlePMChange = event => {
         const pmId = Number(event.target.value);
@@ -110,13 +110,13 @@ const ClientEditWalletModal = ({wallet, showModal, handleModal}) => {
                     </Form.Group>
                     <div className={"mt-2"}>
                         <button className={"btn btn-primary"} type={"submit"} disabled={canWait}><span
-                            className={"me-2"}><i><BsSave/></i></span>Save
+                            className={"me-2"}><i><BsSave/></i></span>{canWait ? "Editing..." : "Save"}
                         </button>
                     </div>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <button className={"btn btn-secondary"} onClick={handleModal}>Cancel</button>
+                <button className={"btn btn-secondary"} onClick={handleModal} disabled={canWait}>Cancel</button>
             </Modal.Footer>
         </Modal>
     );

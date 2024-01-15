@@ -18,16 +18,20 @@ const AddUserModal = ({showModal, handleModal}) => {
     useEffect(() => {
         setCanWait(true);
         dispatch(initializeCountries(callBack));
+
     }, []);
     const countries = useSelector(state => state.countries);
     const handleSubmit = (event) => {
         event.preventDefault();
         setCanWait(true);
-        userService.createNew(formData)
+        userService.createNew(formData, errorCallback, callBack)
             .then(r => setCanWait(false));
         dispatch(initializeUsers());
         handleModal();
     };
+    const errorCallback = () => {
+        alert("Failed");
+    }
     const handleChange = (event) => {
         const {name, value} = event.target;
         setFormData({...formData, [name]: value});

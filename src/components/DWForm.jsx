@@ -6,7 +6,7 @@ import walletService from "../services/walletService";
 import {printError, roundValue} from "../services/Utils";
 
 //Deposit Withdraw DW
-const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange, isDeposit}) => {
+const DWForm = ({formDetails, canWait, handleSubmit, handleAmountChange, handlePMChange, isDeposit}) => {
     const [paymentMethods, setPaymentMethods] = useState([]);
     useEffect(() => {
         const user = getItem('connectedUser');
@@ -20,7 +20,7 @@ const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange, 
                 })
         }
 
-    }, [formDetails]);
+    }, [formDetails,canWait]);
     return (
         <>
             {formDetails ? (
@@ -67,7 +67,8 @@ const DWForm = ({formDetails, handleSubmit, handleAmountChange, handlePMChange, 
                                 </Form.Control>
                             </Form.Group>
                             <div className={"mt-2"}>
-                                <button className={"btn btn-primary"} type={"submit"}>{formDetails.actionTitle}<span
+                                <button className={"btn btn-primary"} type={"submit"}
+                                        disabled={canWait}>{canWait ? "Loading..." : formDetails.actionTitle}<span
                                     className={"ms-2"}><i>{formDetails.icon}</i></span>
                                 </button>
                             </div>

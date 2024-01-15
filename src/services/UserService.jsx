@@ -49,7 +49,7 @@ const getOne = async (userId) => {
 
 }
 
-const createNew = async (user, errorCallBack) => {
+const createNew = async (user, errorCallBack, toHome) => {
     const createdUser = {
         ...user,
         authStatus: false,
@@ -58,6 +58,7 @@ const createNew = async (user, errorCallBack) => {
     }
     try {
         const response = await axios.post(`${baseUrl}/register`, createdUser, {headers: getToken()});
+        toHome();
         return response.data;
     } catch (error) {
         errorCallBack();

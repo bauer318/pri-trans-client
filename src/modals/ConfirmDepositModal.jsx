@@ -7,8 +7,10 @@ const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleC
     const [formData, setFormData] = useState(depositDetails);
     const [canWait, setCanWait] = useState(false);
     const callBack = () => {
+        handleConfirmModal();
         setCanWait(false);
     }
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -18,10 +20,9 @@ const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleC
             reference: formData?.reference
         }
         setCanWait(true);
-        orderService.confirmDeposit(orderDetails, !isAgent)
+        orderService.confirmDeposit(orderDetails, !isAgent, callBack)
             .then(resp => {
-                    handleConfirmModal();
-                    setCanWait(false);
+
                 }
             ).catch(error => {
             printError(error);
@@ -85,13 +86,14 @@ const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleC
                         />
                     </Form.Group>
                     <div className={"mt-2"}>
-                        <button className={"btn btn-primary"} type={"submit"} disabled={canWait}>Confirm deposit
+                        <button className={"btn btn-primary"} type={"submit"}
+                                disabled={canWait}>{canWait ? "Loading..." : "Confirm deposit"}
                         </button>
                     </div>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <button className={"btn btn-secondary"} onClick={handleConfirmModal}>Close</button>
+                <button className={"btn btn-secondary"} onClick={handleConfirmModal} disabled={canWait}>Close</button>
             </Modal.Footer>
         </Modal>
     );

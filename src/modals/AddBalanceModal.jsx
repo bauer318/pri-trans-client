@@ -14,6 +14,7 @@ const AddBalanceModal = ({showModal, handleModal}) => {
     const [canWait, setCanWait] = useState(false);
     const callBack = () => {
         setCanWait(false);
+        handleModal();
     }
     useEffect(() => {
         const user = getItem('connectedUser');
@@ -27,7 +28,6 @@ const AddBalanceModal = ({showModal, handleModal}) => {
             setCanWait(true);
             dispatch(createAccount(currencyId, callBack));
         }
-        handleModal();
     }
     const handleBalanceChange = (event) => {
         const currencyIdP = Number(event.target.value);

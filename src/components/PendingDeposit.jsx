@@ -11,9 +11,14 @@ const PendingDeposit = () => {
     const [showCancelModal, setShowCancelModal] = useState(false);
     const [selectedPendingDeposit, setSelectedPendingDeposit] = useState(null);
     const dispatch = useDispatch();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
     useEffect(() => {
         const connectedUser = getItem('connectedUser');
-        dispatch(getOrdersToFromParticipant(connectedUser?.userId, "requested", "deposit"));
+        setCanWait(true);
+        dispatch(getOrdersToFromParticipant(connectedUser?.userId, "requested", "deposit", callBack));
     }, [showCancelModal, showConfirmModal]);
 
     const pendingDeposits = useSelector(state => state.orders);
@@ -47,7 +52,7 @@ const PendingDeposit = () => {
 
         }
         <div className={"row container mx-auto d-flex justify-content-center mt-2"}>
-            {
+            {canWait ? <p className={"text-center"}>Loading</p> :
                 pendingDeposits?.map((pendingDeposit, key) =>
                     <PendingDepositCard key={key} pendingDeposit={pendingDeposit}
                                         handleConfirmDeposit={handleConfirmDeposit}

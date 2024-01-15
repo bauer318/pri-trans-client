@@ -40,7 +40,6 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
                 userRole: updatedRole,
                 country: updatedCountry
             }
-            console.log('updated ', changedUser);
             dispatch(updateUser(userId, changedUser));
         }
         handleModal();

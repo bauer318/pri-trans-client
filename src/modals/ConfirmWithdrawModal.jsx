@@ -11,8 +11,16 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
     const [userWallet, setUserWallet] = useState();
     const navigate = useNavigate();
     const [canWait, setCanWait] = useState(false);
-    const callBack = () => {
+    const callBackAgent = () => {
         setCanWait(false);
+        navigate("/agent/withdrawals");
+        handleModal();
+    }
+
+    const callBackClient = ()=>{
+        setCanWait(false);
+        handleModal();
+        navigate("/client/account")
     }
     const handleSubmit = event => {
         event.preventDefault();
@@ -23,25 +31,25 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
                 reference: formData["reference"]
             }
             setCanWait(true);
-            orderService.confirmWithdrawByAgent(orderDetails).then(
+            orderService.confirmWithdrawByAgent(orderDetails,callBackAgent).then(
                 response => {
-                    navigate("/agent/withdrawals");
-                    callBack();
+
                 }
             ).catch(error => {
                 printError(error);
             })
-            handleModal();
+
         } else {
-            accountService.withdraw(withdrawDetails?.withdrawRq)
+            setCanWait(true);
+            accountService.withdraw(withdrawDetails?.withdrawRq,callBackClient)
                 .then(
                     response => {
-                        navigate("/client/account")
+
                     }
                 ).catch(error => {
                 printError(error);
             })
-            handleModal();
+
         }
     }
     useEffect(() => {

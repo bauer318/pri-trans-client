@@ -5,9 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {createUser} from "../reducers/userReducers";
 import {initializeCountries} from "../reducers/countryReducers";
 import LoadingEffect from "../components/LoadingEffect";
-import {getItem, removeItem, saveItem} from "../services/LocalStorageService";
-import instance, {baseURL} from "../services/Utils";
-import axios from "axios";
+import {removeItem, saveItem} from "../services/LocalStorageService";
 
 const CreateAccount = () => {
     const [formData, setFormData] = useState({userRole: {userRole: "ROLE_CLIENT"}});
@@ -27,46 +25,22 @@ const CreateAccount = () => {
     }, []);
     const countries = useSelector(state => state.countries);
 
-    const performLoginAfterSignUp = () => {
-        setIsLoading(true);
-        const registeredUser = {
-            email: formData?.email,
-            password: formData?.password
-        };
-        axios.post(`${baseURL}/login`, registeredUser)
-            .then(response => {
-                saveItem("loginUSer", response.data?.userRs);
-                saveItem("jwtToken", `Bearer ${response.data?.jwtToken}`);
-                setIsLoading(false);
-                const registeredUser = getItem('loginUSer');
-                navigate(`/register/${registeredUser?.userId}/personal-info`);
-            })
-            .catch(error => {
-                setIsLoading(false);
-                const response = error.response;
-                if (response?.status === 403 || response?.status === 400) {
-                    setError(`Bad credential ${response.status}`);
-                } else if (response?.status === 500 || error.request) {
-                    setError("Something went wrong please try again later...")
-                }
-            });
-    }
 
     const errorCallBack = () => {
         setIsLoading(false);
         setContinueTo(false);
     }
+    const toHome = () => {
+        saveItem("successMessage", "The account has been successfully created");
+        navigate('/');
+    }
 
     const handleSubmit = event => {
         event.preventDefault();
         setIsLoading(true);
-        dispatch(createUser(formData, errorCallBack));
+        dispatch(createUser(formData, errorCallBack, toHome));
         setIsLoading(false);
         setContinueTo(true);
-    }
-
-    const handleContinueTo = () => {
-        performLoginAfterSignUp();
     }
     const handleChange = event => {
         const {name, value} = event.target;
@@ -128,10 +102,10 @@ const CreateAccount = () => {
                         <button disabled={continueTo} className={"btn me-5 btn-primary w-50"} type={"submit"}>
                             Create
                         </button>
-                        <button disabled={!continueTo} onClick={handleContinueTo} className={"btn btn-primary w-50"}
+                        {/*<button disabled={!continueTo} onClick={handleContinueTo} className={"btn btn-primary w-50"}
                                 type={"button"} style={{display: !continueTo ? 'none' : ''}}>
                             Continue
-                        </button>
+                        </button>*/}
                     </div>
                 </Form>
 
