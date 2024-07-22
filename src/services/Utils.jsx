@@ -222,8 +222,8 @@ export const getAgentAccountRq = (account, connectedUser) => {
         country: connectedUser?.country?.countryName
     }
 }
-export const baseURL = 'http://192.144.12.63:8080/api';
-//export const baseURL = 'http://localhost:8080/api';
+//export const baseURL = 'http://192.144.12.63:8080/api';
+export const baseURL = 'http://localhost:8080/api';
 const instance = axios.create({
     baseURL: baseURL,
     headers: {Authorization: getItem('jwtToken')}
