@@ -17,6 +17,9 @@ COPY . /app
 # ENV PATH /app/node_modules/.bin:$PATH
 # install and cache dependencies
 RUN yarn
+
+# Copy the rest of the application code
+COPY . .
 #build the project for production
 RUN yarn build
 # set up production environment
