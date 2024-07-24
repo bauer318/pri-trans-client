@@ -17,6 +17,8 @@ services:
       - "443:443"
     networks:
       - pri-trans-ui_bridge
+    volumes:
+      - /etc/letsencrypt/live/pri-trans.com:/etc/ssl/private:ro
 
 networks:
   pri-trans-ui_bridge:
