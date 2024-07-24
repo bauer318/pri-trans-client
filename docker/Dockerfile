@@ -31,8 +31,12 @@ COPY --from=build /app/build /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 # replace with custom one
 COPY nginx/prod.conf /etc/nginx/conf.d
+
+# Copy SSL certificates
+COPY /etc/letsencrypt/live/pri-trans.com/fullchain.pem /etc/ssl/certs/fullchain.pem
+COPY /etc/letsencrypt/live/pri-trans.com/privkey.pem /etc/ssl/private/privkey.pem
 # --------- /only for those using react router ----------
-# expose port 80 to the outer world
-EXPOSE 80
+
+EXPOSE 80 443
 # start nginx
 CMD ["nginx", "-g", "daemon off;"]

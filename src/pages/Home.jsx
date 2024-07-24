@@ -91,6 +91,7 @@ const Home = () => {
             setError(null);
         }
     }
+    const a = process.env.REACT_APP_TEST1;
     return (
         <>
             {
@@ -98,6 +99,7 @@ const Home = () => {
                     <Navigate to={'/admin/users'} replace={true}/>
                 )}
             <div className={"container row"}>
+                <p>{a}</p>
                 <div className={"text-center mt-5"}>
                     <h3>Login</h3>
                 </div>

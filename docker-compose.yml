@@ -6,10 +6,15 @@ services:
     build:
       context: ./
       dockerfile: docker/Dockerfile
+      args:
+        NODE_ENV: production
     tty: true
     restart: unless-stopped
+    environment:
+      - NODE_ENV=production
     ports:
       - "80:80"
+      - "443:443"
     networks:
       - pri-trans-ui_bridge
 
