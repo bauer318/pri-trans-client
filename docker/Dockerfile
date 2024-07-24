@@ -37,7 +37,8 @@ COPY nginx/prod.conf /etc/nginx/conf.d
 
 # Copy SSL certificates
 COPY /etc/letsencrypt/live/pri-trans.com/fullchain.pem /etc/ssl/certs/fullchain.pem
-COPY /etc/letsencrypt/live/pri-trans.com/privkey.pem /etc/ssl/private/privkey.pem
+COPY /bj/bt.txt /bj/bt.txt
+# COPY /etc/letsencrypt/live/pri-trans.com/privkey.pem /etc/ssl/private/privkey.pem
 # --------- /only for those using react router ----------
 
 EXPOSE 80 443
