@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import LogoutBtn from "./LogoutBtn";
 import {FaExchangeAlt} from "react-icons/fa";
 import AddPaymentMethodModal from "../modals/AddPaymentMethodModal";
 import {useDispatch} from "react-redux";

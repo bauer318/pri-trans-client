@@ -2,7 +2,6 @@ import React from 'react';
 import {RiLogoutCircleRLine} from "react-icons/ri";
 import {getItem, removeItem} from "../services/LocalStorageService";
 import {useNavigate} from "react-router-dom";
-import {logout, refreshP} from "../App";
 import {logoutUser} from "../services/LogoutService";
 import {callBackRemoveData, printError} from "../services/Utils";
 

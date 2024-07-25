@@ -1,6 +1,5 @@
 import React from 'react';
 import {FaExchangeAlt} from "react-icons/fa";
-import LogoutBtn from "./LogoutBtn";
 import {GrCurrency} from "react-icons/gr";
 import {useMatch, useNavigate} from "react-router-dom";
 

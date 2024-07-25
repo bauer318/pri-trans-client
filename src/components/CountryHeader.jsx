@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import LogoutBtn from "./LogoutBtn";
 import {FaCity} from "react-icons/fa";
 import AddCountryModal from "../modals/AddCountryModal";
 

@@ -32,9 +32,8 @@ import AgentHistory from "./pages/AgentHistory";
 import AgentDeposits from "./pages/AgentDeposits";
 import AgentWithdrawals from "./pages/AgentWithdrawals";
 import ModeratorHome from "./pages/ModeratorHome";
-import {getItem, removeItem} from "./services/LocalStorageService";
+import {getItem} from "./services/LocalStorageService";
 import ProfilePage from "./pages/ProfilePage";
-import AgentProfilePage from "./pages/AgentProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
 
 export var logout = () => {

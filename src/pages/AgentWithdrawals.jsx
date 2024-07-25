@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import CSWHeader from "../components/CSWHeader";
-import {GiConfirmed} from "react-icons/gi";
-import {MdDoNotDisturbAlt} from "react-icons/md";
 import ConfirmWithdrawModal from "../modals/ConfirmWithdrawModal";
 import RejectWithdrawalsModal from "../modals/RejectWithdrawalsModal";
 import {useDispatch, useSelector} from "react-redux";
 import {getItem} from "../services/LocalStorageService";
 import {getWithdrawOrdersToAgent} from "../reducers/orderReducer";
-import AgentPendingDepositCard from "../components/agentPendingDepositCard";
 import AgentPendingWithdrawCard from "../components/AgentPendingWithdrawCard";
 
 const AgentWithdrawals = () => {

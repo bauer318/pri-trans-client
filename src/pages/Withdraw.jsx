@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import CSWHeader from "../components/CSWHeader";
 import DWForm from "../components/DWForm";
-import {useLocation, useNavigate} from "react-router-dom";
-import {AiOutlineArrowDown, AiOutlineArrowRight} from "react-icons/ai";
+import {useLocation} from "react-router-dom";
+import {AiOutlineArrowRight} from "react-icons/ai";
 import ConfirmWithdrawModal from "../modals/ConfirmWithdrawModal";
 import {getItem} from "../services/LocalStorageService";
 import accountService from "../services/accountService";
 import {getAgentAccountRq, printError} from "../services/Utils";
 
 const Withdraw = () => {
-    const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const [amount, setAmount] = useState(0.00);
     const [paymentMethod, setPaymentMethod] = useState(0);
@@ -18,7 +17,6 @@ const Withdraw = () => {
     const [connectedUser, setConnectedUser] = useState();
     const [formDetails, setFormDetails] = useState();
     const location = useLocation();
-    const [toAccount, setToAccount] = useState();
     const [canWithdraw, setCanWithdraw] = useState(true)
 
     useEffect(() => {

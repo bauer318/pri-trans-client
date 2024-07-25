@@ -1,6 +1,4 @@
 import React from 'react';
-import TransactionStatusTdComponent from "./transactionStatusTdComponent";
-import {roundValue} from "../services/Utils";
 
 const AgentPendingDepositCard = ({pendingDeposit, handleConfirmDeposit, handleCancelDeposit}) => {
     return (

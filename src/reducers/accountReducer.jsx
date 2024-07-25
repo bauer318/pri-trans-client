@@ -23,7 +23,7 @@ export const initializeAccounts = (callBack) => {
 };
 
 export const createAccount = (currencyId, callBack) => {
-    return async dispatch => {
+    return async () => {
         const newAccount = await accountService.createNew(currencyId,callBack);
         if (newAccount) {
             initializeAccounts(callBack);

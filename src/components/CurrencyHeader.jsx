@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import LogoutBtn from "./LogoutBtn";
 import {GrCurrency} from "react-icons/gr";
 import AddCurrencyModal from "../modals/AddCurrencyModal";
 import {useDispatch} from "react-redux";

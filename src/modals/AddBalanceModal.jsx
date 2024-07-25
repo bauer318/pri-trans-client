@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {TfiWallet} from "react-icons/tfi";
 import {useDispatch, useSelector} from "react-redux";
-import {initializeCurrencies, initializeNeedUserCurrencies} from "../reducers/currencyReducers";
+import {initializeNeedUserCurrencies} from "../reducers/currencyReducers";
 import {createAccount} from "../reducers/accountReducer";
 import {getItem} from "../services/LocalStorageService";
 import ToastNotification from "./toastNotification";

@@ -5,7 +5,6 @@ import {formatDate, printError} from "../services/Utils";
 import {initializeCountries} from "../reducers/countryReducers";
 import {useDispatch, useSelector} from "react-redux";
 import participantService from "../services/ParticipantService";
-import personalInfo from "./PersonalInfo";
 import personalInfoService from "../services/PersonalInfoService";
 import {getItem} from "../services/LocalStorageService";
 

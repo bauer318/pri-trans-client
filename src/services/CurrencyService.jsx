@@ -1,5 +1,5 @@
 import axios from "axios";
-import instance, {baseURL, getToken, printError} from "./Utils";
+import {baseURL, getToken, printError} from "./Utils";
 
 const baseUrl = baseURL.concat('/currencies');
 

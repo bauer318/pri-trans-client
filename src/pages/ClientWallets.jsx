@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import LogoutBtn from "../components/LogoutBtn";
 import WalletCard from "../components/walletCard";
 import ClientAddWalletModal from "../modals/ClientAddWalletModal";
 import {getItem} from "../services/LocalStorageService";

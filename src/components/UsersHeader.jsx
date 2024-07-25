@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {ImUserPlus} from "react-icons/im";
-import LogoutBtn from "./LogoutBtn";
 import AddUserModal from "../modals/AddUserModal";
 import {useDispatch} from "react-redux";
 import {getByAuthStatus, getByRole, getByRoleAndAuthStatus, initializeUsers} from "../reducers/userReducers";

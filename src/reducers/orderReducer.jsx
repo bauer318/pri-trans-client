@@ -1,6 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import accountService from "../services/accountService";
-import {setAccounts} from "./accountReducer";
 import orderService from "../services/orderService";
 
 const orderSlice = createSlice({

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import orderService from "../services/orderService";
-import {responsivePropType} from "react-bootstrap/createUtilityClasses";
 
 const CancelDepositModal = ({depositDetails, showCancelModal, handleCancelModal}) => {
     const [canWait, setCanWait] = useState(false);

@@ -1,5 +1,4 @@
 import React from 'react';
-import LogoutBtn from "./LogoutBtn";
 
 //Convert Send and Withdraw CSW
 const CSWHeader = ({title}) => {

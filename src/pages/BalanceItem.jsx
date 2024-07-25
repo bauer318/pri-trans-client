@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import LogoutBtn from "../components/LogoutBtn";
 import {BiArrowBack} from "react-icons/bi";
 import {useLocation, useNavigate} from "react-router-dom";
 import {AiOutlineArrowDown, AiOutlineArrowUp, AiOutlinePlus} from "react-icons/ai";
 import CircleBtn from "../components/CircleBtn";
-import {TbArrowsExchange2} from "react-icons/tb";
 import accountService from "../services/accountService";
 import {printError, roundValue} from "../services/Utils";
 import LoadingEffect from "../components/LoadingEffect";

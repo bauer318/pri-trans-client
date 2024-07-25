@@ -3,15 +3,12 @@ import {Form, Modal} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteUser, updateUser} from "../reducers/userReducers";
-import {useNavigate} from "react-router-dom";
 import {initializeCountries} from "../reducers/countryReducers";
 import {getByName} from "../services/CountryService";
 import {getAll, getOne} from "../services/RoleService";
 
 
 const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({});
     const user = useSelector(state => state.users.find(user => user.userId === userId));
     const [updateEmail, setUpdatedEmail] = useState(user?.email);
     const [updatedRole, setUpdatedRole] = useState(user?.userRole);
@@ -102,7 +99,8 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
                                     name="country"
                                 >
                                     <option
-                                        value={updatedCountry?.countryName} key={updatedCountry.countryId}>{countries?.find(c => c.countryId === Number(updatedCountry?.countryId))?.countryName}</option>
+                                        value={updatedCountry?.countryName}
+                                        key={updatedCountry.countryId}>{countries?.find(c => c.countryId === Number(updatedCountry?.countryId))?.countryName}</option>
                                 </Form.Control>
                             </Form.Group>) : (<Form.Group controlId="formBasicCountry">
                             <Form.Label>Country</Form.Label>
@@ -126,11 +124,13 @@ const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
 
 
                     <div className={"mt-2"}>
-                        <button className={isDelete ? "btn btn-danger" : "btn btn-primary"} disabled={isDelete} type={"submit"}>
+                        <button className={isDelete ? "btn btn-danger" : "btn btn-primary"} disabled={isDelete}
+                                type={"submit"}>
                             <span className={"me-2"}><i><ImUserPlus/></i></span>{isDelete ? "Delete" : "Save"}
                         </button>
                     </div>
                 </Form>
+                {canWait && <LoadingEffect/>}
             </Modal.Body>
             <Modal.Footer>
                 <button className={"btn btn-secondary"} onClick={handleModal}>Close</button>

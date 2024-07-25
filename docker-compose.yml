@@ -5,11 +5,8 @@ services:
       NODE_ENV: production
     ports:
       - 80:80
-      - 443:443
     networks:
       - pri-trans-ui_bridge
-    volumes:
-      - /etc/letsencrypt/live/pri-trans.com:/etc/ssl/private:ro
 networks:
   pri-trans-ui_bridge:
     driver: bridge

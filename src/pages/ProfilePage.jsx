@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {MdVerified} from "react-icons/md";
 import {FcCancel} from "react-icons/fc";
-import {printError, roundValue} from "../services/Utils";
-import {useCol} from "react-bootstrap/Col";
+import {printError} from "../services/Utils";
 import {useNavigate} from "react-router-dom";
 import {getItem} from "../services/LocalStorageService";
 import participantService from "../services/ParticipantService";

@@ -1,5 +1,4 @@
 import React from 'react';
-import LogoutBtn from "./LogoutBtn";
 import {useNavigate} from "react-router-dom";
 
 const DepositHeader = () => {
