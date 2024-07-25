@@ -1,0 +1,15 @@
+services:
+  server:
+    image: bauer318/pri-trans-ui:latest
+    environment:
+      NODE_ENV: production
+    ports:
+      - 80:80
+    networks:
+      - pri-trans-ui_bridge
+networks:
+  pri-trans-ui_bridge:
+    driver: bridge
+
+
+

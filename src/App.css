@@ -12,11 +12,11 @@ main {
     width: 100%;
     padding: 20px;
 }
+
 .sidebar {
     color: #fff;
-    width: 250px;
-    padding-left: 20px;
-    height: 100vh;
+    #width: 200px;
+    #padding-left: 20px;
     background-image: linear-gradient(30deg, #0048bd, #44a7fd);
     border-top-right-radius: 80px;
 }
@@ -36,6 +36,7 @@ main {
     margin-left: 50px;
     font-size: 25px;
 }
+
 .link {
     color: #fff;
     display: flex;
@@ -54,7 +55,8 @@ main {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
 }
-.link:hover::after{
+
+.link:hover::after {
     content: "";
     position: absolute;
     background-color: transparent;
@@ -65,7 +67,8 @@ main {
     border-bottom-right-radius: 18px;
     box-shadow: 0 20px 0 0 #fff;
 }
-.link:hover::before{
+
+.link:hover::before {
     content: "";
     position: absolute;
     background-color: transparent;
@@ -80,15 +83,21 @@ main {
 .icon, .link_text {
     font-size: 20px;
 }
-.country-card{
+
+.country-card {
     max-height: 200px;
     min-height: 200px;
 }
+
 .loading {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+.loading-d{
+    width: 3rem;
+    height: 3rem;
 }
 
 .loading-circle {
@@ -105,3 +114,44 @@ main {
         transform: rotate(360deg);
     }
 }
+
+.center {
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.center span {
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 50px;
+    width: 50px;
+}
+.product-convert{
+    border-radius: 50%;
+    display: inline-block;
+}
+.product-convert span{
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 25px;
+    width: 25px;
+}
+.card-pm{
+    width: 280px;
+}
+.login-form{
+    width: 350px;
+}
+.required:after{
+    padding-left: 5px;
+    padding-top: 2px;
+    content:"*";
+    color:red;
+}
+
+
+

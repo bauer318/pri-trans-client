@@ -1,22 +1,53 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {ImUserPlus} from "react-icons/im";
-import {useDispatch} from "react-redux";
-import {createUser} from "../reducers/userReducers";
-
+import {useDispatch, useSelector} from "react-redux";
+import {initializeCountries} from "../reducers/countryReducers";
+import {getOne} from "../services/RoleService";
+import {getById} from "../services/CountryService";
+import {initializeUsers} from "../reducers/userReducers";
+import userService from '../services/UserService'
 
 const AddUserModal = ({showModal, handleModal}) => {
     const [formData, setFormData] = useState({});
     const dispatch = useDispatch();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
+    useEffect(() => {
+        setCanWait(true);
+        dispatch(initializeCountries(callBack));
+
+    }, []);
+    const countries = useSelector(state => state.countries);
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(createUser(formData));
+        setCanWait(true);
+        userService.createNew(formData, errorCallback, callBack)
+            .then(r => setCanWait(false));
+        dispatch(initializeUsers());
         handleModal();
     };
+    const errorCallback = () => {
+        alert("Failed");
+    }
     const handleChange = (event) => {
         const {name, value} = event.target;
         setFormData({...formData, [name]: value});
     };
+
+    const handleRoleChange = (event) => {
+        const {name, value} = event.target;
+        const role = getOne(value);
+        role.then(res => setFormData({...formData, [name]: res}));
+    }
+
+    const handleCountryChange = (event) => {
+        const {name, value} = event.target;
+        const country = getById(value);
+        country.then(res => setFormData({...formData, [name]: res}));
+    }
     return (
         <Modal show={showModal} onHide={handleModal}>
             <Modal.Header closeButton>
@@ -38,9 +69,9 @@ const AddUserModal = ({showModal, handleModal}) => {
                     <Form.Group controlId="formBasicUserRole">
                         <Form.Label>User role</Form.Label>
                         <Form.Control as="select"
-                                      name="role"
+                                      name="userRole"
                                       required={true}
-                                      onChange={handleChange}
+                                      onChange={handleRoleChange}
                         >
                             <option value="">Select user role</option>
                             <option value={3}>Agent</option>
@@ -51,12 +82,19 @@ const AddUserModal = ({showModal, handleModal}) => {
                     <Form.Group controlId="formBasicCountry">
                         <Form.Label>Country</Form.Label>
                         <Form.Control
-                            type="text"
-                            placeholder="Enter user country"
+                            as="select"
                             name="country"
                             required={true}
-                            onChange={handleChange}
-                        />
+                            onChange={handleCountryChange}
+                        >
+                            <option value="">Select user's country</option>
+                            {
+                                countries?.map(country =>
+                                    <option value={country.countryId}
+                                            key={country.countryId}>{country.countryName}</option>
+                                )
+                            }
+                        </Form.Control>
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
@@ -70,7 +108,8 @@ const AddUserModal = ({showModal, handleModal}) => {
                         />
                     </Form.Group>
                     <div className={"mt-2"}>
-                        <button className={"btn btn-primary"} type={"submit"}><span className={"me-2"}><i><ImUserPlus/></i></span>Add
+                        <button className={"btn btn-primary"} type={"submit"} disabled={canWait}><span
+                            className={"me-2"}><i><ImUserPlus/></i></span>Add
                         </button>
                     </div>
                 </Form>

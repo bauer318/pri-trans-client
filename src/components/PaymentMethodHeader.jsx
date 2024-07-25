@@ -1,12 +1,47 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import LogoutBtn from "./LogoutBtn";
 import {FaExchangeAlt} from "react-icons/fa";
 import AddPaymentMethodModal from "../modals/AddPaymentMethodModal";
+import {useDispatch} from "react-redux";
+import {findPaymentMethodByName, initializePaymentMethods} from "../reducers/paymentMethodReducers";
+import LoadingEffect from "./LoadingEffect";
 
 const PaymentMethodHeader = () => {
     const [showModal, setShowModal] = useState(false);
-    const handleModal = ()=>{
+    const [paymentMethod, setPaymentMethod] = useState("");
+    const dispatch = useDispatch();
+    const [notFound, setNotFound] = useState(false);
+    const [canWait, setCanWait] = useState(false);
+
+    const callBack = () => {
+        setCanWait(false);
+    }
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const paymentMethodWasNotFound = () => {
+        setNotFound(true);
+    }
+
+    useEffect(() => {
+        if (notFound) {
+            setErrorMessage("Payment method " + paymentMethod + " was not found");
+            setCanWait(true);
+            dispatch(initializePaymentMethods(callBack));
+        } else {
+            setErrorMessage("");
+        }
+    }, [notFound]);
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        dispatch(findPaymentMethodByName(paymentMethod, paymentMethodWasNotFound));
+    }
+    const handleModal = () => {
         setShowModal(!showModal);
+    }
+
+    const handleChange = event => {
+        setPaymentMethod(event.target.value);
     }
     return (
         <div>
@@ -17,20 +52,24 @@ const PaymentMethodHeader = () => {
                     </button>
                 </div>
                 <div className={"col-lg-3"}>
-                    <form className="d-flex" role="search">
+                    <form className="d-flex" role="search" onSubmit={handleSubmit}>
                         <input
                             className="form-control me-2"
                             type="search"
                             placeholder="Method"
+                            onChange={handleChange}
+                            required={true}
                             aria-label="Search"/>
                         <button className="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
-                <div className={"col-lg-6 d-flex justify-content-end"}>
-                    <LogoutBtn/>
+                <div className={"col-lg-3"}>
+                    {notFound && <span className={"text-center text-danger"}>{errorMessage}</span>}
                 </div>
             </div>
-            <AddPaymentMethodModal handleModal={handleModal} showModal={showModal}/>
+            {canWait && <div className={"text-center"}><LoadingEffect/></div>}
+            {showModal &&
+                <AddPaymentMethodModal handleModal={handleModal} showModal={showModal}/>}
         </div>
     );
 };

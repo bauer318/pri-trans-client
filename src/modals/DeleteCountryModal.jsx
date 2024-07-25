@@ -1,18 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import {FaCity} from "react-icons/fa";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {deleteCountry} from "../reducers/countryReducers";
 import {useNavigate} from "react-router-dom";
 
-const DeleteCountryModal = ({showModal, handleModal, countryId}) => {
-    const country = useSelector(state => state.countries.find(country => country.id === countryId));
+const DeleteCountryModal = ({showModal, handleModal, country}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(deleteCountry(countryId));
-        navigate('/countries');
+        setCanWait(true);
+        dispatch(deleteCountry(country?.countryId,callBack));
+        navigate('/admin/countries');
     };
     return (
         <Modal show={showModal} onHide={handleModal}>
@@ -25,7 +30,7 @@ const DeleteCountryModal = ({showModal, handleModal, countryId}) => {
                         <Form.Label>Country</Form.Label>
                         <Form.Control
                             type="text"
-                            value={country?.country}
+                            value={country?.countryName}
                             readOnly={true}
                         />
                     </Form.Group>
@@ -46,7 +51,7 @@ const DeleteCountryModal = ({showModal, handleModal, countryId}) => {
                         />
                     </Form.Group>
                     <div className={"mt-2"}>
-                        <button className={"btn btn-danger"} type={"submit"}><span
+                        <button className={"btn btn-danger"} type={"submit"} disabled={canWait}><span
                             className={"me-2"}><i><FaCity/></i></span>Delete
                         </button>
                     </div>

@@ -4,19 +4,19 @@ import {FaExchangeAlt} from "react-icons/fa";
 import {useDispatch} from "react-redux";
 import {deletePaymentMethod, updatePaymentMethod} from "../reducers/paymentMethodReducers";
 
-const UpdatePaymentMethod = ({showModal, handleModal, selectedPaymentMethod, isDelete}) => {
-    const [paymentM, setPaymentM] = useState(selectedPaymentMethod.paymentMethod);
+const UpdatePaymentMethodModal = ({showModal, handleModal, selectedPaymentMethod, isDelete}) => {
+    const [paymentM, setPaymentM] = useState(selectedPaymentMethod.method);
     const dispatch = useDispatch();
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(isDelete){
-            dispatch(deletePaymentMethod(selectedPaymentMethod.id));
-        }else{
+        if (isDelete) {
+            dispatch(deletePaymentMethod(selectedPaymentMethod?.id));
+        } else {
             const updatedPm = {
                 ...selectedPaymentMethod,
-                paymentMethod: paymentM
+                method: paymentM
             }
-            dispatch(updatePaymentMethod(selectedPaymentMethod.id, updatedPm));
+            dispatch(updatePaymentMethod(selectedPaymentMethod?.id, updatedPm));
         }
         handleModal();
     };
@@ -35,8 +35,8 @@ const UpdatePaymentMethod = ({showModal, handleModal, selectedPaymentMethod, isD
                         <Form.Label>Payment method</Form.Label>
                         <Form.Control
                             type="text"
-                            name="paymentMethod"
-                            defaultValue={selectedPaymentMethod.paymentMethod}
+                            name="method"
+                            defaultValue={selectedPaymentMethod.method}
                             required={true}
                             onChange={handleChange}
                             readOnly={isDelete}
@@ -44,7 +44,8 @@ const UpdatePaymentMethod = ({showModal, handleModal, selectedPaymentMethod, isD
                     </Form.Group>
 
                     <div className={"mt-2"}>
-                        <button className={isDelete ? "btn btn-danger" : "btn btn-primary"} type={"submit"}>
+                        <button disabled={isDelete} className={isDelete ? "btn btn-danger" : "btn btn-primary"}
+                                type={"submit"}>
                             <span className={"me-2"}><i><FaExchangeAlt/></i></span>{isDelete ? "Delete" : "Save"}
                         </button>
                     </div>
@@ -57,4 +58,4 @@ const UpdatePaymentMethod = ({showModal, handleModal, selectedPaymentMethod, isD
     );
 };
 
-export default UpdatePaymentMethod;
+export default UpdatePaymentMethodModal;

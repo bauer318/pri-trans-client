@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {FaBackward, FaSave} from "react-icons/fa";
-import {MdCancel, MdDeleteForever} from "react-icons/md";
+import {FaBackward} from "react-icons/fa";
+import {MdDeleteForever} from "react-icons/md";
 import RemoveCurrencyFromCountryModal from "../modals/RemoveCurrencyFromCountryModal";
 import RemovePaymentMethodFromCountryModal from "../modals/RemovePaymentMethodFromCountryModal";
 import {useMatch, useNavigate} from "react-router-dom";
@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import LoadingEffect from "./LoadingEffect";
 import {Form} from "react-bootstrap";
 import {updateCountry} from "../reducers/countryReducers";
+import {getCountryByName} from "../services/Utils";
 
 
 const CountryEdit = () => {
@@ -15,41 +16,47 @@ const CountryEdit = () => {
     const [showPMModal, setShowPMModal] = useState(false);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState();
     const [selectedCurrency, setSelectedCurrency] = useState();
-    const match = useMatch('countries/:id/edit');
+    const match = useMatch('/admin/countries/:id/edit');
     const countryId = Number(match.params.id);
-    const country = useSelector(state => state.countries.find(country => country.id === countryId));
-    const [countryName, setCountryName] = useState(country.country);
+    const country = useSelector(state => state.countries.find(country => country.countryId === countryId));
+    const [countryName, setCountryName] = useState(country.countryName);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [canWait, setCanWait] = useState(false);
+    const callBack = () => {
+        setCanWait(false);
+    }
 
     const handleCurrencyModal = (selectedCurrencyIdParam) => {
-        const selectedCurrency = country.currencies.find(currency => currency.id === selectedCurrencyIdParam);
+        const selectedCurrency = country.currencies.find(currency => currency.currencyId === selectedCurrencyIdParam);
         setSelectedCurrency(selectedCurrency);
         setShowCurrencyModal(!showCurrencyModal);
     }
 
     const handlePMModal = (selectedPaymentMethodIdParam) => {
-        const selectedPM = country.paymentMethods.find(pm => pm.id === selectedPaymentMethodIdParam);
+        const selectedPM = country.paymentMethods.find(pm => pm.paymentMethodeId === selectedPaymentMethodIdParam);
         setShowPMModal(!showPMModal);
         setSelectedPaymentMethod(selectedPM);
     }
 
-    const handleEmailChange = (event)=>{
+    const handleEmailChange = (event) => {
         const countryName = event.target.value;
         setCountryName(countryName);
     }
 
-    const handleSubmitCountryName = (event)=>{
+    const handleSubmitCountryName = (event) => {
         event.preventDefault();
+        const countryFromAPI = getCountryByName(countryName);
         const updatedCountry = {
-            ...country,
-            country:countryName
+            ...countryFromAPI,
+            currencies: country.currencies,
+            paymentMethods: country.paymentMethods
         }
-        dispatch(updateCountry(countryId, updatedCountry));
-        navigate('/countries');
+        dispatch(updateCountry(countryId, updatedCountry, callBack));
+        navigate('/admin/countries');
     }
     const handleCancelClick = () => {
-        navigate('/countries');
+        navigate('/admin/countries');
     }
 
     return (
@@ -63,7 +70,7 @@ const CountryEdit = () => {
                                 <Form.Control
                                     type="text"
                                     name="country"
-                                    defaultValue={country.country}
+                                    defaultValue={country?.countryName}
                                     required={true}
                                     onChange={handleEmailChange}
                                 />
@@ -83,10 +90,11 @@ const CountryEdit = () => {
                         <table className={"table table-success table-striped table-bordered table-responsive"}>
                             <tbody>
                             {
-                                country.currencies.map(currency =>
-                                    <tr key={currency.id}>
+                                country?.currencies.map(currency =>
+                                    <tr key={currency.currencyId}>
                                         <td className={"text-start"}>{currency.currency}</td>
-                                        <td className={"text-center"} onClick={() => handleCurrencyModal(currency.id)}>
+                                        <td className={"text-center"}
+                                            onClick={() => handleCurrencyModal(currency.currencyId)}>
                                             <MdDeleteForever/></td>
                                     </tr>
                                 )
@@ -101,10 +109,10 @@ const CountryEdit = () => {
                         <table className={"table table-success table-striped table-bordered table-responsive"}>
                             <tbody>
                             {
-                                country.paymentMethods.map(pm =>
-                                    <tr key={pm.id}>
+                                country?.paymentMethods.map(pm =>
+                                    <tr key={pm?.paymentMethodId}>
                                         <td className={"text-start"}>{pm.paymentMethod}</td>
-                                        <td className={"text-center"} onClick={() => handlePMModal(pm.id)}>
+                                        <td className={"text-center"} onClick={() => handlePMModal(pm.paymentMethodId)}>
                                             <MdDeleteForever/></td>
                                     </tr>
                                 )
@@ -114,10 +122,10 @@ const CountryEdit = () => {
                     </div>
                 </div>
                 {selectedCurrency &&
-                    <RemoveCurrencyFromCountryModal country={country.country} selectedCurrency={selectedCurrency}
+                    <RemoveCurrencyFromCountryModal country={country?.countryName} selectedCurrency={selectedCurrency}
                                                     handleModal={handleCurrencyModal} showModal={showCurrencyModal}/>}
                 {selectedPaymentMethod &&
-                    <RemovePaymentMethodFromCountryModal country={country.country}
+                    <RemovePaymentMethodFromCountryModal country={country?.countryName}
                                                          selectedPaymentMethod={selectedPaymentMethod}
                                                          handleModal={handlePMModal} showModal={showPMModal}/>}
             </div>) : (<LoadingEffect/>)}

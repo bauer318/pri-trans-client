@@ -1,6 +1,5 @@
-import React from 'react';
 import {createSlice} from "@reduxjs/toolkit";
-import countryService from '../services/Countries'
+import countryService from '../services/CountryService'
 
 
 const countrySlice = createSlice({
@@ -10,41 +9,57 @@ const countrySlice = createSlice({
         setCountries(state, action) {
             return action.payload;
         },
-        appendCountry(state, action){
+        appendCountry(state, action) {
             state.push(action.payload);
         }
     }
 });
 
-export const initializeCountries = () => {
+export const initializeCountries = (callBack) => {
     return async dispatch => {
-        const countries = await countryService.getAll();
+        const countries = await countryService.getAll(callBack);
         dispatch(setCountries(countries));
     }
 }
 
-export const createCountry = country=>{
-    return async dispatch =>{
+export const createCountry = country => {
+    return async dispatch => {
         const newCountry = await countryService.createNew(country);
         dispatch(appendCountry(newCountry));
     }
 }
 
-export const updateCountry = (id, country)=>{
-    return async dispatch =>{
-        await countryService.update(id,country);
-        const countries = await countryService.getAll();
+export const updateCountry = (id, country,callBack) => {
+    return async dispatch => {
+        await countryService.update(id, country);
+        const countries = await countryService.getAll(callBack);
         dispatch(setCountries(countries));
     }
 }
 
-export const deleteCountry = id =>{
-    return async dispatch =>{
+export const deleteCountry = (id,callBack) => {
+    return async dispatch => {
         await countryService.deleteCountry(id);
-        const countries = await countryService.getAll();
+        const countries = await countryService.getAll(callBack);
         dispatch(setCountries(countries));
     }
 }
 
-export const {setCountries,appendCountry} = countrySlice.actions;
+export const addPaymentMethod = (id, paymentMethod,callBack) => {
+    return async dispatch => {
+        await countryService.addPaymentMethod(id, paymentMethod);
+        const countries = await countryService.getAll(callBack);
+        dispatch(setCountries(countries));
+    }
+}
+
+export const addCurrency = (id, currency,callBack) => {
+    return async dispatch => {
+        await countryService.addCurrency(id, currency);
+        const countries = await countryService.getAll(callBack);
+        dispatch(setCountries(countries));
+    }
+}
+
+export const {setCountries, appendCountry} = countrySlice.actions;
 export default countrySlice.reducer;

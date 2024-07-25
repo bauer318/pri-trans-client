@@ -3,7 +3,7 @@ import {FaEdit} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
 import {BsInfoCircleFill} from "react-icons/bs";
 import {NavLink} from "react-router-dom";
-import UpdateUser from "../modals/UpdateUser";
+import UpdateUserModal from "../modals/UpdateUserModal";
 import {useSelector} from "react-redux";
 import LoadingEffect from "./LoadingEffect";
 
@@ -33,7 +33,7 @@ const UsersTable = () => {
     }
 
     return (
-        <>{users ?
+        <>{users?.length > 0 ?
             (<div>
                 <table className={"table table-success table-striped table-bordered table-responsive"}>
                     <thead className={"table-light"}>
@@ -46,14 +46,20 @@ const UsersTable = () => {
                     </thead>
                     <tbody>
                     {users.map(user =>
-                        <tr key={user.id}>
-                            <td>{user.email}</td>
+                        <tr key={user?.userId}>
+                            <td>{user?.email}</td>
                             <td className={"text-center"} style={{color: user.authStatus ? "green" : "red"}}>
                                 {user.authStatus ? "Online" : "offline"}</td>
-                            <td className={"text-center"} onClick={() => handleEdit(user.id)}><FaEdit/></td>
-                            <td className={"text-center"} onClick={() => handleDelete(user.id)}><MdDeleteForever/></td>
+                            {user?.userRole?.userRole === 'ROLE_CLIENT' ? <td></td> :
+                                <td className={"text-center"} onClick={() => handleEdit(user?.userId)}><FaEdit/></td>}
+
+                            {user?.userRole?.userRole === 'ROLE_CLIENT' ? <td></td> :
+                                <td className={"text-center"} onClick={() => handleDelete(user?.userId)}>
+                                    <MdDeleteForever/></td>
+                            }
+
                             <td className={"text-center"}>
-                                {<NavLink to={`/users/${user.id}`}>
+                                {<NavLink to={`/admin/users/${user?.userId}`}>
                                     <BsInfoCircleFill/>
                                 </NavLink>}
                             </td>
@@ -61,8 +67,9 @@ const UsersTable = () => {
                     )}
                     </tbody>
                 </table>
-                {userId !== 0 &&
-                    <UpdateUser handleModal={handleModal} showModal={showModal} userId={userId} isDelete={isDelete}/>}
+                {showModal &&
+                    <UpdateUserModal handleModal={handleModal} showModal={showModal} userId={userId}
+                                     isDelete={isDelete}/>}
             </div>) : (<LoadingEffect/>)}
         </>
     );

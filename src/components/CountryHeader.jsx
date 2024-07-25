@@ -17,11 +17,10 @@ const CountryHeader = () => {
                         <span><i><FaCity/></i></span> Add country
                     </button>
                 </div>
-                <div className={"col-lg-9 d-flex justify-content-end"}>
-                    <LogoutBtn/>
-                </div>
             </div>
-            <AddCountryModal showModal={showModal} handleModal={handleModal}/>
+            {   showModal &&
+                <AddCountryModal showModal={showModal} handleModal={handleModal}/>
+            }
         </div>
     );
 };

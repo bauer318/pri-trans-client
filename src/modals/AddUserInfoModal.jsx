@@ -6,8 +6,6 @@ const AddUserInfoModal = ({showModal, handleModal, userId}) => {
     const [formData, setFormData] = useState({});
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Here you can add your code to post the form data to your backend
-        console.log(formData);
         handleModal();
     };
     const handleChange = (event) => {

@@ -1,6 +1,5 @@
-import React from 'react';
 import {createSlice} from "@reduxjs/toolkit";
-import pmService from '../services/PaymentMethods';
+import pmService from '../services/PaymentMethodService';
 
 
 const paymentMethodSlice = createSlice({
@@ -16,15 +15,15 @@ const paymentMethodSlice = createSlice({
     }
 });
 
-export const createNewPaymentMethod = paymentMethod => {
+export const createNewPaymentMethod = (paymentMethod,callBack) => {
     return async dispatch => {
-        const newPm = await pmService.createNew(paymentMethod);
+        const newPm = await pmService.createNew(paymentMethod, callBack);
         dispatch(appendPaymentMethod(newPm));
     }
 }
-export const initializePaymentMethods = () => {
+export const initializePaymentMethods = (callBack) => {
     return async dispatch => {
-        const pm = await pmService.getAll();
+        const pm = await pmService.getAll(callBack);
         dispatch(setPaymentMethods(pm));
     }
 }
@@ -42,6 +41,13 @@ export const deletePaymentMethod = id => {
         await pmService.deletePaymentMethod(id);
         const pm = await pmService.getAll();
         dispatch(setPaymentMethods(pm));
+    }
+}
+
+export const findPaymentMethodByName = (name, notFoundCallback) => {
+    return async dispatch => {
+        const pm = await pmService.getByName(name, notFoundCallback);
+        dispatch(setPaymentMethods([pm]));
     }
 }
 export const {setPaymentMethods, appendPaymentMethod} = paymentMethodSlice.actions;

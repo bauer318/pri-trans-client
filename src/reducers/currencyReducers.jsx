@@ -1,5 +1,4 @@
-import React from 'react';
-import currencyService from '../services/Currencies';
+import currencyService from '../services/CurrencyService';
 import {createSlice} from "@reduxjs/toolkit";
 
 ;
@@ -24,9 +23,16 @@ export const createCurrency = currency => {
         dispatch(appendCurrency(newCurrency));
     }
 }
-export const initializeCurrencies = () => {
+export const initializeCurrencies = (callBack) => {
     return async dispatch => {
-        const currencies = await currencyService.getAll();
+        const currencies = await currencyService.getAll(callBack);
+        dispatch(setCurrencies(currencies));
+    }
+}
+
+export const initializeNeedUserCurrencies = userId => {
+    return async dispatch => {
+        const currencies = await currencyService.findCurrenciesNotBelongUser(userId);
         dispatch(setCurrencies(currencies));
     }
 }
@@ -43,6 +49,20 @@ export const deleteCurrency = id => {
         await currencyService.deleteCurrency(id);
         const currencies = await currencyService.getAll();
         dispatch(setCurrencies(currencies));
+    }
+}
+
+export const findCurrencyByName = (name, notFoundCallback) => {
+    return async dispatch => {
+        const currency = await currencyService.findCurrencyByName(name, notFoundCallback);
+        dispatch(setCurrencies([currency]));
+    }
+}
+
+export const findCurrencyByCode = (code, notFoundCallback)=>{
+    return async dispatch => {
+        const currency = await currencyService.findCurrencyByCode(code, notFoundCallback);
+        dispatch(setCurrencies([currency]));
     }
 }
 export const {setCurrencies, appendCurrency} = currencySlice.actions;

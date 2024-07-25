@@ -1,24 +1,45 @@
 import React, {useEffect, useState} from 'react';
-import {FaEdit, FaExchangeAlt} from "react-icons/fa";
+import {FaBackward, FaEdit} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
 import {useMatch, useNavigate} from "react-router-dom";
 import DeleteCountryModal from "../modals/DeleteCountryModal";
 import {useDispatch, useSelector} from "react-redux";
 import {initializeCountries} from "../reducers/countryReducers";
 import LoadingEffect from "./LoadingEffect";
+import {initializeCurrencies} from "../reducers/currencyReducers";
+import {initializePaymentMethods} from "../reducers/paymentMethodReducers";
 
 const Country = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const match = useMatch('countries/:id');
+    const match = useMatch('/admin/countries/:id');
     const [showModal, setShowModal] = useState(false);
+    const [countryLoaded, setCountryLoaded] = useState(false);
+    const [currencyLoaded, setCurrencyLoaded] = useState(false);
+    const [pmLoaded, setPmLoaded] = useState(false);
+
+    const countryCallback = () => {
+        setCountryLoaded(false);
+    }
+
+    const currencyCallback = () => {
+        setCurrencyLoaded(false);
+    }
+    const pmCallback = () => {
+        setPmLoaded(false);
+    }
 
     useEffect(() => {
-        dispatch(initializeCountries())
+        setCountryLoaded(true);
+        dispatch(initializeCountries(countryCallback));
+        setCurrencyLoaded(true);
+        dispatch(initializeCurrencies(currencyCallback));
+        setPmLoaded(true);
+        dispatch(initializePaymentMethods(pmCallback));
     }, []);
 
     const countryId = Number(match.params.id);
-    const country = useSelector(state => state.countries.find(country => country.id === countryId));
+    const country = useSelector(state => state.countries.find(country => country.countryId === countryId));
 
     const currencies = country?.currencies;
     const paymentMethods = country?.paymentMethods;
@@ -28,21 +49,36 @@ const Country = () => {
 
     return (
         <>
+            {countryLoaded && <div className={"text-center"}>
+                <LoadingEffect/>
+            </div>}
+            {currencyLoaded && <div className={"text-center"}>
+                <LoadingEffect/>
+            </div>}
+            {pmLoaded && <div className={"text-center"}>
+                <LoadingEffect/>
+            </div>}
             {country ?
                 (<div className={"row mt-2"}>
                     <div className={"col-4"}>
                         <div>
-                            <h1>{country.country}</h1>
+                            <h1>{country?.countryName}</h1>
                         </div>
                         <div>
                             <button className={"btn btn-primary mt-2"}
-                                    onClick={() => navigate(`/countries/${countryId}/edit`)}><span
+                                    onClick={() => navigate(`/admin/countries/${countryId}/edit`)}><span
                                 className={"ps-2 pe-2"}><i><FaEdit/></i></span>Edit
                             </button>
                         </div>
                         <div>
-                            <button className={"btn btn-danger mt-2"} onClick={() => handleModal()}><span
+                            <button disabled={true} className={"btn btn-danger mt-2"}
+                                    onClick={() => handleModal()}><span
                                 className={"ps-2 pe-2"}><MdDeleteForever/></span>Delete
+                            </button>
+                        </div>
+                        <div>
+                            <button className={"btn btn-info mt-2"} onClick={() => navigate('/admin/countries')}><span
+                                className={"ps-2 pe-2"}><FaBackward/></span>Back
                             </button>
                         </div>
                     </div>
@@ -53,7 +89,7 @@ const Country = () => {
                                 <tbody>
                                 {currencies ? (
                                     currencies.map(currency =>
-                                        <tr key={currency.id}>
+                                        <tr key={currency.currencyId}>
                                             <td className={"text-start"}>{currency.currency}</td>
                                         </tr>
                                     )) : (
@@ -69,20 +105,21 @@ const Country = () => {
                             <h1>Payment methods</h1>
                             <table className={"table table-success table-striped table-bordered table-responsive"}>
                                 <tbody>
-                                { paymentMethods?
+                                {paymentMethods ?
                                     (paymentMethods.map(pm =>
-                                        <tr key={pm.id}>
+                                        <tr key={pm.paymentMethodId}>
                                             <td className={"text-start"}>{pm.paymentMethod}</td>
                                         </tr>
-                                    )):(
-                                       <LoadingEffect/>
+                                    )) : (
+                                        <LoadingEffect/>
                                     )
                                 }
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <DeleteCountryModal handleModal={handleModal} showModal={showModal} countryId={countryId}/>
+                    {showModal &&
+                        <DeleteCountryModal handleModal={handleModal} showModal={showModal} country={country}/>}
                 </div>) : (
                     <LoadingEffect/>
                 )}
