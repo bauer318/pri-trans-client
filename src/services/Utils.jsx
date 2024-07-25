@@ -222,7 +222,7 @@ export const getAgentAccountRq = (account, connectedUser) => {
         country: connectedUser?.country?.countryName
     }
 }
-export const baseURL = 'https://pri-trans.com:8080/api';
+export const baseURL = 'https://pri-trans.com/api';
 //export const baseURL = 'http://localhost:8080/api';
 const instance = axios.create({
     baseURL: baseURL,
