@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import LogoutBtn from "./LogoutBtn";
 import {useSelector} from "react-redux";
 import countryService from "../services/CountryService";
 import {printError} from "../services/Utils";
@@ -28,7 +27,7 @@ const HomeHeader = ({setSelectedCountry}) => {
         <div>
             <div className={"row"}>
                 <div className={"col-lg-3 d-flex justify-content-start"}>
-                    <h2>Receiver's country </h2>
+                    <h2>{isLoadingCountriesToSend ? "Loading..." : ""} Receiver's country </h2>
                 </div>
                 <div className={"col-lg-3 d-flex justify-content-start"}>
                     <select className={"form-select"} aria-label={"Default select example"}

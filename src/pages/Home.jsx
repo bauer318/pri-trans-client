@@ -4,7 +4,7 @@ import {Navigate, useNavigate} from "react-router-dom";
 import {getItem, removeItem, saveItem} from "../services/LocalStorageService";
 import {refreshP} from "../App";
 import axios from "axios";
-import instance, {baseURL} from "../services/Utils";
+import {baseURL} from "../services/Utils";
 import {reject} from "lodash";
 
 

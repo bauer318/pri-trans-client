@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import LogoutBtn from "./LogoutBtn";
 import {useMatch} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {initializeCountries} from "../reducers/countryReducers";

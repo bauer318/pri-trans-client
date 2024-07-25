@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {FaCity, FaExchangeAlt, FaHistory, FaUsers} from 'react-icons/fa';
 import {NavLink} from "react-router-dom";
 import {HiHome, HiUsers} from "react-icons/hi";
@@ -12,7 +12,6 @@ import {FiSettings} from "react-icons/fi";
 
 
 const Sidebar = ({children, user}) => {
-    const [isOpen, setIsOpen] = useState(true);
     const getMenuIndexByRole = userRole => {
         switch (userRole) {
             case 'ROLE_ADMIN':

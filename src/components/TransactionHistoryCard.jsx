@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {roundValue} from "../services/Utils";
 import TransactionStatusTdComponent from "./transactionStatusTdComponent";
 import {FcCancel} from "react-icons/fc";
@@ -11,9 +11,9 @@ const TransactionHistoryCard = ({transaction,refresh}) => {
         setCanWait(false);
         refresh();
     }
-    const handleClickCancelTransfert = () => {
+    const handleClickCancelTransfer = () => {
         setCanWait(true);
-        accountService.cancelTransfert(transaction?.orderId, callBack).then(
+        accountService.cancelTransfer(transaction?.orderId, callBack).then(
 
         );
     }
@@ -47,7 +47,7 @@ const TransactionHistoryCard = ({transaction,refresh}) => {
                         {transaction?.createdAt ? transaction.createdAt : "No date"}
                         {canWait && <span>...</span>}
                         {!canWait && transaction?.type === 'transfert' && (transaction?.status === "requested" || transaction?.status === "partially") &&
-                            <span className={"ms-2"}><FcCancel size={24} onClick={handleClickCancelTransfert}/></span>}
+                            <span className={"ms-2"}><FcCancel size={24} onClick={handleClickCancelTransfer}/></span>}
                     </div>
 
                 </div>

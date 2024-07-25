@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {TfiWallet} from "react-icons/tfi";
-import LogoutBtn from "./LogoutBtn";
 import AddBalanceModal from "../modals/AddBalanceModal";
 import {useDispatch} from "react-redux";
 import {initializeAccounts} from "../reducers/accountReducer";

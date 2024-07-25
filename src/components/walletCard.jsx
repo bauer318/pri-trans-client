@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {FaEdit} from "react-icons/fa";
-import {AiOutlineDelete} from "react-icons/ai";
 import ClientEditWallet from "../modals/ClientEditWalletModal";
 import ClientDeleteWalletModal from "../modals/ClientDeleteWalletModal";
 

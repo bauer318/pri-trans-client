@@ -104,7 +104,7 @@ const canWithdraw = async (accountId, amount) => {
     }
 }
 
-const cancelTransfert = async (orderId, callBack) => {
+const cancelTransfer = async (orderId, callBack) => {
     try {
         const response = await axios.get(baseUrl.concat(`/cancel-transfert/${orderId}`), {headers: getToken()});
         callBack();
@@ -126,5 +126,5 @@ export default {
     withdraw,
     getAgentAccountWithMax,
     canWithdraw,
-    cancelTransfert
+    cancelTransfer: cancelTransfer
 }

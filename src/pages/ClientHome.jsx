@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import HomeHeader from "../components/HomeHeader";
 import HomeTable from "../components/HomeTable";
-import {useSelector} from "react-redux";
 import {getItem} from "../services/LocalStorageService";
 import orderService from "../services/orderService";
 import {printError} from "../services/Utils";

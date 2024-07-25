@@ -13,7 +13,6 @@ const HomeAddress = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
-    const [telephone, setTelephone] = useState("");
 
     useEffect(() => {
         if (!formData?.phone) {

@@ -1,7 +1,5 @@
 import React from 'react';
-import LogoutBtn from "../components/LogoutBtn";
 import PendingDeposit from "../components/PendingDeposit";
-import {useLocation} from "react-router-dom";
 
 const DepositConfirm = () => {
     return (

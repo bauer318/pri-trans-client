@@ -102,10 +102,6 @@ const CreateAccount = () => {
                         <button disabled={continueTo} className={"btn me-5 btn-primary w-50"} type={"submit"}>
                             Create
                         </button>
-                        {/*<button disabled={!continueTo} onClick={handleContinueTo} className={"btn btn-primary w-50"}
-                                type={"button"} style={{display: !continueTo ? 'none' : ''}}>
-                            Continue
-                        </button>*/}
                     </div>
                 </Form>
 
