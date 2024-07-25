@@ -6,6 +6,7 @@ import {deleteUser, updateUser} from "../reducers/userReducers";
 import {initializeCountries} from "../reducers/countryReducers";
 import {getByName} from "../services/CountryService";
 import {getAll, getOne} from "../services/RoleService";
+import LoadingEffect from "../components/LoadingEffect";
 
 
 const UpdateUserModal = ({showModal, handleModal, userId, isDelete}) => {
