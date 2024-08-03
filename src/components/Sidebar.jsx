@@ -9,6 +9,7 @@ import {GrCurrency} from "react-icons/gr";
 import {BsFillWalletFill} from "react-icons/bs";
 import LogoutBtn from "./LogoutBtn";
 import {FiSettings} from "react-icons/fi";
+import {TbManualGearbox} from "react-icons/tb";
 
 
 const Sidebar = ({children, user}) => {
@@ -65,7 +66,7 @@ const Sidebar = ({children, user}) => {
             },
             {
                 path: "/agent/deposits",
-                name: "Dépots",
+                name: "Depots",
                 icon: <RiLuggageDepositLine/>
             },
             {
@@ -94,6 +95,11 @@ const Sidebar = ({children, user}) => {
                 path: "/client/home",
                 name: "Transferts automatiques",
                 icon: <HiHome/>
+            },
+            {
+                path: "/client/manual-transfer",
+                name: "Transferts manuels",
+                icon: <TbManualGearbox/>
             },
             {
                 path: "/client/account",
