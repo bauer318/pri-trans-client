@@ -102,15 +102,14 @@ const Home = () => {
             <div className={"container row"}>
                 <p>{a}</p>
                 <div className={"text-center mt-5"}>
-                    <h3>Login</h3>
+                    <h3>Connexion</h3>
                 </div>
                 {firstTime &&
-                    <div className={"text-center"}><h4 className={"text-info"}>The account has been successfully
-                        created!</h4></div>}
+                    <div className={"text-center"}><h5 className={"text-secondary"}>Le compte a été créé avec succès!</h5></div>}
                 <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                     <Form onSubmit={handleSubmit} className={"login-form"}>
                         <Form.Group controlId="formBasicEmail" className={"form-outline mb-4"}>
-                            <Form.Label className="required">Email address</Form.Label>
+                            <Form.Label className="required">Adresse e-mail</Form.Label>
                             <Form.Control
                                 type="email"
                                 placeholder="example_123@email.com"
@@ -121,20 +120,20 @@ const Home = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword">
-                            <Form.Label className="required">Password</Form.Label>
+                            <Form.Label className="required">Mot de Passe</Form.Label>
                             <Form.Control
                                 type="password"
-                                placeholder="Password"
+                                placeholder="m(t*d[epass123"
                                 name="password"
                                 required={true}
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        {isLoading && <h4 className={"text-center text-secondary"}>Wait please...</h4>}
+                        {isLoading && <h4 className={"text-center text-secondary"}>Attendez s'il vous plaît...</h4>}
                         <div className={"mt-3 d-flex justify-content-around"}>
                             <button disabled={isLoading || isBlockedUser} className={"btn btn-primary w-100"}
                                     type={"submit"}>
-                                Login
+                                Se connecter
                             </button>
                         </div>
                         {
@@ -144,9 +143,9 @@ const Home = () => {
                     </Form>
                 </div>
                 <div className="d-flex align-items-center justify-content-center pb-4 mt-3">
-                    <p className="mb-0 me-2">Don't have an account?</p>
+                    <p className="mb-0 me-2">Vous n'avez pas de compte?</p>
                     <button disabled={isLoading} type="button" className="btn btn-outline-info"
-                            onClick={() => navigate('/register')}>Register
+                            onClick={() => navigate('/register')}>S'enregistrer
                     </button>
                 </div>
             </div>
