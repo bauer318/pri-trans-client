@@ -3,7 +3,6 @@ import {FaEdit} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
 import UpdatePaymentMethodModal from "../modals/UpdatePaymentMethodModal";
 import {useSelector} from "react-redux";
-import LoadingEffect from "./LoadingEffect";
 
 const PaymentMethodTable = () => {
     const [showModal, setShowModal] = useState(false);
@@ -58,7 +57,7 @@ const PaymentMethodTable = () => {
                     <UpdatePaymentMethodModal selectedPaymentMethod={selectedPaymentMethod} showModal={showModal}
                                               handleModal={handleModal} isDelete={isDelete}/>
                 }
-            </div>) : (<LoadingEffect/>)}
+            </div>) : (<h4 className={"text-center"}>Aucun methode de paiement</h4>)}
         </>
     );
 };

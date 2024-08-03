@@ -46,19 +46,19 @@ const ClientAddWalletModal = ({showModal, handleModal}) => {
     return (
         <Modal show={showModal} onHide={handleModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Add wallet</Modal.Title>
+                <Modal.Title>Ajouter le portefeuille</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="pm">
-                        <Form.Label>Payment Method</Form.Label>
+                        <Form.Label>Method de paiement</Form.Label>
                         <Form.Control
                             as="select"
                             name="paymentMethod"
                             required={true}
                             onChange={handlePMChange}
                         >
-                            <option value="">Select payment method</option>
+                            <option value="">Sélectionner une methode de paiement</option>
                             {
                                 paymentMethods?.map(pm =>
                                     <option value={pm.paymentMethodId}
@@ -69,14 +69,14 @@ const ClientAddWalletModal = ({showModal, handleModal}) => {
                     </Form.Group>
 
                     <Form.Group controlId="pm">
-                        <Form.Label>Currency</Form.Label>
+                        <Form.Label>Monnaie</Form.Label>
                         <Form.Control
                             as="select"
                             name="paymentMethod"
                             required={true}
                             onChange={handleCurrencyChange}
                         >
-                            <option value="">Select currency</option>
+                            <option value="">Sélectionner la monnaie</option>
                             {
                                 currencies?.map(currency =>
                                     <option value={currency?.currencyId}
@@ -87,20 +87,20 @@ const ClientAddWalletModal = ({showModal, handleModal}) => {
                     </Form.Group>
 
                     <Form.Group controlId="num">
-                        <Form.Label>Number [Phone or credit card]</Form.Label>
+                        <Form.Label>Numéro [Telephone ou carte bancaire]</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder={"Phone number or credit card number"}
+                            placeholder={"Telephone ou carte bancaire"}
                             name="walletNumber"
                             required={true}
                             onChange={handleChange}
                         />
                     </Form.Group>
                     <Form.Group controlId="accountName">
-                        <Form.Label>Account name</Form.Label>
+                        <Form.Label>Nom du compte</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder={"User name attached to this number"}
+                            placeholder={"Nom lié à ce compte"}
                             name="ownerName"
                             required={true}
                             onChange={handleChange}
@@ -108,13 +108,13 @@ const ClientAddWalletModal = ({showModal, handleModal}) => {
                     </Form.Group>
                     <div className={"mt-2"}>
                         <button className={"btn btn-primary"} type={"submit"} disabled={canWait}><span
-                            className={"me-2"}><i><FaPlus/></i></span>{canWait ? "Adding..." : "Add"}
+                            className={"me-2"}><i><FaPlus/></i></span>{canWait ? "Adding..." : "Ajouter"}
                         </button>
                     </div>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <button className={"btn btn-secondary"} onClick={handleModal} disabled={canWait}>Cancel</button>
+                <button className={"btn btn-secondary"} onClick={handleModal} disabled={canWait}>Annuler</button>
             </Modal.Footer>
         </Modal>
     );

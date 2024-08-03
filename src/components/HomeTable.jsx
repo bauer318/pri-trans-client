@@ -5,14 +5,14 @@ const HomeTable = ({fromCountry, toCountry, orders}) => {
     return (
         <div>
             <div>
-                <h2>From {fromCountry} to {toCountry}</h2>
+                <h3><i className={"text-secondary"}>{fromCountry}</i> vers <i className={"text-secondary"}>{toCountry}</i></h3>
             </div>
             <table className={"table table-success table-striped table-bordered table-responsive"}>
                 <thead className={"table-light"}>
                 <tr>
-                    <th scope={"col"} className={"text-center"}>Sender</th>
-                    <th scope={"col"} className={"text-center"}>Amount</th>
-                    <th scope={"col"} className={"text-center"}>Devise</th>
+                    <th scope={"col"} className={"text-center"}>Expéditeur</th>
+                    <th scope={"col"} className={"text-center"}>Montant</th>
+                    <th scope={"col"} className={"text-center"}>Monnaie</th>
                 </tr>
                 </thead>
                 <tbody>

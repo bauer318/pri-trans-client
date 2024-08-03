@@ -4,7 +4,6 @@ import {Form} from "react-bootstrap";
 import {AiOutlineArrowRight} from "react-icons/ai";
 import {useDispatch, useSelector} from "react-redux";
 import SendModal from "../modals/SendModal";
-import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {baseURL, getToken, printError} from "../services/Utils";
 import currencyService from "../services/CurrencyService";
@@ -16,7 +15,6 @@ const SendTo = () => {
     const [showModal, setShowModal] = useState(false);
     const [recipientEmail, setRecipientEmail] = useState();
     const sendDetails = useSelector(state => state.send);
-    const navigate = useNavigate();
     const [existReceiver, setExistReceiver] = useState(true)
     const [differentCountry, setDifferentCountry] = useState(true)
     const dispatch = useDispatch();
@@ -77,6 +75,7 @@ const SendTo = () => {
             }
             printError(error);
         }).catch(error => {
+            printError(error);
             setCanWait(false);
         })
     }
@@ -92,20 +91,20 @@ const SendTo = () => {
     }
     return (
         <div className={"container"}>
-            <CSWHeader title={"Send money"}/>
+            <CSWHeader title={"Envoyer de l'argent"}/>
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                 <Form onSubmit={handleSubmit}>
-                    <h3>Who are you sending money to?</h3>
+                    <h3>À qui envoyez-vous de l'argent?</h3>
                     <Form.Group>
                         <Form.Control
                             type={"email"}
                             required={true}
-                            placeholder={"recipient's account email"}
+                            placeholder={"l'adresse e-mail du destinataire"}
                             onChange={handleRecipientEmailChange}
                         />
                     </Form.Group>
                     <button className={"btn btn-primary mt-2"} type={"submit"}
-                            disabled={canWait}>{canWait ? "Loading..." : "Continue"}<span
+                            disabled={canWait}>{canWait ? "Loading..." : "Continuer"}<span
                         className={"ms-2"}><i><AiOutlineArrowRight size={28}/></i></span>
                     </button>
                 </Form>
@@ -118,11 +117,11 @@ const SendTo = () => {
                 !existReceiver &&
                 <div>
                     <div className={"col-md-8 mx-auto d-flex justify-content-center mt-5"}>
-                        <h5 className={"text-danger"}>Client with email <i
-                            className={"text-black"}>{recipientEmail}</i> does not exist</h5>
+                        <h5 className={"text-danger"}>Aucun client n'est enregistré avec cet e-mail <i
+                            className={"text-black"}>{recipientEmail}</i></h5>
                     </div>
                     <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
-                        <p>Please check the email address of your recipient or invite them to create an account</p>
+                        <p>Veuillez vérifier l'adresse e-mail de votre destinataire ou l'inviter à créer un compte</p>
                     </div>
 
                 </div>
@@ -131,8 +130,8 @@ const SendTo = () => {
             {
                 !differentCountry &&
                 <div className={"col-md-8 mx-auto d-flex justify-content-center mt-5"}>
-                    <h5 className={"text-danger"}>User {recipientEmail} does not live in the selected country or is
-                        unverified user</h5>
+                    <h5 className={"text-danger"}>L'utilisateur {recipientEmail} ne vit pas dans le pays sélectionné
+                        ou son compte n'est pas vérifié </h5>
                 </div>
             }
             {recipientEmail && showModal &&

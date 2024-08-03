@@ -72,7 +72,8 @@ const PaymentMethodAddTable = () => {
                                     <td className={"text-center"}>{paymentMethod.method}</td>
                                     <td className={"text-center"}>
                                         <button className={"btn btn-secondary"}
-                                                onClick={() => handleAddPaymentMethodClick(paymentMethod.id)}>Add
+                                                disabled={canWait}
+                                                onClick={() => handleAddPaymentMethodClick(paymentMethod.id)}>{canWait ? "Adding...":"Add"}
                                         </button>
                                     </td>
                                 </tr>

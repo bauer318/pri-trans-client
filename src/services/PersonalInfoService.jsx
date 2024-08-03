@@ -39,8 +39,12 @@ const create = async (personalInfo, callBackToUserHomePage, phoneNumberExist) =>
         callBackToUserHomePage();
         return response.data;
     } catch (error) {
-        if (error.response.status === 409) {
+        let statusCode = error?.response?.status;
+        if (error?.response?.status === 409) {
             phoneNumberExist();
+        }
+        if (statusCode === 500) {
+            alert('Vérifier les données saisies !');
         }
         callBackToUserHomePage();
         printError(error);

@@ -3,7 +3,6 @@ import {FaEdit} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
 import UpdateCurrencyModal from "../modals/UpdateCurrencyModal";
 import {useSelector} from "react-redux";
-import LoadingEffect from "./LoadingEffect";
 
 const CurrencyTable = () => {
     const [showModal, setShowModal] = useState(false);
@@ -60,7 +59,7 @@ const CurrencyTable = () => {
                     <UpdateCurrencyModal showModal={showModal} handleModal={handleModal}
                                          selectedCurrency={selectedCurrency}
                                          isDelete={isDelete}/>}
-            </div>) : (<LoadingEffect/>)}
+            </div>) : (<h4 className={"text-center"}>Aucun monnaie</h4>)}
         </>
     );
 };

@@ -39,19 +39,19 @@ const AddBalanceModal = ({showModal, handleModal}) => {
         <>
             <Modal show={showModal} onHide={handleModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Open a balance</Modal.Title>
+                    <Modal.Title>Ouvrir un solde</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicMainCurrency">
-                            <Form.Label>Balance's devise</Form.Label>
+                            <Form.Label>Monnaie du solde</Form.Label>
                             <Form.Control as="select"
                                           name="balance"
                                           required={true}
                                           onChange={handleBalanceChange}
                             >
                                 <option
-                                    value="">{currencies?.length === 0 ? "You have all devices" : "Select device"}</option>
+                                    value="">{currencies?.length === 0 ? "Vous avez toutes les monnaies" : "Sélectionner une monnaie"}</option>
                                 {
                                     currencies?.map((currency, key) =>
                                         <option value={currency?.currencyId} key={key}>{currency?.currency}</option>
@@ -61,13 +61,13 @@ const AddBalanceModal = ({showModal, handleModal}) => {
                         </Form.Group>
                         <div className={"mt-2"}>
                             <button className={"btn btn-primary"} type={"submit"} disabled={canWait}><span
-                                className={"me-2"}><i><TfiWallet/></i></span>Open
+                                className={"me-2"}><i><TfiWallet/></i></span>Ouvrir
                             </button>
                         </div>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className={"btn btn-secondary"} onClick={handleModal}>Close</button>
+                    <button className={"btn btn-secondary"} onClick={handleModal}>Quitter</button>
                 </Modal.Footer>
             </Modal>
             {notify && <ToastNotification message={"Added"}/>}

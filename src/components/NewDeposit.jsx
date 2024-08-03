@@ -22,12 +22,12 @@ const NewDeposit = () => {
         const currentAccount = location?.state?.currentAccount;
         setAccount(currentAccount);
         setFormDetails({
-            title: "How much do you want to add?",
+            title: "Combien voulez-vous déposer?",
             availableBalance: currentAccount?.balance,
             currency: currentAccount?.currency,
-            pmTitle: "Paying with",
-            subTitle: "Add",
-            actionTitle: "Continue",
+            pmTitle: "Vous payez avec",
+            subTitle: "Déposez",
+            actionTitle: "Continuer",
             icon: <AiOutlineArrowRight size={28}/>
         });
         setConnectedUser(getItem('connectedUser'));

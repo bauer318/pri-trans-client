@@ -6,6 +6,7 @@ import {MdPostAdd} from "react-icons/md";
 import {useDispatch} from "react-redux";
 import {createPersonalInfo} from "../reducers/PersonalInfoReducers";
 import {getItem, saveItem} from "../services/LocalStorageService";
+import {getTelephoneArray} from "../services/Utils";
 
 const HomeAddress = () => {
     const {state} = useLocation();
@@ -61,16 +62,7 @@ const HomeAddress = () => {
         return result;
     }
     const handlePhoneChange = event => {
-        const telephoneArray = event.target.value?.split("");
-        const length = telephoneArray.length;
-        if (length === 4 || length === 8 || length === 11) {
-            const k = telephoneArray[length - 1];
-            if (k !== "-") {
-                telephoneArray[length - 1] = "-";
-                telephoneArray[length] = k;
-            }
-        }
-        updatePhone(telephoneArray);
+        updatePhone(getTelephoneArray(event));
     }
     const updatePhone = (telephoneArray) => {
         if (telephoneArray.length <= 13) {

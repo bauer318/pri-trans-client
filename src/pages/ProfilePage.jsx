@@ -49,23 +49,23 @@ const ProfilePage = () => {
     }
     return (
         <div className={"container"}>
-            {canWait && <LoadingEffect/>}
             <div className={"row"}>
                 <div className={"col-lg-4 mt-2"}>
-                    <h3 className={"text-center"}>{participant?.firstname ? participant.firstname.concat(" ").concat(participant?.lastname) : "Edit profile!!!"}</h3>
+                    <h4 className={"text-center"}>{participant?.firstname ? participant.firstname.concat(" ").concat(participant?.lastname) :
+                        "Modifier le profil"}</h4>
                 </div>
                 <div className={"col-lg-4 mt-3"}>
                     {isVerified &&
-                        <h5 className={"text-success text-center"}><span><MdVerified size={28}/></span>Verified</h5>}
+                        <h5 className={"text-success text-center"}><span><MdVerified size={28}/></span>Vérifié</h5>}
                     {!isVerified &&
-                        <h5 className={"text-danger text-center"}><span><FcCancel size={28}/></span>Unverified</h5>}
+                        <h5 className={"text-danger text-center"}><span><FcCancel size={28}/></span>Non Vérifié</h5>}
 
                 </div>
                 <div className={"col-lg-4 text-center mt-2"}>
-                    <button className={"btn btn-primary"} onClick={handleEditProfileClick}>Edit profile</button>
+                    <button className={"btn btn-primary"} onClick={handleEditProfileClick}>Modifier le profil</button>
                 </div>
             </div>
-            {error !== "" && <h5 className={"text-center text-danger mt-2"}>Add personals infos</h5>}
+            {error !== "" && <h5 className={"text-center text-danger mt-2"}>Ajouter vos infos personnelles</h5>}
             {participant?.firstname && <div className={"row d-flex justify-content-center mt-2"}>
                 <div className={"col-lg-6 col-auto"}>
                     <div className={"card mb-3 card-element"}>
@@ -82,8 +82,7 @@ const ProfilePage = () => {
                     </div>
                 </div>
             </div>}
-
-
+            {canWait && <LoadingEffect/>}
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import {getItem, removeItem, saveItem} from "./LocalStorageService";
+import {getItem, removeItem} from "./LocalStorageService";
 import axios from "axios";
 import {logout, refreshP} from "../App";
 
@@ -222,7 +222,7 @@ export const getAgentAccountRq = (account, connectedUser) => {
         country: connectedUser?.country?.countryName
     }
 }
-export const baseURL = 'https://pri-trans.com/api';
+export const baseURL = process.env.REACT_APP_API_URL;
 //export const baseURL = 'http://localhost:8080/api';
 const instance = axios.create({
     baseURL: baseURL,
@@ -236,6 +236,23 @@ export const roundToOnlyToDisplay = (sourceAmount, callbackSetState) => {
 
 export const roundValue = value => {
     return Math.round(value * 100) / 100;
+}
+
+export const getTelephoneArray = event =>{
+    const telephoneArray = event.target.value?.split("");
+    const length = telephoneArray.length;
+    if (length === 4 || length === 8 || length === 11) {
+        const k = telephoneArray[length - 1];
+        if (k !== "-") {
+            telephoneArray[length - 1] = "-";
+            telephoneArray[length] = k;
+        }
+    }
+    return telephoneArray;
+}
+
+export  const getAccountTypeFr = (accountTypeEn) =>{
+    return accountTypeEn === 'main' ? 'principale' : 'de financement';
 }
 export default instance;
 

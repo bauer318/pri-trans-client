@@ -6,7 +6,7 @@ const DepositConfirm = () => {
         <div>
             <div className={"row"}>
                 <div  className={"col col-sm-auto col-md-auto col-lg-6"}>
-                    <h2>Confirm deposit</h2>
+                    <h2>Confirmer le dépôt</h2>
                 </div>
             </div>
             <PendingDeposit/>

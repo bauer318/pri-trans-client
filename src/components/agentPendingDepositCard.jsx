@@ -1,4 +1,5 @@
 import React from 'react';
+import {roundValue} from "../services/Utils";
 
 const AgentPendingDepositCard = ({pendingDeposit, handleConfirmDeposit, handleCancelDeposit}) => {
     return (
@@ -6,25 +7,25 @@ const AgentPendingDepositCard = ({pendingDeposit, handleConfirmDeposit, handleCa
             <div className="card">
                 <div className="card-body">
                     <p className="card-text">
-                        Amount: {pendingDeposit?.amount}
+                        Montant: {roundValue(pendingDeposit?.amount)}
                         <mark>{pendingDeposit?.currency}</mark>
                     </p>
                     <p className="card-text">
-                        Payment method: <mark>{pendingDeposit?.paymentMethod}</mark>
+                        Montant de paiement: <mark>{pendingDeposit?.paymentMethod}</mark>
                     </p>
                     <p className="card-text">
                         Client: {pendingDeposit?.ownerName}
                     </p>
                     <p className="card-text">
-                        Reference: {pendingDeposit?.reference === "" ? "No ref" : pendingDeposit.reference}
+                        Référence: {pendingDeposit?.reference === "" ? "Pas ref" : pendingDeposit.reference}
                     </p>
                     <p className="card-text text-muted">
-                        {pendingDeposit?.createdAt ? pendingDeposit.createdAt : "No date"}
+                        {pendingDeposit?.createdAt ? pendingDeposit.createdAt : "Pas de date"}
                     </p>
                     <div className={"card-footer"}>
                         <a className="btn btn-primary me-1 mb-2"
-                           onClick={() => handleConfirmDeposit(pendingDeposit)}>Confirm</a>
-                        <a className="btn btn-danger mb-2" onClick={() => handleCancelDeposit(pendingDeposit)}>Cancel</a>
+                           onClick={() => handleConfirmDeposit(pendingDeposit)}>Confirmer</a>
+                        <a className="btn btn-danger mb-2" onClick={() => handleCancelDeposit(pendingDeposit)}>Annuler</a>
                     </div>
                 </div>
             </div>

@@ -62,8 +62,9 @@ const Home = () => {
             .catch(err => {
                 const errorResponse = err.response;
                 setIsLoading(false);
-                if (errorResponse?.status === 400 || errorResponse?.status === 401) {
-                    setError("Bad credential");
+                let errorStatus = errorResponse?.status;
+                if (errorStatus === 400 || errorStatus === 401 || errorStatus === 404) {
+                    setError("login ou mot de passe incorrect! Ressayez encore");
                 } else if (errorResponse?.status === 403) {
                     setError("Forbidden");
                 } else if (errorResponse?.status === 500) {

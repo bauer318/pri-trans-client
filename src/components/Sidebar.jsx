@@ -60,27 +60,27 @@ const Sidebar = ({children, user}) => {
         [
             {
                 path: "/agent/account",
-                name: "Account",
+                name: "Comptes",
                 icon: <MdOutlineAccountBalanceWallet/>
             },
             {
                 path: "/agent/deposits",
-                name: "Deposits",
+                name: "Dépots",
                 icon: <RiLuggageDepositLine/>
             },
             {
                 path: "/agent/withdrawals",
-                name: "Withdrawals",
+                name: "Retraits",
                 icon: <BiMoneyWithdraw/>
             },
             {
                 path: "/agent/history",
-                name: "History",
+                name: "Historique",
                 icon: <FaHistory/>
             },
             {
                 path: "/agent/payment-methods",
-                name: "Payment methods",
+                name: "Methode de paiement",
                 icon: <FaExchangeAlt/>
             },
             {
@@ -92,22 +92,22 @@ const Sidebar = ({children, user}) => {
         [
             {
                 path: "/client/home",
-                name: "Home",
+                name: "Transferts automatiques",
                 icon: <HiHome/>
             },
             {
                 path: "/client/account",
-                name: "Account",
+                name: "Comptes",
                 icon: <MdOutlineAccountBalanceWallet/>
             },
             {
                 path: "/client/history",
-                name: "History",
+                name: "Historiques",
                 icon: <FaHistory/>
             },
             {
                 path: "/client/wallet",
-                name: "Wallets",
+                name: "Portefeuilles",
                 icon: <BsFillWalletFill/>
             },
             {
@@ -158,7 +158,7 @@ const Sidebar = ({children, user}) => {
                 <NavLink to={"https://forms.yandex.ru/u/65a25274d0468848f12a169b/"}
                          className="link nav-item fs-1" activeclassname="active">
                     <div className="icon"><FiSettings/></div>
-                    <div className="link_text ms-2 d-none d-sm-inline">{"Something to fix"}</div>
+                    <div className="link_text ms-2 d-none d-sm-inline">{"Vos avis et critiques"}</div>
                 </NavLink>
             </div>
             <main>{children}</main>

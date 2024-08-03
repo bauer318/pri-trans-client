@@ -32,7 +32,7 @@ const ClientWallets = () => {
     return (
         <div className={"row"}>
             <div className={"col-lg-5 d-flex justify-content-start ms-1"}>
-                <button className={"btn btn-info"} onClick={() => handleAddPaymentMethod()}>Add wallet</button>
+                <button className={"btn btn-info"} onClick={() => handleAddPaymentMethod()}>Ajouter un portefeuille</button>
             </div>
             <div className={"row d-flex justify-content-center"}>
                 {

@@ -45,12 +45,12 @@ const ClientEditWalletModal = ({wallet, showModal, handleModal}) => {
     return (
         <Modal show={showModal} onHide={handleModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Edit wallet</Modal.Title>
+                <Modal.Title>Modifier le portefeuille</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="pm">
-                        <Form.Label>Payment Method</Form.Label>
+                        <Form.Label>Methode de paiement</Form.Label>
                         <Form.Control
                             as="select"
                             name="paymentMethod"
@@ -69,7 +69,7 @@ const ClientEditWalletModal = ({wallet, showModal, handleModal}) => {
                     </Form.Group>
 
                     <Form.Group controlId="pm">
-                        <Form.Label>Currency</Form.Label>
+                        <Form.Label>Monnaie</Form.Label>
                         <Form.Control
                             as="select"
                             name="paymentMethod"
@@ -87,10 +87,10 @@ const ClientEditWalletModal = ({wallet, showModal, handleModal}) => {
                     </Form.Group>
 
                     <Form.Group controlId="num">
-                        <Form.Label>Number</Form.Label>
+                        <Form.Label>Numéro [Telephone ou carte bancaire]</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder={"Phone number or credit card number"}
+                            placeholder={"Numéro de telephone ou carte bancaire"}
                             name="walletNumber"
                             required={true}
                             value={formData?.walletNumber}
@@ -98,10 +98,10 @@ const ClientEditWalletModal = ({wallet, showModal, handleModal}) => {
                         />
                     </Form.Group>
                     <Form.Group controlId="accountName">
-                        <Form.Label>Account name</Form.Label>
+                        <Form.Label>Nom du compte</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder={"User name attached to this number"}
+                            placeholder={"Nom lié au compte"}
                             name="ownerName"
                             required={true}
                             value={formData?.ownerName}
@@ -110,13 +110,13 @@ const ClientEditWalletModal = ({wallet, showModal, handleModal}) => {
                     </Form.Group>
                     <div className={"mt-2"}>
                         <button className={"btn btn-primary"} type={"submit"} disabled={canWait}><span
-                            className={"me-2"}><i><BsSave/></i></span>{canWait ? "Editing..." : "Save"}
+                            className={"me-2"}><i><BsSave/></i></span>{canWait ? "Editing..." : "Sauvegarder"}
                         </button>
                     </div>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <button className={"btn btn-secondary"} onClick={handleModal} disabled={canWait}>Cancel</button>
+                <button className={"btn btn-secondary"} onClick={handleModal} disabled={canWait}>Annuler</button>
             </Modal.Footer>
         </Modal>
     );

@@ -8,7 +8,6 @@ import LoadingEffect from "../components/LoadingEffect";
 const CurrencyList = () => {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
-    const [canWait, setCanWait] = useState(false);
     const callBack = () => {
         setIsLoading(false);
     }

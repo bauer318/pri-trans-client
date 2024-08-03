@@ -18,7 +18,7 @@ const BalanceCard = ({account}) => {
             <NavLink style={{textDecoration: 'none'}} to={toLink} state={{selectedAccount: account}}>
                 <div className={"card mb-3 card-element"}>
                     <div className={"card-header"}>
-                        <h3>Balance {account?.currency?.code}</h3>
+                        <h3>Solde {account?.currency?.code}</h3>
                     </div>
                     <div className={"card-body"}>
                         <div>
