@@ -20,7 +20,7 @@ import countryService from "../services/CountryService";
 const Send = () => {
     const [rates, setRates] = useState(0);
     const baseCurrency = useState('USD');
-    const [liveRate, setLiveRate] = useState(0);
+    const [liveRate, setLiveRate] = useState(1);
     const [toAmount, setToAmount] = useState(0.00);
     const [fromAmount, setFromAmount] = useState(100.00);
     const [toStrCurrencyCode, setToStrCurrencyCode] = useState('USD');
@@ -46,7 +46,8 @@ const Send = () => {
     const debouncedToAmount = useDebounce(fromAmount, 500);
     const debouncedRate = useDebounce(toStrCurrencyCode, 500);
     useEffect(() => {
-        dispatch(getRate(baseCurrency));
+        setLiveRate(1);
+        //dispatch(getRate(baseCurrency));
         dispatch(initializeCurrencies(callBack));
         dispatch(initializeCountries(callBack));
         const currentAccount = location?.state?.currentAccount;
@@ -85,7 +86,7 @@ const Send = () => {
         } else {
             setLiveRate(liveRate);
         }
-    }, [debouncedRate, debouncedToAmount]);
+    }, [debouncedRate,debouncedToAmount]);
 
     const getAvailableCountriesToSend = () => {
         setIsLoadingCountriesToSend(true);
@@ -98,7 +99,7 @@ const Send = () => {
     }
     const calculateToAmount = (rate) => {
         setIsCalculating(true);
-        orderService.getToAmount(fromAmount, rate)
+        orderService.getToAmount(fromAmount /*rate*/,1)
             .then(toAmountResponse => {
                     setToAmount(toAmountResponse?.toAmount);
                     setIsCalculating(false);
@@ -108,12 +109,16 @@ const Send = () => {
             setIsCalculating(false);
         })
     }
-    const rate = useSelector(state => state.rates);
+    //const rate = useSelector(state => state.rates);
+    const rate = {
+        rates:1
+    };
+
     if (rate?.rates) {
         if (rates === 0) {
             setRates(rate.rates);
         }
-        if (rates !== 0 && liveRate === 0 && account) {
+        if (rates !== 0 && liveRate === 1 && account) {
             const usdFromAmount = rates[account?.currency?.code];
             const usdToAmount = rates[`${toStrCurrencyCode}`];
             setLiveRate(usdToAmount / usdFromAmount);

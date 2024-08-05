@@ -238,7 +238,7 @@ export const roundValue = value => {
     return Math.round(value * 100) / 100;
 }
 
-export const getTelephoneArray = event =>{
+export const getTelephoneArray = event => {
     const telephoneArray = event.target.value?.split("");
     const length = telephoneArray.length;
     if (length === 4 || length === 8 || length === 11) {
@@ -251,8 +251,76 @@ export const getTelephoneArray = event =>{
     return telephoneArray;
 }
 
-export  const getAccountTypeFr = (accountTypeEn) =>{
+export const getAccountTypeFr = (accountTypeEn) => {
     return accountTypeEn === 'main' ? 'principale' : 'de financement';
 }
+
+export const timeAgo = (datetimeStr) => {
+    const date = new Date(datetimeStr);
+    const now = new Date();
+
+    const timeDifference = now.getTime() - date.getTime();
+    const seconds = Math.floor(timeDifference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const prefix = 'Il y a';
+    if (days > 0) {
+        return days === 1 ? `${prefix} 1 jour` : `${prefix} ${days} jours`;
+    } else if (hours > 0) {
+        return hours === 1 ? `${prefix} 1 heure` : `${prefix} ${hours} heures`;
+    } else if (minutes > 0) {
+        return minutes === 1 ? `${prefix} 1 minute` : `${prefix} ${minutes} minutes`;
+    } else {
+        return seconds <= 10 ? 'maintenant' : `${prefix} ${seconds} seconds`;
+    }
+}
+
+export const handleCopyText = (value, setCopied) => {
+    navigator.clipboard.writeText(value).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 5000);
+    }).catch(err => {
+        console.error('Failed to copy text: ', err);
+    });
+};
+
+export const transferStatus = [
+    {
+        name: 'pending',
+        value: 'En cours'
+    },
+    {
+        name: 'closed',
+        value: 'Transféré'
+    },
+    {
+        name: 'partially',
+        value: 'En partie transféré'
+    },
+    {
+        name: 'canceled',
+        value: 'Annulé'
+    }
+]
+
+export const getStatusFr = statusEn => {
+    switch (statusEn) {
+        case 'pending':
+            return 'En cours';
+        case 'closed':
+            return 'Transféré';
+        case 'partially':
+            return 'En partie transféré';
+        case 'canceled':
+            return 'Annulé';
+        default:
+            return 'Status inconnu';
+    }
+}
+export const getStatusToPrint = () => {
+    return transferStatus.filter(transferStatus => transferStatus.name !== 'pending');
+}
+
 export default instance;
 

@@ -1,19 +1,10 @@
 import React, {useState} from 'react';
-import {roundValue} from "../services/Utils";
+import {handleCopyText, roundValue} from "../services/Utils";
 import {MdOutlineContentCopy} from "react-icons/md";
 import ToastNotification from "../modals/toastNotification";
 
 const PendingDepositCard = ({pendingDeposit, handleConfirmDeposit, handleCancelDeposit}) => {
     const [copied, setCopied] = useState(false);
-
-    const handleCopyText = (value) => {
-        navigator.clipboard.writeText(value).then(() => {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 5000);
-        }).catch(err => {
-            console.error('Failed to copy text: ', err);
-        });
-    };
 
     return (
         <div className={"col col-sm-auto col-md-auto col-lg-auto mt-2"}>
@@ -31,7 +22,7 @@ const PendingDepositCard = ({pendingDeposit, handleConfirmDeposit, handleCancelD
                     </p>
                     <p className="card-text">
                         Numéro de l'agent: <mark>{pendingDeposit?.agentWalletNumber}</mark> <i
-                        onClick={() => handleCopyText(pendingDeposit?.agentWalletNumber)}>Copy {
+                        onClick={() => handleCopyText(pendingDeposit?.agentWalletNumber,setCopied)}>Copy {
                         <MdOutlineContentCopy/>}</i>
                     </p>
                     <p className="card-text">

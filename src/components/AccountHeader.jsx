@@ -6,6 +6,7 @@ import {initializeAccounts} from "../reducers/accountReducer";
 import LoadingEffect from "./LoadingEffect";
 import participantService from "../services/ParticipantService";
 import {getItem} from "../services/LocalStorageService";
+import {printError} from "../services/Utils";
 
 const AccountHeader = ({perform}) => {
     const [showModal, setShowModal] = useState(false);
@@ -22,7 +23,9 @@ const AccountHeader = ({perform}) => {
         participantService.isVerifiedUser(getItem("connectedUser")?.userId, callBack)
             .then(response => {
                 setIsVerified(response);
-            })
+            }).catch(error=>{
+                printError(error);
+        })
         perform();
     }, [canRefresh]);
     const handleModal = () => {

@@ -36,6 +36,7 @@ import {getItem} from "./services/LocalStorageService";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
 import ClientManualTransfer from "./pages/ClientManualTransfer";
+import ClientPrivateManualTransfer from "./pages/ClientPrivateManualTransfer";
 
 export var logout = () => {
 };
@@ -73,6 +74,7 @@ const App = () => {
                         <Route path={"/admin/payment-methods"} element={<PaymentMethodList/>}/>
                         <Route path={"/client/home"} element={<ClientHome/>}/>
                         <Route path={"/client/manual-transfer"} element={<ClientManualTransfer/>}/>
+                        <Route path={"/client/manual-transfer/private"} element={<ClientPrivateManualTransfer/>}/>
                         <Route path={"/client/profile"} element={<ProfilePage/>}/>
                         <Route path={"/client/profile/edit"} element={<EditProfilePage/>}/>
                         <Route path={"/client/account"} element={<UserAccount/>}/>

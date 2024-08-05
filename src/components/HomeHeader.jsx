@@ -1,19 +1,33 @@
 import React, {useEffect, useState} from 'react';
 import countryService from "../services/CountryService";
 import {printError} from "../services/Utils";
+import {getItem} from "../services/LocalStorageService";
 
 const HomeHeader = ({setSelectedCountry}) => {
     const [countriesToSend, setCountriesToSend] = useState([]);
     const [isLoadingCountriesToSend, setIsLoadingCountriesToSend] = useState(true);
+    const connectedUser = getItem('connectedUser');
+    const callBack = () => {
+        setIsLoadingCountriesToSend(false);
+    }
     const getAvailableCountriesToSend = () => {
         setIsLoadingCountriesToSend(true);
-        countryService.getUserAvailableCountriesToSend().then(response => {
-            setCountriesToSend(response);
-            setIsLoadingCountriesToSend(false);
-        }).catch(error => {
-            printError(error);
-        })
-    }
+        if (connectedUser) {
+            countryService.getUserAvailableCountriesToSend().then(response => {
+                setCountriesToSend(response);
+                callBack();
+            }).catch(error => {
+                printError(error);
+            })
+        } else {
+            countryService.getAll(callBack).then(response => {
+                setCountriesToSend(response);
+            }).catch(error => {
+                printError(error);
+            })
+        }
+
+    };
     useEffect(() => {
         getAvailableCountriesToSend();
     }, []);
@@ -26,7 +40,7 @@ const HomeHeader = ({setSelectedCountry}) => {
         <div>
             <div className={"row"}>
                 <div className={"col-lg-3 d-flex justify-content-start"}>
-                    <h2>{isLoadingCountriesToSend ? "Loading..." : ""} Pays du destinataire </h2>
+                    <h2>{isLoadingCountriesToSend ? "Loading..." : "Pays du destinataire"} </h2>
                 </div>
                 <div className={"col-lg-3 d-flex justify-content-start"}>
                     <select className={"form-select"} aria-label={"Default select example"}
