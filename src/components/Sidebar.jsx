@@ -10,6 +10,7 @@ import {BsFillWalletFill} from "react-icons/bs";
 import LogoutBtn from "./LogoutBtn";
 import {FiSettings} from "react-icons/fi";
 import {TbManualGearbox} from "react-icons/tb";
+import {IoMdNotifications} from "react-icons/io";
 
 
 const Sidebar = ({children, user}) => {
@@ -50,6 +51,11 @@ const Sidebar = ({children, user}) => {
                 name: "Payment methods",
                 icon: <FaExchangeAlt/>
             },
+            {
+                path: "/notifications",
+                name: "Notifications",
+                icon: <IoMdNotifications />
+            },
         ],
         [
             {
@@ -88,7 +94,12 @@ const Sidebar = ({children, user}) => {
                 path: "/agent/profile",
                 name: "Profile",
                 icon: <MdOutlinePermIdentity/>
-            }
+            },
+            {
+                path: "/notifications",
+                name: "Notifications",
+                icon: <IoMdNotifications />
+            },
         ],
         [
             {
@@ -120,7 +131,12 @@ const Sidebar = ({children, user}) => {
                 path: "/client/profile",
                 name: "Profile",
                 icon: <MdOutlinePermIdentity/>
-            }
+            },
+            {
+                path: "/notifications",
+                name: "Notifications",
+                icon: <IoMdNotifications />
+            },
         ],
         [
             {

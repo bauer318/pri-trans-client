@@ -1,4 +1,4 @@
-import {getItem, removeItem} from "./LocalStorageService";
+import {getItem, removeItem, saveItem} from "./LocalStorageService";
 import axios from "axios";
 import {logout, refreshP} from "../App";
 
@@ -320,6 +320,20 @@ export const getStatusFr = statusEn => {
 }
 export const getStatusToPrint = () => {
     return transferStatus.filter(transferStatus => transferStatus.name !== 'pending');
+}
+
+export const isExpiredCode = (expireAt) =>{
+    const currentTime = Date.now();
+    const difference = expireAt - currentTime;
+    return difference < 0;
+}
+
+export const toBotTelegramOnClick = (generatedCode, setCanGoToTelegramBot) => {
+    const pendingCode = {
+        code: generatedCode
+    }
+    setCanGoToTelegramBot(false);
+    saveItem("pendingCode", pendingCode);
 }
 
 export default instance;

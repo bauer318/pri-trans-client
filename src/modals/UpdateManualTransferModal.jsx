@@ -5,6 +5,7 @@ import ToastNotification from "./toastNotification";
 import manualTransferService from "../services/ManualTransferService";
 import {printError} from "../services/Utils";
 import {refreshTransferList} from "../pages/ClientPrivateManualTransfer";
+import telegramNotificationService from "../services/TelegramNotificationService";
 
 const UpdateManualTransferModal = ({showModal, handleModal, transferId}) => {
     const [notify, setNotify] = useState(false);
@@ -18,6 +19,11 @@ const UpdateManualTransferModal = ({showModal, handleModal, transferId}) => {
                 handleModal();
                 setNotify(true);
                 refreshTransferList();
+                telegramNotificationService.notifyAll(formData).then(() => {
+                    ;
+                }).catch(error => {
+                    printError(error);
+                })
             }
         ).catch(error => {
             printError(error);

@@ -37,6 +37,7 @@ import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
 import ClientManualTransfer from "./pages/ClientManualTransfer";
 import ClientPrivateManualTransfer from "./pages/ClientPrivateManualTransfer";
+import Notifications from "./pages/Notifications";
 
 export var logout = () => {
 };
@@ -97,6 +98,7 @@ const App = () => {
                         <Route path={"/agent/deposits"} element={<AgentDeposits/>}/>
                         <Route path={"/agent/withdrawals"} element={<AgentWithdrawals/>}/>
                         <Route path={"/moderator/users"} element={<ModeratorHome/>}/>
+                        <Route path={"/notifications"} element={<Notifications/>}/>
                     </Routes>
                 </Sidebar>
             </BrowserRouter>

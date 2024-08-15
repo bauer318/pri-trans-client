@@ -5,6 +5,7 @@ import ToastNotification from "./toastNotification";
 import countryService from "../services/CountryService";
 import {printError} from "../services/Utils";
 import manualTransferService from "../services/ManualTransferService";
+import telegramNotificationService from "../services/TelegramNotificationService";
 
 const AddManualTransferModal = ({showModal, handleModal}) => {
     const [isLoadingCountriesToSend, setIsLoadingCountriesToSend] = useState(true);
@@ -35,6 +36,11 @@ const AddManualTransferModal = ({showModal, handleModal}) => {
             setNotify(true);
             handleModal();
             setCanWait(false);
+            telegramNotificationService.notifyAll(formData).then(()=>{
+                ;
+            }).catch(error=>{
+                printError(error);
+            })
         }).catch(error => {
             printError(error);
         })
