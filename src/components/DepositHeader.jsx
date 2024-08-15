@@ -6,7 +6,7 @@ const DepositHeader = () => {
     return (
         <div className={"row"}>
             <div className={"col-lg-6 d-flex justify-content-start"}>
-                <button className={"btn btn-info"} onClick={()=>navigate("/client/account/deposit/confirm")}>Confirm deposit</button>
+                <button className={"btn btn-info"} onClick={()=>navigate("/client/account/deposit/confirm")}>Confirmer le dépôt en attente</button>
             </div>
         </div>
     );

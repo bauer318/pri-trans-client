@@ -10,7 +10,6 @@ import {removeItem, saveItem} from "../services/LocalStorageService";
 const CreateAccount = () => {
     const [formData, setFormData] = useState({userRole: {userRole: "ROLE_CLIENT"}});
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
     const [continueTo, setContinueTo] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -31,7 +30,7 @@ const CreateAccount = () => {
         setContinueTo(false);
     }
     const toHome = () => {
-        saveItem("successMessage", "The account has been successfully created");
+        saveItem("successMessage", "Le compte a été créé avec succès");
         navigate('/');
     }
 
@@ -58,12 +57,12 @@ const CreateAccount = () => {
     return (
         <div className={"container row"}>
             <div className={"text-center mt-6"}>
-                <h3>Create your account</h3>
+                <h3>Créer votre compte</h3>
             </div>
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                 <Form onSubmit={handleSubmit} className={"login-form"}>
                     <Form.Group controlId="formBasicEmail" className={"form-outline mb-4"}>
-                        <Form.Label className={"required"}>Email address</Form.Label>
+                        <Form.Label className={"required"}>Adresse e-mail</Form.Label>
                         <Form.Control
                             type="email"
                             placeholder="example@email.com"
@@ -73,10 +72,10 @@ const CreateAccount = () => {
                         />
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label className={"required"}>Password</Form.Label>
+                        <Form.Label className={"required"}>Mot de passe</Form.Label>
                         <Form.Control
                             type="password"
-                            placeholder="Password"
+                            placeholder="mot de passe"
                             name="password"
                             required={true}
                             onChange={handleChange}
@@ -84,13 +83,13 @@ const CreateAccount = () => {
                     </Form.Group>
 
                     <Form.Group controlId="country" className={"mt-2"}>
-                        <Form.Label className={"required"}>Country of registration</Form.Label>
+                        <Form.Label className={"required"}>Pays d'enregistrement</Form.Label>
                         <Form.Control as="select"
                                       name="country"
                                       required={true}
                                       onChange={handleCountryChange}
                         >
-                            <option value="">{countries?.length > 0 ? "Select country" : "Loading..."}</option>
+                            <option value="">{countries?.length > 0 ? "Sélectionner le pays" : "Loading..."}</option>
                             {countries?.map(country =>
                                 <option value={country?.countryId}
                                         key={country?.countryId}>{country?.countryName}</option>
@@ -100,7 +99,7 @@ const CreateAccount = () => {
                     {isLoading && <LoadingEffect/>}
                     <div className={"mt-3 d-flex justify-content-around"}>
                         <button disabled={continueTo} className={"btn me-5 btn-primary w-50"} type={"submit"}>
-                            Create
+                            Créer
                         </button>
                     </div>
                 </Form>

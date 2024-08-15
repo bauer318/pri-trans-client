@@ -43,9 +43,9 @@ const ConvertForm = ({
                             <div className={"ms-3"}>{formTitles?.fromAccountCurrency?.code}</div>
                         </div>
                         <div className={"text-secondary mt-2 ps-3"}>
-                            You
-                            have <mark>{roundValue(formTitles.availableBalance)} {formTitles?.fromAccountCurrency?.symbol} </mark> available
-                            in your balance
+                            Vous
+                            avez <mark>{roundValue(formTitles.availableBalance)} {formTitles?.fromAccountCurrency?.symbol} </mark> disponible
+                            dans votre solde
                         </div>
                     </div>
                     <div className={"vr h-25 ms-4"}>
@@ -57,7 +57,7 @@ const ConvertForm = ({
                         </div>
                         <div className={"mt-1"}>
                             <span className={"ms-2"}>{calculating ? "calculating..." : liveRate}</span> <span
-                            className={"text-primary"}>Live rate</span>
+                            className={"text-primary"}>Taux en temps réel</span>
                         </div>
                     </div>
                     <div className={"vr h-25 ms-5"}>
@@ -85,7 +85,7 @@ const ConvertForm = ({
                                         onChange={handleToCurrencyChange}
                                     >
                                         <option
-                                            value={""}>...To
+                                            value={""}>...monnaie
                                         </option>
                                         {
                                             currencies.map((currency, key) =>

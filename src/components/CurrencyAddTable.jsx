@@ -70,7 +70,8 @@ const CurrencyAddTable = () => {
                                     <td className={"text-center"}>{currency.symbol}</td>
                                     <td className={"text-center"}>
                                         <button className={"btn btn-secondary"}
-                                                onClick={() => handleAddCurrencyClick(currency.currencyId)}>Add
+                                                disabled={canWait}
+                                                onClick={() => handleAddCurrencyClick(currency.currencyId)}>{canWait ? "Adding..." : "Add"}
                                         </button>
                                     </td>
                                 </tr>

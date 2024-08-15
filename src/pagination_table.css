@@ -1,0 +1,32 @@
+.table {
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+}
+
+.pagination input {
+    margin-left: 10px;
+}
+
+.pagination select {
+    margin-left: 10px;
+}
+
+@media (max-width: 576px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    /* Example: Hide specific columns on small screens */
+    /*.col-4, .col-5, .col-6 {*/
+    /*    display: none;*/
+    /*}*/
+}

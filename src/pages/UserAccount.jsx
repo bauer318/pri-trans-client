@@ -24,7 +24,7 @@ const UserAccount = () => {
     return (
         <div className={"container"}>
             <AccountHeader perform={performRefresh}/>
-            <h2 className={"mt-2"}>Account</h2>
+            <h2 className={"mt-2"}>Comptes</h2>
             <div className={"row row-cols-1 row-cols-md-3 g-4 mt-2"}>
                 {accounts && accounts?.map((account, key) => <BalanceCard account={account} key={key}/>)}
             </div>

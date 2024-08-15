@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Form, Modal} from "react-bootstrap";
 import orderService from "../services/orderService";
-import {printError} from "../services/Utils";
+import {printError, roundValue} from "../services/Utils";
 
 const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleConfirmModal}) => {
     const [formData, setFormData] = useState(depositDetails);
@@ -22,7 +22,8 @@ const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleC
         setCanWait(true);
         orderService.confirmDeposit(orderDetails, !isAgent, callBack)
             .then(resp => {
-
+                    //Void here
+                    console.log(resp);
                 }
             ).catch(error => {
             printError(error);
@@ -35,21 +36,21 @@ const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleC
     return (
         <Modal show={showConfirmModal} onHide={handleConfirmModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Confirm deposit</Modal.Title>
+                <Modal.Title>Confirmer le dépôt</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId={"amount"}>
-                        <Form.Label>Deposit's amount</Form.Label>
+                        <Form.Label>Montant du dépôt</Form.Label>
                         <Form.Control
                             type={"text"}
-                            value={depositDetails?.amount.toString().concat(" ").concat(depositDetails?.currency)}
+                            value={roundValue(depositDetails?.amount).toString().concat(" ").concat(depositDetails?.currency)}
                             readOnly={true}
                         />
                     </Form.Group>
 
                     <Form.Group controlId={"paymentMethod"}>
-                        <Form.Label>Paying with</Form.Label>
+                        <Form.Label>Payé avec</Form.Label>
                         <Form.Control
                             type={"text"}
                             value={depositDetails.paymentMethod}
@@ -65,7 +66,7 @@ const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleC
                                 readOnly={true}
                             />
                         </Form.Group>) : (<Form.Group controlId={"toAgent"}>
-                            <Form.Label>Agent's number</Form.Label>
+                            <Form.Label>Le numéro de l'agent</Form.Label>
                             <Form.Control
                                 type={"text"}
                                 value={depositDetails?.agentWalletNumber}
@@ -74,7 +75,7 @@ const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleC
                         </Form.Group>)
                     }
                     <Form.Group controlId={"refNumber"}>
-                        <Form.Label>Reference's number</Form.Label>
+                        <Form.Label>La référence [numéro ou nom du compte]</Form.Label>
                         <Form.Control
                             type={"text"}
                             placeholder={"reference"}
@@ -87,13 +88,13 @@ const ConfirmDepositModal = ({depositDetails, isAgent, showConfirmModal, handleC
                     </Form.Group>
                     <div className={"mt-2"}>
                         <button className={"btn btn-primary"} type={"submit"}
-                                disabled={canWait}>{canWait ? "Loading..." : "Confirm deposit"}
+                                disabled={canWait}>{canWait ? "Loading..." : "Confirmer le dépôt"}
                         </button>
                     </div>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <button className={"btn btn-secondary"} onClick={handleConfirmModal} disabled={canWait}>Close</button>
+                <button className={"btn btn-secondary"} onClick={handleConfirmModal} disabled={canWait}>Quitter</button>
             </Modal.Footer>
         </Modal>
     );

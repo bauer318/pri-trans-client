@@ -17,7 +17,7 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
         handleModal();
     }
 
-    const callBackClient = ()=>{
+    const callBackClient = () => {
         setCanWait(false);
         handleModal();
         navigate("/client/account")
@@ -31,9 +31,9 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
                 reference: formData["reference"]
             }
             setCanWait(true);
-            orderService.confirmWithdrawByAgent(orderDetails,callBackAgent).then(
-                response => {
-
+            orderService.confirmWithdrawByAgent(orderDetails, callBackAgent).then(
+                () => {
+                    //void here
                 }
             ).catch(error => {
                 printError(error);
@@ -41,10 +41,10 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
 
         } else {
             setCanWait(true);
-            accountService.withdraw(withdrawDetails?.withdrawRq,callBackClient)
+            accountService.withdraw(withdrawDetails?.withdrawRq, callBackClient)
                 .then(
-                    response => {
-
+                    () => {
+                        //void here
                     }
                 ).catch(error => {
                 printError(error);
@@ -71,12 +71,12 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
     return (
         <Modal show={showModal} onHide={handleModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Confirm withdraw</Modal.Title>
+                <Modal.Title>Confirmer le retrait</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId={"amount"}>
-                        <Form.Label>Withdraw amount</Form.Label>
+                        <Form.Label>Montant à retirer</Form.Label>
                         <Form.Control
                             type={"text"}
                             defaultValue={withdrawDetails?.amount.toString().concat(" ").concat(isAgent ? withdrawDetails?.currency : withdrawDetails?.currency?.symbol)}
@@ -85,7 +85,7 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
                     </Form.Group>
 
                     <Form.Group controlId={"paymentMethod"}>
-                        <Form.Label>Receiving via</Form.Label>
+                        <Form.Label>Réception via</Form.Label>
                         <Form.Control
                             type={"text"}
                             defaultValue={withdrawDetails?.paymentMethod}
@@ -94,7 +94,7 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
                     </Form.Group>
 
                     <Form.Group controlId={"toAgent"}>
-                        <Form.Label>Wallet's number</Form.Label>
+                        <Form.Label>Numéro du compte [Portefeuille]</Form.Label>
                         <Form.Control
                             type={"text"}
                             defaultValue={isAgent ? withdrawDetails?.clientWalletNumber : userWallet?.walletNumber}
@@ -104,7 +104,7 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
                     {
                         isAgent &&
                         <Form.Group controlId={"ownerName"}>
-                            <Form.Label>Wallet's owner name</Form.Label>
+                            <Form.Label>Nom du compte [Portefeuille]</Form.Label>
                             <Form.Control
                                 type={"text"}
                                 defaultValue={withdrawDetails?.ownerName}
@@ -128,13 +128,13 @@ const ConfirmWithdrawModal = ({withdrawDetails, isAgent, showModal, handleModal}
                     }
 
                     <div className={"mt-2"}>
-                        <button className={"btn btn-primary"} type={"submit"} disabled={canWait}>Confirm withdraw
+                        <button className={"btn btn-primary"} type={"submit"} disabled={canWait}>Confirmer le retrait
                         </button>
                     </div>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <button className={"btn btn-secondary"} onClick={handleModal}>Close</button>
+                <button className={"btn btn-secondary"} onClick={handleModal}>Quitter</button>
             </Modal.Footer>
         </Modal>
     );

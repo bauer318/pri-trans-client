@@ -12,6 +12,7 @@ const PendingDeposit = () => {
     const [selectedPendingDeposit, setSelectedPendingDeposit] = useState(null);
     const dispatch = useDispatch();
     const [canWait, setCanWait] = useState(false);
+    const [canRefresh, setCanRefresh] = useState(false);
     const callBack = () => {
         setCanWait(false);
     }
@@ -19,7 +20,7 @@ const PendingDeposit = () => {
         const connectedUser = getItem('connectedUser');
         setCanWait(true);
         dispatch(getOrdersToFromParticipant(connectedUser?.userId, "requested", "deposit", callBack));
-    }, [showCancelModal, showConfirmModal]);
+    }, [canRefresh]);
 
     const pendingDeposits = useSelector(state => state.orders);
     const handleConfirmDeposit = depositPending => {
@@ -31,22 +32,27 @@ const PendingDeposit = () => {
         handleCancelModal();
     }
     const handleConfirmModal = () => {
+        if(showConfirmModal){
+            setCanRefresh(!canRefresh);
+        }
         setShowConfirmModal(!showConfirmModal);
     }
     const handleCancelModal = () => {
+        if(showCancelModal){
+            setCanRefresh(!canRefresh);
+        }
         setShowCancelModal(!showCancelModal);
     }
     return (<div>
         <div className={"d-flex justify-content-center"}>
-            <p className={"text-secondary"}>Pending deposit</p>
+            <h3 className={"text-secondary"}>Dépôt en attente</h3>
         </div>
         {pendingDeposits?.length > 0 && <div className={"d-flex justify-content-center"}>
             <div className={"text-secondary"}>
-                <p>Send exactly the amount from the pending deposit's request to agent's number using the mentioned
-                    payment
-                    method.</p>
-                <p>After that, confirm the deposit putting the reference's number.</p>
-                <p><i>The reference's number is the transaction's unique id.</i></p>
+                <p>Envoyez exactement le montant de la demande de dépôt en attente au numéro de l'agent en utilisant
+                    la methode de paiement mentionnée.</p>
+                <p>Après cela, confirmez le dépôt en envoyant le numéro de référence ou le nom de votre compte bancaire</p>
+                <p><i>Le numéro de référence commence par <span className={"text-decoration-underline"}>Ref:</span>, cas de M-pesa</i></p>
             </div>
         </div>
 

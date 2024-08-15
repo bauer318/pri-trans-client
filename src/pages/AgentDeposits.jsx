@@ -40,7 +40,7 @@ const AgentDeposits = () => {
     }
     return (
         <div className={"container"}>
-            <CSWHeader title={"Deposits"}/>
+            <CSWHeader title={"Dépôts"}/>
             {canWait && <LoadingEffect/>}
             <div className={"row container mx-auto d-flex justify-content-center mt-2"}>
                 {

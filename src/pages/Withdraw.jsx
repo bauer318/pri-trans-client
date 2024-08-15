@@ -23,12 +23,12 @@ const Withdraw = () => {
         const currentAccount = location?.state?.currentAccount;
         setAccount(currentAccount);
         setFormDetails({
-            title: "How much do you want to withdraw?",
+            title: "Combien voulez-vous retirer?",
             availableBalance: currentAccount?.balance,
             currency: currentAccount?.currency,
-            pmTitle: "Receiving via",
-            subTitle: "Withdraw",
-            actionTitle: "Withdraw",
+            pmTitle: "Réception via",
+            subTitle: "Retrait",
+            actionTitle: "Retrait",
             icon: <AiOutlineArrowRight size={28}/>
         });
         setConnectedUser(getItem('connectedUser'));
@@ -87,7 +87,7 @@ const Withdraw = () => {
     }
     return (
         <div className={"container"}>
-            <CSWHeader title={"Withdraw money"}/>
+            <CSWHeader title={"Retirer de l'argent"}/>
             <DWForm formDetails={formDetails} handleAmountChange={handleAmountChange} handlePMChange={handlePMChange}
                     handleSubmit={handleSubmit} isDeposit={false}/>
             {

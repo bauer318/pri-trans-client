@@ -48,7 +48,7 @@ const AgentWithdrawals = () => {
     }
     return (
         <div className={"container"}>
-            <CSWHeader title={"Withdrawals"}/>
+            <CSWHeader title={"Retraits"}/>
             <div className={"row container mx-auto d-flex justify-content-center mt-2"}>
                 {
                     pendingWithdrawals?.map((withdrawal, key) =>

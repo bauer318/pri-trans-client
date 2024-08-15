@@ -6,7 +6,7 @@ import walletService from "../services/walletService";
 import {printError, roundValue} from "../services/Utils";
 
 //Deposit Withdraw DW
-const DWForm = ({formDetails, canWait, handleSubmit, handleAmountChange, handlePMChange, isDeposit}) => {
+const DWForm = ({formDetails, canWait, handleSubmit, handleAmountChange, handlePMChange}) => {
     const [paymentMethods, setPaymentMethods] = useState([]);
     useEffect(() => {
         const user = getItem('connectedUser');
@@ -28,8 +28,8 @@ const DWForm = ({formDetails, canWait, handleSubmit, handleAmountChange, handleP
                     <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                         <Form onSubmit={handleSubmit}>
                             <h3>{formDetails?.title}</h3>
-                            <p className={"text-secondary"}>Your balance right now is <span className={"text-body"}>
-                                {`${roundValue(formDetails?.availableBalance)} ${formDetails?.currency?.code}`} </span>
+                            <p className={"text-secondary"}>Vous avez <span className={"text-body text-decoration-underline"}>
+                                {`${roundValue(formDetails?.availableBalance)} ${formDetails?.currency?.code}`} </span> dans votre compte
                             </p>
                             <div className={"border border-secondary"}>
                                 <div className={"text-primary ps-3"}>
@@ -58,7 +58,7 @@ const DWForm = ({formDetails, canWait, handleSubmit, handleAmountChange, handleP
                                     required={true}
                                     onChange={handlePMChange}
                                 >
-                                    <option value={""}>Select payment method</option>
+                                    <option value={""}>Sélectionner la methode de paiement</option>
                                     {paymentMethods?.map((pm, key) =>
                                         <option value={pm?.paymentMethod}
                                                 key={key}>{pm?.paymentMethod}</option>

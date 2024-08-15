@@ -19,8 +19,8 @@ import countryService from "../services/CountryService";
 
 const Send = () => {
     const [rates, setRates] = useState(0);
-    const [baseCurrency, setBaseCurrency] = useState('USD');
-    const [liveRate, setLiveRate] = useState(0);
+    const baseCurrency = useState('USD');
+    const [liveRate, setLiveRate] = useState(1);
     const [toAmount, setToAmount] = useState(0.00);
     const [fromAmount, setFromAmount] = useState(100.00);
     const [toStrCurrencyCode, setToStrCurrencyCode] = useState('USD');
@@ -46,19 +46,20 @@ const Send = () => {
     const debouncedToAmount = useDebounce(fromAmount, 500);
     const debouncedRate = useDebounce(toStrCurrencyCode, 500);
     useEffect(() => {
-        dispatch(getRate(baseCurrency));
+        setLiveRate(1);
+        //dispatch(getRate(baseCurrency));
         dispatch(initializeCurrencies(callBack));
         dispatch(initializeCountries(callBack));
         const currentAccount = location?.state?.currentAccount;
         setAccount(currentAccount);
         setFromAccount(currentAccount);
         setFormDetails({
-            title: "How much do you want to send?",
-            fromSubTitle: "You send exactly",
-            toSubtitle: "Recipient gets",
+            title: "Combien voulez-vous envoyer?",
+            fromSubTitle: "Vous envoyez exactement",
+            toSubtitle: "Le destinataire recevra",
             availableBalance: currentAccount?.balance,
             icon: <AiOutlineArrowRight size={28}/>,
-            actionTitle: "Continue",
+            actionTitle: "Continuer",
             fromAccountCurrency: currentAccount?.currency,
         })
         setToStrCurrencyCode(currentAccount?.currency?.code);
@@ -85,7 +86,7 @@ const Send = () => {
         } else {
             setLiveRate(liveRate);
         }
-    }, [debouncedRate, debouncedToAmount]);
+    }, [debouncedRate,debouncedToAmount]);
 
     const getAvailableCountriesToSend = () => {
         setIsLoadingCountriesToSend(true);
@@ -98,7 +99,7 @@ const Send = () => {
     }
     const calculateToAmount = (rate) => {
         setIsCalculating(true);
-        orderService.getToAmount(fromAmount, rate)
+        orderService.getToAmount(fromAmount /*rate*/,1)
             .then(toAmountResponse => {
                     setToAmount(toAmountResponse?.toAmount);
                     setIsCalculating(false);
@@ -108,12 +109,16 @@ const Send = () => {
             setIsCalculating(false);
         })
     }
-    const rate = useSelector(state => state.rates);
+    //const rate = useSelector(state => state.rates);
+    const rate = {
+        rates:1
+    };
+
     if (rate?.rates) {
         if (rates === 0) {
             setRates(rate.rates);
         }
-        if (rates !== 0 && liveRate === 0 && account) {
+        if (rates !== 0 && liveRate === 1 && account) {
             const usdFromAmount = rates[account?.currency?.code];
             const usdToAmount = rates[`${toStrCurrencyCode}`];
             setLiveRate(usdToAmount / usdFromAmount);
@@ -138,10 +143,11 @@ const Send = () => {
                     dispatch(initializeSendDetails(sendDetails));
                     navigate('/client/account/send/to');
                     callBack();
+                    console.log(canSend);
                 } else {
                     setCanSend(false);
                     callBack();
-                    alert("insufficient balance to send");
+                    alert("Solde insuffisant");
                 }
             })
 
@@ -163,9 +169,9 @@ const Send = () => {
         const selectedCountry = e.target.value;
         if (selectedCountry !== "") {
             setIsDestinationSelected(true)
-            const c = countries.filter(country => country?.countryId === Number(selectedCountry))[0]
-            setCurrencies(c.currencies);//.filter(currency => currency.currencyId !== account?.currency?.currencyId));
-            setCountryId(c.countryId);
+            const destinationCountry = countries.filter(country => country?.countryId === Number(selectedCountry))[0]
+            setCurrencies(destinationCountry.currencies);
+            setCountryId(destinationCountry.countryId);
         } else {
             setIsDestinationSelected(false)
         }
@@ -175,7 +181,7 @@ const Send = () => {
         <div>
             <CSWHeader title={"Send money"}/>
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
-                Where
+                Où
             </div>
             {isLoadingCountriesToSend &&
                 <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
@@ -190,7 +196,7 @@ const Send = () => {
                         onChange={handleDestinationChange}
                     >
                         <option
-                            value={""}>Destination
+                            value={""}>Sélectionner la destination
                         </option>
                         {
                             countries?.map(country => <option key={country?.countryId} value={country?.countryId}>
@@ -208,7 +214,8 @@ const Send = () => {
                              liveRate={liveRate}
                              fromAmount={fromAmount}
                              canWait={canWait}
-                             toAmount={toAmount} calculating={isCalculating}/>) : (<LoadingEffect/>)}
+                             toAmount={toAmount} calculating={isCalculating}/>) : liveRate ? (
+                <h4 className={"text-center mt-5"}>Sélectionner la destination... </h4>) : (<LoadingEffect/>)}
         </div>
     );
 };

@@ -51,6 +51,9 @@ const ClientHome = () => {
     }, [selectedCountryId]);
     return (
         <div className={"container"}>
+            <h4 className={"text-center"}>Les transferts automatiques et sécurisés par la plateforme.</h4>
+            <hr/>
+            <hr/>
             <HomeHeader setSelectedCountry={setSelectedCountryId}/>
             <div className={"row mt-2"}>
                 <div className={"col-lg-6"}>

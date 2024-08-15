@@ -9,6 +9,8 @@ import {GrCurrency} from "react-icons/gr";
 import {BsFillWalletFill} from "react-icons/bs";
 import LogoutBtn from "./LogoutBtn";
 import {FiSettings} from "react-icons/fi";
+import {TbManualGearbox} from "react-icons/tb";
+import {IoMdNotifications} from "react-icons/io";
 
 
 const Sidebar = ({children, user}) => {
@@ -49,6 +51,11 @@ const Sidebar = ({children, user}) => {
                 name: "Payment methods",
                 icon: <FaExchangeAlt/>
             },
+            {
+                path: "/notifications",
+                name: "Notifications",
+                icon: <IoMdNotifications />
+            },
         ],
         [
             {
@@ -60,61 +67,76 @@ const Sidebar = ({children, user}) => {
         [
             {
                 path: "/agent/account",
-                name: "Account",
+                name: "Comptes",
                 icon: <MdOutlineAccountBalanceWallet/>
             },
             {
                 path: "/agent/deposits",
-                name: "Deposits",
+                name: "Depots",
                 icon: <RiLuggageDepositLine/>
             },
             {
                 path: "/agent/withdrawals",
-                name: "Withdrawals",
+                name: "Retraits",
                 icon: <BiMoneyWithdraw/>
             },
             {
                 path: "/agent/history",
-                name: "History",
+                name: "Historique",
                 icon: <FaHistory/>
             },
             {
                 path: "/agent/payment-methods",
-                name: "Payment methods",
+                name: "Methode de paiement",
                 icon: <FaExchangeAlt/>
             },
             {
                 path: "/agent/profile",
                 name: "Profile",
                 icon: <MdOutlinePermIdentity/>
-            }
+            },
+            {
+                path: "/notifications",
+                name: "Notifications",
+                icon: <IoMdNotifications />
+            },
         ],
         [
             {
                 path: "/client/home",
-                name: "Home",
+                name: "Transferts automatiques",
                 icon: <HiHome/>
             },
             {
+                path: "/client/manual-transfer",
+                name: "Transferts manuels",
+                icon: <TbManualGearbox/>
+            },
+            {
                 path: "/client/account",
-                name: "Account",
+                name: "Comptes",
                 icon: <MdOutlineAccountBalanceWallet/>
             },
             {
                 path: "/client/history",
-                name: "History",
+                name: "Historiques",
                 icon: <FaHistory/>
             },
             {
                 path: "/client/wallet",
-                name: "Wallets",
+                name: "Portefeuilles",
                 icon: <BsFillWalletFill/>
             },
             {
                 path: "/client/profile",
                 name: "Profile",
                 icon: <MdOutlinePermIdentity/>
-            }
+            },
+            {
+                path: "/notifications",
+                name: "Notifications",
+                icon: <IoMdNotifications />
+            },
         ],
         [
             {
@@ -158,7 +180,7 @@ const Sidebar = ({children, user}) => {
                 <NavLink to={"https://forms.yandex.ru/u/65a25274d0468848f12a169b/"}
                          className="link nav-item fs-1" activeclassname="active">
                     <div className="icon"><FiSettings/></div>
-                    <div className="link_text ms-2 d-none d-sm-inline">{"Something to fix"}</div>
+                    <div className="link_text ms-2 d-none d-sm-inline">{"Vos avis et critiques"}</div>
                 </NavLink>
             </div>
             <main>{children}</main>

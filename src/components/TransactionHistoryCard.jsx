@@ -27,21 +27,21 @@ const TransactionHistoryCard = ({transaction,refresh}) => {
                         Type: {transaction?.type}
                     </p>
                     <p className="card-text">
-                        Main amount: {roundValue(transaction?.amount)}
+                        Montant principal: {roundValue(transaction?.amount)}
                         <mark>{transaction?.currencySymbol}</mark>
                     </p>
                     <p className="card-text">
-                        Paid amount: {roundValue(transaction?.paidAmount)}
+                        Montant transféré: {roundValue(transaction?.paidAmount)}
                         <mark>{transaction?.currencySymbol}</mark>
                     </p>
                     <p className="card-text">
-                        Receiver: {transaction?.recipient}
+                        Destinataire: {transaction?.recipient}
                     </p>
                     <p className="card-text">
-                        Reference: {transaction?.reference === "" ? "No ref" : transaction.reference}
+                        Référence: {transaction?.reference === "" ? "Pas de ref" : transaction.reference}
                     </p>
                     <p className="card-text">
-                        Note: {transaction?.note === "" ? "Without note" : transaction.note}
+                        Note: {transaction?.note === "" ? "Pas de note" : transaction.note}
                     </p>
                     <div className="card-footer text-muted text-center">
                         {transaction?.createdAt ? transaction.createdAt : "No date"}
