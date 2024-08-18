@@ -8,12 +8,15 @@ import LoadingEffect from "../components/LoadingEffect";
 import {removeItem, saveItem} from "../services/LocalStorageService";
 
 const CreateAccount = () => {
-    const [formData, setFormData] = useState({userRole: {userRole: "ROLE_CLIENT"}});
+    const [formData, setFormData] = useState({userRole: {userRole: "ROLE_CLIENT"}, termsAccepted: false});
     const [isLoading, setIsLoading] = useState(false);
     const [continueTo, setContinueTo] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [canWait, setCanWait] = useState(false);
+    const [errors, setErrors] = useState({
+        termsAccepted: '',
+    });
     const callBack = () => {
         setCanWait(false);
     }
@@ -31,19 +34,28 @@ const CreateAccount = () => {
     }
     const toHome = () => {
         saveItem("successMessage", "Le compte a été créé avec succès");
-        navigate('/');
+        navigate('/login');
     }
 
     const handleSubmit = event => {
         event.preventDefault();
+        let validationErrors = {};
+        if (!formData.termsAccepted) validationErrors.termsAccepted = 'Vous devez accepter les termes et conditions';
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
         setIsLoading(true);
         dispatch(createUser(formData, errorCallBack, toHome));
         setIsLoading(false);
         setContinueTo(true);
     }
     const handleChange = event => {
-        const {name, value} = event.target;
-        setFormData({...formData, [name]: value});
+        const {name, value, type, checked} = event.target;
+        setFormData({
+            ...formData,
+            [name]: type === 'checkbox' ? checked : value,
+        });
     }
     const handleCountryChange = event => {
         const id = Number(event.target.value);
@@ -96,9 +108,25 @@ const CreateAccount = () => {
                             )}
                         </Form.Control>
                     </Form.Group>
+                    <div className="mb-3 form-check mt-2">
+                        <input
+                            type="checkbox"
+                            id="termsAccepted"
+                            name="termsAccepted"
+                            className="form-check-input"
+                            checked={formData.termsAccepted}
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="termsAccepted" className="form-check-label">
+                            J'ai lu et j'accepte les <a href="/terms-and-conditions" target="_blank"
+                                                        rel="noopener noreferrer">termes et conditions</a>
+                        </label>
+                        {errors.termsAccepted && <div className="text-danger">{errors.termsAccepted}</div>}
+                    </div>
                     {isLoading && <LoadingEffect/>}
                     <div className={"mt-3 d-flex justify-content-around"}>
-                        <button disabled={continueTo} className={"btn me-5 btn-primary w-50"} type={"submit"}>
+                        <button disabled={continueTo || !formData?.termsAccepted}
+                                className={"btn me-5 btn-sm btn-primary w-50"} type={"submit"}>
                             Créer
                         </button>
                     </div>
