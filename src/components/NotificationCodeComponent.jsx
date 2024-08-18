@@ -114,10 +114,11 @@ const NotificationCodeComponent = ({title, infos, code, regenerateCode, isSubscr
                                 <div className={"d-flex justify-content-between"}>
                                     {canGoToTelegramBot &&
                                         <a href="https://t.me/PriTransBot" target={"_blank"} rel={"noopener noreferrer"}
-                                           className="btn btn-secondary"
-                                           onClick={() => toBotTelegramOnClick(code, setCanGoToTelegramBot)}>Bot
-                                            telegram <span><FaRobot size={20}/></span></a>}
-                                    {canWait ? "Loading..." : <button className={"btn btn-primary"}
+                                           className="btn btn-secondary btn-sm"
+                                           onClick={() => toBotTelegramOnClick(code, setCanGoToTelegramBot)}> <span
+                                            className="d-none d-md-inline"> Bot telegram</span> <span><FaRobot
+                                            size={20}/></span></a>}
+                                    {canWait ? "Loading..." : <button className={"btn btn-primary btn-sm"}
                                                                       disabled={!canRegenerateCode}
                                                                       onClick={newCodeOnClick}>{canRegenerateCode ? "Nouveau code" :
                                         <TimerComponent

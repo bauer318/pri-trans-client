@@ -99,7 +99,7 @@ const countriesAPI = () => {
             phoneCode: '+237'
         },
         {
-            name: 'CONGO',
+            name: 'Congo',
             code: 'CG',
             iso: 'COG',
             phoneCode: '+242'

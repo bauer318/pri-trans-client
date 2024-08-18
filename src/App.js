@@ -38,6 +38,7 @@ import EditProfilePage from "./pages/EditProfilePage";
 import ClientManualTransfer from "./pages/ClientManualTransfer";
 import ClientPrivateManualTransfer from "./pages/ClientPrivateManualTransfer";
 import Notifications from "./pages/Notifications";
+import PublicHome from "./pages/PublicHome";
 
 export var logout = () => {
 };
@@ -59,7 +60,8 @@ const App = () => {
             <BrowserRouter>
                 <Sidebar user={longedUser}>
                     <Routes>
-                        <Route path={"/"} element={<Home/>}/>
+                        <Route path={"/"} element={<PublicHome/>}/>
+                        <Route path={"/login"} element={<Home/>}/>
                         <Route path={"/register"} element={<CreateAccount/>}/>
                         <Route path={"/personal-info"} element={<PersonalInfo/>}/>
                         <Route path={'/register/:id/personal-info/address'} element={<HomeAddress/>}/>

@@ -4,28 +4,40 @@ import ToAddPersonalInfoModal from "../modals/ToAddPersonalInfoModal";
 import manualTransferService from "../services/ManualTransferService";
 import {MdOutlineContentCopy} from "react-icons/md";
 import ToastNotification from "../modals/toastNotification";
+import {getItem} from "../services/LocalStorageService";
+import MustConnectToContinueModal from "./MustConnectToContinueModal";
 
 const ManualTransferCard = ({transfer, isVerified}) => {
     const [showModal, setShowModal] = useState(false);
+    const [showConnexionModal, setShowConnexionModal] = useState(false);
     const [senderPhone, setSenderPhone] = useState(transfer?.senderPhone);
     const [senderPhoneDisplayed, setSenderPhoneDisplayed] = useState(false);
     const [copied, setCopied] = useState(false);
+    const connectedUser = getItem('connectedUser');
     const handleModal = () => {
         setShowModal(!showModal);
     }
+    const handleConnexionModal = () => {
+        setShowConnexionModal(!showConnexionModal);
+    }
     const handleShowSenderPhoneOnClick = () => {
-        if (isVerified) {
-            manualTransferService.getSenderPhone(transfer?.id).then(
-                response => {
-                    setSenderPhone(response);
-                    setSenderPhoneDisplayed(true);
-                }
-            ).catch(error => {
-               printError(error);
-            })
+        if (connectedUser) {
+            if (isVerified) {
+                manualTransferService.getSenderPhone(transfer?.id).then(
+                    response => {
+                        setSenderPhone(response);
+                        setSenderPhoneDisplayed(true);
+                    }
+                ).catch(error => {
+                    printError(error);
+                })
+            } else {
+                handleModal();
+            }
         } else {
-            handleModal();
+            handleConnexionModal();
         }
+
     }
     return (
         <div className="col">
@@ -52,6 +64,8 @@ const ManualTransferCard = ({transfer, isVerified}) => {
             </div>
             {showModal && <ToAddPersonalInfoModal handleModal={handleModal} showModal={showModal}/>}
             {copied && <ToastNotification message={"Le numéro a été copié"}/>}
+            {showConnexionModal &&
+                <MustConnectToContinueModal handleModal={handleConnexionModal} showModal={showConnexionModal}/>}
         </div>
     );
 };
