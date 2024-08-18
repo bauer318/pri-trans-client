@@ -6,6 +6,7 @@ import CircleBtn from "../components/CircleBtn";
 import accountService from "../services/accountService";
 import {getAccountTypeFr, printError, roundValue} from "../services/Utils";
 import LoadingEffect from "../components/LoadingEffect";
+import HelpModal from "../modals/HelpModal";
 
 const BalanceItem = () => {
     const navigate = useNavigate();
@@ -13,6 +14,7 @@ const BalanceItem = () => {
     const account = location.state?.selectedAccount;
     const [fundingAccount, setFundingAccount] = useState();
     const [canWait, setCanWait] = useState(false);
+    const [showHelpModal, setShowHelpModal] = useState(false);
     const callBack = () => {
         setCanWait(false);
     }
@@ -27,6 +29,10 @@ const BalanceItem = () => {
             printError(error);
         });
     }, []);
+
+    const handleHelpModalShow = () => {
+        setShowHelpModal(!showHelpModal);
+    }
 
     return (
         <div className={"container"}>
@@ -43,7 +49,10 @@ const BalanceItem = () => {
                     <h4>{account?.currency?.code} solde {getAccountTypeFr(account?.accountType?.accountType)}</h4>
                     <h1>{roundValue(account?.balance)} {account?.currency?.symbol}</h1>
                 </div>
-                <CircleBtn onClick={() => navigate("/client/account/deposit/new", {state: {currentAccount: account}})}
+                {/*<CircleBtn onClick={() => navigate("/client/account/deposit/new", {state: {currentAccount: account}})}*/}
+                {/*           icon={<AiOutlinePlus size={28}/>}*/}
+                {/*           content={"Dépôt"}/>*/}
+                <CircleBtn onClick={handleHelpModalShow}
                            icon={<AiOutlinePlus size={28}/>}
                            content={"Dépôt"}/>
                 {/*<CircleBtn  onClick={() => navigate("/client/account/convert",{state:{currentAccount:account}})} icon={<TbArrowsExchange2 size={28}/>}
@@ -64,7 +73,7 @@ const BalanceItem = () => {
             {
                 canWait && <div className={"text-center"}><LoadingEffect/></div>
             }
-
+            {showHelpModal && <HelpModal showModal={showHelpModal} handleModal={handleHelpModalShow}/>}
         </div>
     );
 };
