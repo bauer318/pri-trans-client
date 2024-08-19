@@ -39,6 +39,7 @@ import ClientManualTransfer from "./pages/ClientManualTransfer";
 import ClientPrivateManualTransfer from "./pages/ClientPrivateManualTransfer";
 import Notifications from "./pages/Notifications";
 import PublicHome from "./pages/PublicHome";
+import TermAndConditionPage from "./pages/TermAndConditionPage";
 
 export var logout = () => {
 };
@@ -101,6 +102,7 @@ const App = () => {
                         <Route path={"/agent/withdrawals"} element={<AgentWithdrawals/>}/>
                         <Route path={"/moderator/users"} element={<ModeratorHome/>}/>
                         <Route path={"/notifications"} element={<Notifications/>}/>
+                        <Route path={"/terms-and-conditions"} element={<TermAndConditionPage/>}/>
                     </Routes>
                 </Sidebar>
             </BrowserRouter>
