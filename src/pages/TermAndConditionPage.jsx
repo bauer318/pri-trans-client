@@ -1,5 +1,4 @@
 import React, {useRef} from 'react';
-//import termConditionFilePath from '/Pritrans_terms_and_conditions_v1.0.0.pdf';
 
 const TermAndConditionPage = () => {
     const termConditionFilePath = '/terms_conditions/Pritrans_terms_and_conditions_v1.0.0.pdf';
