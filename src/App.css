@@ -15,7 +15,7 @@ main {
 
 .sidebar {
     color: #fff;
-    #width: 200px;
+    #width: 150px;
     #padding-left: 20px;
     background-image: linear-gradient(30deg, #0048bd, #44a7fd);
     border-top-right-radius: 80px;
@@ -24,11 +24,11 @@ main {
 .top_section {
     display: flex;
     align-items: center;
-    padding: 20px 15px;
+    padding: 15px 15px;
 }
 
 .logo {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .bars {

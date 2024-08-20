@@ -1,5 +1,5 @@
 import React from 'react';
-import {FaCity, FaExchangeAlt, FaHistory, FaUsers} from 'react-icons/fa';
+import {FaCity, FaExchangeAlt, FaHistory, FaUsers, FaHome} from 'react-icons/fa';
 import {NavLink, useNavigate} from "react-router-dom";
 import {HiHome, HiUsers} from "react-icons/hi";
 import {MdOutlineAccountBalanceWallet, MdOutlinePermIdentity} from "react-icons/md";
@@ -55,7 +55,7 @@ const Sidebar = ({children, user}) => {
             {
                 path: "/notifications",
                 name: "Notifications",
-                icon: <IoMdNotifications />
+                icon: <IoMdNotifications/>
             },
         ],
         [
@@ -99,7 +99,7 @@ const Sidebar = ({children, user}) => {
             {
                 path: "/notifications",
                 name: "Notifications",
-                icon: <IoMdNotifications />
+                icon: <IoMdNotifications/>
             },
         ],
         [
@@ -136,7 +136,7 @@ const Sidebar = ({children, user}) => {
             {
                 path: "/notifications",
                 name: "Notifications",
-                icon: <IoMdNotifications />
+                icon: <IoMdNotifications/>
             },
         ],
         [
@@ -152,9 +152,10 @@ const Sidebar = ({children, user}) => {
     return (
         <div className="container-sidebar">
             <div className="sidebar min-vh-100">
-                <div className="top_section">
-                    <h1 className="logo d-none d-sm-inline" onClick={()=> navigate('/')}>{user ? userLogo[menuIndex] : 'Acceuille'}</h1>
-                </div>
+                <NavLink to={user ? "/client/home" : "/"} className="link nav-item fs-4 top_section">
+                    <div className="icon"><FaHome/></div>
+                    <div className="link_text ms-2 d-none d-sm-inline">{user ? userLogo[menuIndex] : 'Acceuille'}</div>
+                </NavLink>
                 {user ?
                     (
                         menuItem[menuIndex]?.map((item, index) => (

@@ -5,13 +5,20 @@ const TermAndConditionPage = () => {
     const iframeRef = useRef();
 
     return (
-        <div className={"container"}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', margin: 0 }}>
             <iframe
                 ref={iframeRef}
                 src={termConditionFilePath}
-                width="100%"
-                height="1000px"
-                style={{border: 'none'}}
+                style={{
+                    width: '100%',
+                    height: '100vh',
+                    border: 'none',
+                    transform: 'scale(1)',
+                    transformOrigin: '0 0',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    overflow: 'auto'
+                }}
                 title="PDF Viewer"
             />
         </div>
