@@ -5,11 +5,13 @@ const Footer = () => {
         <footer style={footerStyle}>
             <div style={linkContainerStyle}>
                 <a href="mailto:bauerpictu@gmail.com" style={linkStyle}>
-                    Email Support
+                    Email
                 </a>
                 <a href="https://t.me/bjack318" target="_blank" rel="noopener noreferrer" style={linkStyle}>
-                    Telegram Support
+                    Telegram
                 </a>
+                <a href="/terms-and-conditions" target="_blank"
+                   rel="noopener noreferrer" style={linkStyle}>Termes et Conditions</a>
             </div>
         </footer>
     );

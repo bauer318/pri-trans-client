@@ -126,7 +126,7 @@ const CreateAccount = () => {
                     {isLoading && <LoadingEffect/>}
                     <div className={"mt-3 d-flex justify-content-around"}>
                         <button disabled={continueTo || !formData?.termsAccepted}
-                                className={"btn me-5 btn-sm btn-primary w-50"} type={"submit"}>
+                                className={"btn  btn-sm btn-primary w-50"} type={"submit"}>
                             Créer
                         </button>
                     </div>
