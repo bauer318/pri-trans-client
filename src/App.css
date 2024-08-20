@@ -153,5 +153,60 @@ main {
     color:red;
 }
 
+.custom-list {
+    list-style-type: none; /* Remove default bullets */
+    padding-left: 0; /* Remove default padding */
+}
+
+.custom-list li {
+    position: relative; /* Position for the custom marker */
+    padding-left: 1.5em; /* Space for the custom marker */
+}
+
+.custom-list li::before {
+    content: '•'; /* Your custom marker */
+    position: absolute; /* Position the marker */
+    left: 0; /* Align to the left of the list item */
+    color: #007bff; /* Marker color (Bootstrap primary color for example) */
+    font-size: 1.2em; /* Marker size */
+}
+
+.custom-letter-list {
+    list-style: none; /* Remove default list styling */
+    counter-reset: list-counter; /* Initialize counter */
+}
+
+.custom-letter-list li {
+    counter-increment: list-counter; /* Increment counter for each list item */
+    position: relative; /* For positioning the custom marker */
+    padding-left: 2em; /* Space for the custom marker */
+}
+
+.custom-letter-list li::before {
+    content: counter(list-counter, lower-alpha) ". "; /* Custom marker (a, b, c) */
+    position: absolute; /* Position the marker */
+    left: 0; /* Align the marker to the left of the list item */
+    font-weight: bold; /* Make the marker bold */
+}
+
+.custom-roman-list {
+    list-style: none; /* Remove default list styling */
+    counter-reset: list-counter; /* Initialize counter */
+}
+
+.custom-roman-list li {
+    counter-increment: list-counter; /* Increment counter for each list item */
+    position: relative; /* For positioning the custom marker */
+    padding-left: 2em; /* Space for the custom marker */
+}
+
+.custom-roman-list li::before {
+    content: counter(list-counter, lower-roman) ". "; /* Custom marker (i, ii, iii) */
+    position: absolute; /* Position the marker */
+    left: 0; /* Align the marker to the left of the list item */
+    font-weight: bold; /* Make the marker bold */
+}
+
+
 
 
