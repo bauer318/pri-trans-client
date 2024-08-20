@@ -105,7 +105,6 @@ const App = () => {
                         <Route path={"/terms-and-conditions"} element={<TermAndConditionPage/>}/>
                     </Routes>
                 </Sidebar>
-                <Footer/>
             </BrowserRouter>
         </div>
     );

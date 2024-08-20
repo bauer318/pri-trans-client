@@ -3,11 +3,14 @@ import {useNavigate} from "react-router-dom";
 import HomeHeader from "../components/HomeHeader";
 import ManualTransferList from "../components/ManualTransferList";
 import AboutComponent from "../components/AboutComponent";
+import LogoutBtn from "../components/LogoutBtn";
+import {getItem} from "../services/LocalStorageService";
 
 const PublicHome = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('ManualTransfer');
     const [selectedCountryId, setSelectedCountryId] = useState();
+    const connectedUser = getItem('connectedUser');
 
     const renderContent = () => {
         switch (activeTab) {
@@ -37,8 +40,10 @@ const PublicHome = () => {
         <div className={"container"}>
             <div className={"row mb-3"}>
                 <div className={"col-lg-12 d-flex justify-content-end"}>
-                    <button className={"btn btn-outline-primary btn-sm"} onClick={() => navigate('/login')}>Connection
-                    </button>
+                    {connectedUser ? <LogoutBtn/> : <button className={"btn btn-outline-primary btn-sm"}
+                                                            onClick={() => navigate('/login')}>Connection
+                    </button>}
+
                 </div>
             </div>
             <hr/>

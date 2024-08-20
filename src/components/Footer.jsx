@@ -3,15 +3,19 @@ import React from 'react';
 const Footer = () => {
     return (
         <footer style={footerStyle}>
-            <div style={linkContainerStyle}>
-                <a href="mailto:bauerpictu@gmail.com" style={linkStyle}>
-                    Email
-                </a>
-                <a href="https://t.me/bjack318" target="_blank" rel="noopener noreferrer" style={linkStyle}>
-                    Telegram
-                </a>
-                <a href="/terms-and-conditions" target="_blank"
-                   rel="noopener noreferrer" style={linkStyle}>Termes et Conditions</a>
+            <div className={"container"}>
+                <div className={"row"}>
+                    <a className="col-lg-4 col-md-4 mb-1 mb-lg-0" href="mailto:bauerpictu@gmail.com" style={linkStyle}>
+                        Email
+                    </a>
+                    <a className="col-lg-4 col-md-4 mb-1 mb-lg-0" href="https://t.me/bjack318" target="_blank"
+                       rel="noopener noreferrer"
+                       style={linkStyle}>
+                        Telegram
+                    </a>
+                    <a className="col-lg-4 col-md-12 mb-lg-0" href="/terms-and-conditions" target="_blank"
+                       rel="noopener noreferrer" style={linkStyle}>Termes et Conditions</a>
+                </div>
             </div>
         </footer>
     );

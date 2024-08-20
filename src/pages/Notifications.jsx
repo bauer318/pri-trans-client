@@ -8,7 +8,7 @@ import {FaRobot} from "react-icons/fa";
 
 const Notifications = () => {
     const [canProcess, setCanProcess] = useState(getItem('pendingCode')?.code != null);
-    const [generatedCode, setGeneratedCode] = useState();
+    const [generatedCode, setGeneratedCode] = useState('');
     const [canWait, setCanWait] = useState(true);
     const [isSubscribedUser, setIsSubscribedUser] = useState(false);
     const [canWaitCode, setCanWaitCode] = useState(false);
@@ -60,15 +60,20 @@ const Notifications = () => {
     const generateCode = (isSubscriptionAction) => {
         setCanWaitCode(true);
         telegramNotificationService.generateCode().then(code => {
-            setGeneratedCode(code);
-            setCanProcess(true);
-            setCanWaitCode(false);
-            setCanSubscribe(false);
-            setIsSubscribeCase(isSubscriptionAction);
-            const pendingCode = {
-                code: code
+            if (code) {
+                setGeneratedCode(code);
+                setCanProcess(true);
+                setCanWaitCode(false);
+                setCanSubscribe(false);
+                setIsSubscribeCase(isSubscriptionAction);
+                const pendingCode = {
+                    code: code
+                }
+                saveItem("pendingCode", pendingCode);
+            } else {
+                alert('Un problème est survenu lors de la génération du code! Veuillez réessayer plus tard ou contacter le service client');
+                setCanWaitCode(false);
             }
-            saveItem("pendingCode", pendingCode);
         }).catch(error => {
             setCanWaitCode(false);
             printError(error);
@@ -110,7 +115,7 @@ const Notifications = () => {
                     </div>
                 </div>
             </>}
-            {canProcess && !canSubscribe &&
+            {canProcess && !canSubscribe && generatedCode &&
                 <NotificationCodeComponent code={generatedCode} title={"Code à usage unique"}
                                            infos={"Copier ce code à usage unique et envoyer le sur le bot telegram." +
                                                " Après avoir envoyé le code, Veuillez appuyer sur le bouton Confirmer pour " +
