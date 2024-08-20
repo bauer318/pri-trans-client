@@ -180,7 +180,7 @@ const Send = () => {
     }
     return (
         <div>
-            <CSWHeader title={"Send money"}/>
+            <CSWHeader title={"Envoie d'argent"}/>
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                 Où
             </div>

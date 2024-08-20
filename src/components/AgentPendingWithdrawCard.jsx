@@ -23,9 +23,9 @@ const AgentPendingWithdrawCard = ({pendingWithdrawals,handleConfirmWithdraw,hand
                         {pendingWithdrawals?.createdAt ? pendingWithdrawals.createdAt : "Pas de date"}
                     </p>
                     <div className={"card-footer"}>
-                        <a className="btn btn-primary me-1 mb-2"
+                        <a className="btn btn-primary me-1 mb-2" href={"#"}
                            onClick={() => handleConfirmWithdraw(pendingWithdrawals)}>Confirmer</a>
-                        <a className="btn btn-danger mb-2" onClick={() => handleRejectWithdraw(pendingWithdrawals)}>Annuler</a>
+                        <a className="btn btn-danger mb-2" href={"#"} onClick={() => handleRejectWithdraw(pendingWithdrawals)}>Annuler</a>
                     </div>
                 </div>
             </div>
