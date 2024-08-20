@@ -13,7 +13,7 @@ const AboutComponent = () => {
                 "Jacob au Congo doit envoyer 10.000₽ à Michael en Russie. David en Russie doit envoyer $120 à Benjamin au Congo."
         },
         {
-            imageLink: "/first_approach.png",
+            imageLink: "/first_approach.PNG",
             alt: "first approach image",
             cardTitle: "L'approche adaptée:",
             cardText: "David en Russie va chercher une personne qui doit recevoir de l'argent depuis le Congo. Une fois la personne trouvée" +
