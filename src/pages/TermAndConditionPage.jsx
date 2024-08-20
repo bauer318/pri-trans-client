@@ -663,7 +663,7 @@ const TermAndConditionPage = () => {
                         contraignante pour vous.</p>
                 </ol>
             </section>
-            <section id={"confidentiality"}>
+            <section id={"confidentiality"} className={"mb-5"}>
                 <h3 className={"text-center"}><i>Politique de confidentialité</i></h3>
                 <i className={"mb-3"}>L’actuelle Politique de confidentialité entre en vigueur le 20 août 2024.</i>
                 <p>La présente Politique de confidentialité (<BoldTextComponent text={"« Politique »"}/>) explique
