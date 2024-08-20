@@ -32,12 +32,15 @@ import AgentHistory from "./pages/AgentHistory";
 import AgentDeposits from "./pages/AgentDeposits";
 import AgentWithdrawals from "./pages/AgentWithdrawals";
 import ModeratorHome from "./pages/ModeratorHome";
-import {getItem} from "./services/LocalStorageService";
+import {getItem, removeItem} from "./services/LocalStorageService";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
 import ClientManualTransfer from "./pages/ClientManualTransfer";
 import ClientPrivateManualTransfer from "./pages/ClientPrivateManualTransfer";
 import Notifications from "./pages/Notifications";
+import PublicHome from "./pages/PublicHome";
+import TermAndConditionPage from "./pages/TermAndConditionPage";
+import Footer from "./components/Footer";
 
 export var logout = () => {
 };
@@ -45,11 +48,10 @@ export var refreshP = () => {
 };
 const App = () => {
     const longedUser = getItem('connectedUser');
-    const [isLonged, setIsLonged] = useState(longedUser);
     const [refresh, setRefresh] = useState(false);
 
     logout = () => {
-        setIsLonged(false);
+       removeItem('connectedUser');
     }
     refreshP = () => {
         setRefresh(!refresh);
@@ -59,7 +61,8 @@ const App = () => {
             <BrowserRouter>
                 <Sidebar user={longedUser}>
                     <Routes>
-                        <Route path={"/"} element={<Home/>}/>
+                        <Route path={"/"} element={<PublicHome/>}/>
+                        <Route path={"/login"} element={<Home/>}/>
                         <Route path={"/register"} element={<CreateAccount/>}/>
                         <Route path={"/personal-info"} element={<PersonalInfo/>}/>
                         <Route path={'/register/:id/personal-info/address'} element={<HomeAddress/>}/>
@@ -99,8 +102,10 @@ const App = () => {
                         <Route path={"/agent/withdrawals"} element={<AgentWithdrawals/>}/>
                         <Route path={"/moderator/users"} element={<ModeratorHome/>}/>
                         <Route path={"/notifications"} element={<Notifications/>}/>
+                        <Route path={"/terms-and-conditions"} element={<TermAndConditionPage/>}/>
                     </Routes>
                 </Sidebar>
+                <Footer/>
             </BrowserRouter>
         </div>
     );

@@ -20,7 +20,8 @@ import countryService from "../services/CountryService";
 const Send = () => {
     const [rates, setRates] = useState(0);
     const baseCurrency = useState('USD');
-    const [liveRate, setLiveRate] = useState(1);
+    //const [liveRate, setLiveRate] = useState(1);
+    const liveRate = 1.00;
     const [toAmount, setToAmount] = useState(0.00);
     const [fromAmount, setFromAmount] = useState(100.00);
     const [toStrCurrencyCode, setToStrCurrencyCode] = useState('USD');
@@ -46,7 +47,7 @@ const Send = () => {
     const debouncedToAmount = useDebounce(fromAmount, 500);
     const debouncedRate = useDebounce(toStrCurrencyCode, 500);
     useEffect(() => {
-        setLiveRate(1);
+        //setLiveRate(1);
         //dispatch(getRate(baseCurrency));
         dispatch(initializeCurrencies(callBack));
         dispatch(initializeCountries(callBack));
@@ -76,7 +77,7 @@ const Send = () => {
             setIsCalculating(true);
             orderService.getOrderRate(usdFromCurrencyRate, usdToCurrencyRate)
                 .then(orderRate => {
-                    setLiveRate(orderRate);
+                    //setLiveRate(orderRate);
                     calculateToAmount(orderRate);
                     setIsCalculating(false);
                 }).catch(error => {
@@ -84,7 +85,7 @@ const Send = () => {
                 setIsCalculating(false);
             })
         } else {
-            setLiveRate(liveRate);
+            //setLiveRate(liveRate);
         }
     }, [debouncedRate,debouncedToAmount]);
 
@@ -116,12 +117,12 @@ const Send = () => {
 
     if (rate?.rates) {
         if (rates === 0) {
-            setRates(rate.rates);
+            //setRates(rate.rates);
         }
         if (rates !== 0 && liveRate === 1 && account) {
             const usdFromAmount = rates[account?.currency?.code];
             const usdToAmount = rates[`${toStrCurrencyCode}`];
-            setLiveRate(usdToAmount / usdFromAmount);
+            //setLiveRate(usdToAmount / usdFromAmount);
             setToAmount(round((usdToAmount / usdFromAmount) * fromAmount, 2));
         }
     }
@@ -179,7 +180,7 @@ const Send = () => {
     }
     return (
         <div>
-            <CSWHeader title={"Send money"}/>
+            <CSWHeader title={"Envoie d'argent"}/>
             <div className={"col-md-8 mx-auto d-flex justify-content-center"}>
                 Où
             </div>
@@ -207,7 +208,7 @@ const Send = () => {
                     </Form.Control>
                 </Form.Group>
             </div>
-            {liveRate && isDestinationSelected && currencies ? (
+            {isDestinationSelected && currencies ? (
                 <ConvertForm formTitles={formDetails}
                              currencies={currencies} handleToCurrencyChange={handleReceiveCurrencyChange}
                              handleFromAmountChange={handleAmountSendChange} handleSubmit={handleSubmit}
