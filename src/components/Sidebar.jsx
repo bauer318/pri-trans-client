@@ -152,10 +152,12 @@ const Sidebar = ({children, user}) => {
     return (
         <div className="container-sidebar">
             <div className="sidebar min-vh-100">
-                <NavLink to={user ? "/client/home" : "/"} className="link nav-item fs-4 top_section">
+                {!user ? (<NavLink to={"/"} className="link nav-item fs-4 top_section">
                     <div className="icon"><FaHome/></div>
-                    <div className="link_text ms-2 d-none d-sm-inline">{user ? userLogo[menuIndex] : 'Acceuille'}</div>
-                </NavLink>
+                    <div className="link_text ms-2 d-none d-sm-inline">{'Acceuille'}</div>
+                </NavLink>) : <div>
+
+                </div>}
                 {user ?
                     (
                         menuItem[menuIndex]?.map((item, index) => (
