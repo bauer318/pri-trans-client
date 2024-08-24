@@ -21,6 +21,17 @@ const generateCode = async () => {
     }
 }
 
+const sendEmailCode = async (email) => {
+    try {
+        const sendEmailRequest = {
+            email: email
+        };
+        await axios.post(`${baseUrlTelegramNotification}/send-email-code`,sendEmailRequest);
+    } catch (error) {
+        printError(error);
+    }
+}
+
 const subscribe = async () => {
     try {
         const response = await axios.get(`${baseUrlTelegramNotification}/subscribe`, {headers: getToken()});
@@ -40,7 +51,6 @@ const unsubscribe = async () => {
 }
 
 
-
 const isSubscribedUser = async username => {
     try {
         const response = await axios.get(`${baseUrlTelegramNotification}/is-subscribed-user?username=${username}`,
@@ -51,22 +61,22 @@ const isSubscribedUser = async username => {
     }
 }
 
-const getCodeByCodeStr = async codeStr =>{
-    try{
-        const response = await axios.get(`${baseUrlTelegramNotification}/code/${codeStr}`,{headers:getToken()});
+const getCodeByCodeStr = async codeStr => {
+    try {
+        const response = await axios.get(`${baseUrlTelegramNotification}/code/${codeStr}`, {headers: getToken()});
         return response?.data;
-    }catch (error){
+    } catch (error) {
         printError(error);
     }
 }
 
-const getCodeByUsername = async username =>{
-    try{
-        const response = await axios.get(`${baseUrlTelegramNotification}/code/by-username/${username}`,{headers:getToken()});
+const getCodeByUsername = async username => {
+    try {
+        const response = await axios.get(`${baseUrlTelegramNotification}/code/by-username/${username}`, {headers: getToken()});
         return response?.data;
-    }catch (error){
+    } catch (error) {
         printError(error);
     }
 }
 
-export default {notifyAll, generateCode, subscribe, isSubscribedUser, getCodeByCodeStr, getCodeByUsername,unsubscribe}
+export default {notifyAll, generateCode, subscribe, isSubscribedUser, getCodeByCodeStr, getCodeByUsername, unsubscribe, sendEmailCode}

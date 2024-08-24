@@ -58,8 +58,16 @@ const createNew = async (user, errorCallBack, toHome) => {
     }
     try {
         const response = await axios.post(`${baseUrl}/register`, createdUser, {headers: getToken()});
-        toHome();
-        return response.data;
+        const data = response.data;
+        if (data?.statusCode === 323) {
+            alert("Vous avez saisi un mauvais code ou un code déjà expiré! Veuillez saisir le bon code ou" +
+                " actualiser la page et recommencer l'inscription.");
+        } else {
+            toHome();
+            console.log(response.data);
+            return response.data;
+        }
+
     } catch (error) {
         errorCallBack();
         if (error?.response?.status === 409) {
