@@ -26,7 +26,8 @@ const sendEmailCode = async (email) => {
         const sendEmailRequest = {
             email: email
         };
-        await axios.post(`${baseUrlTelegramNotification}/send-email-code`,sendEmailRequest);
+        const resp = await axios.post(`${baseUrlTelegramNotification}/send-email-code`,sendEmailRequest);
+        return resp?.data;
     } catch (error) {
         printError(error);
     }

@@ -56,6 +56,7 @@ const CreateAccount = () => {
         } else {
             setIsLoading(true);
             telegramNotificationService.sendEmailCode(formData?.email).then(response => {
+                formData.code = response;
                 setIsLoading(false);
             }).catch(error => {
                 setIsLoading(false);
@@ -122,7 +123,7 @@ const CreateAccount = () => {
                             )}
                         </Form.Control>
                     </Form.Group>
-                    {canPutCode &&
+                    {/*canPutCode &&
                         <>
                             <Form.Group controlId="formBasicCode" className={"form-outline"}>
                                 <Form.Label className={"required"}>Confirmer votre e-mail</Form.Label>
@@ -134,10 +135,9 @@ const CreateAccount = () => {
                                     onChange={handleChange}
                                 />
                             </Form.Group>
-                            <i>Un code a été envoyé à votre e-mail, veuillez le confirmer. Vérifier vos spams si vous ne
-                                voyez pas le code!</i>
+                            <i>Generated code</i>
                         </>
-                    }
+                    */}
                     <div className="mb-3 form-check mt-2">
                         <input
                             type="checkbox"
