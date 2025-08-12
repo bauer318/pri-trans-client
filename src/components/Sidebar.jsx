@@ -200,11 +200,15 @@ const Sidebar = ({children, user}) => {
                         <div className="icon"><FaTelegram /></div>
                         <div className="link_text ms-2 d-none d-sm-inline">{"Telegram"}</div>
                     </NavLink>
-                    <NavLink to={"/terms-and-conditions"} target={"_blank"} rel={"noopener noreferrer"}
-                             className="link nav-item fs-1" activeclassname="active">
-                        <div className="icon"><GoLaw /></div>
-                        <div className="link_text ms-2 d-none d-sm-inline">{"Termes et Conditions"}</div>
-                    </NavLink>
+                    <a
+  href="https://drive.google.com/file/d/1EyZtMD8pElrNaAjg_lH7Jf5wqvNiCz1t/view?usp=sharing"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="link nav-item fs-1"
+>
+  <div className="icon"><GoLaw /></div>
+  <div className="link_text ms-2 d-none d-sm-inline">Termes et Conditions</div>
+</a>
                 </div>
                 <main>{children}</main>
             </div>

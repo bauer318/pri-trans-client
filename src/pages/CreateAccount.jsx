@@ -6,6 +6,8 @@ import {createUser} from "../reducers/userReducers";
 import {initializeCountries} from "../reducers/countryReducers";
 import LoadingEffect from "../components/LoadingEffect";
 import {removeItem, saveItem} from "../services/LocalStorageService";
+import telegramNotificationService from "../services/TelegramNotificationService";
+import {printError} from "../services/Utils";
 
 const CreateAccount = () => {
     const [formData, setFormData] = useState({userRole: {userRole: "ROLE_CLIENT"}, termsAccepted: false});
@@ -14,6 +16,7 @@ const CreateAccount = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [canWait, setCanWait] = useState(false);
+    const [canPutCode, setCanPutCode] = useState(false);
     const [errors, setErrors] = useState({
         termsAccepted: '',
     });
@@ -34,6 +37,7 @@ const CreateAccount = () => {
     }
     const toHome = () => {
         saveItem("successMessage", "Le compte a été créé avec succès");
+        setContinueTo(true);
         navigate('/login');
     }
 
@@ -45,10 +49,21 @@ const CreateAccount = () => {
             setErrors(validationErrors);
             return;
         }
-        setIsLoading(true);
-        dispatch(createUser(formData, errorCallBack, toHome));
-        setIsLoading(false);
-        setContinueTo(true);
+        if (canPutCode) {
+            setIsLoading(true);
+            dispatch(createUser(formData, errorCallBack, toHome));
+            setIsLoading(false);
+        } else {
+            setIsLoading(true);
+            telegramNotificationService.sendEmailCode(formData?.email).then(response => {
+                formData.code = response;
+                setIsLoading(false);
+            }).catch(error => {
+                setIsLoading(false);
+                printError(error);
+            })
+        }
+        setCanPutCode(true);
     }
     const handleChange = event => {
         const {name, value, type, checked} = event.target;
@@ -108,6 +123,21 @@ const CreateAccount = () => {
                             )}
                         </Form.Control>
                     </Form.Group>
+                    {/*canPutCode &&
+                        <>
+                            <Form.Group controlId="formBasicCode" className={"form-outline"}>
+                                <Form.Label className={"required"}>Confirmer votre e-mail</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="code"
+                                    name="code"
+                                    required={true}
+                                    onChange={handleChange}
+                                />
+                            </Form.Group>
+                            <i>Generated code</i>
+                        </>
+                    */}
                     <div className="mb-3 form-check mt-2">
                         <input
                             type="checkbox"
@@ -118,8 +148,17 @@ const CreateAccount = () => {
                             onChange={handleChange}
                         />
                         <label htmlFor="termsAccepted" className="form-check-label">
-                            J'ai lu et j'accepte les <a href="/terms-and-conditions" target="_blank"
-                                                        rel="noopener noreferrer">termes et conditions</a>
+                            J'ai lu et j'accepte les <a
+  href="https://drive.google.com/file/d/1EyZtMD8pElrNaAjg_lH7Jf5wqvNiCz1t/view?usp=sharing"
+  target="_blank"
+  rel="noopener noreferrer"
+  onClick={(e) => {
+    e.preventDefault(); // Prevent default navigation
+    window.open("https://drive.google.com/file/d/1EyZtMD8pElrNaAjg_lH7Jf5wqvNiCz1t/view?usp=sharing", "_blank", "noopener,noreferrer");
+  }}
+>
+  termes et conditions
+</a>
                         </label>
                         {errors.termsAccepted && <div className="text-danger">{errors.termsAccepted}</div>}
                     </div>
@@ -127,7 +166,7 @@ const CreateAccount = () => {
                     <div className={"mt-3 d-flex justify-content-around"}>
                         <button disabled={continueTo || !formData?.termsAccepted}
                                 className={"btn  btn-sm btn-primary w-50"} type={"submit"}>
-                            Créer
+                            {canPutCode ? "Créer" : "Continuer"}
                         </button>
                     </div>
                 </Form>
