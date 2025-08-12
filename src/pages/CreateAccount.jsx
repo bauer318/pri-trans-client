@@ -148,7 +148,7 @@ const CreateAccount = () => {
                             onChange={handleChange}
                         />
                         <label htmlFor="termsAccepted" className="form-check-label">
-                            J'ai lu et j'accepte les <a href="/terms-and-conditions" target="_blank"
+                            J'ai lu et j'accepte les <a href="https://drive.google.com/file/d/1EyZtMD8pElrNaAjg_lH7Jf5wqvNiCz1t/view?usp=sharing" target="_blank"
                                                         rel="noopener noreferrer">termes et conditions</a>
                         </label>
                         {errors.termsAccepted && <div className="text-danger">{errors.termsAccepted}</div>}
